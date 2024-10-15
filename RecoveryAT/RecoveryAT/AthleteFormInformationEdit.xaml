@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--!
+    Name: Dominick Hagedorn
+    Date: 10/14/2024
+    Description: AthleteFormInformationEdit screen
+    Bugs: None known
+    Reflection: This was one of the easier screens. The information box was the hardest to get 
+                to look right, but it wasn't too bad. I also just had to change the comment 
+                boxes to be editable and add a save changes button.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.AthleteFormInformationEdit"
+             Title="AthleteFormInformationEdit"
+             BackgroundColor="#F9F9F9"> <!-- Light background for readability -->
+
+    <Grid>
+        <!-- Grid layout with two rows: content and save button -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/> <!-- Main content takes all available space -->
+            <RowDefinition Height="Auto"/> <!-- Save button adjusts to content size -->
+        </Grid.RowDefinitions>
+
+        <!-- Scrollable Content Section in the first row -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="10"> <!-- Arranges elements vertically -->
+
+                <!-- Back Button -->
+                <Button HorizontalOptions="Start"
+                        ImageSource="back.png"  
+                        BackgroundColor="Transparent"
+                        HeightRequest="50" /> <!-- Back icon -->
+
+                <!-- Student Name Label -->
+                <Label FontSize="35" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       Margin="10,5">
+                    Jane Stewart
+                </Label>
+
+                <!-- General Student Information Frame -->
+                <Frame Padding="10"
+                       Margin="0,10"
+                       CornerRadius="8"  
+                       HasShadow="True"> <!-- Adds shadow for emphasis -->
+                    <Grid>
+                        <!-- Rows and columns to arrange information -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/> <!-- 50% width -->
+                            <ColumnDefinition Width="*"/> <!-- 50% width -->
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Grade Label -->
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               FontAttributes="Bold" FontSize="Medium">Grade:</Label>
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               HorizontalOptions="End" FontSize="Medium">9</Label>
+
+                        <!-- Sport Label -->
+                        <Label Grid.Row="1" Grid.Column="0" 
+                               FontAttributes="Bold" FontSize="Medium">Sport:</Label>
+                        <Label Grid.Row="1" Grid.Column="1" 
+                               HorizontalOptions="End" FontSize="Medium">Volleyball</Label>
+
+                        <!-- Injury Label -->
+                        <Label Grid.Row="2" Grid.Column="0" 
+                               FontAttributes="Bold" FontSize="Medium">Injury:</Label>
+                        <Label Grid.Row="2" Grid.Column="1" 
+                               HorizontalOptions="End" FontSize="Medium">Shoulder</Label>
+                    </Grid>
+                </Frame>
+
+                <!-- Athlete Comment Section -->
+                <Label FontAttributes="Bold" 
+                       FontSize="Large" 
+                       Margin="0,20,0,5">
+                    Athlete Comments:
+                </Label>
+                <Editor x:Name="AthleteCommentsEditor"
+                        FontSize="Medium"
+                        Margin="0,0,0,10"
+                        AutoSize="TextChanges" 
+                        Placeholder="Enter athlete's comments..." />
+
+                <!-- Trainer Comment Section -->
+                <Label FontAttributes="Bold" 
+                       FontSize="Large" 
+                       Margin="0,20,0,5">
+                    Trainer Comments:
+                </Label>
+                <Editor x:Name="TrainerCommentsEditor"
+                        FontSize="Medium"
+                        Margin="0,0,0,10"
+                        AutoSize="TextChanges"
+                        Placeholder="Enter trainer's comments..." />
+
+                <!-- Athlete Status Section -->
+                <Label FontAttributes="Bold" 
+                       FontSize="Large" 
+                       Margin="0,20,0,5">
+                    Athlete Status:
+                </Label>
+                <Editor x:Name="AthleteStatusEditor"
+                        FontSize="Medium"
+                        Margin="0,0,0,10"
+                        AutoSize="TextChanges"
+                        Placeholder="Enter athlete status..." />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Save Changes Button at the bottom -->
+        <Button Text="Save Changes"
+                BackgroundColor="Blue"  
+                TextColor="White"
+                FontSize="20"
+                CornerRadius="30" 
+                Padding="5"
+                HeightRequest="50"
+                WidthRequest="250"
+                HorizontalOptions="Center"  
+                VerticalOptions="End" 
+                Margin="10,150"/>  
+    </Grid>
+</ContentPage>

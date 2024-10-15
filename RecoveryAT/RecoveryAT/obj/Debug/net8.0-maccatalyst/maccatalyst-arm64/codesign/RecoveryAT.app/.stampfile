@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/obj/Debug/net8.0-maccatalyst/maccatalyst-arm64/Entitlements.xcent /Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/bin/Debug/net8.0-maccatalyst/maccatalyst-arm64/RecoveryAT.app

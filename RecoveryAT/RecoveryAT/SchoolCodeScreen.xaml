@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 
+    Name: Carissa Engebose
+    Date: 10/9/2024
+    Description: A screen that allows a user to enter a 5-character school code corresponding to the athletic trainer 
+                 for a specific school. This ensures that only the correct trainer can access the forms for their school.
+    Bugs: None that I know of.
+    Reflection: This screen was relatively easy to build, though it took a while to fine-tune the layout. 
+                Overall, I think it came out well.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.SchoolCodeScreen"
+             BackgroundColor="White"
+             Title="">
+
+    <StackLayout Padding="20" VerticalOptions="FillAndExpand">
+        
+        <!-- RecoveryAT Icon -->
+        <Image Source="medical_icon.png" 
+               WidthRequest="100" 
+               HeightRequest="100" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Start" />
+
+        <!-- Spacer -->
+        <Label HeightRequest="10" />
+
+        <!-- Header -->
+        <Label Text="Enter School Code" 
+               FontSize="32" 
+               HorizontalOptions="Start" 
+               FontAttributes="Bold" />
+
+        <!-- Spacer -->
+        <Label HeightRequest="125" />
+
+        <!-- Code Input Fields -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+            <!-- Each Frame contains an Entry for code input -->
+            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            </Frame>
+            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            </Frame>
+            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            </Frame>
+            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            </Frame>
+            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            </Frame>
+        </StackLayout>
+
+        <!-- Spacer -->
+        <Label HeightRequest="130" />
+
+        <!-- Submit Button -->
+        <Button Text="Submit Code" 
+                BackgroundColor="Blue" 
+                TextColor="White" 
+                FontSize="26" 
+                CornerRadius="30" 
+                Padding="5" 
+                HeightRequest="50" 
+                WidthRequest="250" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" 
+                Clicked="OnSubmitCodeClicked" />
+
+        <!-- Spacer -->
+        <Label HeightRequest="285" />
+
+        <!-- Tab Bar -->
+        <Grid BackgroundColor="#FF74C0FF" VerticalOptions="Center" WidthRequest="450" HeightRequest="90">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Home Tab -->
+            <Image Source="home_icon.png" 
+                   WidthRequest="150" 
+                   HeightRequest="150" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Column="0" />
+
+            <!-- Athlete Tab -->
+            <Image Source="running_icon.png" 
+                   WidthRequest="65" 
+                   HeightRequest="65" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Column="1" />
+
+            <!-- Form Tab -->
+            <Image Source="clipboard_icon.png" 
+                   WidthRequest="90" 
+                   HeightRequest="90" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Column="2" />
+
+            <!-- Profile Tab -->
+            <Image Source="profile_icon.png" 
+                   WidthRequest="90" 
+                   HeightRequest="90" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Column="3" />
+        </Grid>
+    </StackLayout>
+
+</ContentPage>

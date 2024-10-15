@@ -1,0 +1,229 @@
+<!-- 
+    Name: Carissa Engebose
+    Date: 10/9/2024
+    Description: A screen for the athletic trainer to see and edit information about their profile.
+    Bugs: None that I know of.
+    Reflection: This screen was a little difficult because of all the spacing and making the user icon where I wanted it to be, but
+    overall I think it went pretty good. I also had to change where the information for the user is because I wasn't able to figure
+    out how to get the labels to be on opposite sides, but I actually think the way it looks now is better.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.UserProfile"
+             BackgroundColor="White"
+             Title="">
+
+    <Grid>
+        <!-- Define rows for layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Ellipses -->
+            <RowDefinition Height="Auto"/>
+            <!-- Profile Image -->
+            <RowDefinition Height="*"/>
+            <!-- Scrollable content -->
+            <RowDefinition Height="Auto"/>
+            <!-- Logout Button -->
+            <RowDefinition Height="Auto"/>
+            <!-- Tab Bar -->
+        </Grid.RowDefinitions>
+
+        <!-- Ellipses on Top -->
+        <Grid Grid.Row="0"
+                BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.3*"/>
+            </Grid.RowDefinitions>
+            <Ellipse Fill="#FF74C0FF"
+                     WidthRequest="500"
+                     HeightRequest="350"
+                     HorizontalOptions="Center"/>
+            <Ellipse Fill="#FF41A8FD"
+                     WidthRequest="300"
+                     HeightRequest="200"
+                     HorizontalOptions="Center"/>
+            <Button ImageSource="edit.png"
+                BackgroundColor="Transparent"
+                   WidthRequest="75"
+                   HeightRequest="75"
+                   HorizontalOptions="End"
+                   VerticalOptions="End"
+                   Margin="10,30">
+            </Button>
+        </Grid>
+
+        <!-- User Icon -->
+        <Image Grid.Row="1"
+               Source="red-cross.png"
+               WidthRequest="120"
+               HeightRequest="120"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Margin="0,50,0,0"/>
+
+        <!-- Scrollable Content (Trainer Information) -->
+        <ScrollView Grid.Row="2">
+            <StackLayout VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="10"
+                    Padding="10">
+
+                <!-- Trainer's Name -->
+                <Label Text="Jayne Robins"
+                       FontSize="30"
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+
+                <!-- School Name Information -->
+                <Frame BorderColor="Gray"
+                        CornerRadius="5"
+                        Padding="10"
+                        Margin="10"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="School Name"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Label Text="Luxemburg-Casco High School"
+                               FontSize="14"
+                               HorizontalOptions="Start"
+                               VerticalOptions="End"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- School Code Information -->
+                <Frame BorderColor="Gray"
+                        CornerRadius="5"
+                        Padding="10"
+                        Margin="10"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="School Code"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Label Text="12345"
+                               FontSize="14"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Email Information -->
+                <Frame BorderColor="Gray"
+                        CornerRadius="5"
+                        Padding="10"
+                        Margin="10"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Email"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Label Text="jrobins@bellinhealth.org"
+                               FontSize="14"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Password Information -->
+                <Frame BorderColor="Gray"
+                        CornerRadius="5"
+                        Padding="10"
+                        Margin="10"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Password"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               FontAttributes="Bold"/>
+                        <Label Text="***********"
+                               FontSize="14"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"/>
+                    </StackLayout>
+                </Frame>
+
+                <Label HeightRequest="5"/>
+
+                <!-- Logout Button -->
+                <Button Text="Log Out"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        FontSize="26"
+                        CornerRadius="30"
+                        Padding="5"
+                        HeightRequest="50"
+                        WidthRequest="250"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Clicked="OnLogoutClicked"/>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Tab Bar -->
+        <Grid BackgroundColor="#FF74C0FF"
+                WidthRequest="450"
+                HeightRequest="90"
+                Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Home Tab -->
+            <Button ImageSource="home_icon.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Column="0"/>
+
+            <!-- Athlete Tab -->
+            <Button ImageSource="running_icon.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="100"
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Column="1"/>
+
+            <!-- Form Tab -->
+            <Button ImageSource="clipboard_icon.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="125"
+                    HeightRequest="125"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Column="2"/>
+
+            <!-- Profile Tab -->
+            <Button ImageSource="profile_icon.png"
+                    BackgroundColor="Transparent"
+                    WidthRequest="125"
+                    HeightRequest="125"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Column="3"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>
