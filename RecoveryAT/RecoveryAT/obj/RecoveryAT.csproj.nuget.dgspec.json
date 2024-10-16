@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {}
+    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {}
   },
   "projects": {
-    "/Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {
+    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
+        "projectUniqueName": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
         "projectName": "RecoveryAT",
-        "projectPath": "/Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
+        "projectPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
         "packagesPath": "/Users/hannahhotchkiss/.nuget/packages/",
-        "outputPath": "/Users/hannahhotchkiss/Downloads/RecoveryAT/RecoveryAT/obj/",
+        "outputPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -31,11 +31,11 @@
             "targetAlias": "net8.0-android",
             "projectReferences": {}
           },
-          "net8.0-ios17.5": {
+          "net8.0-ios18.0": {
             "targetAlias": "net8.0-ios",
             "projectReferences": {}
           },
-          "net8.0-maccatalyst17.5": {
+          "net8.0-maccatalyst18.0": {
             "targetAlias": "net8.0-maccatalyst",
             "projectReferences": {}
           }
@@ -55,13 +55,9 @@
         "net8.0-android34.0": {
           "targetAlias": "net8.0-android",
           "dependencies": {
-            "Microcharts.Maui": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
@@ -76,14 +72,6 @@
               "target": "Package",
               "version": "[8.0.8, )",
               "autoReferenced": true
-            },
-            "SkiaSharp.Views.Maui.Controls": {
-              "target": "Package",
-              "version": "[2.88.3, )"
-            },
-            "SkiaSharp.Views.Maui.Controls.Compatibility": {
-              "target": "Package",
-              "version": "[2.88.3, )"
             }
           },
           "imports": [
@@ -107,16 +95,12 @@
           },
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
         },
-        "net8.0-ios17.5": {
+        "net8.0-ios18.0": {
           "targetAlias": "net8.0-ios",
           "dependencies": {
-            "Microcharts.Maui": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
@@ -131,14 +115,6 @@
               "target": "Package",
               "version": "[8.0.8, )",
               "autoReferenced": true
-            },
-            "SkiaSharp.Views.Maui.Controls": {
-              "target": "Package",
-              "version": "[2.88.3, )"
-            },
-            "SkiaSharp.Views.Maui.Controls.Compatibility": {
-              "target": "Package",
-              "version": "[2.88.3, )"
             }
           },
           "imports": [
@@ -162,16 +138,12 @@
           },
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
         },
-        "net8.0-maccatalyst17.5": {
+        "net8.0-maccatalyst18.0": {
           "targetAlias": "net8.0-maccatalyst",
           "dependencies": {
-            "Microcharts.Maui": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[8.0.1, )"
             },
             "Microsoft.Maui.Controls": {
               "target": "Package",
@@ -186,14 +158,6 @@
               "target": "Package",
               "version": "[8.0.8, )",
               "autoReferenced": true
-            },
-            "SkiaSharp.Views.Maui.Controls": {
-              "target": "Package",
-              "version": "[2.88.3, )"
-            },
-            "SkiaSharp.Views.Maui.Controls.Compatibility": {
-              "target": "Package",
-              "version": "[2.88.3, )"
             }
           },
           "imports": [
