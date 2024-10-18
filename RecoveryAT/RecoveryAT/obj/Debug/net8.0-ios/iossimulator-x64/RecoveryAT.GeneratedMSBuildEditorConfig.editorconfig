@@ -1,0 +1,131 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net8.0-ios
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = RecoveryAT
+build_property.ProjectDir = C:\Users\Dominick\Desktop\College\Semester 3\CS341\Projects\ProjectSprint2\Athletic-Training-App\RecoveryAT\RecoveryAT\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/App.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.App.xaml
+build_metadata.AdditionalFiles.TargetPath = App.xaml
+build_metadata.AdditionalFiles.RelativePath = App.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Resources/Styles/Colors.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Resources.Styles.Colors.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Colors.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Colors.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Resources/Styles/Styles.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Resources.Styles.Styles.xaml
+build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
+build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteContacts.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteContacts.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthleteContacts.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthleteContacts.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformation.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteFormInformation.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthleteFormInformation.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthleteFormInformation.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformationEdit.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteFormInformationEdit.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthleteFormInformationEdit.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthleteFormInformationEdit.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteInformation.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteInformation.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthleteInformation.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthleteInformation.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthletePastForms.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthletePastForms.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthletePastForms.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthletePastForms.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteStatuses.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteStatuses.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Athlete\AthleteStatuses.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Athlete\AthleteStatuses.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Injury/InjuryFormReport.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Injury.InjuryFormReport.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Injury\InjuryFormReport.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Injury\InjuryFormReport.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Injury/InjuryStatistics.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Injury.InjuryStatistics.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Injury\InjuryStatistics.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Injury\InjuryStatistics.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/School/SchoolCodeScreen.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.School.SchoolCodeScreen.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\School\SchoolCodeScreen.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\School\SchoolCodeScreen.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Trainer/TrainerHomeScreen.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Trainer.TrainerHomeScreen.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Trainer\TrainerHomeScreen.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Trainer\TrainerHomeScreen.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Trainer/TrainerSchoolInformation.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Trainer.TrainerSchoolInformation.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Trainer\TrainerSchoolInformation.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Trainer\TrainerSchoolInformation.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserCreateAccount.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserCreateAccount.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Users\UserCreateAccount.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Users\UserCreateAccount.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserLogin.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserLogin.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Users\UserLogin.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Users\UserLogin.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserProfile.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserProfile.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Users\UserProfile.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Users\UserProfile.xaml
+
+[C:/Users/Dominick/Desktop/College/Semester 3/CS341/Projects/ProjectSprint2/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/WelcomeScreen.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.WelcomeScreen.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\Users\WelcomeScreen.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\Users\WelcomeScreen.xaml

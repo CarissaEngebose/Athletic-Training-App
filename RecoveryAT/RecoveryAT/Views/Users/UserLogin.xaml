@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Name: Dominick Hagedorn
+    Date: 10/14/2024
+    Description: UserLogin screen
+    Bugs: None known
+    Reflection: this was another easy screen. the hardest part was figuring out how to do the "forgot password" link
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.UserLogin"
+             Title="UserLogin"
+             BackgroundColor="White">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Circle Design at the Top -->
+        <Grid BackgroundColor="White" Grid.Row="0" Margin="0,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Ellipse Fill="#FF74C0FF"
+                     WidthRequest="500"
+                     HeightRequest="350"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     Margin="0,-170,0,0"/>
+            <Ellipse Fill="#FF41A8FD"
+                     WidthRequest="300"
+                     HeightRequest="100"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     Margin="0,-150,0,50"/>
+        </Grid>
+
+        <!-- Main Content -->
+        <VerticalStackLayout Grid.Row="1" Margin="20,40,20,20" Spacing="20">
+            
+            <!-- Logo -->
+            <Image Source="medical_icon.png" 
+                   HorizontalOptions="Center" 
+                   HeightRequest="80" 
+                   Aspect="AspectFit"/>
+
+            <!-- Screen Title -->
+            <Label FontSize="40" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center">Login</Label>
+
+            <!-- Email Field -->
+            <Label Text="Email" 
+                   FontAttributes="Bold"/>
+            <Entry Placeholder="Enter your email" 
+                   Margin="0,0,0,20" 
+                   Keyboard="Email"/>
+
+            <!-- Password Field with "Forgot Password" Link -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Password" 
+                       FontAttributes="Bold" 
+                       VerticalOptions="Center"/>
+                <Label Grid.Column="1" 
+                       Text="Forgot Password?" 
+                       TextColor="BlueViolet" 
+                       VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+            <Entry Placeholder="Enter your password" 
+                   IsPassword="True" 
+                   Margin="0,0,0,20"/>
+
+            <!-- Login Button -->
+            <Button Text="Log In" 
+                    Margin="0,20,0,20" 
+                    WidthRequest="275" 
+                    BackgroundColor="BlueViolet" 
+                    TextColor="White" 
+                    CornerRadius="10"
+                    HorizontalOptions="Center"/>
+
+            <!-- Footer with "Create Account" Link -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Text="Don't have an account?" 
+                       VerticalOptions="Center"/>
+                <Label Grid.Column="1" 
+                       Text="Create an account" 
+                       TextColor="BlueViolet" 
+                       VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CreateAccountCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

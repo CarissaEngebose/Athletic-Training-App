@@ -1,0 +1,93 @@
+﻿<!-- 
+    Name: Carissa Engebose
+    Date: 10/9/2024
+    Description: A welcome screen that will navigate to the school code screen (to fill out a form) or login depending on if the user
+    is an athlete or an athletic trainer.
+    Bugs: None that I know of.
+    Reflection: This screen was the first one I created so it did take a little bit of work to figure out how I wanted everything
+    laid out. It also took me a while to figure out how to space things correcly with the circles on the top of the screen, but overall,
+    I think it went pretty well.
+-->
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.WelcomeScreen"
+             BackgroundColor="White"
+             Title="">
+    
+    <Grid>
+        <!-- Top -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Circle Styles -->
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/> 
+                <RowDefinition Height="0.2*"/>
+            </Grid.RowDefinitions>
+            <Ellipse Fill="#FF74C0FF"
+                    WidthRequest="500"
+                    HeightRequest="350"
+                    HorizontalOptions="Center"/>
+            <Ellipse Fill="#FF41A8FD"
+                    WidthRequest="300"
+                    HeightRequest="200"
+                    HorizontalOptions="Center"/>
+        </Grid>
+
+        <!-- Page Content -->
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Grid.Row="1">
+            
+            <!-- Space -->
+            <Label HeightRequest="60"/>
+
+            <!-- RecoveryAT Icon -->
+            <Image Source="medical_icon.png" 
+                   WidthRequest="120" 
+                   HeightRequest="120" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End" />
+            
+            <!-- Welcome Text -->
+            <Label Text="Welcome" 
+                   FontSize="40" 
+                   HorizontalOptions="Center" 
+                   FontAttributes="Bold" 
+                   VerticalOptions="Center" />
+
+            <!-- Space -->
+            <Label HeightRequest="10"/>
+
+            <!-- Fill Out a Form Button -->
+            <Button Text="Fill Out Form" 
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    FontSize="26"
+                    CornerRadius="30" 
+                    Padding="5"
+                    HeightRequest="50" 
+                    WidthRequest="250" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    Clicked="OnFillOutFormClicked" />
+
+            <!-- Space -->
+            <Label HeightRequest="200"/>
+
+            <!-- Login  -->
+            <Label Text="Login" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="End" 
+                   TextColor="Blue">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLoginTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            
+        </StackLayout>
+    </Grid>
+    
+</ContentPage>
