@@ -21,14 +21,16 @@ namespace RecoveryAT
             InitializeComponent();
         }
 
-        private void OnFillOutFormClicked(object sender, EventArgs e)
+        private async void OnFillOutFormClicked(object sender, EventArgs e)
         {
-            // navigate to the form page
+            // navigate to the school code screen 
+            await Navigation.PushAsync(new SchoolCodeScreen());
         }
 
-        private void OnLoginTapped(object sender, EventArgs e)
+        private async void OnLoginTapped(object sender, EventArgs e)
         {
             // navigate to the login page
+            await Navigation.PushAsync(new UserLogin());
         }
     }
 }
