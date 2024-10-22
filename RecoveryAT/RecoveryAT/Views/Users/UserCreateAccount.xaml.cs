@@ -23,5 +23,12 @@ namespace RecoveryAT
             // Navigate to the UserCreateAccount page
             await Navigation.PushAsync(new UserCreateAccount());
         }
+
+        // Event handler when the Create Account button is clicked
+        private async void CreateAccountClicked(object sender, EventArgs e)
+        {
+            // Navigate to the trainer school information page
+            await Navigation.PushAsync(new TrainerSchoolInformation());
+        }
     }
 }
