@@ -21,9 +21,10 @@ namespace RecoveryAT
         }
 
         // Event handler for the Submit button click
-        private void OnSubmitCodeClicked(object sender, EventArgs e)
+        private async void OnSubmitCodeClicked(object sender, EventArgs e)
         {
-
+            // Navigate to the injury form page
+            await Navigation.PushAsync(new InjuryFormReport());
             
         }
 
