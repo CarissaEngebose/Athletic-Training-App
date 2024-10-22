@@ -9,6 +9,8 @@
                 to be exactly where I wanted it inside the frame.
 */
 
+using RecoveryAT.ViewModels;
+
 namespace RecoveryAT  // Defines the namespace for the class, grouping related code logically.
 {
     // AthleteContacts class inherits from ContentPage, which provides page-related functionality in MAUI.
@@ -18,6 +20,7 @@ namespace RecoveryAT  // Defines the namespace for the class, grouping related c
         public AthleteContacts()
         {
             InitializeComponent(); // Initializes the UI components defined in the XAML file.
+            BindingContext = new AthleteContactsViewModel();
             // Any additional logic or event handlers can be added here if needed.
         }
     }

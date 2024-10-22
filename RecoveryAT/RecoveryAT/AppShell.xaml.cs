@@ -6,8 +6,8 @@ public partial class AppShell : Shell
 	{
 		InitializeComponent();
 
-		MainPage = new AthleteContacts();
+		MainPage = new AthleteStatuses();
 	}
 
-    public AthleteContacts MainPage { get; private set; }
+    public AthleteStatuses MainPage { get; private set; }
 }

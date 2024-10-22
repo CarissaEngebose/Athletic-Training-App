@@ -8,6 +8,8 @@
                 I also just had to change the comment boxes to be editable and add a save changes button.
 */
 
+using RecoveryAT.ViewModels;
+
 namespace RecoveryAT;  // Defines the namespace for the application, organizing related code logically.
 
 public partial class AthleteFormInformationEdit : ContentPage
@@ -16,5 +18,6 @@ public partial class AthleteFormInformationEdit : ContentPage
     public AthleteFormInformationEdit()
     {
         InitializeComponent(); // Loads and initializes the UI components defined in the XAML file.
+        BindingContext = new AthleteFormInformationEditViewModel(); // 
     }
 }

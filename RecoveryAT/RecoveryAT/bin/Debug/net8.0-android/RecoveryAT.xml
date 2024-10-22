@@ -4,5 +4,282 @@
         <name>RecoveryAT</name>
     </assembly>
     <members>
+        <member name="T:RecoveryAT.ViewModels.AthleteContactsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.PhoneNumber">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteContactsViewModel.phoneNumber"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.Relationship">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteContactsViewModel.relationship"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteContactsViewModel._finishCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteContactsViewModel.finishCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.finishCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteContactsViewModel.finish"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteContactsViewModel._garbageCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteContactsViewModel.garbageCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.garbageCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteContactsViewModel.garbage"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteContactsViewModel._backCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteContactsViewModel.backCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.backCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteContactsViewModel.back"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteContactsViewModel._addCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteContactsViewModel.addCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteContactsViewModel.addCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteContactsViewModel.add"/>.</summary>
+        </member>
+        <member name="T:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.Name">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.name"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.Grade">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.grade"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.Sport">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.sport"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.Injury">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.injury"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.AthleteComments">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.athleteComments"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.TrainerComments">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.trainerComments"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.AthleteStatus">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.athleteStatus"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel._backCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.backCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.backCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.back"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel._saveChangesCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.saveChangesCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.saveChangesCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteFormInformationEditViewModel.saveChanges"/>.</summary>
+        </member>
+        <member name="T:RecoveryAT.ViewModels.AthleteFormInformationViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.Name">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.name"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.Grade">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.grade"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.Sport">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.sport"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.Injury">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.injury"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.AthleteComments">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.athleteComments"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.TrainerComments">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.trainerComments"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.AthleteStatus">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel.athleteStatus"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel._editCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.editCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.editCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteFormInformationViewModel.edit"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteFormInformationViewModel._backCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.backCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteFormInformationViewModel.backCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteFormInformationViewModel.back"/>.</summary>
+        </member>
+        <member name="T:RecoveryAT.ViewModels.AthleteInformationViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteInformationViewModel.SearchInput">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteInformationViewModel.searchInput"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteInformationViewModel.AthleteList">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteInformationViewModel.athleteList"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteInformationViewModel._searchButtonClickedCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteInformationViewModel.searchButtonClickedCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteInformationViewModel.searchButtonClickedCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteInformationViewModel.searchButtonClicked"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteInformationViewModel._menuButtonClickedCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteInformationViewModel.menuButtonClickedCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteInformationViewModel.menuButtonClickedCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteInformationViewModel.menuButtonClicked"/>.</summary>
+        </member>
+        <member name="T:RecoveryAT.ViewModels.AthletePastFormsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthletePastFormsViewModel.SelectedStatus">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthletePastFormsViewModel.selectedStatus"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthletePastFormsViewModel.SearchEntry">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthletePastFormsViewModel.searchEntry"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthletePastFormsViewModel.FormList">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthletePastFormsViewModel.formList"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthletePastFormsViewModel._menuButtonClickedCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthletePastFormsViewModel.menuButtonClickedCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthletePastFormsViewModel.menuButtonClickedCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthletePastFormsViewModel.menuButtonClicked"/>.</summary>
+        </member>
+        <member name="T:RecoveryAT.ViewModels.AthleteStatusesViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.SelectedStatus">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteStatusesViewModel.selectedStatus"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.SearchEntry">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteStatusesViewModel.searchEntry"/>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.AthleteList">
+            <inheritdoc cref="F:RecoveryAT.ViewModels.AthleteStatusesViewModel.athleteList"/>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteStatusesViewModel._menuButtonClickedCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.menuButtonClickedCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.menuButtonClickedCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteStatusesViewModel.menuButtonClicked"/>.</summary>
+        </member>
+        <member name="F:RecoveryAT.ViewModels.AthleteStatusesViewModel.searchCommand">
+            <summary>The backing field for <see cref="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.SearchCommand"/>.</summary>
+        </member>
+        <member name="P:RecoveryAT.ViewModels.AthleteStatusesViewModel.SearchCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:RecoveryAT.ViewModels.AthleteStatusesViewModel.Search"/>.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.PhoneNumber">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "PhoneNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Relationship">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Relationship" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Name">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Name" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Grade">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Grade" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Sport">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Sport" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Injury">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Injury" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AthleteComments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AthleteComments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.TrainerComments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "TrainerComments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AthleteStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AthleteStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SearchInput">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SearchInput" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AthleteList">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AthleteList" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SelectedStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SelectedStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.SearchEntry">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "SearchEntry" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.FormList">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "FormList" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.PhoneNumber">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "PhoneNumber" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Relationship">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Relationship" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Name">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Name" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Grade">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Grade" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Sport">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Sport" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Injury">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Injury" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AthleteComments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AthleteComments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.TrainerComments">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "TrainerComments" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AthleteStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AthleteStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SearchInput">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SearchInput" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AthleteList">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AthleteList" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SelectedStatus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SelectedStatus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.SearchEntry">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "SearchEntry" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.FormList">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "FormList" generated properties.</summary>
+        </member>
     </members>
 </doc>

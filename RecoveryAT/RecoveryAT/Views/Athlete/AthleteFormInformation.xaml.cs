@@ -7,6 +7,8 @@
                 to get to look right, but it wasn't too bad.
 */
 
+using RecoveryAT.ViewModels;
+
 namespace RecoveryAT;  // Defines the namespace, grouping related code for the RecoveryAT app.
 
 public partial class AthleteFormInformation : ContentPage
@@ -15,5 +17,6 @@ public partial class AthleteFormInformation : ContentPage
     public AthleteFormInformation()
     {
         InitializeComponent(); // This method initializes the XAML components for this screen.
+        BindingContext = new AthleteFormInformationViewModel();
     }
 }

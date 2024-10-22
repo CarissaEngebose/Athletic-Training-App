@@ -9,24 +9,33 @@
     ".NETCoreApp,Version=v8.0/win10-x64": {
       "RecoveryAT/1.0": {
         "dependencies": {
+          "CommunityToolkit.Mvvm": "8.3.2",
           "Microsoft.Extensions.Logging.Debug": "8.0.1",
           "Microsoft.Maui.Controls": "8.0.61",
           "Microsoft.Maui.Controls.Compatibility": "8.0.61",
-          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.31"
+          "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.41"
         },
         "runtime": {
           "RecoveryAT.dll": {}
         }
       },
-      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.31": {
+      "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.41": {
         "runtime": {
           "Microsoft.Windows.SDK.NET.dll": {
-            "assemblyVersion": "10.0.19041.24",
-            "fileVersion": "10.0.19041.31"
+            "assemblyVersion": "10.0.19041.38",
+            "fileVersion": "10.0.19041.40"
           },
           "WinRT.Runtime.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.0.4.44211"
+            "assemblyVersion": "2.1.0.0",
+            "fileVersion": "2.1.1.47192"
+          }
+        }
+      },
+      "CommunityToolkit.Mvvm/8.3.2": {
+        "runtime": {
+          "lib/net8.0-windows10.0.17763/CommunityToolkit.Mvvm.dll": {
+            "assemblyVersion": "8.3.0.0",
+            "fileVersion": "8.3.2.1"
           }
         }
       },
@@ -444,10 +453,17 @@
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.31": {
+    "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.19041.41": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
+    },
+    "CommunityToolkit.Mvvm/8.3.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-m8EolE1A0Updj68WTsZSGI6VWb6mUqHPh7QFo0kt7+JPhYMNXRS1ch8TS/oITAdcxTLrwMOp3ku1KjeG1/Zdpg==",
+      "path": "communitytoolkit.mvvm/8.3.2",
+      "hashPath": "communitytoolkit.mvvm.8.3.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/8.0.0": {
       "type": "package",

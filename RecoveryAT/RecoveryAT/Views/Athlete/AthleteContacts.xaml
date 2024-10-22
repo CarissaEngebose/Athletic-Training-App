@@ -12,7 +12,9 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteContacts"
-             Title="">
+             Title=""
+             xmlns:viewmodel="clr-namespace:RecoveryAT.ViewModels"
+             x:DataType="viewmodel:AthleteContactsViewModel"> <!-- Update this namespace accordingly -->
 
     <ContentPage.Content>
         <!-- Use Grid to position elements with two rows -->
@@ -29,7 +31,8 @@
                         BackgroundColor="Transparent"
                         TextColor="Black"
                         FontSize="18"
-                        HorizontalOptions="Start"/>
+                        HorizontalOptions="Start"
+                        Command="{Binding backCommand}"/>
 
                 <!-- Displaying a medical icon image centered at the top -->
                 <Image Source="medical_icon.png"
@@ -56,11 +59,13 @@
                         <Entry Placeholder="Phone Number"
                                Keyboard="Telephone"
                                HorizontalOptions="FillAndExpand"
-                               Margin="0,0,0,10"/>
+                               Margin="0,0,0,10"
+                               Text="{Binding PhoneNumber}"/>
 
                         <!-- Entry for entering the athlete's relationship -->
                         <Entry Placeholder="Relationship to Athlete"
-                               HorizontalOptions="FillAndExpand"/>
+                               HorizontalOptions="FillAndExpand"
+                               Text="{Binding Relationship}"/>
 
                         <!-- Button with a garbage can icon for deleting entries -->
                         <Button ImageSource="garbage_icon.png"
@@ -71,7 +76,8 @@
                                 HeightRequest="45"
                                 VerticalOptions="Center"
                                 HorizontalOptions="End"
-                                Margin="0,10,0,0"/>
+                                Margin="0,10,0,0"
+                                Command="{Binding garbageCommand}"/>
                     </StackLayout>
                 </Frame>
 
@@ -83,7 +89,8 @@
                         CornerRadius="8"
                         HeightRequest="50"
                         HorizontalOptions="FillAndExpand"
-                        Margin="0,150,0,0"/>
+                        Margin="0,150,0,0"
+                        Command="{Binding finishCommand}"/>
             </StackLayout>
 
             <!-- Floating action button (+) in the second row -->
@@ -96,7 +103,8 @@
                     WidthRequest="60"
                     HorizontalOptions="End"
                     VerticalOptions="End"
-                    Margin="20"/>
+                    Margin="20"
+                    Command="{Binding addCommand}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

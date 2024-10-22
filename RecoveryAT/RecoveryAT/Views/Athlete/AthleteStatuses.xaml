@@ -8,7 +8,9 @@
 -->
 <FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            x:Class="RecoveryAT.AthleteStatuses">
+            x:Class="RecoveryAT.AthleteStatuses"
+            xmlns:viewmodel="clr-namespace:RecoveryAT.ViewModels"
+            x:DataType="viewmodel:AthleteStatusesViewModel">
 
     <!-- Flyout Menu -->
     <FlyoutPage.Flyout>
@@ -57,7 +59,8 @@
                                     <Frame CornerRadius="8" BorderColor="Gray" 
                                            Padding="5" Margin="10,5,10,0">
                                         <Picker Title="Select Status" 
-                                                HorizontalOptions="FillAndExpand">
+                                                HorizontalOptions="FillAndExpand"
+                                                SelectedItem="{Binding SelectedStatus}">
                                             <Picker.Items>
                                                 <x:String>Full Contact</x:String>
                                                 <x:String>Limited Contact</x:String>
@@ -78,19 +81,21 @@
 
                                             <Entry Placeholder="Search" 
                                                    HorizontalOptions="FillAndExpand" 
-                                                   Grid.Column="0"/>
+                                                   Grid.Column="0"
+                                                   Text="{Binding SearchEntry}"/>
                                             
                                             <Button ImageSource="search_icon.png" 
                                                     BackgroundColor="Transparent" 
                                                     WidthRequest="50" HeightRequest="50" 
-                                                    Grid.Column="1"/>
+                                                    Grid.Column="1"
+                                                    Command="{Binding SearchCommand}"/>
                                         </Grid>
                                     </Frame>
 
                                     <!-- List of Athletes -->
                                     <CollectionView ItemsSource="{Binding AthleteList}">
                                         <CollectionView.ItemTemplate>
-                                            <DataTemplate>
+                                            <DataTemplate x:DataType="viewmodel:Athlete">
                                                 <Frame BackgroundColor="#E0F7FA" 
                                                        CornerRadius="10" Margin="0,5">
                                                     <Grid Padding="5">

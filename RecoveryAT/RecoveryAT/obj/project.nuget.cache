@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yoXKxVBjA2Y=",
+  "dgSpecHash": "iBduzmHdfic=",
   "success": true,
   "projectFilePath": "C:\\Users\\Dominick\\Desktop\\College\\Semester 3\\CS341\\Projects\\ProjectSprint2\\Athletic-Training-App\\RecoveryAT\\RecoveryAT\\RecoveryAT.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dominick\\.nuget\\packages\\communitytoolkit.mvvm\\8.3.2\\communitytoolkit.mvvm.8.3.2.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
@@ -111,7 +112,7 @@
     "C:\\Users\\Dominick\\.nuget\\packages\\xamarin.kotlin.stdlib.jdk8\\1.9.0.1\\xamarin.kotlin.stdlib.jdk8.1.9.0.1.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\xamarin.kotlinx.coroutines.android\\1.7.2.1\\xamarin.kotlinx.coroutines.android.1.7.2.1.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\xamarin.kotlinx.coroutines.core.jvm\\1.7.2.1\\xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512",
-    "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.31\\microsoft.windows.sdk.net.ref.10.0.19041.31.nupkg.sha512"
+    "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.41\\microsoft.windows.sdk.net.ref.10.0.19041.41.nupkg.sha512"
   ],
   "logs": []
 }

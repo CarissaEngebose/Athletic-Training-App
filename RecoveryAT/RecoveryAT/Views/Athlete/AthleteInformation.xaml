@@ -10,7 +10,9 @@
 <FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="RecoveryAT.AthleteInformation"
-            Title="AthleteInformation">
+            Title="AthleteInformation"
+            xmlns:viewmodel="clr-namespace:RecoveryAT.ViewModels"
+            x:DataType="viewmodel:AthleteInformationViewModel">
 
     <!-- Flyout Menu (Side Navigation) -->
     <FlyoutPage.Flyout>
@@ -72,20 +74,22 @@
 
                                             <Entry Placeholder="Search" 
                                                    HorizontalOptions="FillAndExpand" 
-                                                   Grid.Column="0"/>
+                                                   Grid.Column="0"
+                                                   Text="{Binding SearchInput}"/>
                                             <Button ImageSource="search_icon.png" 
                                                     BackgroundColor="Transparent" 
                                                     BorderWidth="0" 
                                                     Padding="0" 
                                                     WidthRequest="50" HeightRequest="50" 
-                                                    Grid.Column="1" VerticalOptions="Center"/>
+                                                    Grid.Column="1" VerticalOptions="Center"
+                                                    Command="{Binding searchButtonClickedCommand}"/>
                                         </Grid>
                                     </Frame>
 
                                     <!-- List of Athletes (Using CollectionView) -->
                                     <CollectionView ItemsSource="{Binding AthleteList}">
                                         <CollectionView.ItemTemplate>
-                                            <DataTemplate>
+                                            <DataTemplate x:DataType="viewmodel:Athlete">
                                                 <Frame BackgroundColor="#E0F7FA"
                                                        CornerRadius="10" Margin="0,5">
                                                     <Grid Padding="10">
@@ -137,6 +141,7 @@
                                 </StackLayout>
                             </ScrollView>
 
+                            <!--I think this should be implemented as a tabed page instead-->
                             <!-- Bottom Navigation Bar -->
                             <Grid Padding="10" 
                                   BackgroundColor="#BBDEFB" 
