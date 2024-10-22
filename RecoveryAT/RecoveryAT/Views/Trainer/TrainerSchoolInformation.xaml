@@ -15,14 +15,6 @@
               <!-- Use AbsoluteLayout for precise positioning -->
               <AbsoluteLayout>
 
-                     <!-- Back Button at the top-left -->
-                     <Button Text="Back"
-                             BackgroundColor="Transparent"
-                             TextColor="Black"
-                             FontSize="18"
-                             AbsoluteLayout.LayoutBounds="0, 0, AutoSize, AutoSize"
-                             AbsoluteLayout.LayoutFlags="PositionProportional"/>
-
                      <!-- Main Content -->
                      <StackLayout Padding="20"
                                    VerticalOptions="Start"
@@ -100,7 +92,8 @@
                                     WidthRequest="350"
                                     HorizontalOptions="Center"
                                     VerticalOptions="End"
-                                    Margin="0,150,0,0"/>
+                                    Margin="0,150,0,0"
+                                    Clicked="OnCreateSchoolClicked"/>
                      </StackLayout>
               </AbsoluteLayout>
        </ContentPage.Content>

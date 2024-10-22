@@ -17,5 +17,12 @@ namespace RecoveryAT
         {
             InitializeComponent(); // Load the XAML-defined components for this page
         }
+
+        // Event handler when the Create School button is clicked
+        private async void OnCreateSchoolClicked(object sender, EventArgs e)
+        {
+            // Navigate to the trainer home screen page
+            await Navigation.PushAsync(new TrainerHomeScreen());
+        }
     }
 }
