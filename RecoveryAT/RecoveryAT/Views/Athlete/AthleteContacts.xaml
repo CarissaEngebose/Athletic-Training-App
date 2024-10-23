@@ -24,12 +24,6 @@
 
             <!-- Main content section inside the first row -->
             <StackLayout Grid.Row="0" Padding="20">
-                <!-- Back button aligned to the left -->
-                <Button Text="Back"
-                        BackgroundColor="Transparent"
-                        TextColor="Black"
-                        FontSize="18"
-                        HorizontalOptions="Start"/>
 
                 <!-- Displaying a medical icon image centered at the top -->
                 <Image Source="medical_icon.png"
