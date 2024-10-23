@@ -38,6 +38,11 @@ public partial class UserLogin : ContentPage {
         }
     }
 
+    // Event handler for when the user taps the create account link
+    private async void OnCreateAccountTapped(object sender, EventArgs e) {
+        await Navigation.PushAsync(new UserCreateAccount()); // navigate to the create account page
+    }
+
     // Placeholder for validating user credentials (replace with actual validation logic)
     private bool ValidateCredentials() {
         // Example logic: always return true for now
@@ -46,6 +51,6 @@ public partial class UserLogin : ContentPage {
 
     private async void OnLoginSuccessful() {
         authService.Login(); // log the user in
-        await Navigation.PushAsync(new MainTabbedPage()); // navigate to the main tabbed page
+        await Navigation.PushModalAsync(new MainTabbedPage()); // navigate to the main tabbed page
     }
 }
