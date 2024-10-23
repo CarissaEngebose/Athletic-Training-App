@@ -74,48 +74,6 @@
 
         <!-- Spacer -->
         <Label HeightRequest="285" />
-
-        <!-- Tab Bar -->
-        <Grid BackgroundColor="#FF74C0FF" VerticalOptions="Center" WidthRequest="450" HeightRequest="90">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Home Tab -->
-            <Image Source="home_icon.png" 
-                   WidthRequest="150" 
-                   HeightRequest="150" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   Grid.Column="0" />
-
-            <!-- Athlete Tab -->
-            <Image Source="running_icon.png" 
-                   WidthRequest="65" 
-                   HeightRequest="65" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   Grid.Column="1" />
-
-            <!-- Form Tab -->
-            <Image Source="clipboard_icon.png" 
-                   WidthRequest="90" 
-                   HeightRequest="90" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   Grid.Column="2" />
-
-            <!-- Profile Tab -->
-            <Image Source="profile_icon.png" 
-                   WidthRequest="90" 
-                   HeightRequest="90" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Center" 
-                   Grid.Column="3" />
-        </Grid>
     </StackLayout>
 
 </ContentPage>
