@@ -15,9 +15,13 @@ namespace RecoveryAT
 {
     public partial class UserProfile : ContentPage
     {
+        private AuthenticationService authService; // reference to the authentication service
+
         public UserProfile()
         {
-            InitializeComponent(); // Initialize the XAML components
+            InitializeComponent(); // initialize the XAML components
+            authService = ((App)Application.Current).AuthService; // access the auth service from App
+
         }
 
         // Event handler for when the "Edit" button or icon is tapped
@@ -33,8 +37,8 @@ namespace RecoveryAT
             bool confirmLogout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
             if (confirmLogout)
             {
-                // Navigate to the login page after logout
-                await Navigation.PushAsync(new UserLogin());
+                authService.Logout(); // log the user out
+                await Navigation.PushAsync(new UserLogin());// navigate back to the log in screen
             }
         }
     }

@@ -8,30 +8,28 @@
 
 namespace RecoveryAT;
 
-public partial class UserLogin : ContentPage
-{
+public partial class UserLogin : ContentPage {
+    private AuthenticationService authService;
+
     // Constructor for initializing the UserLogin screen
-    public UserLogin()
-    {
+    public UserLogin() {
         InitializeComponent(); // Load XAML components
+        authService = ((App)Application.Current).AuthService;
     }
 
     // Event handler for when the user taps the "Forgot Password" link
-    private async void OnForgotPasswordClicked(object sender, EventArgs e)
-    {
+    private void OnForgotPasswordClicked(object sender, EventArgs e) {
         // Example: Navigate to the ForgotPassword page
     }
 
     // Event handler for when the user clicks the Login button
-    private async void OnLoginButtonClicked(object sender, EventArgs e)
-    {
+    private async void OnLoginButtonClicked(object sender, EventArgs e) {
         // Example: Perform login logic (e.g., check username and password)
         bool isAuthenticated = ValidateCredentials(); // Replace with actual logic
 
         if (isAuthenticated)
         {
-            // Navigate to the home screen upon successful login
-            await Navigation.PushAsync(new TrainerHomeScreen());
+            OnLoginSuccessful();
         }
         else
         {
@@ -41,9 +39,13 @@ public partial class UserLogin : ContentPage
     }
 
     // Placeholder for validating user credentials (replace with actual validation logic)
-    private bool ValidateCredentials()
-    {
+    private bool ValidateCredentials() {
         // Example logic: always return true for now
         return true;
+    }
+
+    private async void OnLoginSuccessful() {
+        authService.Login(); // log the user in
+        await Navigation.PushAsync(new MainTabbedPage()); // navigate to the main tabbed page
     }
 }
