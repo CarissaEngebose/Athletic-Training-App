@@ -15,17 +15,22 @@ namespace RecoveryAT
 {
     public partial class SchoolCodeScreen : ContentPage
     {
-        public SchoolCodeScreen()
-        {
-            InitializeComponent(); // Initialize the XAML components
+        public SchoolCodeScreen() {
+            InitializeComponent(); // initialize the XAML components
         }
 
         // Event handler for the Submit button click
         private async void OnSubmitCodeClicked(object sender, EventArgs e)
         {
-            // Navigate to the injury form page
-            await Navigation.PushAsync(new InjuryFormReport());
-            
+            // combine the text for the 5 entries
+            string schoolCode = $"{CodeEntry1.Text}{CodeEntry2.Text}{CodeEntry3.Text}{CodeEntry4.Text}{CodeEntry5.Text}";
+
+            if (IsValidCode(schoolCode)) { 
+                await Navigation.PushAsync(new InjuryFormReport()); // navigate to the injury form page
+            }
+            else {
+                await DisplayAlert("Error", "Please enter a valid 5-character code.", "OK");
+            }
         }
 
         // Method to validate the school code

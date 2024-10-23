@@ -40,19 +40,19 @@
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
             <!-- Each Frame contains an Entry for code input -->
             <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+                <Entry x:Name="CodeEntry1" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
             </Frame>
             <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+                <Entry x:Name="CodeEntry2" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
             </Frame>
             <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+                <Entry x:Name="CodeEntry3" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
             </Frame>
             <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+                <Entry x:Name="CodeEntry4" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
             </Frame>
             <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+                <Entry x:Name="CodeEntry5" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
             </Frame>
         </StackLayout>
 
