@@ -88,7 +88,8 @@
                     BackgroundColor="BlueViolet" 
                     TextColor="White" 
                     CornerRadius="10"
-                    HorizontalOptions="Center"/>
+                    HorizontalOptions="Center"
+                    Clicked="OnLoginClicked"/>
 
             <!-- Footer with "Create Account" Link -->
             <Grid>

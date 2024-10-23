@@ -117,30 +117,6 @@
                                     </CollectionView>
                                 </StackLayout>
                             </ScrollView>
-
-                            <!-- Bottom Navigation -->
-                            <Grid Padding="10" BackgroundColor="#BBDEFB" 
-                                  HeightRequest="70" Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Button ImageSource="home_icon.png" Grid.Column="0" 
-                                        Background="Transparent" 
-                                        HeightRequest="150" WidthRequest="150"/>
-                                <Button ImageSource="running_icon.png" Grid.Column="1" 
-                                        Background="Transparent" 
-                                        HeightRequest="90" WidthRequest="90"/>
-                                <Button ImageSource="clipboard_icon.png" Grid.Column="2" 
-                                        Background="Transparent" 
-                                        HeightRequest="100" WidthRequest="100"/>
-                                <Button ImageSource="profile_icon.png" Grid.Column="3" 
-                                        Background="Transparent" 
-                                        HeightRequest="100" WidthRequest="100"/>
-                            </Grid>
                         </Grid>
                     </ContentPage.Content>
                 </ContentPage>

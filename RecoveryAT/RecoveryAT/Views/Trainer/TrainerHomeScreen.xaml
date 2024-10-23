@@ -161,39 +161,5 @@
                        Text="12"/>
             </Grid>
         </Frame>
-
-        <Grid Padding="10"
-              BackgroundColor="#BBDEFB"
-              HeightRequest="70"
-              Grid.Row="4"
-              VerticalOptions="End">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button ImageSource="home_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="150"
-                    HeightRequest="150"
-                    Grid.Column="0"/>
-            <Button ImageSource="running_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="90"
-                    HeightRequest="90"
-                    Grid.Column="1"/>
-            <Button ImageSource="clipboard_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    Grid.Column="2"/>
-            <Button ImageSource="profile_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    Grid.Column="3"/>
-        </Grid>
     </Grid>
 </ContentPage>

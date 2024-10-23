@@ -175,55 +175,5 @@
 
             </StackLayout>
         </ScrollView>
-
-        <!-- Tab Bar -->
-        <Grid BackgroundColor="#FF74C0FF"
-                WidthRequest="450"
-                HeightRequest="90"
-                Grid.Row="4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <!-- Home Tab -->
-            <Button ImageSource="home_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="150"
-                    HeightRequest="150"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Grid.Column="0"/>
-
-            <!-- Athlete Tab -->
-            <Button ImageSource="running_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="100"
-                    HeightRequest="100"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Grid.Column="1"/>
-
-            <!-- Form Tab -->
-            <Button ImageSource="clipboard_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="125"
-                    HeightRequest="125"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Grid.Column="2"/>
-
-            <!-- Profile Tab -->
-            <Button ImageSource="profile_icon.png"
-                    BackgroundColor="Transparent"
-                    WidthRequest="125"
-                    HeightRequest="125"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Grid.Column="3"/>
-        </Grid>
     </Grid>
-
 </ContentPage>

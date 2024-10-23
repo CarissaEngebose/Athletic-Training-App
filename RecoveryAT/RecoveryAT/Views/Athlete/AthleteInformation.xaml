@@ -136,42 +136,6 @@
                                     </CollectionView>
                                 </StackLayout>
                             </ScrollView>
-
-                            <!-- Bottom Navigation Bar -->
-                            <Grid Padding="10" 
-                                  BackgroundColor="#BBDEFB" 
-                                  HeightRequest="70" Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Home Button -->
-                                <Button ImageSource="home_icon.png" 
-                                        BackgroundColor="Transparent" 
-                                        WidthRequest="150" HeightRequest="150" 
-                                        Grid.Column="0"/>
-
-                                <!-- Running Button -->
-                                <Button ImageSource="running_icon.png" 
-                                        BackgroundColor="Transparent" 
-                                        WidthRequest="85" HeightRequest="85" 
-                                        Grid.Column="1"/>
-
-                                <!-- Clipboard Button -->
-                                <Button ImageSource="clipboard_icon.png" 
-                                        BackgroundColor="Transparent" 
-                                        WidthRequest="100" HeightRequest="100" 
-                                        Grid.Column="2"/>
-
-                                <!-- Profile Button -->
-                                <Button ImageSource="profile_icon.png" 
-                                        BackgroundColor="Transparent" 
-                                        WidthRequest="100" HeightRequest="100" 
-                                        Grid.Column="3"/>
-                            </Grid>
                         </Grid>
                     </ContentPage.Content>
                 </ContentPage>

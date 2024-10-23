@@ -23,7 +23,7 @@ public partial class UserLogin : ContentPage {
     }
 
     // Event handler for when the user clicks the Login button
-    private async void OnLoginButtonClicked(object sender, EventArgs e) {
+    private async void OnLoginClicked(object sender, EventArgs e) {
         // Example: Perform login logic (e.g., check username and password)
         bool isAuthenticated = ValidateCredentials(); // Replace with actual logic
 
