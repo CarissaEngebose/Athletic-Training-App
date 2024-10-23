@@ -10,19 +10,10 @@ Reflection: This screen took a little while to get the layout exactly how I want
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.InjuryFormReport"
              BackgroundColor="White"
-             Title="InjuryFormReport">
+             Title="">
 
     <ScrollView>
         <StackLayout Padding="20" Spacing="10">
-            <!-- Back Button -->
-            <Button Text="&lt;"
-                    BackgroundColor="Transparent" 
-                    TextColor="Blue" 
-                    FontSize="30"
-                    Clicked="OnBackButtonClicked"
-                    Padding="-10"
-                    HorizontalOptions="Start" 
-                    VerticalOptions="Start" />
 
             <!-- RecoveryAT Icon -->
             <Image Source="medical_icon.png" 

@@ -24,17 +24,11 @@ namespace RecoveryAT
         }
 
         // Event handler for the Submit button click event
-        private void OnSubmitClicked(object sender, EventArgs e)
+        private async void OnSubmitClicked(object sender, EventArgs e)
         {
             // Logic to handle form submission, such as validation or sending data to the trainer
-            // Example: Display an alert confirming submission
-        }
-
-        // Event handler for the Back button click event
-        private void OnBackButtonClicked(object sender, EventArgs e)
-        {
-            // Logic to navigate to the previous screen, such as the school code screen
-            // Example: Navigate back using NavigationPage
+            // TO DO - NEED TO UPDATE TO CHECK IF EVAL IS CLICKED THEN ATHLETE CONTACTS OTHERWISE WELCOME SCREEN IF LOGGED OUT OR HOME SCREEN IF LOGGED IN
+            await Navigation.PushAsync(new AthleteContacts()); // navigate to the athlete contacts 
         }
     }
 }
