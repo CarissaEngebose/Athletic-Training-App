@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RecoveryAT"
+             x:Class="RecoveryAT.MainTabbedPage"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             android:TabbedPage.ToolbarPlacement="Bottom">
+
+    <TabbedPage.Children>
+        <NavigationPage IconImageSource="home_icon.png"
+                        Title="Home">
+            <x:Arguments>
+                <local:TrainerHomeScreen/>
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
+            <x:Arguments>
+                <local:AthleteInformation/>
+            </x:Arguments>
+        </NavigationPage>        
+
+        <NavigationPage IconImageSource="clipboard_icon.png"
+                        Title="Form">
+            <x:Arguments>
+                <local:InjuryFormReport/>
+            </x:Arguments>
+        </NavigationPage>   
+
+        <NavigationPage IconImageSource="profile_icon.png" Title="Profile">
+            <x:Arguments>
+                <local:UserProfile/>
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>
