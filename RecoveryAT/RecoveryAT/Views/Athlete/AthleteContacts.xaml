@@ -71,7 +71,8 @@
                                 HeightRequest="45"
                                 VerticalOptions="Center"
                                 HorizontalOptions="End"
-                                Margin="0,10,0,0"/>
+                                Margin="0,10,0,0"
+                                Clicked="OnDeleteClicked"/>
                     </StackLayout>
                 </Frame>
 
@@ -83,7 +84,8 @@
                         CornerRadius="8"
                         HeightRequest="50"
                         HorizontalOptions="FillAndExpand"
-                        Margin="0,150,0,0"/>
+                        Margin="0,150,0,0"
+                        Clicked="OnFinishClicked"/>
             </StackLayout>
 
             <!-- Floating action button (+) in the second row -->
