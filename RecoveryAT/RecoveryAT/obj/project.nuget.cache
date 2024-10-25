@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "yoXKxVBjA2Y=",
+  "dgSpecHash": "bWZT0vBm2og=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Dominick\\Desktop\\College\\Semester 3\\CS341\\Projects\\ProjectSprint2\\Athletic-Training-App\\RecoveryAT\\RecoveryAT\\RecoveryAT.csproj",
+  "projectFilePath": "C:\\Users\\Dominick\\Desktop\\College\\Semester 3\\CS341\\Projects\\Athletic-Training-App\\RecoveryAT\\RecoveryAT\\RecoveryAT.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Dominick\\.nuget\\packages\\communitytoolkit.mvvm\\8.3.2\\communitytoolkit.mvvm.8.3.2.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\Dominick\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",

@@ -8,6 +8,5 @@ public partial class App : Application
 		InitializeComponent();
         AuthService = new AuthenticationService(); // creates an authentication service instance
         MainPage = new NavigationPage(new WelcomeScreen());
-
 	}
 }

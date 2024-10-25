@@ -12,7 +12,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformationEdit"
              Title="AthleteFormInformationEdit"
-             BackgroundColor="#F9F9F9"> <!-- Light background for readability -->
+             BackgroundColor="#F9F9F9"
+             xmlns:viewmodel="clr-namespace:RecoveryAT"
+             x:DataType="viewmodel:BusinessLogic"> <!-- Light background for readability -->
 
     <Grid>
         <!-- Grid layout with two rows: content and save button -->
@@ -60,19 +62,22 @@
                         <Label Grid.Row="0" Grid.Column="0" 
                                FontAttributes="Bold" FontSize="Medium">Grade:</Label>
                         <Label Grid.Row="0" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">9</Label>
+                               HorizontalOptions="End" FontSize="Medium"
+                               Text="{Binding Grade}"></Label>
 
                         <!-- Sport Label -->
                         <Label Grid.Row="1" Grid.Column="0" 
                                FontAttributes="Bold" FontSize="Medium">Sport:</Label>
                         <Label Grid.Row="1" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">Volleyball</Label>
+                               HorizontalOptions="End" FontSize="Medium"
+                               Text="{Binding Sport}"></Label>
 
                         <!-- Injury Label -->
                         <Label Grid.Row="2" Grid.Column="0" 
                                FontAttributes="Bold" FontSize="Medium">Injury:</Label>
                         <Label Grid.Row="2" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">Shoulder</Label>
+                               HorizontalOptions="End" FontSize="Medium"
+                               Text="{Binding Injury}"></Label>
                     </Grid>
                 </Frame>
 
@@ -86,7 +91,8 @@
                         FontSize="Medium"
                         Margin="0,0,0,10"
                         AutoSize="TextChanges" 
-                        Placeholder="Enter athlete's comments..." />
+                        Placeholder="Enter athlete's comments..."
+                        Text="{Binding AthleteComments, Mode=OneWay}"/>
 
                 <!-- Trainer Comment Section -->
                 <Label FontAttributes="Bold" 
@@ -98,7 +104,8 @@
                         FontSize="Medium"
                         Margin="0,0,0,10"
                         AutoSize="TextChanges"
-                        Placeholder="Enter trainer's comments..." />
+                        Placeholder="Enter trainer's comments..." 
+                        Text="{Binding TrainerComments, Mode=OneWay}"/>
 
                 <!-- Athlete Status Section -->
                 <Label FontAttributes="Bold" 
@@ -110,7 +117,8 @@
                         FontSize="Medium"
                         Margin="0,0,0,10"
                         AutoSize="TextChanges"
-                        Placeholder="Enter athlete status..." />
+                        Placeholder="Enter athlete status..." 
+                        Text="{Binding AthleteStatus, Mode=OneWay}"/>
             </VerticalStackLayout>
         </ScrollView>
 

@@ -12,8 +12,9 @@ namespace RecoveryAT;  // Defines the namespace, grouping related code for the R
 public partial class AthleteFormInformation : ContentPage
 {
     // Constructor for AthleteFormInformation, called when an instance of this class is created.
-    public AthleteFormInformation()
+    public AthleteFormInformation(BusinessLogic businessLogic)
     {
         InitializeComponent(); // This method initializes the XAML components for this screen.
+        BindingContext = businessLogic;
     }
 }

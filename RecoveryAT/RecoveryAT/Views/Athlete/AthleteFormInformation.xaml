@@ -11,7 +11,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformation"
              Title="AthleteFormInformation"
-             BackgroundColor="#F9F9F9"> <!-- Light background for readability -->
+             BackgroundColor="#F9F9F9"
+             xmlns:viewmodel="clr-namespace:RecoveryAT"
+             x:DataType="viewmodel:BusinessLogic"> <!-- Light background for readability -->
 
     <!-- ScrollView allows content to be scrollable on smaller screens -->
     <ScrollView>
@@ -44,7 +46,8 @@
             <Label FontSize="35"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"
-                   Margin="10,5">Jane Stewart</Label>
+                   Margin="10,5"
+                   Text="Name"></Label>
 
             <!-- Frame containing general student information (Grade, Sport, Injury) -->
             <Frame Padding="10"
@@ -68,7 +71,8 @@
                            FontSize="Medium">Grade:</Label>
                     <Label Grid.Row="0" Grid.Column="1"
                            HorizontalOptions="End"
-                           FontSize="Medium">9</Label>
+                           FontSize="Medium"
+                           Text="{Binding Grade}"></Label>
 
                     <!-- Sport label -->
                     <Label Grid.Row="1" Grid.Column="0"
@@ -76,7 +80,8 @@
                            FontSize="Medium">Sport:</Label>
                     <Label Grid.Row="1" Grid.Column="1"
                            HorizontalOptions="End"
-                           FontSize="Medium">Volleyball</Label>
+                           FontSize="Medium"
+                           Text="{Binding Sport}"></Label>
 
                     <!-- Injury label -->
                     <Label Grid.Row="2" Grid.Column="0"
@@ -84,7 +89,8 @@
                            FontSize="Medium">Injury:</Label>
                     <Label Grid.Row="2" Grid.Column="1"
                            HorizontalOptions="End"
-                           FontSize="Medium">Shoulder</Label>
+                           FontSize="Medium"
+                           Text="{Binding Injury}"></Label>
                 </Grid>
             </Frame>
 
@@ -93,9 +99,8 @@
                    FontSize="Large"
                    Margin="0,20,0,5">Athlete Comments:</Label>
             <Label FontSize="Medium"
-                   Margin="0,0,0,10">
-                My right shoulder has been bothering me, and last night after the volleyball game, 
-                I felt a sharp pain that won't go away.
+                   Margin="0,0,0,10"
+                   Text="{Binding AthleteComments}">
             </Label>
 
             <!-- Trainer Comment Section -->
@@ -103,8 +108,8 @@
                    FontSize="Large"
                    Margin="0,20,0,5">Trainer Comments:</Label>
             <Label FontSize="Medium"
-                   Margin="0,0,0,10">
-                Rest and ice the shoulder. If pain persists, consider a visit to the doctor.
+                   Margin="0,0,0,10"
+                   Text="{Binding TrainerComments}">
             </Label>
 
             <!-- Athlete Status Section -->
@@ -112,8 +117,8 @@
                    FontSize="Large"
                    Margin="0,20,0,5">Athlete Status:</Label>
             <Label FontSize="Medium"
-                   Margin="0,0,0,10">
-                Under observation; no activity until cleared by a trainer.
+                   Margin="0,0,0,10"
+                   Text="{Binding AthleteStatus}">
             </Label>
         </VerticalStackLayout>
     </ScrollView>

@@ -13,8 +13,9 @@ namespace RecoveryAT;  // Defines the namespace for the application, organizing 
 public partial class AthleteFormInformationEdit : ContentPage
 {
     // Constructor for AthleteFormInformationEdit, invoked when this class is instantiated.
-    public AthleteFormInformationEdit()
+    public AthleteFormInformationEdit(BusinessLogic businessLogic)
     {
         InitializeComponent(); // Loads and initializes the UI components defined in the XAML file.
+        BindingContext = businessLogic;
     }
 }
