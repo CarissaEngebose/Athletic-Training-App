@@ -97,7 +97,7 @@ namespace RecoveryAT
         /// <param name="treatmentType">The type of treatment the athlete is receiving.</param>
         /// <param name="athleteComments">Comments from the athlete.</param>
         /// <returns>A message saying if the form was successfully added or not.</returns>
-        public string AddForm(string schoolCode, string firstName, string lastName, int grade, string sport,
+        public string AddForm(string schoolCode, string firstName, string lastName, int? grade, string sport,
                       string injuredArea, string injuredSide, string treatmentType,
                       string? athleteComments, string? trainerComments, string? status, DateTime date)
         {
@@ -106,21 +106,18 @@ namespace RecoveryAT
                 string.IsNullOrWhiteSpace(firstName) ||
                 string.IsNullOrWhiteSpace(lastName) ||
                 string.IsNullOrWhiteSpace(sport) ||
+                !grade.HasValue ||
                 string.IsNullOrWhiteSpace(injuredArea) ||
                 string.IsNullOrWhiteSpace(injuredSide) ||
                 string.IsNullOrWhiteSpace(treatmentType))
             {
-                return "Error: All fields must be filled in, except for athlete comments.";
-            }
-            if (grade < 6 || grade > 12)
-            {
-                return "Grade must be between 6 and 12.";
+                return "Error: All fields must be filled in, except for comments.";
             }
 
             // Create a new AthleteForm with the input values
-            var form = new AthleteForm(schoolCode, firstName, lastName, grade, sport,
+            var form = new AthleteForm(schoolCode, firstName, lastName, grade.Value, sport,
                                         injuredArea, injuredSide, treatmentType,
-                                        DateTime.Now, athleteComments, null, null); // trainer comments and status are originally null
+                                        date, athleteComments, trainerComments, status); 
 
             // Insert the form into the database and return the result message
             return _database.InsertForm(form);

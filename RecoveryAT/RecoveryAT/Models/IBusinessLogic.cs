@@ -59,7 +59,7 @@ namespace RecoveryAT
         /// <param name="treatmentType">The type of treatment the athlete is receiving.</param>
         /// <param name="athleteComments">Comments from the athlete.</param>
         /// <returns>A message saying if the form was successfully added or not.</returns>
-        public string AddForm(string schoolCode, string firstName, string lastName, int grade, string sport,
+        public string AddForm(string schoolCode, string firstName, string lastName, int? grade, string sport,
                       string injuredArea, string injuredSide, string treatmentType,
                       string? athleteComments, string? trainerComments, string? status, DateTime date);
 
