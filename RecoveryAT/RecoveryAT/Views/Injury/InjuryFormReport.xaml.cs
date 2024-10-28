@@ -16,19 +16,82 @@ namespace RecoveryAT
     // The InjuryFormReport class inherits from ContentPage to represent a page in the MAUI app
     public partial class InjuryFormReport : ContentPage
     {
+        private string _schoolCode;
+
+        private bool _isEvalSelected;
+
         // Constructor to initialize the InjuryFormReport page
-        public InjuryFormReport()
+        public InjuryFormReport(string schoolCode)
         {
             InitializeComponent(); // Load the XAML components
             BindingContext = this; // Set the BindingContext for data binding with the UI
+            _schoolCode = schoolCode; // school code to insert into the database
+            _isEvalSelected = false;
         }
 
         // Event handler for the Submit button click event
         private async void OnSubmitClicked(object sender, EventArgs e)
         {
-            // Logic to handle form submission, such as validation or sending data to the trainer
-            // TO DO - NEED TO UPDATE TO CHECK IF EVAL IS CLICKED THEN ATHLETE CONTACTS OTHERWISE WELCOME SCREEN IF LOGGED OUT OR HOME SCREEN IF LOGGED IN
-            await Navigation.PushAsync(new AthleteContacts()); // navigate to the athlete contacts 
+            // Gets the entries to be inserted into the database
+            var firstName = FirstNameEntry.Text;
+            var lastName = LastNameEntry.Text;
+            var grade = GradePicker.SelectedIndex >= 0 ? int.Parse((string)GradePicker.SelectedItem) : (int?)null;
+            var sport = SportPicker.SelectedItem as string;
+            var injuredArea = InjuredAreaEntry.Text;
+            var injuredSide = InjuredSide.SelectedItem as string;
+            var treatmentType = TreatmentType.SelectedItem as string;
+            var athleteComments = CommentsEditor.Text;
+
+            // Call AddForm and store the response message
+            string resultMessage = MauiProgram.BusinessLogic.AddForm(
+                _schoolCode,
+                firstName,
+                lastName,
+                grade.Value,
+                sport,
+                injuredArea,
+                injuredSide,
+                treatmentType,
+                athleteComments,
+                null,  // trainerComments is null initially
+                null,  // status is null initially
+                DateTime.Now
+            );
+
+            // if treatment typ e
+            if (treatmentType == "Eval")
+            {
+                _isEvalSelected = true;
+            }
+
+            // Display result message to the user
+            await DisplayAlert("Form Submission", resultMessage, "OK");
+
+            if (resultMessage.Contains("successfully"))
+            {
+                FormSubmissionIsSuccessful();
+            }
+        }
+
+        // if the result message is successful, clear all of the form entries
+        private async void FormSubmissionIsSuccessful()
+        {
+            // Clear the form if submission was successful
+            FirstNameEntry.Text = string.Empty;
+            LastNameEntry.Text = string.Empty;
+            GradePicker.SelectedIndex = -1;
+            SportPicker.SelectedIndex = -1;
+            InjuredAreaEntry.Text = string.Empty;
+            InjuredSide.SelectedIndex = -1;
+            TreatmentType.SelectedIndex = -1;
+            CommentsEditor.Text = string.Empty;
+
+            if (_isEvalSelected)
+            {
+                await Navigation.PushAsync(new AthleteContacts()); // navigate to the athlete contacts
+            }
+
+            await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
         }
     }
 }
