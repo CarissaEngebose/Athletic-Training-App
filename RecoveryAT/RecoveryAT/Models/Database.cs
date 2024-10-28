@@ -54,21 +54,16 @@ namespace RecoveryAT
             try
             {
                 using var conn = new NpgsqlConnection(connString);
-                {
-                    conn.Open();
-                    using (var cmd = new NpgsqlCommand("SELECT COUNT(1) FROM users WHERE school_code = @schoolCode", conn))
-                    {
-                        var result = cmd.ExecuteScalar();
+                
+                conn.Open();
+                using var cmd = new NpgsqlCommand("SELECT school_code FROM users WHERE school_code = @schoolCode", conn);
+                cmd.Parameters.AddWithValue("@schoolCode", schoolCode); // set parameter for school code
 
-                        // check if result is null and unbox to long safely
-                        if (result != null && result is long count)
-                        {
-                            return count > 0; // return true if count is greater than 0
-                        }
+                var result = cmd.ExecuteScalar(); // Execute the command and get the result
 
-                        return false; // return false if the result is null
-                    }
-                }
+                // Check if result is not null
+                return result != null; // return true if a matching school code was found
+
             }
             catch (Npgsql.PostgresException ex)
             {
