@@ -23,7 +23,7 @@ namespace RecoveryAT
         public TrainerHomeScreen()
         {
             InitializeComponent();
-
+            
             // Initialize the ViewModel and bind it to the page's BindingContext
             ViewModel = new CalendarViewModel();
             BindingContext = ViewModel;

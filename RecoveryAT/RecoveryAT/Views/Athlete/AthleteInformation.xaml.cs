@@ -15,6 +15,7 @@ namespace RecoveryAT
     // AthleteInformation class inherits from FlyoutPage to create a page with a flyout menu
     public partial class AthleteInformation : FlyoutPage
     {
+
         // Public property to store the list of athletes, used for data binding with the CollectionView
         public ObservableCollection<Athlete> AthleteList { get; set; }
 
@@ -39,5 +40,15 @@ namespace RecoveryAT
         {
             IsPresented = true; // Opens the flyout menu
         }
+    }
+
+    // The Athlete class defines the structure for each form displayed in the CollectionView
+    public class Athlete
+    {
+        public string Date { get; set; } // Date when the form was created
+        public string Name { get; set; } // Athlete's name
+        public string Relationship { get; set; } // Sport the athlete plays
+        public string PhoneNumber { get; set; } // Type of injury the athlete has
+        public string FormNumber { get; set; } // Unique identifier for the form
     }
 }

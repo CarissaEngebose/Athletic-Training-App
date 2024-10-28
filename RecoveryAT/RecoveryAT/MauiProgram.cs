@@ -4,6 +4,8 @@ namespace RecoveryAT;
 
 public static class MauiProgram
 {
+	public static IBusinessLogic BusinessLogic = new BusinessLogic(new Database());
+
 	public static MauiApp CreateMauiApp()
 	{
 		var builder = MauiApp.CreateBuilder();

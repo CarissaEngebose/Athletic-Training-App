@@ -102,9 +102,9 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <!-- Athlete Information -->
-                                                        <Label Text="{Binding Name}" 
+                                                        <Label Text="{Binding FirstName, StringFormat='{0} {1}', Source={Binding LastName}}" 
                                                                FontAttributes="Bold"/>
-                                                        <Label Text="{Binding Injury}" 
+                                                        <Label Text="{Binding InjuredArea}" 
                                                                Grid.Column="1"/>
                                                         <Label Text="{Binding Sport}" 
                                                                Grid.Column="2"/>

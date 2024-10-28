@@ -14,13 +14,13 @@ namespace RecoveryAT  // Defines the namespace for the class, grouping related c
     
     // AthleteContacts class inherits from ContentPage, which provides page-related functionality in MAUI.
     public partial class AthleteContacts : ContentPage {
+
         bool _isTrainer = false; // see if user is logged in (AKA if they're a trainer)
 
         // Constructor for AthleteContacts, which is called when an instance of this class is created.
         public AthleteContacts()
         {
             InitializeComponent(); // Initializes the UI components defined in the XAML file.
-            // Any additional logic or event handlers can be added here if needed.
         }
 
         // Event handler when the Delete button is clicked

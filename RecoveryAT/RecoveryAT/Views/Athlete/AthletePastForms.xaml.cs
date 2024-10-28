@@ -14,6 +14,7 @@ namespace RecoveryAT
     // AthletePastForms class inherits from FlyoutPage to implement a page with a flyout menu
     public partial class AthletePastForms : FlyoutPage
     {
+
         // ObservableCollection to store a list of forms for data binding with the CollectionView
         public ObservableCollection<Form> FormList { get; set; }
 

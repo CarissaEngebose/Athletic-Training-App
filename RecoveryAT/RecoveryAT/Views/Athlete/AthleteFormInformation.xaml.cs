@@ -10,7 +10,7 @@
 namespace RecoveryAT;  // Defines the namespace, grouping related code for the RecoveryAT app.
 
 public partial class AthleteFormInformation : ContentPage
-{
+{    
     // Constructor for AthleteFormInformation, called when an instance of this class is created.
     public AthleteFormInformation()
     {
