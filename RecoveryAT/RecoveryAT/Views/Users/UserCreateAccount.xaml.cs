@@ -17,13 +17,6 @@ namespace RecoveryAT
             InitializeComponent(); // This method is called to initialize the XAML UI components.
         }
 
-        // Event handler when the "Go to Create Account" button is clicked
-        private async void OnCreateAccountClicked(object sender, EventArgs e)
-        {
-            // Navigate to the UserCreateAccount page
-            await Navigation.PushAsync(new UserCreateAccount());
-        }
-
         // Event handler when the Create Account button is clicked
         private async void CreateAccountClicked(object sender, EventArgs e)
         {
