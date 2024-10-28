@@ -1,11 +1,12 @@
 /*
     Name: Carissa Engebose
-    Date: 10/9/2024
+    Date: 10/28/2024
     Description: A screen that allows a user to enter information related to injuries that will 
                 be sent back to their athletic trainer.
     Bugs: None Known
-    Reflection: This screen took a little while to get the layout exactly how I wanted it, 
-                but overall, I think it's good.
+    Reflection: This screen took a little while to figure out because I kept running into issues with using the grade.Value
+                when it was null (which honestly shouldn't have taken me as long as it did to figure out). Other than that,
+                I think connecting it with the database went very well.
 */
 
 using Microsoft.Maui.Controls; // Import necessary MAUI controls
