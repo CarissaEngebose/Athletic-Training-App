@@ -57,7 +57,6 @@ Reflection: This screen took a little while to get the layout exactly how I want
                 <Picker x:Name="SportPicker" Title="Select your sport">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>All Sports</x:String>
                             <x:String>Football</x:String>
                             <x:String>Volleyball</x:String>
                             <x:String>Basketball</x:String>

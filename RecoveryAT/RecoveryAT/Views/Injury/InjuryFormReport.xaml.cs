@@ -47,7 +47,7 @@ namespace RecoveryAT
                 _schoolCode,
                 firstName,
                 lastName,
-                grade.Value,
+                grade,
                 sport,
                 injuredArea,
                 injuredSide,
@@ -58,7 +58,6 @@ namespace RecoveryAT
                 DateTime.Now
             );
 
-            // if treatment typ e
             if (treatmentType == "Eval")
             {
                 _isEvalSelected = true;
@@ -89,9 +88,9 @@ namespace RecoveryAT
             if (_isEvalSelected)
             {
                 await Navigation.PushAsync(new AthleteContacts()); // navigate to the athlete contacts
+            } else {
+                await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
             }
-
-            await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
         }
     }
 }
