@@ -73,6 +73,8 @@ namespace RecoveryAT
         /// <param name="lastName">User's last name.</param>
         /// <param name="email">User's email address.</param>
         /// <param name="hashedPassword">User's hashed password.</param>
+        /// <param name="schoolName">User's school name.</param>
+        /// <param name="schoolCode">User's school code.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
     }
