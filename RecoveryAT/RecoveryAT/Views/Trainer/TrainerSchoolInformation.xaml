@@ -17,8 +17,8 @@
 
                      <!-- Main Content -->
                      <StackLayout Padding="20"
-                                   VerticalOptions="Start"
-                                   Spacing="15"
+                                  VerticalOptions="Start"
+                                  Spacing="15"
                                   AbsoluteLayout.LayoutBounds="0.5, 0.1, AutoSize, AutoSize"
                                   AbsoluteLayout.LayoutFlags="PositionProportional">
 
@@ -40,10 +40,10 @@
 
                             <!-- School Entry in a Frame -->
                             <Frame BorderColor="LightGray"
-                                          CornerRadius="8"
-                                          Padding="5"
-                                          HasShadow="False"
-                                          Margin="0,0,0,15">
+                                   CornerRadius="8"
+                                   Padding="5"
+                                   HasShadow="False"
+                                   Margin="0,0,0,15">
                                    <Entry Placeholder=""
                                           x:Name="schoolNameEntry"
                                           BackgroundColor="White"
@@ -60,41 +60,81 @@
                                    HorizontalTextAlignment="Start"
                                    Margin="0,0,0,-10"/>
 
-                            <!-- StackLayout for the 5 Entry Boxes -->
-                            <StackLayout Orientation="Horizontal"
-                                         HorizontalOptions="FillAndExpand"
-                                         Spacing="20">
-                                <!-- Entry for each digit -->
-                                <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart1Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
-                                </Frame>
-                                <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart2Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
-                                </Frame>
-                                <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart3Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
-                                </Frame>
-                                <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart4Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
-                                </Frame>
-                                <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart5Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
-                                </Frame>
+                     <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="Center"
+                                                 Spacing="10">
+                                          <!-- Each Frame contains an Entry for code input -->
+                                          <Frame BorderColor="LightGray"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        WidthRequest="70"
+                                                        HeightRequest="70">
+                                                 <Entry x:Name="CodeEntry1"
+                                                               Placeholder=" "
+                                                               FontSize="26"
+                                                               HorizontalTextAlignment="Center"
+                                                               MaxLength="1"/>
+                                          </Frame>
+                                          <Frame BorderColor="LightGray"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        WidthRequest="70"
+                                                        HeightRequest="70">
+                                                 <Entry x:Name="CodeEntry2"
+                                                               Placeholder=" "
+                                                               FontSize="26"
+                                                               HorizontalTextAlignment="Center"
+                                                               MaxLength="1"/>
+                                          </Frame>
+                                          <Frame BorderColor="LightGray"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        WidthRequest="70"
+                                                        HeightRequest="70">
+                                                 <Entry x:Name="CodeEntry3"
+                                                               Placeholder=" "
+                                                               FontSize="26"
+                                                               HorizontalTextAlignment="Center"
+                                                               MaxLength="1"/>
+                                          </Frame>
+                                          <Frame BorderColor="LightGray"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        WidthRequest="70"
+                                                        HeightRequest="70">
+                                                 <Entry x:Name="CodeEntry4"
+                                                               Placeholder=" "
+                                                               FontSize="26"
+                                                               HorizontalTextAlignment="Center"
+                                                               MaxLength="1"/>
+                                          </Frame>
+                                          <Frame BorderColor="LightGray"
+                                                        CornerRadius="10"
+                                                        Padding="5"
+                                                        WidthRequest="70"
+                                                        HeightRequest="70">
+                                                 <Entry x:Name="CodeEntry5"
+                                                               Placeholder=" "
+                                                               FontSize="26"
+                                                               HorizontalTextAlignment="Center"
+                                                               MaxLength="1"/>
+                                          </Frame>
+                                   </StackLayout>
+
+                                   <!-- Create School Button -->
+                                   <Button Text="Create School"
+                                           x:Name="createSchoolButton"
+                                           BackgroundColor="#2196F3"
+                                           TextColor="White"
+                                           CornerRadius="12"
+                                           FontSize="23"
+                                           HeightRequest="50"
+                                           WidthRequest="350"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="End"
+                                           Margin="0,150,0,0"
+                                           Clicked="OnCreateSchoolClicked"/>
                             </StackLayout>
-                            <!-- Create School Button -->
-                            <Button Text="Create School"
-                                    x:Name="createSchoolButton"
-                                    BackgroundColor="#2196F3"
-                                    TextColor="White"
-                                    CornerRadius="12"
-                                    FontSize="23"
-                                    HeightRequest="50"
-                                    WidthRequest="350"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="End"
-                                    Margin="0,150,0,0"
-                                    Clicked="OnCreateSchoolClicked"/>
-                     </StackLayout>
               </AbsoluteLayout>
        </ContentPage.Content>
 </ContentPage>

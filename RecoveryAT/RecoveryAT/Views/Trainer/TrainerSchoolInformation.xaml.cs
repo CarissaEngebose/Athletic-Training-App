@@ -32,11 +32,11 @@ namespace RecoveryAT
         {
             // Retrieve school name and individual parts of the school code
             var schoolName = schoolNameEntry.Text;
-            var codePart1 = codePart1Entry.Text;
-            var codePart2 = codePart2Entry.Text;
-            var codePart3 = codePart3Entry.Text;
-            var codePart4 = codePart4Entry.Text;
-            var codePart5 = codePart5Entry.Text;
+            var codePart1 = CodeEntry1.Text;
+            var codePart2 = CodeEntry2.Text;
+            var codePart3 = CodeEntry3.Text;
+            var codePart4 = CodeEntry4.Text;
+            var codePart5 = CodeEntry5.Text;
 
             // Validate school name and code parts
             if (string.IsNullOrWhiteSpace(schoolName) || 
@@ -69,7 +69,7 @@ namespace RecoveryAT
             // Optionally, navigate to another page if account creation is successful
             if (resultMessage == "User account created successfully.")
             {
-                await Navigation.PushAsync(new TrainerHomeScreen());
+                await Navigation.PushModalAsync(new MainTabbedPage());
             }
         }
 
