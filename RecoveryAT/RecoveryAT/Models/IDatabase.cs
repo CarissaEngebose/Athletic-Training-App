@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Configuration;
-using Android.Database;
 
 namespace RecoveryAT
 {
@@ -66,5 +65,15 @@ namespace RecoveryAT
         /// <param name="form">The form with updated information.</param>
         /// <returns>A message saying if the form was updated in the database or not.</returns>
         string UpdateForm(AthleteForm form);
+
+        /// <summary>
+        /// Inserts a new user into the database.
+        /// </summary>
+        /// <param name="firstName">User's first name.</param>
+        /// <param name="lastName">User's last name.</param>
+        /// <param name="email">User's email address.</param>
+        /// <param name="hashedPassword">User's hashed password.</param>
+        /// <returns>A message indicating the result of the insertion.</returns>
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
     }
 }

@@ -54,7 +54,7 @@ namespace RecoveryAT
             try
             {
                 using var conn = new NpgsqlConnection(connString);
-                
+
                 conn.Open();
                 using var cmd = new NpgsqlCommand("SELECT school_code FROM users WHERE school_code = @schoolCode", conn);
                 cmd.Parameters.AddWithValue("@schoolCode", schoolCode); // set parameter for school code
@@ -426,6 +426,48 @@ namespace RecoveryAT
             }
 
             return "Error while updating athlete form.";
+        }
+
+        /// <summary>
+        /// Inserts a new user into the database.
+        /// </summary>
+        /// <param name="firstName">User's first name.</param>
+        /// <param name="lastName">User's last name.</param>
+        /// <param name="email">User's email address.</param>
+        /// <param name="hashedPassword">User's hashed password.</param>
+        /// <returns>A message indicating the result of the insertion.</returns>
+        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code)
+                VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode)", conn);
+
+                cmd.Parameters.AddWithValue("firstName", firstName);
+                cmd.Parameters.AddWithValue("lastName", lastName);
+                cmd.Parameters.AddWithValue("email", email);
+                cmd.Parameters.AddWithValue("hashedPassword", hashedPassword);
+                cmd.Parameters.AddWithValue("schoolName", schoolName);
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                return rowsAffected > 0 ? "User account created successfully." : "Failed to create user account.";
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return "An error occurred while creating the user account.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return "Error creating user account.";
+            }
         }
 
         /// <summary>

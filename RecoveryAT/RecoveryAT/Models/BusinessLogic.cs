@@ -178,5 +178,19 @@ namespace RecoveryAT
             return _database.UpdateForm(updatedForm);
         }
 
+        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode)
+        {
+            return _database.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode);
+        }
+
+        /// <summary>
+        /// Checks if a school code already exists in the database.
+        /// </summary>
+        /// <param name="schoolCode">The school code to check.</param>
+        /// <returns>True if the school code exists; otherwise, false.</returns>
+        internal bool SchoolCodeExists(string schoolCode)
+        {
+            return _database.IsValidSchoolCode(schoolCode);
+        }
     }
 }

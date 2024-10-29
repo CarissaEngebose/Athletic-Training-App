@@ -88,5 +88,16 @@ namespace RecoveryAT
                       string injuredArea, string injuredSide, string treatmentType,
                       string? athleteComments, string trainerComments, string status, DateTime date);
 
+        /// <summary>
+        /// Inserts a new user into the database.
+        /// </summary>
+        /// <param name="firstName">User's first name.</param>
+        /// <param name="lastName">User's last name.</param>
+        /// <param name="email">User's email address.</param>
+        /// <param name="hashedPassword">User's hashed password.</param>
+        /// <param name="schoolName">User's school name.</param>
+        /// <param name="schoolCode">User's school code.</param>
+        /// <returns>A message indicating the result of the insertion.</returns>
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
     }
 }

@@ -45,7 +45,7 @@
                                           HasShadow="False"
                                           Margin="0,0,0,15">
                                    <Entry Placeholder=""
-                                          x:Name="emailEntry"
+                                          x:Name="schoolNameEntry"
                                           BackgroundColor="White"
                                           FontSize="16"
                                           TextColor="Gray"/>
@@ -66,19 +66,19 @@
                                          Spacing="20">
                                 <!-- Entry for each digit -->
                                 <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="digit1" MaxLength="1" Keyboard="Numeric"/>
+                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart1Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
                                 </Frame>
                                 <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="digit2" MaxLength="1" Keyboard="Numeric"/>
+                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart2Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
                                 </Frame>
                                 <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="digit3" MaxLength="1" Keyboard="Numeric"/>
+                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart3Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
                                 </Frame>
                                 <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="digit4" MaxLength="1" Keyboard="Numeric"/>
+                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart4Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
                                 </Frame>
                                 <Frame BorderColor="LightGray" CornerRadius="8" Padding="5" HasShadow="False">
-                                    <Entry Placeholder="" WidthRequest="40" x:Name="digit5" MaxLength="1" Keyboard="Numeric"/>
+                                    <Entry Placeholder="" WidthRequest="40" x:Name="codePart5Entry" FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" Keyboard="Numeric"/>
                                 </Frame>
                             </StackLayout>
                             <!-- Create School Button -->

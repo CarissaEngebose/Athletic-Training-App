@@ -12,16 +12,43 @@ namespace RecoveryAT
 {
     public partial class UserCreateAccount : ContentPage
     {
+        private readonly BusinessLogic _businessLogic;
+
         public UserCreateAccount()
         {
-            InitializeComponent(); // This method is called to initialize the XAML UI components.
+            InitializeComponent();
+            _businessLogic = new BusinessLogic(new Database()); // Initialize BusinessLogic with Database
         }
 
-        // Event handler when the Create Account button is clicked
         private async void CreateAccountClicked(object sender, EventArgs e)
         {
-            // Navigate to the trainer school information page
-            await Navigation.PushAsync(new TrainerSchoolInformation());
+            // Retrieve user input
+            var firstName = firstNameEntry.Text;
+            var lastName = lastNameEntry.Text;
+            var email = emailEntry.Text;
+            var password = passwordEntry.Text;
+            var confirmPassword = confirmPasswordEntry.Text;
+
+            // Validate user input
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || 
+                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password) || 
+                string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                await DisplayAlert("Error", "Please fill all fields.", "OK");
+                return;
+            }
+
+            if (password != confirmPassword)
+            {
+                await DisplayAlert("Error", "Passwords do not match.", "OK");
+                return;
+            }
+
+            // Optionally, hash the password (replace with actual hashing)
+            var hashedPassword = "hashed_password_example"; // Replace with hashing code
+
+            // Navigate to TrainerSchoolInformation and pass the collected data
+            await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword));
         }
     }
 }
