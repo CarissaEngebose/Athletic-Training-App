@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {}
+    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {}
   },
   "projects": {
-    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {
+    "/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/RecoveryAT.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
+        "projectUniqueName": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
         "projectName": "RecoveryAT",
-        "projectPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
+        "projectPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/RecoveryAT.csproj",
         "packagesPath": "/Users/hannahhotchkiss/.nuget/packages/",
-        "outputPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/obj/",
+        "outputPath": "/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [

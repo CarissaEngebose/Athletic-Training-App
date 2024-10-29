@@ -12,125 +12,125 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RecoveryAT
-build_property.ProjectDir = /Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/
+build_property.ProjectDir = /Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/App.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.App.xaml
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/AppShell.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/AppShell.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.AppShell.xaml
 build_metadata.AdditionalFiles.TargetPath = AppShell.xaml
 build_metadata.AdditionalFiles.RelativePath = AppShell.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/MainTabbedPage.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/MainTabbedPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.MainTabbedPage.xaml
 build_metadata.AdditionalFiles.TargetPath = MainTabbedPage.xaml
 build_metadata.AdditionalFiles.RelativePath = MainTabbedPage.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Resources/Styles/Colors.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Resources/Styles/Colors.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Resources.Styles.Colors.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources/Styles/Colors.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources/Styles/Colors.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Resources/Styles/Styles.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Resources/Styles/Styles.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Resources.Styles.Styles.xaml
 build_metadata.AdditionalFiles.TargetPath = Resources/Styles/Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources/Styles/Styles.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteContacts.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthleteContacts.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteContacts.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthleteContacts.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthleteContacts.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformation.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformation.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteFormInformation.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthleteFormInformation.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthleteFormInformation.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformationEdit.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthleteFormInformationEdit.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteFormInformationEdit.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthleteFormInformationEdit.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthleteFormInformationEdit.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteInformation.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthleteInformation.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteInformation.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthleteInformation.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthleteInformation.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthletePastForms.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthletePastForms.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthletePastForms.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthletePastForms.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthletePastForms.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Athlete/AthleteStatuses.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Athlete/AthleteStatuses.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Athlete.AthleteStatuses.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Athlete/AthleteStatuses.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Athlete/AthleteStatuses.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Injury/InjuryFormReport.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Injury/InjuryFormReport.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Injury.InjuryFormReport.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Injury/InjuryFormReport.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Injury/InjuryFormReport.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Injury/InjuryStatistics.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Injury/InjuryStatistics.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Injury.InjuryStatistics.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Injury/InjuryStatistics.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Injury/InjuryStatistics.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/School/SchoolCodeScreen.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/School/SchoolCodeScreen.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.School.SchoolCodeScreen.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/School/SchoolCodeScreen.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/School/SchoolCodeScreen.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Trainer/TrainerHomeScreen.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Trainer/TrainerHomeScreen.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Trainer.TrainerHomeScreen.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Trainer/TrainerHomeScreen.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Trainer/TrainerHomeScreen.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Trainer/TrainerSchoolInformation.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Trainer/TrainerSchoolInformation.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Trainer.TrainerSchoolInformation.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Trainer/TrainerSchoolInformation.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Trainer/TrainerSchoolInformation.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserCreateAccount.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Users/UserCreateAccount.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserCreateAccount.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Users/UserCreateAccount.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Users/UserCreateAccount.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserLogin.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Users/UserLogin.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserLogin.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Users/UserLogin.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Users/UserLogin.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/UserProfile.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Users/UserProfile.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.UserProfile.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Users/UserProfile.xaml
 build_metadata.AdditionalFiles.RelativePath = Views/Users/UserProfile.xaml
 
-[/Users/hannahhotchkiss/Downloads/Athletic-Training-App/RecoveryAT/RecoveryAT/Views/Users/WelcomeScreen.xaml]
+[/Users/hannahhotchkiss/Downloads/Athletic-Training-App-1/RecoveryAT/RecoveryAT/Views/Users/WelcomeScreen.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = RecoveryAT.Views.Users.WelcomeScreen.xaml
 build_metadata.AdditionalFiles.TargetPath = Views/Users/WelcomeScreen.xaml
