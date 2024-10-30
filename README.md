@@ -5,6 +5,7 @@ Added navigation to all our app's screens. 😀
 Created an athlete form file to store all the information of an athlete.
 Created an athlete contact file to store all the information of an athlete's contact.
 Got SchoolCodeScreen connected and functional with the database.
-Got AthleteInjuryForm connected and functional with the database. 😀😀😀
-Got UserCreateAccount connected and functional with the database. 😀😀
+Got AthleteInjuryForm connected and functional with the database. 😀😀😀😀
+Got UserCreateAccount connected and functional with the database. 😀😀😀
 Got TrainerSchoolInformation connected and functional with the database.
+Got AthleteStatuses connected and functional with the database. 😀😀
