@@ -128,7 +128,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The key of the form to delete.</param>
         /// <returns>A message saying if the form was successfully deleted from the database or not.</returns>
-        public string DeleteForm(string formKey)
+        public string DeleteForm(long formKey)
         {
             return _database.DeleteForm(formKey);
         }
@@ -147,7 +147,7 @@ namespace RecoveryAT
         /// <param name="treatmentType">The type of treatment the athlete is receiving.</param>
         /// <param name="athleteComments">Comments from the athlete.</param>
         /// <returns>A message indicating if the form was successfully updated.</returns>
-        public string EditForm(string formKey, string schoolCode, string firstName, string lastName, int grade, string sport,
+        public string EditForm(long formKey, string schoolCode, string firstName, string lastName, int grade, string sport,
                       string injuredArea, string injuredSide, string treatmentType,
                       string? athleteComments, string trainerComments, string status, DateTime date)
         {

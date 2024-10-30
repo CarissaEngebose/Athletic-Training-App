@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace RecoveryAT
 {
@@ -43,7 +44,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The form key of the form to find.</param>
         /// <returns>The form object if exists; otherwise, null.</returns>
-        ObservableCollection<AthleteForm> SelectForm(string formKey);
+        ObservableCollection<AthleteForm> SelectForm(long formKey);
 
         /// <summary>
         /// Inserts a new form into the database.
@@ -57,7 +58,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The form key of the form to delete.</param>
         /// <returns>A message saying if the form was deleted from the database or not.</returns>
-        string DeleteForm(string formKey);
+        string DeleteForm(long formKey);
 
         /// <summary>
         /// Updates an existing form in the database.
@@ -78,6 +79,8 @@ namespace RecoveryAT
         /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
         ObservableCollection<AthleteForm> SearchAthletes(string query);
+
+        ObservableCollection<AthleteForm> SelectAllForms();
         
     }
 }

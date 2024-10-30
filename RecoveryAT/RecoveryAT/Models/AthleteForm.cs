@@ -13,7 +13,7 @@ namespace RecoveryAT
     public class AthleteForm
     {
         // Unique identifier for the athlete's form 
-        public string? FormKey { get; set; }
+        public long? FormKey { get; set; }
 
         // Identifier for the athlete's school code 
         public string SchoolCode { get; set; }
@@ -100,7 +100,7 @@ namespace RecoveryAT
         /// <param name="trainerComments">Comments from the trainer.</param>
         /// <param name="status">The current status of the athlete.</param>
         /// <param name="date">The date the form was submitted.</param>
-        public AthleteForm(string formKey, string schoolCode, string firstName, string lastName, int grade,
+        public AthleteForm(long formKey, string schoolCode, string firstName, string lastName, int grade,
                             string sport, string injuredArea, string injuredSide, string treatmentType,  DateTime date,
                             string? athleteComments = null, string? trainerComments = null, string? status = null)
         {

@@ -100,7 +100,7 @@ namespace RecoveryAT
                 // Loop through each row in the result and add it to the forms collection.
                 while (reader.Read())
                 {
-                    var formKey = reader.GetString(0); // unique identifier for the form
+                    var formKey = reader.GetInt64(0); // unique identifier for the form
                     var firstName = reader.GetString(2);
                     var lastName = reader.GetString(3);
                     var grade = reader.GetInt16(4);
@@ -171,7 +171,7 @@ namespace RecoveryAT
                 // Loop through each row in the result and add it to the forms collection.
                 while (reader.Read())
                 {
-                    var formKey = reader.GetString(0); // unique identifier for the form
+                    var formKey = reader.GetInt64(0); // unique identifier for the form
                     var firstName = reader.GetString(2);
                     var lastName = reader.GetString(3);
                     var grade = reader.GetInt16(4);
@@ -216,7 +216,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The key of the form to retrieve.</param>
         /// <returns>The form if it exists; otherwise, null.</returns>
-        public ObservableCollection<AthleteForm> SelectForm(string formKey)
+        public ObservableCollection<AthleteForm> SelectForm(long formKey)
         {
             try
             {
@@ -344,7 +344,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The key of the form to delete.</param>
         /// <returns>A message indicating whether the form was deleted from the database.</returns>
-        public string DeleteForm(string formKey)
+        public string DeleteForm(long formKey)
         {
             try
             {
@@ -478,17 +478,36 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
                 var cmd = new NpgsqlCommand(@"
-                    SELECT * FROM athlete_forms 
-                    WHERE LOWER(first_name) LIKE @query 
-                    OR LOWER(last_name) LIKE @query 
-                    OR LOWER(sport) LIKE @query 
-                    OR LOWER(injured_area) LIKE @query", conn);
-                cmd.Parameters.AddWithValue("query", $"%{query}%");
+            SELECT form_key, school_code, first_name, last_name, grade, sport,
+                injured_area, injured_side, treatment_type, athlete_comments,
+                trainer_comments, athlete_status, date_created
+            FROM athlete_forms 
+            WHERE LOWER(first_name) LIKE @query 
+            OR LOWER(last_name) LIKE @query 
+            OR LOWER(sport) LIKE @query 
+            OR LOWER(injured_area) LIKE @query", conn);
+
+                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
 
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    searchResults.Add(ReadAthleteForm(reader));
+                    var form = new AthleteForm(
+                        formKey: reader.GetInt64(0),
+                        schoolCode: reader.GetString(1),
+                        firstName: reader.GetString(2),
+                        lastName: reader.GetString(3),
+                        grade: reader.GetInt16(4),
+                        sport: reader.GetString(5),
+                        injuredArea: reader.GetString(6),
+                        injuredSide: reader.GetString(7),
+                        treatmentType: reader.GetString(8),
+                        athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
+                        trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
+                        status: reader.IsDBNull(11) ? null : reader.GetString(11),
+                        date: reader.GetDateTime(12)
+                    );
+                    searchResults.Add(form);
                 }
             }
             catch (Exception ex)
@@ -499,24 +518,53 @@ namespace RecoveryAT
             return searchResults;
         }
 
-        // Helper function to read AthleteForm from a reader
-        private AthleteForm ReadAthleteForm(NpgsqlDataReader reader)
+
+        public ObservableCollection<AthleteForm> SelectAllForms()
         {
-            return new AthleteForm(
-                formKey: reader.GetString(0),
-                schoolCode: reader.GetString(1),
-                firstName: reader.GetString(2),
-                lastName: reader.GetString(3),
-                grade: reader.GetInt16(4),
-                sport: reader.GetString(5),
-                injuredArea: reader.GetString(6),
-                injuredSide: reader.GetString(7),
-                treatmentType: reader.GetString(8),
-                date: reader.GetDateTime(12),
-                athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
-                trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
-                status: reader.IsDBNull(11) ? null : reader.GetString(11)
-            );
+            forms.Clear(); // Clear the local collection
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                using var cmd = new NpgsqlCommand(@"
+            SELECT form_key, school_code, first_name, last_name, grade, sport,
+                injured_area, injured_side, treatment_type, athlete_comments,
+                trainer_comments, athlete_status, date_created
+            FROM athlete_forms", conn);
+
+                using var reader = cmd.ExecuteReader();
+
+                // Loop through each row in the result and add it to the forms collection.
+                while (reader.Read())
+                {
+                    var form = new AthleteForm(
+                        formKey: reader.GetInt64(0),              // form_key as INT8 -> GetInt64
+                        schoolCode: reader.GetString(1),          // school_code as VARCHAR -> GetString
+                        firstName: reader.GetString(2),           // first_name as VARCHAR -> GetString
+                        lastName: reader.GetString(3),            // last_name as VARCHAR -> GetString
+                        grade: reader.GetInt16(4),                // grade as INT2 -> GetInt16
+                        sport: reader.GetString(5),               // sport as VARCHAR -> GetString
+                        injuredArea: reader.GetString(6),         // injured_area as VARCHAR -> GetString
+                        injuredSide: reader.GetString(7),         // injured_side as VARCHAR -> GetString
+                        treatmentType: reader.GetString(8),       // treatment_type as VARCHAR -> GetString
+                        athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9), // Nullable STRING
+                        trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10), // Nullable STRING
+                        status: reader.IsDBNull(11) ? null : reader.GetString(11), // Nullable STRING (athlete_status)
+                        date: reader.GetDateTime(12)              // Assuming date_created is a TIMESTAMP or DATE -> GetDateTime
+                    );
+                    forms.Add(form); // Add to the collection
+                }
+
+                Console.WriteLine($"Number of athletes retrieved: {forms.Count}");
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                // Handle any database-specific errors.
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return forms;
         }
 
         /// <summary>

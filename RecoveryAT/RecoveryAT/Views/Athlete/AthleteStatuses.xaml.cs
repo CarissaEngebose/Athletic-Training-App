@@ -8,33 +8,137 @@
     showing of example athletes and status took some time to figure out.
 */
 
+using System;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {
     public partial class AthleteStatuses : FlyoutPage
     {
+        private readonly Database _database;
+
         public ObservableCollection<AthleteForm> AthleteList { get; set; }
+        public ObservableCollection<string> StatusOptions { get; set; }
+
+        private string _selectedStatus;
+        public string SelectedStatus
+        {
+            get => _selectedStatus;
+            set
+            {
+                if (_selectedStatus != value)
+                {
+                    _selectedStatus = value;
+                    OnPropertyChanged(nameof(SelectedStatus));
+                    FilterAndSortAthletes(); // Update list when status changes
+                }
+            }
+        }
 
         public AthleteStatuses()
         {
             InitializeComponent();
 
-            // Initialize the hardcoded data
-            AthleteList = new ObservableCollection<AthleteForm>
+            _database = new Database();
+
+            AthleteList = new ObservableCollection<AthleteForm>();
+            StatusOptions = new ObservableCollection<string>
             {
-                new AthleteForm("001", "12345", "Hannah", "Smith", 12, "Basketball", "Knee", "Left", "Physical Therapy", 
-                                new DateTime(2024, 10, 1), "Knee pain during practice", "Use knee brace", "Limited Contact"),
-                new AthleteForm("002", "12345", "Jake", "Brown", 11, "Soccer", "Ankle", "Right", "Ice Pack",
-                                new DateTime(2024, 10, 2), "Rolled ankle in game", "Ice daily", "Non-Contact"),
-                new AthleteForm("003", "12345", "Mia", "Jones", 10, "Volleyball", "Shoulder", "Right", "Strength Training",
-                                new DateTime(2024, 10, 3), "Shoulder strain from serving", "Rest for a week", "Full Contact")
+                "All", // Add an option to show all athletes
+                "Full Contact",
+                "Limited Contact",
+                "Activity as Tolerated",
+                "Total Rest"
             };
 
-            // Set the BindingContext and notify the UI of data changes
+            // Load all athletes initially
+            LoadAthletes();
+
             BindingContext = this;
             OnPropertyChanged(nameof(AthleteList));
+        }
+
+        private void LoadAthletes()
+        {
+            try
+            {
+                // Load all athletes from the database
+                var athletes = _database.SelectAllForms(); // This returns a List<AthleteForm>
+
+                AthleteList.Clear(); // Clear the existing ObservableCollection
+                foreach (var athlete in athletes)
+                {
+                    AthleteList.Add(athlete); // Add each item from the List to the ObservableCollection
+                }
+                OnPropertyChanged(nameof(AthleteList));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading athletes: {ex.Message}");
+            }
+        }
+
+        private void FilterAndSortAthletes()
+        {
+            try
+            {
+                // Convert athletes to a List to perform LINQ filtering, if needed
+                var athletes = _database.SelectAllForms().ToList();
+
+                // Filter by selected status if it's not "All"
+                if (SelectedStatus != "All" && !string.IsNullOrEmpty(SelectedStatus))
+                {
+                    athletes = athletes.Where(a => a.Status == SelectedStatus).ToList();
+                }
+
+                // Convert the filtered list back to ObservableCollection for data binding
+                AthleteList.Clear();
+                foreach (var athlete in athletes)
+                {
+                    AthleteList.Add(athlete);
+                }
+                OnPropertyChanged(nameof(AthleteList));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error filtering athletes: {ex.Message}");
+            }
+        }
+
+        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            // If the search bar is empty, reload or filter athletes based on status
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                FilterAndSortAthletes();
+            }
+            else
+            {
+                // Perform search with the new text
+                SearchAthletes(e.NewTextValue);
+            }
+        }
+
+        private void SearchAthletes(string query)
+        {
+            try
+            {
+                // Call the search method in the Database class
+                var searchResults = _database.SearchAthletes(query);
+
+                AthleteList.Clear();
+                foreach (var athlete in searchResults)
+                {
+                    AthleteList.Add(athlete);
+                }
+                OnPropertyChanged(nameof(AthleteList));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error searching athletes: {ex.Message}");
+            }
         }
     }
 }
