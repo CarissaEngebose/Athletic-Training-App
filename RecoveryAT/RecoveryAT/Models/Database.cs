@@ -87,14 +87,14 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
                 using var cmd = new NpgsqlCommand(@"
-                    SELECT form_key, schoolCode, first_name, last_name, grade, sport,
+                    SELECT form_key, school_code, first_name, last_name, grade, sport,
                         injured_area, injured_side, treatment_type, athlete_comments,
                         trainer_comments, athlete_status, date_created
                     FROM athlete_forms
-                    WHERE school_code = @schoolCode",
+                    WHERE school_code = @school_code",
                     conn
                 );
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode); // Set the parameter value.
+                cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the parameter value.
                 using var reader = cmd.ExecuteReader();
 
                 // Loop through each row in the result and add it to the forms collection.
@@ -156,15 +156,15 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
                 using var cmd = new NpgsqlCommand(@"
-                    SELECT form_key, schoolCode, first_name, last_name, grade, sport,
+                    SELECT form_key, school_code, first_name, last_name, grade, sport,
                         injured_area, injured_side, treatment_type, athlete_comments,
                         trainer_comments, athlete_status, date_created
                     FROM athlete_forms
-                    WHERE school_code = @schoolCode
+                    WHERE school_code = @school_code
                     AND date_created = @dateCreated",
                     conn
                 );
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode); // Set the parameter value.
+                cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the parameter value.
                 cmd.Parameters.AddWithValue("dateCreated", dateCreated);
                 using var reader = cmd.ExecuteReader();
 
@@ -222,7 +222,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-                using var cmd = new NpgsqlCommand("SELECT form_key, schoolCode, first_name, last_name, grade, sport, injured_area, injured_side, treatment_type, athlete_comments, trainer_comments, athlete_status, date_created FROM athlete_forms WHERE form_key = @formKey", conn);
+                using var cmd = new NpgsqlCommand("SELECT form_key, school_code, first_name, last_name, grade, sport, injured_area, injured_side, treatment_type, athlete_comments, trainer_comments, athlete_status, date_created FROM athlete_forms WHERE form_key = @formKey", conn);
                 cmd.Parameters.AddWithValue("formKey", formKey); // Set the parameter value.
                 using var reader = cmd.ExecuteReader();
 
@@ -291,7 +291,7 @@ namespace RecoveryAT
                             (school_code, first_name, last_name, grade, sport, injured_area, injured_side, 
                             treatment_type, athlete_comments, trainer_comments, athlete_status, date_created) 
                             VALUES 
-                            (@schoolCode, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
+                            (@school_code, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
                             @treatmentType, @athleteComments, @trainerComments, @status, @dateCreated)"
                 };
 
@@ -470,6 +470,55 @@ namespace RecoveryAT
             }
         }
 
+        public ObservableCollection<AthleteForm> SearchAthletes(string query)
+        {
+            var searchResults = new ObservableCollection<AthleteForm>();
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                var cmd = new NpgsqlCommand(@"
+                    SELECT * FROM athlete_forms 
+                    WHERE LOWER(first_name) LIKE @query 
+                    OR LOWER(last_name) LIKE @query 
+                    OR LOWER(sport) LIKE @query 
+                    OR LOWER(injured_area) LIKE @query", conn);
+                cmd.Parameters.AddWithValue("query", $"%{query}%");
+
+                using var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    searchResults.Add(ReadAthleteForm(reader));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return searchResults;
+        }
+
+        // Helper function to read AthleteForm from a reader
+        private AthleteForm ReadAthleteForm(NpgsqlDataReader reader)
+        {
+            return new AthleteForm(
+                formKey: reader.GetString(0),
+                schoolCode: reader.GetString(1),
+                firstName: reader.GetString(2),
+                lastName: reader.GetString(3),
+                grade: reader.GetInt16(4),
+                sport: reader.GetString(5),
+                injuredArea: reader.GetString(6),
+                injuredSide: reader.GetString(7),
+                treatmentType: reader.GetString(8),
+                date: reader.GetDateTime(12),
+                athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
+                trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
+                status: reader.IsDBNull(11) ? null : reader.GetString(11)
+            );
+        }
+
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>
@@ -490,4 +539,5 @@ namespace RecoveryAT
         }
 
     }
+
 }

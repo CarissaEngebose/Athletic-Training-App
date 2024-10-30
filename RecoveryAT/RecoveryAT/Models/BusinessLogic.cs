@@ -192,5 +192,6 @@ namespace RecoveryAT
         {
             return _database.IsValidSchoolCode(schoolCode);
         }
+
     }
 }

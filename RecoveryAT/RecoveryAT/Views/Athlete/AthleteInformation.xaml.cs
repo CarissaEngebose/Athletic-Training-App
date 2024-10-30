@@ -7,24 +7,25 @@
                 It was hard for me to implement, but my group was able to help.
 */
 
-using Microsoft.Maui.Controls; // Import necessary namespaces for MAUI controls
-using System.Collections.ObjectModel; // Import for ObservableCollection
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {
-    // AthleteInformation class inherits from FlyoutPage to create a page with a flyout menu
     public partial class AthleteInformation : FlyoutPage
     {
-
-        // Public property to store the list of athletes, used for data binding with the CollectionView
         public ObservableCollection<Athlete> AthleteList { get; set; }
+        
+        public ICommand NavigateToPastFormsCommand { get; }
+        public ICommand NavigateToStatisticsCommand { get; }
+        public ICommand NavigateToAthleteStatusesCommand { get; }
+        public ICommand NavigateToHomeCommand { get; }
 
-        // Constructor for AthleteInformation
         public AthleteInformation()
         {
-            InitializeComponent(); // Initializes the XAML components
+            InitializeComponent();
 
-            // Initialize the AthleteList with sample data
             AthleteList = new ObservableCollection<Athlete>
             {
                 new Athlete { Date = "2024-10-01", Name = "John Smith", Relationship = "Mother", PhoneNumber = "(123) 456-7890", FormNumber = "12" },
@@ -32,23 +33,46 @@ namespace RecoveryAT
                 new Athlete { Date = "2024-09-15", Name = "Marcus Rye", Relationship = "Guardian", PhoneNumber = "(111) 222-3333", FormNumber = "9" }
             };
 
-            BindingContext = this; // Set the BindingContext to the current instance for data binding
+            // Initialize Commands
+            NavigateToHomeCommand = new Command(NavigateToHome);
+            NavigateToPastFormsCommand = new Command(NavigateToPastForms);
+            NavigateToStatisticsCommand = new Command(NavigateToStatistics);
+            NavigateToAthleteStatusesCommand = new Command(NavigateToAthleteStatuses);
+
+            BindingContext = this;
         }
 
-        // Event handler to display the flyout menu when a menu button is clicked
-        private void OnMenuButtonClicked(object sender, EventArgs e)
+        private void NavigateToHome(object obj)
         {
-            IsPresented = true; // Opens the flyout menu
+            Detail = new NavigationPage(new MainTabbedPage());
+            IsPresented = false;
+        }
+
+        private async void NavigateToPastForms()
+        {
+            Detail = new NavigationPage(new AthletePastForms());
+            IsPresented = false; // Hide flyout
+        }
+
+        private async void NavigateToStatistics()
+        {
+            Detail = new NavigationPage(new InjuryStatistics());
+            IsPresented = false;
+        }
+
+        private async void NavigateToAthleteStatuses()
+        {
+            Detail = new NavigationPage(new AthleteStatuses());
+            IsPresented = false;
         }
     }
 
-    // The Athlete class defines the structure for each form displayed in the CollectionView
     public class Athlete
     {
-        public string Date { get; set; } // Date when the form was created
-        public string Name { get; set; } // Athlete's name
-        public string Relationship { get; set; } // Sport the athlete plays
-        public string PhoneNumber { get; set; } // Type of injury the athlete has
-        public string FormNumber { get; set; } // Unique identifier for the form
+        public string Date { get; set; }
+        public string Name { get; set; }
+        public string Relationship { get; set; }
+        public string PhoneNumber { get; set; }
+        public string FormNumber { get; set; }
     }
 }

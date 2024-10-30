@@ -9,33 +9,32 @@
 */
 
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 
 namespace RecoveryAT
 {
     public partial class AthleteStatuses : FlyoutPage
     {
-        // The collection of athletes that will be displayed in the CollectionView
         public ObservableCollection<AthleteForm> AthleteList { get; set; }
 
-        // Constructor for the page
         public AthleteStatuses()
         {
             InitializeComponent();
 
-            // Create some fake data to simulate what would come from a database
+            // Initialize the hardcoded data
             AthleteList = new ObservableCollection<AthleteForm>
             {
-                new AthleteForm("John", "Smith", "Soccer", "Ankle", "Total Rest"),
-                new AthleteForm("Reece", "Thomas", "Tennis", "Shoulder", "Limited Contact"),
-                new AthleteForm("Marcus", "Rye", "Football", "Knee", "Activity as Tolerated"),
-                new AthleteForm("Sophia", "Lee", "Basketball", "Wrist", "Total Rest"),
-                new AthleteForm("Lucas", "Brown", "Soccer", "Back", "Limited Contact")
+                new AthleteForm("001", "12345", "Hannah", "Smith", 12, "Basketball", "Knee", "Left", "Physical Therapy", 
+                                new DateTime(2024, 10, 1), "Knee pain during practice", "Use knee brace", "Limited Contact"),
+                new AthleteForm("002", "12345", "Jake", "Brown", 11, "Soccer", "Ankle", "Right", "Ice Pack",
+                                new DateTime(2024, 10, 2), "Rolled ankle in game", "Ice daily", "Non-Contact"),
+                new AthleteForm("003", "12345", "Mia", "Jones", 10, "Volleyball", "Shoulder", "Right", "Strength Training",
+                                new DateTime(2024, 10, 3), "Shoulder strain from serving", "Rest for a week", "Full Contact")
             };
 
-
-            // Set the page's BindingContext to this class, so the XAML can access AthleteList
-            this.BindingContext = this;
+            // Set the BindingContext and notify the UI of data changes
+            BindingContext = this;
+            OnPropertyChanged(nameof(AthleteList));
         }
-    }    
-
+    }
 }
