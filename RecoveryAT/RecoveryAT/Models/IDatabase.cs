@@ -81,6 +81,10 @@ namespace RecoveryAT
         ObservableCollection<AthleteForm> SearchAthletes(string query);
 
         ObservableCollection<AthleteForm> SelectAllForms();
+
+        ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
+        
+        long GetLastInsertedFormKey(string schoolCode);
         
     }
 }

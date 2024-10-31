@@ -99,5 +99,7 @@ namespace RecoveryAT
         /// <param name="schoolCode">User's school code.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
+    
+        long GetLastInsertedFormKey(string schoolCode);
     }
 }

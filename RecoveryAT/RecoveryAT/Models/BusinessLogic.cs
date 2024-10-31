@@ -183,6 +183,11 @@ namespace RecoveryAT
             return _database.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode);
         }
 
+        public long GetLastInsertedFormKey(string schoolCode)
+        {
+            return _database.GetLastInsertedFormKey(schoolCode);
+        }
+
         /// <summary>
         /// Checks if a school code already exists in the database.
         /// </summary>

@@ -74,8 +74,13 @@ namespace RecoveryAT
         }
 
         // if the result message is successful, clear all of the form entries
+        // Inside the InjuryFormReport class
+
         private async void FormSubmissionIsSuccessful()
         {
+            // Assuming AddForm returns a formKey after inserting the form into the database
+            long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);  // Fetch the last inserted formKey
+
             // Clear the form if submission was successful
             FirstNameEntry.Text = string.Empty;
             LastNameEntry.Text = string.Empty;
@@ -88,10 +93,13 @@ namespace RecoveryAT
 
             if (_isEvalSelected)
             {
-                await Navigation.PushAsync(new AthleteContacts()); // navigate to the athlete contacts
-            } else {
+                await Navigation.PushAsync(new AthleteContacts(formKey)); // Pass formKey to AthleteContacts
+            }
+            else
+            {
                 await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
             }
         }
+
     }
 }

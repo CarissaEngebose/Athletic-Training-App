@@ -291,7 +291,7 @@ namespace RecoveryAT
                             (school_code, first_name, last_name, grade, sport, injured_area, injured_side, 
                             treatment_type, athlete_comments, trainer_comments, athlete_status, date_created) 
                             VALUES 
-                            (@school_code, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
+                            (@schoolCode, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
                             @treatmentType, @athleteComments, @trainerComments, @status, @dateCreated)"
                 };
 
@@ -565,6 +565,148 @@ namespace RecoveryAT
             }
 
             return forms;
+        }
+
+        /// <summary>
+        /// Inserts a new contact into the athlete_contacts table.
+        /// </summary>
+        /// <param name="formKey">The form key associated with the athlete form.</param>
+        /// <param name="contactType">The type of contact (e.g., "Parent", "Coach").</param>
+        /// <param name="phoneNumber">The phone number of the contact.</param>
+        /// <returns>A message indicating the result of the insertion.</returns>
+        public string InsertContact(long formKey, string contactType, string phoneNumber)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                INSERT INTO public.athlete_contacts (form_key, contact_type, phone_number)
+                VALUES (@formKey, @contactType, @phoneNumber)", conn);
+
+                cmd.Parameters.AddWithValue("formKey", formKey);
+                cmd.Parameters.AddWithValue("contactType", contactType);
+                cmd.Parameters.AddWithValue("phoneNumber", phoneNumber);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                return rowsAffected > 0 ? "Contact added successfully." : "Failed to add contact.";
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return "An error occurred while adding the contact.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return "Error adding contact.";
+            }
+        }
+
+        /// <summary>
+        /// Retrieves all contacts associated with a specific form key.
+        /// </summary>
+        /// <param name="formKey">The form key associated with the athlete form.</param>
+        /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
+        public ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey)
+        {
+            var contacts = new ObservableCollection<AthleteContact>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                SELECT contact_id, form_key, contact_type, phone_number
+                FROM public.athlete_contacts
+                WHERE form_key = @formKey", conn);
+
+                cmd.Parameters.AddWithValue("formKey", formKey);
+
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var contact = new AthleteContact(
+                        reader.GetInt64(0),     // contact_id
+                        reader.GetInt64(1),     // form_key
+                        reader.GetString(2),    // contact_type
+                        reader.GetString(3)     // phone_number
+                    );
+                    contacts.Add(contact);
+                }
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return contacts;
+        }
+
+        /// <summary>
+        /// Deletes a contact by contact ID.
+        /// </summary>
+        /// <param name="contactID">The contact ID to delete.</param>
+        /// <returns>A message indicating whether the contact was deleted successfully.</returns>
+        public string DeleteContact(long contactID)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand("DELETE FROM public.athlete_contacts WHERE contact_id = @contactID", conn);
+                cmd.Parameters.AddWithValue("contactID", contactID);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0 ? "Contact deleted successfully." : "Contact not found.";
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return $"Error while deleting contact: {ex.Message}";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return $"An unexpected error occurred while deleting the contact: {ex.Message}";
+            }
+        }
+
+        public long GetLastInsertedFormKey(string schoolCode)
+        {
+            long lastFormKey = 0;
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                SELECT form_key 
+                FROM public.athlete_forms
+                WHERE school_code = @schoolCode
+                ORDER BY date_created DESC
+                LIMIT 1", conn);
+
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+
+                var result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    lastFormKey = (long)result;
+                }
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return lastFormKey;
         }
 
         /// <summary>

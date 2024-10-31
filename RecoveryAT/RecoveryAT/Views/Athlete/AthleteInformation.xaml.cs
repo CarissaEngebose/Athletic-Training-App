@@ -44,7 +44,7 @@ namespace RecoveryAT
 
         private void NavigateToHome(object obj)
         {
-            Detail = new NavigationPage(new MainTabbedPage());
+            Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
             IsPresented = false;
         }
 
