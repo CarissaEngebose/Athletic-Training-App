@@ -16,4 +16,8 @@ public partial class AthleteFormInformation : ContentPage
     {
         InitializeComponent(); // This method initializes the XAML components for this screen.
     }
+
+    public async void OnEditClicked(object sender, EventArgs e) {
+        await Navigation.PushAsync(new AthleteFormInformationEdit());
+    }
 }

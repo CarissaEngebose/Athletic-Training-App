@@ -10,8 +10,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformation"
-             Title="AthleteFormInformation"
-             BackgroundColor="#F9F9F9"> <!-- Light background for readability -->
+             Title=""
+             BackgroundColor="White"> 
 
     <!-- ScrollView allows content to be scrollable on smaller screens -->
     <ScrollView>
@@ -25,19 +25,13 @@
                     <ColumnDefinition Width="*"/> <!-- Second column takes 50% of the space -->
                 </Grid.ColumnDefinitions>
 
-                <!-- Back button aligned to the left -->
-                <Button HorizontalOptions="Start"
-                        ImageSource="back.png"  
-                        BackgroundColor="Transparent"
-                        HeightRequest="50"
-                        Grid.Column="0"/> <!-- Back button icon -->
-
                 <!-- Edit button aligned to the right -->
                 <Button HorizontalOptions="End"
                         ImageSource="edit.png" 
                         BackgroundColor="Transparent"
                         HeightRequest="50"
-                        Grid.Column="1"/>
+                        Grid.Column="1"
+                        Clicked="OnEditClicked"/>
             </Grid>
 
             <!-- Displaying the student's name in bold and centered -->
