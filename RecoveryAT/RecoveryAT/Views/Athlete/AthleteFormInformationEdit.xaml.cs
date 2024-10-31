@@ -17,4 +17,8 @@ public partial class AthleteFormInformationEdit : ContentPage
     {
         InitializeComponent(); // Loads and initializes the UI components defined in the XAML file.
     }
+
+    public async void OnSaveChangesClicked(object sender, EventArgs e) {
+        await Navigation.PushModalAsync(new MainTabbedPage());
+    }
 }

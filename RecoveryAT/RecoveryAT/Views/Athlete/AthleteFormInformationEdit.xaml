@@ -11,8 +11,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformationEdit"
-             Title="AthleteFormInformationEdit"
-             BackgroundColor="#F9F9F9"> <!-- Light background for readability -->
+             Title=""
+             BackgroundColor="White">
 
     <Grid>
         <!-- Grid layout with two rows: content and save button -->
@@ -24,12 +24,6 @@
         <!-- Scrollable Content Section in the first row -->
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="10"> <!-- Arranges elements vertically -->
-
-                <!-- Back Button -->
-                <Button HorizontalOptions="Start"
-                        ImageSource="back.png"  
-                        BackgroundColor="Transparent"
-                        HeightRequest="50" /> <!-- Back icon -->
 
                 <!-- Student Name Label -->
                 <Label FontSize="35" 
@@ -125,6 +119,7 @@
                 WidthRequest="250"
                 HorizontalOptions="Center"  
                 VerticalOptions="End" 
-                Margin="10,150"/>  
+                Margin="10,150"
+                Clicked="OnSaveChangesClicked"/>  
     </Grid>
 </ContentPage>
