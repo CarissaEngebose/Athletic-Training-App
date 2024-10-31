@@ -18,26 +18,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Circle Design at the Top -->
-        <Grid BackgroundColor="White" Grid.Row="0" Margin="0,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Ellipse Fill="#FF74C0FF"
-                     WidthRequest="500"
-                     HeightRequest="350"
-                     HorizontalOptions="Center"
-                     VerticalOptions="End"
-                     Margin="0,-170,0,0"/>
-            <Ellipse Fill="#FF41A8FD"
-                     WidthRequest="300"
-                     HeightRequest="200"
-                     HorizontalOptions="Center"
-                     VerticalOptions="End"
-                     Margin="0,-150,0,50"/>
-        </Grid>
-
         <!-- Main Content -->
         <VerticalStackLayout Grid.Row="1" Margin="20,40,20,20" Spacing="20">
             
@@ -70,7 +50,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Column="1" 
                        Text="Forgot Password?" 
-                       TextColor="BlueViolet" 
+                       TextColor="Blue" 
                        VerticalOptions="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
@@ -83,9 +63,9 @@
 
             <!-- Login Button -->
             <Button Text="Log In" 
-                    Margin="0,20,0,20" 
+                    Margin="0,20,0,60" 
                     WidthRequest="275" 
-                    BackgroundColor="BlueViolet" 
+                    BackgroundColor="Blue" 
                     TextColor="White" 
                     CornerRadius="10"
                     HorizontalOptions="Center"
@@ -101,7 +81,7 @@
                        VerticalOptions="Center"/>
                 <Label Grid.Column="1" 
                        Text="Create an account" 
-                       TextColor="BlueViolet" 
+                       TextColor="Blue" 
                        VerticalOptions="Center">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnCreateAccountTapped" />
