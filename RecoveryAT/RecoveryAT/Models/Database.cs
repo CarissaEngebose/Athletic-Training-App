@@ -291,7 +291,7 @@ namespace RecoveryAT
                             (school_code, first_name, last_name, grade, sport, injured_area, injured_side, 
                             treatment_type, athlete_comments, trainer_comments, athlete_status, date_created) 
                             VALUES 
-                            (@school_code, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
+                            (@schoolCode, @firstName, @lastName, @grade, @sport, @injuredArea, @injuredSide, 
                             @treatmentType, @athleteComments, @trainerComments, @status, @dateCreated)"
                 };
 
