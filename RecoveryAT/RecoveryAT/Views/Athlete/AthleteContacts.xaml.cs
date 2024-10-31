@@ -22,6 +22,9 @@ namespace RecoveryAT
         private ObservableCollection<AthleteContact> _contacts;
         private long _formKey;
 
+        private AuthenticationService authService;
+
+
         // Property to bind the ListView to
         public ObservableCollection<AthleteContact> Contacts
         {
@@ -36,6 +39,8 @@ namespace RecoveryAT
         public AthleteContacts(long formKey)
         {
             InitializeComponent();
+            authService = ((App)Application.Current).AuthService;
+
             _database = new Database();
             _formKey = formKey;
 
@@ -108,10 +113,12 @@ namespace RecoveryAT
         {
             bool isContactAdded = await OnAddContactClicked(); // Attempt to add contact
 
-            // Only navigate to TrainerHomeScreen if contact addition was successful
-            if (isContactAdded)
+            // Only navigate to TrainerHomeScreen if contact addition was successful and the user is logged in
+            if (isContactAdded && authService.IsLoggedIn)
             {
                 await Navigation.PushAsync(new MainTabbedPage());
+            } else {
+                await Navigation.PushModalAsync(new WelcomeScreen());
             }
         }
 
