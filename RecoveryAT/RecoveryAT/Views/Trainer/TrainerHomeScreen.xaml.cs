@@ -23,13 +23,18 @@ namespace RecoveryAT
         public TrainerHomeScreen()
         {
             InitializeComponent();
-            
+
             // Initialize the ViewModel and bind it to the page's BindingContext
             ViewModel = new CalendarViewModel();
             BindingContext = ViewModel;
 
             // Load the calendar data for the current year
             ViewModel.LoadCalendarData(DateTime.Now.Year);
+        }
+        
+        public async void OnFrameTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AthleteFormInformation());
         }
     }
 

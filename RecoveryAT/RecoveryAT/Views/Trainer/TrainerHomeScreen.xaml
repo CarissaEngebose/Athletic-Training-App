@@ -92,11 +92,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="2"
-                            Margin="2"
+                           Margin="2"
                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
+                           VerticalOptions="Center"
                            CornerRadius="8"
-                            HasShadow="False">
+                           HasShadow="False">
                         <!-- Default neutral color -->
                         <Frame.Triggers>
                             <DataTrigger TargetType="Frame"
@@ -108,12 +108,12 @@
                             </DataTrigger>
                         </Frame.Triggers>
                         <StackLayout Orientation="Vertical"
-                                HorizontalOptions="Center">
+                                     HorizontalOptions="Center">
                             <Label Text="{Binding DayOfWeek}"
-                                    FontSize="16"
-                                    FontAttributes="Bold"/>
+                                   FontSize="16"
+                                   FontAttributes="Bold"/>
                             <Label Text="{Binding Day}"
-                                    FontSize="24"/>
+                                   FontSize="24"/>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Source={x:Reference CalendarCollectionView}, Path=BindingContext.DaySelectedCommand}"
@@ -131,6 +131,9 @@
                HasShadow="True"
                Grid.Row="3"
                BackgroundColor="LightSkyBlue">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFrameTapped"/>
+            </Frame.GestureRecognizers>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
