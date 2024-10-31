@@ -38,7 +38,7 @@ namespace RecoveryAT
             if (confirmLogout)
             {
                 authService.Logout(); // log the user out
-                await Navigation.PushAsync(new UserLogin());// navigate back to the log in screen
+                await Navigation.PushModalAsync(new UserLogin());// navigate back to the log in screen
             }
         }
 
