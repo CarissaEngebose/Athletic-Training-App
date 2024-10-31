@@ -9,7 +9,12 @@ public partial class App : Application
 		InitializeComponent();
         AuthService = new AuthenticationService(); // creates an authentication service instance
 
-        MainPage = new NavigationPage(new WelcomeScreen());
+        var navPage = new NavigationPage(new WelcomeScreen())
+        {
+            BarTextColor = Colors.Blue 
+        };
+
+        MainPage = navPage;
 
 	}
 }
