@@ -41,5 +41,15 @@ namespace RecoveryAT
                 await Navigation.PushAsync(new UserLogin());// navigate back to the log in screen
             }
         }
+
+        private async void OnDeleteAccountClicked(object sender, EventArgs e)
+        {
+            // TODO: Implement actual logout logic (e.g., clear user session or navigate to login page)
+            bool confirmDelete = await DisplayAlert("Delete Account", "Are you sure you want to delete your account?", "Yes", "No");
+            if (confirmDelete)
+            {
+                // delete the user from the database
+            }
+        }
     }
 }
