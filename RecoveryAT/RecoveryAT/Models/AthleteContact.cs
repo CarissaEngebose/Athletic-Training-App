@@ -12,10 +12,10 @@ namespace RecoveryAT
     public class AthleteContact
     {
         // Unique identifier for the athlete's form 
-        public string ContactID { get; set; }
+        public long ContactID { get; set; }
 
         // Unique identifier for the athlete's form 
-        public string FormKey { get; set; }
+        public long FormKey { get; set; }
 
         // Identifier for the contact's relationship to the athlete
         public string ContactType { get; set; }
@@ -30,7 +30,7 @@ namespace RecoveryAT
         /// <param name="formKey">The identifier of the athlete's form.</param>
         /// <param name="contactType">The relationship of the contact to the athlete.</param>
         /// <param name="phoneNumber">The phone number of the contact.</param>
-        public AthleteContact(string contactID, string formKey, string contactType, string phoneNumber)
+        public AthleteContact(long contactID, long formKey, string contactType, string phoneNumber)
         {
             ContactID = contactID;
             FormKey = formKey;
