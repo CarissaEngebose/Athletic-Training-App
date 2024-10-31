@@ -10,6 +10,8 @@
 */
 
 using System;
+using Microcharts;
+using SkiaSharp;
 using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
@@ -17,6 +19,40 @@ namespace RecoveryAT
     // The InjuryStatistics class represents the page for displaying injury statistics
     public partial class InjuryStatistics : ContentPage
     {
+        ChartEntry[] entries = new[]
+        {
+            new ChartEntry(32)
+            {
+                Label = "Ankle",
+                ValueLabel = "32%",
+                Color = SKColor.Parse("#4A90E2")
+            },
+            new ChartEntry(12)
+            {
+                Label = "Shoulder",
+                ValueLabel = "12%",
+                Color = SKColor.Parse("#7ED321")
+            },
+            new ChartEntry(15)
+            {
+                Label = "Knee",
+                ValueLabel = "15%",
+                Color = SKColor.Parse("#F5A623")
+            },
+            new ChartEntry(21)
+            {
+                Label = "Head",
+                ValueLabel = "21%",
+                Color = SKColor.Parse("#9013FE")
+            },
+            new ChartEntry(20)
+            {
+                Label = "Wrist",
+                ValueLabel = "20%",
+                Color = SKColor.Parse("#D0021B")
+            }
+        };
+
         // Constructor to initialize the page components
         public InjuryStatistics()
         {
@@ -24,6 +60,12 @@ namespace RecoveryAT
 
             // Set the default selection to "All Sports" in the picker
             sportPicker.SelectedIndex = 0;
+
+            // create pie chart
+            chartView.Chart = new PieChart
+            {
+                LabelTextSize = 40, Entries = entries
+            };
         }
 
         // Event handler for when a sport is selected from the dropdown picker

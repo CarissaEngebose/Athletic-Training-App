@@ -10,6 +10,7 @@
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:micro="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
              x:Class="RecoveryAT.InjuryStatistics"
              BackgroundColor="White"
              Title="">
@@ -65,12 +66,7 @@
         <!-- Spacing -->
         <Label HeightRequest="10"/>
 
-        <!-- Placeholder Image for Pie Chart -->
-        <Image Source="sample_pie_chart.png"
-               WidthRequest="280"
-               HeightRequest="500"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"/>
+        <micro:ChartView x:Name="chartView" HeightRequest="500" />
         
         <!-- Spacing -->
         <Label HeightRequest="80"/>
