@@ -36,6 +36,16 @@ namespace RecoveryAT
             // Set the BindingContext to the current instance to allow XAML data binding with FormList
             this.BindingContext = this;
         }
+
+        private async void OnTileTapped(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var tappedItem = frame.BindingContext; // get the tapped item information
+
+            await Navigation.PushAsync(new AthleteFormInformation()); // navigate to athlete form information on tapped
+
+        }
+
     }
 
     // The Form class defines the structure for each form displayed in the CollectionView

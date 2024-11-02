@@ -126,6 +126,9 @@
                                                 <Frame BackgroundColor="#E0F7FA"
                                                        CornerRadius="10"
                                                        Margin="0,5">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="OnTileTapped" CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
                                                     <Grid Padding="10">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="Auto"/>
