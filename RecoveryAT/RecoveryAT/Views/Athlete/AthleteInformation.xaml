@@ -141,6 +141,9 @@
                                                 <Frame BackgroundColor="#E0F7FA"
                                                        CornerRadius="10"
                                                         Margin="0,5">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="OnTileTapped" CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
                                                     <Grid Padding="10">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="Auto"/>
@@ -183,7 +186,7 @@
                                                                VerticalOptions="Center"/>
 
                                                         <!-- Form Number -->
-                                                        <Label Text="{Binding FormNumber}"
+                                                        <Label Text="{Binding Grade}"
                                                                FontSize="14"
                                                                 FontAttributes="Bold"
                                                                Grid.Row="1"

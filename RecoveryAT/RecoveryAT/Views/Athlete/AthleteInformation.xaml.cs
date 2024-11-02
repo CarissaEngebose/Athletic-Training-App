@@ -28,9 +28,9 @@ namespace RecoveryAT
 
             AthleteList = new ObservableCollection<Athlete>
             {
-                new Athlete { Date = "2024-10-01", Name = "John Smith", Relationship = "Mother", PhoneNumber = "(123) 456-7890", FormNumber = "12" },
-                new Athlete { Date = "2024-09-22", Name = "Reece Thomas", Relationship = "Mother", PhoneNumber = "(555) 111-2222", FormNumber = "11" },
-                new Athlete { Date = "2024-09-15", Name = "Marcus Rye", Relationship = "Guardian", PhoneNumber = "(111) 222-3333", FormNumber = "9" }
+                new Athlete { Date = "10/01/2024", Name = "John Smith", Relationship = "Mother", PhoneNumber = "(123) 456-7890", Grade = "12" },
+                new Athlete { Date = "09/22/2024", Name = "Reece Thomas", Relationship = "Mother", PhoneNumber = "(555) 111-2222", Grade = "11" },
+                new Athlete { Date = "09/10/2024", Name = "Marcus Rye", Relationship = "Guardian", PhoneNumber = "(111) 222-3333", Grade = "9" }
             };
 
             // Initialize Commands
@@ -40,6 +40,15 @@ namespace RecoveryAT
             NavigateToAthleteStatusesCommand = new Command(NavigateToAthleteStatuses);
 
             BindingContext = this;
+        }
+
+        private async void OnTileTapped(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var tappedItem = frame.BindingContext; // get the tapped item information
+
+            await Detail.Navigation.PushAsync(new AthleteFormInformation());; // navigate to athlete form information on tapped
+
         }
 
         private void NavigateToHome(object obj)
@@ -73,6 +82,6 @@ namespace RecoveryAT
         public string Name { get; set; }
         public string Relationship { get; set; }
         public string PhoneNumber { get; set; }
-        public string FormNumber { get; set; }
+        public string Grade { get; set; }
     }
 }
