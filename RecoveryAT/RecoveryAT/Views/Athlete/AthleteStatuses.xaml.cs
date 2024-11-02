@@ -60,6 +60,15 @@ namespace RecoveryAT
             OnPropertyChanged(nameof(AthleteList));
         }
 
+        private async void OnTileTapped(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var tappedItem = frame.BindingContext; // get the tapped item information
+
+            await Navigation.PushAsync(new AthleteFormInformation()); // navigate to athlete form information on tapped
+
+        }
+
         private void LoadAthletes()
         {
             try
