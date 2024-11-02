@@ -13,26 +13,44 @@
 
     <!-- Flyout Menu Content -->
     <FlyoutPage.Flyout>
-        <ContentPage Title="Menu" BackgroundColor="#64B5F6"> <!-- Light blue background -->
+        <ContentPage Title="Menu"
+                BackgroundColor="#64B5F6">
+            <!-- Light blue background -->
             <VerticalStackLayout Padding="10">
-                <Label Text="Athlete Information" FontSize="20" FontAttributes="Bold" TextColor="White" Margin="0,10"/>
-                <Label Text="Past Forms" FontSize="18" TextColor="White" Margin="0,5"/>
-                <Label Text="Statistics" FontSize="18" TextColor="White" Margin="0,5"/>
-                <Label Text="Athlete Statuses" FontSize="18" TextColor="White" Margin="0,5"/>
+                <Label Text="Athlete Information"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        Margin="0,10"/>
+                <Label Text="Past Forms"
+                        FontSize="18"
+                        TextColor="White"
+                        Margin="0,5"/>
+                <Label Text="Statistics"
+                        FontSize="18"
+                        TextColor="White"
+                        Margin="0,5"/>
+                <Label Text="Athlete Statuses"
+                        FontSize="18"
+                        TextColor="White"
+                        Margin="0,5"/>
             </VerticalStackLayout>
         </ContentPage>
     </FlyoutPage.Flyout>
 
     <!-- Main Detail Page Content -->
     <FlyoutPage.Detail>
-        <NavigationPage> <!-- Wraps the main page in a NavigationPage -->
+        <NavigationPage>
+            <!-- Wraps the main page in a NavigationPage -->
             <x:Arguments>
                 <ContentPage Title="">
                     <ContentPage.Content>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/> <!-- Main content area -->
-                                <RowDefinition Height="Auto"/> <!-- Bottom navigation -->
+                                <RowDefinition Height="*"/>
+                                <!-- Main content area -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- Bottom navigation -->
                             </Grid.RowDefinitions>
 
                             <!-- Scrollable Main Content -->
@@ -40,7 +58,8 @@
                                 <StackLayout Padding="10">
 
                                     <!-- Centered Medical Icon -->
-                                    <Grid Padding="10" VerticalOptions="Start">
+                                    <Grid Padding="10"
+                                            VerticalOptions="Start">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -48,13 +67,26 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Image Source="medical_icon.png"
-                                               WidthRequest="80" HeightRequest="80"
-                                               Grid.Column="1" HorizontalOptions="Center"/>
+                                               WidthRequest="80"
+                                                HeightRequest="80"
+                                               Grid.Column="1"
+                                                HorizontalOptions="Center"/>
                                     </Grid>
 
+                                    <!-- Header Label -->
+                                    <Label Text="Past Forms"
+                                           FontSize="32"
+                                           Margin="10,0"
+                                           HorizontalOptions="Start"
+                                           FontAttributes="Bold"/>
+                                           
                                     <!-- Status Picker -->
-                                    <Frame CornerRadius="8" BorderColor="Gray" Padding="5" Margin="10,5,10,0">
-                                        <Picker Title="Select Status" HorizontalOptions="FillAndExpand">
+                                    <Frame CornerRadius="8"
+                                            BorderColor="Gray"
+                                            Padding="5"
+                                            Margin="10,5,10,0">
+                                        <Picker Title="Select Status"
+                                                HorizontalOptions="FillAndExpand">
                                             <Picker.Items>
                                                 <x:String>Full Contact</x:String>
                                                 <x:String>Limited Contact</x:String>
@@ -65,16 +97,24 @@
                                     </Frame>
 
                                     <!-- Search Bar -->
-                                    <Frame CornerRadius="8" BorderColor="Gray" Padding="5" Margin="10,25,10,25">
+                                    <Frame CornerRadius="8"
+                                            BorderColor="Gray"
+                                            Padding="5"
+                                            Margin="10,25,10,25">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Entry Placeholder="Search" HorizontalOptions="FillAndExpand" Grid.Column="0"/>
-                                            <Button ImageSource="search_icon.png" BackgroundColor="Transparent" 
-                                                    WidthRequest="50" HeightRequest="50" Grid.Column="1"/>
+                                            <Entry Placeholder="Search"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Grid.Column="0"/>
+                                            <Button ImageSource="search_icon.png"
+                                                    BackgroundColor="Transparent"
+                                                    WidthRequest="50"
+                                                    HeightRequest="50"
+                                                    Grid.Column="1"/>
                                         </Grid>
                                     </Frame>
 
@@ -82,7 +122,9 @@
                                     <CollectionView ItemsSource="{Binding FormList}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
-                                                <Frame BackgroundColor="#E0F7FA" CornerRadius="10" Margin="0,5">
+                                                <Frame BackgroundColor="#E0F7FA"
+                                                        CornerRadius="10"
+                                                        Margin="0,5">
                                                     <Grid Padding="10">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="Auto"/>
@@ -95,18 +137,31 @@
                                                             <ColumnDefinition Width="1*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <Label Text="{Binding Date}" FontSize="16" FontAttributes="Bold" 
-                                                               Grid.Row="0" Grid.ColumnSpan="2"/>
+                                                        <Label Text="{Binding Date}"
+                                                                FontSize="16"
+                                                                FontAttributes="Bold"
+                                                               Grid.Row="0"
+                                                                Grid.ColumnSpan="2"/>
 
-                                                        <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold" 
+                                                        <Label Text="{Binding Name}"
+                                                                FontSize="14"
+                                                                FontAttributes="Bold"
                                                                Grid.Row="1"/>
 
-                                                        <Label Text="{Binding Sport}" FontSize="14" Grid.Row="2"/>
+                                                        <Label Text="{Binding Sport}"
+                                                                FontSize="14"
+                                                                Grid.Row="2"/>
 
-                                                        <Label Text="{Binding Injury}" FontSize="14" Grid.Row="3"/>
+                                                        <Label Text="{Binding Injury}"
+                                                                FontSize="14"
+                                                                Grid.Row="3"/>
 
-                                                        <Label Text="{Binding FormNumber}" FontSize="14" FontAttributes="Bold" 
-                                                               Grid.Row="1" Grid.Column="1" HorizontalOptions="End"/>
+                                                        <Label Text="{Binding FormNumber}"
+                                                                FontSize="14"
+                                                                FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                                Grid.Column="1"
+                                                                HorizontalOptions="End"/>
                                                     </Grid>
                                                 </Frame>
                                             </DataTemplate>

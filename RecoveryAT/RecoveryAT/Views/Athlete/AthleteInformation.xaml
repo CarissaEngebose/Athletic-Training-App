@@ -102,6 +102,13 @@
                                                Grid.Column="1"/>
                                     </Grid>
 
+                                    <!-- Header Label -->
+                                    <Label Text="Athlete Information"
+                                           FontSize="32"
+                                           Margin="10,0"
+                                           HorizontalOptions="Start"
+                                           FontAttributes="Bold"/>
+
                                     <!-- Search Bar Section -->
                                     <Frame CornerRadius="8"
                                            BorderColor="Gray"

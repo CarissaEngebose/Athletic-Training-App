@@ -71,6 +71,13 @@
                                                HorizontalOptions="Center"/>
                                     </Grid>
 
+                                    <!-- Header Label -->
+                                    <Label Text="Athlete Statuses"
+                                           FontSize="32"
+                                           Margin="10,0"
+                                           HorizontalOptions="Start"
+                                           FontAttributes="Bold"/>
+
                                     <!-- Status Picker -->
                                     <Frame CornerRadius="8"
                                            BorderColor="Gray"
