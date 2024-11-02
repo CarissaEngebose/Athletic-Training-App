@@ -14,26 +14,26 @@
     <!-- Flyout Menu Content -->
     <FlyoutPage.Flyout>
         <ContentPage Title="Menu"
-                BackgroundColor="#64B5F6">
+                     BackgroundColor="#64B5F6">
             <!-- Light blue background -->
             <VerticalStackLayout Padding="10">
                 <Label Text="Athlete Information"
-                        FontSize="20"
-                        FontAttributes="Bold"
-                        TextColor="White"
-                        Margin="0,10"/>
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="0,10"/>
                 <Label Text="Past Forms"
-                        FontSize="18"
-                        TextColor="White"
-                        Margin="0,5"/>
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
                 <Label Text="Statistics"
-                        FontSize="18"
-                        TextColor="White"
-                        Margin="0,5"/>
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
                 <Label Text="Athlete Statuses"
-                        FontSize="18"
-                        TextColor="White"
-                        Margin="0,5"/>
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
             </VerticalStackLayout>
         </ContentPage>
     </FlyoutPage.Flyout>
@@ -59,7 +59,7 @@
 
                                     <!-- Centered Medical Icon -->
                                     <Grid Padding="10"
-                                            VerticalOptions="Start">
+                                          VerticalOptions="Start">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -68,9 +68,9 @@
 
                                         <Image Source="medical_icon.png"
                                                WidthRequest="80"
-                                                HeightRequest="80"
+                                               HeightRequest="80"
                                                Grid.Column="1"
-                                                HorizontalOptions="Center"/>
+                                               HorizontalOptions="Center"/>
                                     </Grid>
 
                                     <!-- Header Label -->
@@ -79,28 +79,29 @@
                                            Margin="10,0"
                                            HorizontalOptions="Start"
                                            FontAttributes="Bold"/>
-                                           
-                                    <!-- Status Picker -->
+
+                                    <!-- Treatment Type Picker -->
                                     <Frame CornerRadius="8"
-                                            BorderColor="Gray"
-                                            Padding="5"
-                                            Margin="10,5,10,0">
-                                        <Picker Title="Select Status"
+                                           BorderColor="Gray"
+                                           Padding="5"
+                                           Margin="10,5,10,0">
+                                        <Picker Title="Select Treatment Type"
                                                 HorizontalOptions="FillAndExpand">
                                             <Picker.Items>
-                                                <x:String>Full Contact</x:String>
-                                                <x:String>Limited Contact</x:String>
-                                                <x:String>Activity as Tolerated</x:String>
-                                                <x:String>Total Rest</x:String>
+                                                <x:String>Eval</x:String>
+                                                <x:String>Tape</x:String>
+                                                <x:String>Rehab</x:String>
+                                                <x:String>Wound</x:String>
+                                                <x:String>Other</x:String>
                                             </Picker.Items>
                                         </Picker>
                                     </Frame>
 
                                     <!-- Search Bar -->
                                     <Frame CornerRadius="8"
-                                            BorderColor="Gray"
-                                            Padding="5"
-                                            Margin="10,25,10,25">
+                                           BorderColor="Gray"
+                                           Padding="5"
+                                           Margin="10,25,10,25">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -108,8 +109,8 @@
                                             </Grid.ColumnDefinitions>
 
                                             <Entry Placeholder="Search"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    Grid.Column="0"/>
+                                                   HorizontalOptions="FillAndExpand"
+                                                   Grid.Column="0"/>
                                             <Button ImageSource="search_icon.png"
                                                     BackgroundColor="Transparent"
                                                     WidthRequest="50"
@@ -123,8 +124,8 @@
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
                                                 <Frame BackgroundColor="#E0F7FA"
-                                                        CornerRadius="10"
-                                                        Margin="0,5">
+                                                       CornerRadius="10"
+                                                       Margin="0,5">
                                                     <Grid Padding="10">
                                                         <Grid.RowDefinitions>
                                                             <RowDefinition Height="Auto"/>
@@ -138,30 +139,30 @@
                                                         </Grid.ColumnDefinitions>
 
                                                         <Label Text="{Binding Date}"
-                                                                FontSize="16"
-                                                                FontAttributes="Bold"
+                                                               FontSize="16"
+                                                               FontAttributes="Bold"
                                                                Grid.Row="0"
-                                                                Grid.ColumnSpan="2"/>
+                                                               Grid.ColumnSpan="2"/>
 
                                                         <Label Text="{Binding Name}"
-                                                                FontSize="14"
-                                                                FontAttributes="Bold"
+                                                               FontSize="14"
+                                                               FontAttributes="Bold"
                                                                Grid.Row="1"/>
 
                                                         <Label Text="{Binding Sport}"
-                                                                FontSize="14"
-                                                                Grid.Row="2"/>
+                                                               FontSize="14"
+                                                               Grid.Row="2"/>
 
                                                         <Label Text="{Binding Injury}"
-                                                                FontSize="14"
-                                                                Grid.Row="3"/>
+                                                               FontSize="14"
+                                                               Grid.Row="3"/>
 
-                                                        <Label Text="{Binding FormNumber}"
-                                                                FontSize="14"
-                                                                FontAttributes="Bold"
+                                                        <Label Text="{Binding TreatmentType}"
+                                                               FontSize="14"
+                                                               FontAttributes="Bold"
                                                                Grid.Row="1"
-                                                                Grid.Column="1"
-                                                                HorizontalOptions="End"/>
+                                                               Grid.Column="1"
+                                                               HorizontalOptions="End"/>
                                                     </Grid>
                                                 </Frame>
                                             </DataTemplate>

@@ -26,11 +26,11 @@ namespace RecoveryAT
             // Populate the FormList with sample data to simulate database entries
             FormList = new ObservableCollection<Form>
             {
-                new Form { Date = "2024-10-01", Name = "John Smith", Sport = "Soccer", Injury = "Ankle", FormNumber = "F001" },
-                new Form { Date = "2024-09-22", Name = "Reece Thomas", Sport = "Tennis", Injury = "Shoulder", FormNumber = "F002" },
-                new Form { Date = "2024-09-15", Name = "Marcus Rye", Sport = "Football", Injury = "Knee", FormNumber = "F003" },
-                new Form { Date = "2024-08-30", Name = "Sophia Lee", Sport = "Basketball", Injury = "Wrist", FormNumber = "F004" },
-                new Form { Date = "2024-08-10", Name = "Lucas Brown", Sport = "Soccer", Injury = "Back", FormNumber = "F005" }
+                new Form { Date = "10/01/2024", Name = "John Smith", Sport = "Soccer", Injury = "Ankle", TreatmentType = "Tape" },
+                new Form { Date = "09/22/2024", Name = "Reece Thomas", Sport = "Tennis", Injury = "Shoulder", TreatmentType = "Eval" },
+                new Form { Date = "09/25/2024", Name = "Marcus Rye", Sport = "Football", Injury = "Knee", TreatmentType = "Eval" },
+                new Form { Date = "08/30/2024", Name = "Sophia Lee", Sport = "Basketball", Injury = "Wrist", TreatmentType = "Tape" },
+                new Form { Date = "08/10/2024", Name = "Lucas Brown", Sport = "Soccer", Injury = "Back", TreatmentType = "Eval" }
             };
 
             // Set the BindingContext to the current instance to allow XAML data binding with FormList
@@ -45,6 +45,6 @@ namespace RecoveryAT
         public string Name { get; set; } // Athlete's name
         public string Sport { get; set; } // Sport the athlete plays
         public string Injury { get; set; } // Type of injury the athlete has
-        public string FormNumber { get; set; } // Unique identifier for the form
+        public string TreatmentType { get; set; } // Treatment type 
     }
 }
