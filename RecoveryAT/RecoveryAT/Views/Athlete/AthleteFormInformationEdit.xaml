@@ -70,17 +70,23 @@
                     </Grid>
                 </Frame>
 
-                <!-- Athlete Comment Section -->
+                <!-- Treatment Type Section -->
                 <Label FontAttributes="Bold" 
                        FontSize="Large" 
                        Margin="0,20,0,5">
-                    Athlete Comments:
+                    Athlete Treatment Type:
                 </Label>
-                <Editor x:Name="AthleteCommentsEditor"
-                        FontSize="Medium"
-                        Margin="0,0,0,10"
-                        AutoSize="TextChanges" 
-                        Placeholder="Enter athlete's comments..." />
+                <Picker x:Name="TreatmentType" Title="Select Treatment Type">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Eval</x:String>
+                            <x:String>Tape</x:String>
+                            <x:String>Rehab</x:String>
+                            <x:String>Wound</x:String>
+                            <x:String>Other</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
                 <!-- Trainer Comment Section -->
                 <Label FontAttributes="Bold" 
@@ -100,11 +106,17 @@
                        Margin="0,20,0,5">
                     Athlete Status:
                 </Label>
-                <Editor x:Name="AthleteStatusEditor"
-                        FontSize="Medium"
-                        Margin="0,0,0,10"
-                        AutoSize="TextChanges"
-                        Placeholder="Enter athlete status..." />
+                <Picker x:Name="StatusPicker" Title="Select Status">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>All</x:String>
+                            <x:String>Full Contact</x:String>
+                            <x:String>Limited Contact</x:String>
+                            <x:String>Activity as Tolerated</x:String>
+                            <x:String>Total Rest</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
             </VerticalStackLayout>
         </ScrollView>
 
