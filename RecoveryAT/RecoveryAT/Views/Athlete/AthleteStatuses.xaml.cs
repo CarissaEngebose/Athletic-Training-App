@@ -65,7 +65,7 @@ namespace RecoveryAT
             var frame = (Frame)sender;
             var tappedItem = frame.BindingContext; // get the tapped item information
 
-            await Navigation.PushAsync(new AthleteFormInformation()); // navigate to athlete form information on tapped
+            await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat"))); // navigate to athlete form information on tapped
 
         }
 

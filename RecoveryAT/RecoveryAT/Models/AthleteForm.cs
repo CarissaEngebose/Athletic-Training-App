@@ -24,6 +24,9 @@ namespace RecoveryAT
         // Athlete's last name
         public string LastName { get; set; }
 
+        //Full name for ease of access
+        public string FullName => $"{FirstName} {LastName}";
+
         // Athlete's grade (6 - 12)
         public int Grade { get; set; }
 
