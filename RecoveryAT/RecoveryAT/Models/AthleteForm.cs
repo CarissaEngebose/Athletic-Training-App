@@ -24,6 +24,8 @@ namespace RecoveryAT
         // Athlete's last name
         public string LastName { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         // Athlete's grade (6 - 12)
         public int Grade { get; set; }
 
@@ -57,6 +59,7 @@ namespace RecoveryAT
         /// <param name="schoolCode">The identifier of the athlete's school.</param>
         /// <param name="firstName">The athlete's first name.</param>
         /// <param name="lastName">The athlete's last name.</param>
+        /// <param name="fullName">The athlete's full name.</param>
         /// <param name="grade">The athlete's grade (6 - 12).</param>
         /// <param name="sport">The sport the athlete participates in.</param>
         /// <param name="injuredArea">The location of the athlete's injury.</param>

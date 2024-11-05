@@ -567,6 +567,48 @@ namespace RecoveryAT
             return forms;
         }
 
+
+        /// <summary>
+        /// selects all contacts from the database
+        /// </summary>
+        /// <returns>ObservableCollection of AthleteContact objects</returns>
+        public ObservableCollection<AthleteContact> SelectAllContacts()
+        {
+            contacts.Clear(); // Clear the local collection
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                using var cmd = new NpgsqlCommand(@"
+            SELECT contact_id, form_key, contact_type, phone_number
+            FROM athlete_contacts", conn);
+
+                using var reader = cmd.ExecuteReader();
+
+                // Loop through each row in the result and add it to the contacts collection.
+                while (reader.Read())
+                {
+                    var contact = new AthleteContact(
+                        contactID: reader.GetInt64(0),              // contact_id as INT8 -> GetInt64
+                        formKey: reader.GetInt64(1),                // form_key as INT8 -> GetInt64
+                        contactType: reader.GetString(2),           // contact_type as VARCHAR -> GetString
+                        phoneNumber: reader.GetString(3)            // phone_number as VARCHAR -> GetString
+                    );
+                    contacts.Add(contact); // Add to the collection
+                }
+
+                Console.WriteLine($"Number of contacts retrieved: {contacts.Count}");
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                // Handle any database-specific errors.
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return contacts;
+        }
+
         /// <summary>
         /// Inserts a new contact into the athlete_contacts table.
         /// </summary>

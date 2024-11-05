@@ -61,7 +61,7 @@
                                    Margin="0,0,0,-10"/>
 
                      <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="Center"
+                                                 HorizontalOptions="FillAndExpand"
                                                  Spacing="10">
                                           <!-- Each Frame contains an Entry for code input -->
                                           <Frame BorderColor="LightGray"

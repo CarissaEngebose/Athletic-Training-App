@@ -1,13 +1,3 @@
-/*
-    Name: Carissa Engebose
-    Date: 10/27/2024
-    Description: A screen that allows a user to enter a 5-character school code that corresponds to the athletic trainer
-                for a specific school. Only that trainer will be able to access the forms for their school.
-    Bugs: None that I know of.
-    Reflection: This screen was relatively easy to implement. It took a bit of time to fine-tune the layout, but overall, 
-                I think it turned out well.
-*/
-
 using System;
 using Microsoft.Maui.Controls;
 
@@ -18,6 +8,48 @@ namespace RecoveryAT
         public SchoolCodeScreen() 
         {
             InitializeComponent(); // Initialize the XAML components
+        }
+
+        // Event handler for text changed in code entry fields
+        private void OnCodeEntryTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var entry = sender as Entry;
+            if (entry.Text.Length == 1)
+            {
+                switch (entry)
+                {
+                    case var _ when entry == CodeEntry1:
+                        CodeEntry2.Focus();
+                        break;
+                    case var _ when entry == CodeEntry2:
+                        CodeEntry3.Focus();
+                        break;
+                    case var _ when entry == CodeEntry3:
+                        CodeEntry4.Focus();
+                        break;
+                    case var _ when entry == CodeEntry4:
+                        CodeEntry5.Focus();
+                        break;
+                }
+            }
+            else if (entry.Text.Length == 0)
+            {
+                switch (entry)
+                {
+                    case var _ when entry == CodeEntry2:
+                        CodeEntry1.Focus();
+                        break;
+                    case var _ when entry == CodeEntry3:
+                        CodeEntry2.Focus();
+                        break;
+                    case var _ when entry == CodeEntry4:
+                        CodeEntry3.Focus();
+                        break;
+                    case var _ when entry == CodeEntry5:
+                        CodeEntry4.Focus();
+                        break;
+                }
+            }
         }
 
         // Event handler for the Submit button click
