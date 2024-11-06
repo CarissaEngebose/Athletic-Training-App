@@ -85,6 +85,9 @@ namespace RecoveryAT
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
         
         long GetLastInsertedFormKey(string schoolCode);
+
+        string InsertContact(long formKey, string contactType, string phoneNumber);
+
         
     }
 }

@@ -198,5 +198,24 @@ namespace RecoveryAT
             return _database.IsValidSchoolCode(schoolCode);
         }
 
+        public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey)
+        {
+            return _database.SelectContactsByFormKey(formKey);
+        }
+
+        public string InsertContact(long formKey, string contactType, string phoneNumber)
+        {
+            return _database.InsertContact(formKey, contactType, phoneNumber);
+        }
+
+        public ObservableCollection<AthleteForm> GetAllForms()
+        {
+            return _database.SelectAllForms();
+        }
+
+        public ObservableCollection<AthleteForm> SearchAthletes(string query)
+        {
+            return _database.SearchAthletes(query);
+        }
     }
 }

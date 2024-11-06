@@ -17,8 +17,7 @@ namespace RecoveryAT
 {
     public partial class AthleteStatuses : FlyoutPage
     {
-        private readonly Database _database;
-
+        private readonly BusinessLogic _businessLogic;
         public ObservableCollection<AthleteForm> AthleteList { get; set; }
         public ObservableCollection<string> StatusOptions { get; set; }
 
@@ -32,7 +31,7 @@ namespace RecoveryAT
                 {
                     _selectedStatus = value;
                     OnPropertyChanged(nameof(SelectedStatus));
-                    FilterAndSortAthletes(); // Update list when status changes
+                    FilterAndSortAthletes();
                 }
             }
         }
@@ -41,45 +40,39 @@ namespace RecoveryAT
         {
             InitializeComponent();
 
-            _database = new Database();
-
+            _businessLogic = new BusinessLogic(new Database());
             AthleteList = new ObservableCollection<AthleteForm>();
             StatusOptions = new ObservableCollection<string>
             {
-                "All", // Add an option to show all athletes
+                "All",
                 "Full Contact",
                 "Limited Contact",
                 "Activity as Tolerated",
                 "Total Rest"
             };
 
-            // Load all athletes initially
             LoadAthletes();
-
             BindingContext = this;
-            OnPropertyChanged(nameof(AthleteList));
         }
 
         private async void OnTileTapped(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            var tappedItem = frame.BindingContext; // get the tapped item information
+            var tappedItem = frame.BindingContext;
 
-            await Navigation.PushAsync(new AthleteFormInformation()); // navigate to athlete form information on tapped
-
+            await Navigation.PushAsync(new AthleteFormInformation());
         }
 
         private void LoadAthletes()
         {
             try
             {
-                // Load all athletes from the database
-                var athletes = _database.SelectAllForms(); // This returns a List<AthleteForm>
+                var athletes = _businessLogic.GetAllForms();
 
-                AthleteList.Clear(); // Clear the existing ObservableCollection
+                AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
-                    AthleteList.Add(athlete); // Add each item from the List to the ObservableCollection
+                    AthleteList.Add(athlete);
                 }
                 OnPropertyChanged(nameof(AthleteList));
             }
@@ -93,16 +86,13 @@ namespace RecoveryAT
         {
             try
             {
-                // Convert athletes to a List to perform LINQ filtering, if needed
-                var athletes = _database.SelectAllForms().ToList();
+                var athletes = _businessLogic.GetAllForms().ToList();
 
-                // Filter by selected status if it's not "All"
                 if (SelectedStatus != "All" && !string.IsNullOrEmpty(SelectedStatus))
                 {
                     athletes = athletes.Where(a => a.Status == SelectedStatus).ToList();
                 }
 
-                // Convert the filtered list back to ObservableCollection for data binding
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
@@ -118,14 +108,12 @@ namespace RecoveryAT
 
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
-            // If the search bar is empty, reload or filter athletes based on status
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
                 FilterAndSortAthletes();
             }
             else
             {
-                // Perform search with the new text
                 SearchAthletes(e.NewTextValue);
             }
         }
@@ -134,8 +122,7 @@ namespace RecoveryAT
         {
             try
             {
-                // Call the search method in the Database class
-                var searchResults = _database.SearchAthletes(query);
+                var searchResults = _businessLogic.SearchAthletes(query);
 
                 AthleteList.Clear();
                 foreach (var athlete in searchResults)
