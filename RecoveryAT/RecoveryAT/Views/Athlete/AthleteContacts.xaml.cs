@@ -13,19 +13,17 @@ using System;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace RecoveryAT
 {
     public partial class AthleteContacts : ContentPage
     {
-        private readonly Database _database;
+        private readonly BusinessLogic _businessLogic;
         private ObservableCollection<AthleteContact> _contacts;
         private long _formKey;
-
         private AuthenticationService authService;
 
-
-        // Property to bind the ListView to
         public ObservableCollection<AthleteContact> Contacts
         {
             get => _contacts;
@@ -40,31 +38,22 @@ namespace RecoveryAT
         {
             InitializeComponent();
             authService = ((App)Application.Current).AuthService;
-
-            _database = new Database();
+            _businessLogic = new BusinessLogic(new Database());
             _formKey = formKey;
 
-            // Load contacts for the specific form key
             LoadContacts();
         }
 
-        // Loads contacts from the database
         private void LoadContacts()
         {
-            Contacts = _database.SelectContactsByFormKey(_formKey);
-            // Assuming there's a ListView in the XAML named ContactsListView (Add it if necessary)
-            // ContactsListView.ItemsSource = Contacts;
+            Contacts = _businessLogic.GetContactsByFormKey(_formKey);
         }
 
-        // Event handler to add a new contact
-        // Event handler to add a new contact
         private async Task<bool> OnAddContactClicked()
         {
-            // Retrieve input values from Entry fields
-            var contactType = RelationshipEntry.Text; // Entry for contact type
-            var phoneNumber = PhoneNumberEntry.Text; // Entry for phone number
+            var contactType = RelationshipEntry.Text;
+            var phoneNumber = PhoneNumberEntry.Text;
 
-            // Regular expression for validating phone numbers (US format)
             string phonePattern = @"^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$";
             bool isPhoneNumberValid = Regex.IsMatch(phoneNumber ?? string.Empty, phonePattern);
 
@@ -80,47 +69,42 @@ namespace RecoveryAT
                 return false;
             }
 
-            // Insert new contact into the database if validation passes
-            var resultMessage = _database.InsertContact(_formKey, contactType, phoneNumber);
+            var resultMessage = _businessLogic.InsertContact(_formKey, contactType, phoneNumber);
             await DisplayAlert("Add Contact", resultMessage, "OK");
 
-            // Refresh the contacts list if the insertion was successful
             if (resultMessage.Contains("successfully"))
             {
-                LoadContacts(); // Reload contacts from the database
-                ClearEntries(); // Clear the Entry fields after successful addition
-                return true; // Indicate success
+                LoadContacts();
+                ClearEntries();
+                return true;
             }
 
-            return false; // Indicate failure if insertion wasn't successful
+            return false;
         }
 
-        // Event handler to clear the entries when delete is clicked
         private void OnDeleteContactClicked(object sender, EventArgs e)
         {
             ClearEntries();
         }
 
-        // Clears the phone number and relationship entry fields
         private void ClearEntries()
         {
             PhoneNumberEntry.Text = string.Empty;
             RelationshipEntry.Text = string.Empty;
         }
 
-        // Event handler to finish and navigate to TrainerHomeScreen
         private async void OnFinishClicked(object sender, EventArgs e)
         {
-            bool isContactAdded = await OnAddContactClicked(); // Attempt to add contact
+            bool isContactAdded = await OnAddContactClicked();
 
-            // Only navigate to TrainerHomeScreen if contact addition was successful and the user is logged in
             if (isContactAdded && authService.IsLoggedIn)
             {
                 await Navigation.PushAsync(new MainTabbedPage());
-            } else {
+            }
+            else
+            {
                 await Navigation.PushModalAsync(new WelcomeScreen());
             }
         }
-
     }
 }

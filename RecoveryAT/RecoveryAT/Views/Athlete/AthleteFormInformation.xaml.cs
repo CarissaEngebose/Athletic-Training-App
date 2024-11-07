@@ -14,6 +14,7 @@ namespace RecoveryAT;  // Defines the namespace, grouping related code for the R
 public partial class AthleteFormInformation : ContentPage
 {    
     AthleteForm athleteForm;
+    
     // Constructor for AthleteFormInformation, called when an instance of this class is created.
     public AthleteFormInformation(AthleteForm athleteForm)
     {

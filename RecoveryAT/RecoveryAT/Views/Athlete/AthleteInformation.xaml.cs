@@ -16,7 +16,7 @@ namespace RecoveryAT
     public partial class AthleteInformation : FlyoutPage
     {
         public ObservableCollection<Athlete> AthleteList { get; set; }
-        
+
         public ICommand NavigateToPastFormsCommand { get; }
         public ICommand NavigateToStatisticsCommand { get; }
         public ICommand NavigateToAthleteStatusesCommand { get; }
@@ -50,9 +50,8 @@ namespace RecoveryAT
             Athlete currAthlete = (Athlete)tappedItem; // for testing purposes
             AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1],"Sport","Injury","stat"); // should get from database, fix later
             await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
-
         }
-
+        
         private void NavigateToHome(object obj)
         {
             Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
