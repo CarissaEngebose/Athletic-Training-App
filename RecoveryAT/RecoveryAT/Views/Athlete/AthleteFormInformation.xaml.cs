@@ -7,12 +7,14 @@
                 to get to look right, but it wasn't too bad.
 */
 
+using System.ComponentModel;
+
 namespace RecoveryAT;  // Defines the namespace, grouping related code for the RecoveryAT app.
 
 public partial class AthleteFormInformation : ContentPage
 {    
     AthleteForm athleteForm;
-
+    
     // Constructor for AthleteFormInformation, called when an instance of this class is created.
     public AthleteFormInformation(AthleteForm athleteForm)
     {

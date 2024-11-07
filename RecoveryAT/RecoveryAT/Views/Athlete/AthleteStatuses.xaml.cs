@@ -67,10 +67,10 @@ namespace RecoveryAT
         private async void OnTileTapped(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            var tappedItem = frame.BindingContext;
+            var tappedItem = frame.BindingContext; // get the tapped item information
 
+            // Should pass in a valid AthleteForm with info from database, Dummy data now fix later - Dominick
             await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat"))); // navigate to athlete form information on tapped
-            
         }
 
         private void LoadAthletes()

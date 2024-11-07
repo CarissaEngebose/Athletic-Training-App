@@ -48,8 +48,8 @@ namespace RecoveryAT
             var tappedItem = frame.BindingContext; // get the tapped item information
 
             Athlete currAthlete = (Athlete)tappedItem; // for testing purposes
-            AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1], "Sport", "Injury", "stat"); // should get from database, fix later
-            await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped        }
+            AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1],"Sport","Injury","stat"); // should get from database, fix later
+            await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
         }
         
         private void NavigateToHome(object obj)
