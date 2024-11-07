@@ -709,6 +709,35 @@ namespace RecoveryAT
             return lastFormKey;
         }
 
+        public string UpdateContactStatus(long? formKey, string newStatus)
+        {
+            if (!formKey.HasValue)
+            {
+                return "Error: formKey cannot be null.";
+            }
+
+            // Proceed with updating, using formKey.Value
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(
+                    "UPDATE athlete_forms SET athlete_status = @newStatus WHERE form_key = @formKey", conn);
+                cmd.Parameters.AddWithValue("formKey", formKey.Value);
+                cmd.Parameters.AddWithValue("newStatus", newStatus);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                return rowsAffected > 0 ? "Contact status updated successfully." : "No rows affected. The specified formKey may not exist.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating contact status: {ex.Message}");
+                return "An error occurred while updating the contact status.";
+            }
+        }
+
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>

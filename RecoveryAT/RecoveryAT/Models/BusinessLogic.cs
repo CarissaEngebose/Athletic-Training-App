@@ -41,10 +41,10 @@ namespace RecoveryAT
         public string IsValidSchoolCode(string codePart1, string codePart2, string codePart3, string codePart4, string codePart5)
         {
             // Check if any of the parts are blank
-            if (string.IsNullOrWhiteSpace(codePart1) || 
-                string.IsNullOrWhiteSpace(codePart2) || 
-                string.IsNullOrWhiteSpace(codePart3) || 
-                string.IsNullOrWhiteSpace(codePart4) || 
+            if (string.IsNullOrWhiteSpace(codePart1) ||
+                string.IsNullOrWhiteSpace(codePart2) ||
+                string.IsNullOrWhiteSpace(codePart3) ||
+                string.IsNullOrWhiteSpace(codePart4) ||
                 string.IsNullOrWhiteSpace(codePart5))
             {
                 return "Code must be 5 characters.";
@@ -117,7 +117,7 @@ namespace RecoveryAT
             // Create a new AthleteForm with the input values
             var form = new AthleteForm(schoolCode, firstName, lastName, grade.Value, sport,
                                         injuredArea, injuredSide, treatmentType,
-                                        date, athleteComments, trainerComments, status); 
+                                        date, athleteComments, trainerComments, status);
 
             // Insert the form into the database and return the result message
             return _database.InsertForm(form);
@@ -217,5 +217,12 @@ namespace RecoveryAT
         {
             return _database.SearchAthletes(query);
         }
+
+        public string UpdateContactStatus(long formKey, string newStatus)
+        {
+            return _database.UpdateContactStatus(formKey, newStatus);
+        }
+
+
     }
 }

@@ -87,7 +87,7 @@ namespace RecoveryAT
         long GetLastInsertedFormKey(string schoolCode);
 
         string InsertContact(long formKey, string contactType, string phoneNumber);
-
         
+        string UpdateContactStatus(long? formKey, string newStatus);
     }
 }

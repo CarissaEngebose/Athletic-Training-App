@@ -42,8 +42,9 @@ namespace RecoveryAT
             var frame = (Frame)sender;
             var tappedItem = frame.BindingContext; // get the tapped item information
 
-            await Navigation.PushAsync(new AthleteFormInformation()); // navigate to athlete form information on tapped
-
+            Form currForm = (Form)tappedItem; // for testing, remove later
+            AthleteForm selectedAthlete = new AthleteForm(currForm.Name.Split(" ")[0], currForm.Name.Split(" ")[1], currForm.Sport, currForm.Injury, "stat"); // this should retrieve from the database instead, fix later
+            await Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
         }
 
     }

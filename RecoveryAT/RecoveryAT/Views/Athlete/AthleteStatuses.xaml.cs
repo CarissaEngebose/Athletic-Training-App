@@ -20,7 +20,7 @@ namespace RecoveryAT
         private readonly BusinessLogic _businessLogic;
         public ObservableCollection<AthleteForm> AthleteList { get; set; }
         public ObservableCollection<string> StatusOptions { get; set; }
-
+        public ObservableCollection<string> SearchOptions { get; set; }
         private string _selectedStatus;
         public string SelectedStatus
         {
@@ -42,15 +42,24 @@ namespace RecoveryAT
 
             _businessLogic = new BusinessLogic(new Database());
             AthleteList = new ObservableCollection<AthleteForm>();
-            StatusOptions = new ObservableCollection<string>
+            SearchOptions = new ObservableCollection<string>
             {
                 "All",
+                "No Status",
                 "Full Contact",
                 "Limited Contact",
                 "Activity as Tolerated",
                 "Total Rest"
             };
 
+            StatusOptions = new ObservableCollection<string>
+            {
+                "No Status",
+                "Full Contact",
+                "Limited Contact",
+                "Activity as Tolerated",
+                "Total Rest"
+            };
             LoadAthletes();
             BindingContext = this;
         }
@@ -60,7 +69,8 @@ namespace RecoveryAT
             var frame = (Frame)sender;
             var tappedItem = frame.BindingContext;
 
-            await Navigation.PushAsync(new AthleteFormInformation());
+            await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat"))); // navigate to athlete form information on tapped
+            
         }
 
         private void LoadAthletes()
@@ -72,6 +82,8 @@ namespace RecoveryAT
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
+                    // Set "No Status" only if the status from the database is null or empty
+                    athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
                 OnPropertyChanged(nameof(AthleteList));
@@ -88,14 +100,29 @@ namespace RecoveryAT
             {
                 var athletes = _businessLogic.GetAllForms().ToList();
 
-                if (SelectedStatus != "All" && !string.IsNullOrEmpty(SelectedStatus))
+                // Check the selected status and filter accordingly
+                if (SelectedStatus == "All")
                 {
+                    // When "All" is selected, include all athletes regardless of their status
+                    athletes.ForEach(a => a.Status = string.IsNullOrEmpty(a.Status) ? "No Status" : a.Status);
+                }
+                else if (SelectedStatus == "No Status")
+                {
+                    // Include athletes with null or empty statuses in addition to those explicitly set to "No Status"
+                    athletes = athletes.Where(a => string.IsNullOrEmpty(a.Status) || a.Status == "No Status").ToList();
+                }
+                else
+                {
+                    // Filter for athletes with the specific selected status
                     athletes = athletes.Where(a => a.Status == SelectedStatus).ToList();
                 }
 
+                // Clear the current list and add the filtered athletes
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
+                    // Ensure "No Status" is set for display purposes if the status is null or empty
+                    athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
                 OnPropertyChanged(nameof(AthleteList));
@@ -110,7 +137,7 @@ namespace RecoveryAT
         {
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                FilterAndSortAthletes();
+                LoadAthletes();
             }
             else
             {
@@ -127,6 +154,8 @@ namespace RecoveryAT
                 AthleteList.Clear();
                 foreach (var athlete in searchResults)
                 {
+                    // Ensure "No Status" is set for null or empty statuses
+                    athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
                 OnPropertyChanged(nameof(AthleteList));
@@ -134,6 +163,44 @@ namespace RecoveryAT
             catch (Exception ex)
             {
                 Console.WriteLine($"Error searching athletes: {ex.Message}");
+            }
+        }
+
+        private async void OnStatusChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            var selectedStatus = (string)picker.SelectedItem;
+
+            if (picker.BindingContext is AthleteForm selectedAthlete)
+            {
+                selectedAthlete.Status = selectedStatus;
+
+                try
+                {
+                    // Ensure FormKey is available before attempting to update the database
+                    if (selectedAthlete.FormKey.HasValue)
+                    {
+                        string result = _businessLogic.UpdateContactStatus(selectedAthlete.FormKey.Value, selectedStatus);
+
+                        // Check if the update was successful based on the returned result
+                        if (result.Contains("successfully"))
+                        {
+                            await DisplayAlert("Success", "Athlete status updated successfully.", "OK");
+                        }
+                        else
+                        {
+                            await DisplayAlert("Error", "Failed to update athlete status in the database.", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "FormKey is null and cannot be used to update status.", "OK");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+                }
             }
         }
     }
