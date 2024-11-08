@@ -18,6 +18,7 @@ namespace RecoveryAT
     public partial class AthleteStatuses : FlyoutPage
     {
         private readonly BusinessLogic _businessLogic;
+        private readonly Database _database;
         public ObservableCollection<AthleteForm> AthleteList { get; set; }
         public ObservableCollection<string> StatusOptions { get; set; }
         public ObservableCollection<string> SearchOptions { get; set; }
@@ -47,6 +48,7 @@ namespace RecoveryAT
             StatusOptions =
             [
                 "All", // Add an option to show all athletes
+            ];
 
             _businessLogic = new BusinessLogic(new Database());
             AthleteList = new ObservableCollection<AthleteForm>();
@@ -58,7 +60,7 @@ namespace RecoveryAT
                 "Limited Contact",
                 "Activity as Tolerated",
                 "Total Rest"
-            ];
+            };
 
             StatusOptions = new ObservableCollection<string>
             {

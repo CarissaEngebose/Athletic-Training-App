@@ -57,12 +57,12 @@ namespace RecoveryAT
         private async void OnTileTapped(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            // var tappedItem = frame.BindingContext; // get the tapped item information
+            var tappedItem = frame.BindingContext; // get the tapped item information
 
             // For testing purposes, selectedAthlete should be formed from data from database instead - fix later - Dominick
-            Form currForm = (Form)tappedItem; // for testing, remove later
-            AthleteForm selectedAthlete = new AthleteForm(currForm.Name.Split(" ")[0], currForm.Name.Split(" ")[1],currForm.Sport,currForm.Injury,"stat"); // this should retrieve from the database instead, fix later
-            await Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
+            AthleteForm currForm = (AthleteForm)tappedItem; // for testing, remove later
+            // AthleteForm selectedAthlete = new AthleteForm(currForm.Name.Split(" ")[0], currForm.Name.Split(" ")[1],currForm.Sport,currForm.Injury,"stat"); // this should retrieve from the database instead, fix later
+            await Navigation.PushAsync(new AthleteFormInformation(currForm)); // navigate to athlete form information on tapped
         }
 
         private void LoadAthletes()
