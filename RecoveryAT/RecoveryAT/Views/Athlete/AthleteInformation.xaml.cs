@@ -17,6 +17,8 @@ namespace RecoveryAT
     {
         private readonly Database _database;
         
+        public ObservableCollection<Athlete> AthleteList { get; set; }
+
         public ICommand NavigateToPastFormsCommand { get; }
         public ICommand NavigateToStatisticsCommand { get; }
         public ICommand NavigateToAthleteStatusesCommand { get; }
@@ -46,10 +48,10 @@ namespace RecoveryAT
             var frame = (Frame)sender;
             var tappedItem = frame.BindingContext; // get the tapped item information
 
-            await Detail.Navigation.PushAsync(new AthleteFormInformation());; // navigate to athlete form information on tapped
-
+            Athlete currAthlete = (Athlete)tappedItem; // for testing purposes
+            AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1],"Sport","Injury","stat"); // should get from database, fix later
+            await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
         }
-
         private void LoadContacts()
         {
             ContactList.Clear();

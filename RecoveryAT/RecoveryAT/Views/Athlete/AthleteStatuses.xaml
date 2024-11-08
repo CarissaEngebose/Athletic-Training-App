@@ -8,6 +8,7 @@
 -->
 <FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:RecoveryAT"
             x:Class="RecoveryAT.AthleteStatuses">
 
     <!-- Flyout Menu -->
@@ -84,7 +85,7 @@
                                            Padding="5"
                                            Margin="10,5,10,0">
                                         <Picker Title="Select Status"
-                                                ItemsSource="{Binding StatusOptions}"
+                                                ItemsSource="{Binding SearchOptions}"
                                                 SelectedItem="{Binding SelectedStatus}"
                                                 HorizontalOptions="FillAndExpand"/>
                                     </Frame>
@@ -97,19 +98,13 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
 
-                                            <Entry Placeholder="Search"
+                                            <Entry Placeholder="Search" 
                                                    HorizontalOptions="FillAndExpand"
+                                                   TextColor="Black"
                                                    Grid.Column="0"
                                                    TextChanged="OnSearchTextChanged"/>
-
-                                            <Button ImageSource="search_icon.png"
-                                                    BackgroundColor="Transparent"
-                                                    WidthRequest="50"
-                                                    HeightRequest="50"
-                                                    Grid.Column="1"/>
                                         </Grid>
                                     </Frame>
 
@@ -119,32 +114,50 @@
                                             <DataTemplate>
                                                 <Frame BackgroundColor="#E0F7FA"
                                                        CornerRadius="10"
-                                                       Margin="0,5">
+                                                       Margin="0,5"
+                                                       Padding="5">
                                                     <Frame.GestureRecognizers>
-                                                        <TapGestureRecognizer Tapped="OnTileTapped" CommandParameter="{Binding .}" />
+                                                        <TapGestureRecognizer Tapped="OnTileTapped"
+                                                                              CommandParameter="{Binding .}"/>
                                                     </Frame.GestureRecognizers>
-                                                    <Grid Padding="5">
+                                                    <Grid Padding="0">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="2*"/>
                                                             <ColumnDefinition Width="2*"/>
                                                             <ColumnDefinition Width="2*"/>
                                                             <ColumnDefinition Width="2*"/>
-                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="4*"/>
                                                         </Grid.ColumnDefinitions>
 
                                                         <!-- Athlete Information -->
                                                         <Label Text="{Binding FirstName}"
                                                                FontAttributes="Bold"
-                                                               Grid.Column="0"/>
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
                                                         <Label Text="{Binding LastName}"
                                                                FontAttributes="Bold"
-                                                               Grid.Column="1"/>
+                                                               Grid.Column="1"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
                                                         <Label Text="{Binding InjuredArea}"
-                                                               Grid.Column="2"/>
+                                                               Grid.Column="2"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
                                                         <Label Text="{Binding Sport}"
-                                                               Grid.Column="3"/>
-                                                        <Label Text="{Binding Status}"
-                                                               Grid.Column="4"/>
+                                                               Grid.Column="3"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
+
+                                                        <!-- Status Picker -->
+                                                        <Picker Title="{Binding Status}"
+                                                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:AthleteStatuses}}, Path=StatusOptions}"
+                                                                SelectedItem="{Binding Status, Mode=TwoWay}"
+                                                                Grid.Column="4"
+                                                                HorizontalOptions="FillAndExpand"
+                                                                VerticalOptions="Center"
+                                                                TextColor="Black"      
+                                                                SelectedIndexChanged="OnStatusChanged"/>
                                                     </Grid>
                                                 </Frame>
                                             </DataTemplate>

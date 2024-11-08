@@ -34,7 +34,7 @@ namespace RecoveryAT
         
         public async void OnFrameTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AthleteFormInformation());
+            await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat")));
         }
     }
 
