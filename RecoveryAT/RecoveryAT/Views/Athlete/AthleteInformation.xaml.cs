@@ -15,6 +15,8 @@ namespace RecoveryAT
 {
     public partial class AthleteInformation : FlyoutPage
     {
+        private readonly Database _database;
+        
         public ObservableCollection<Athlete> AthleteList { get; set; }
 
         public ICommand NavigateToPastFormsCommand { get; }
@@ -22,16 +24,15 @@ namespace RecoveryAT
         public ICommand NavigateToAthleteStatusesCommand { get; }
         public ICommand NavigateToHomeCommand { get; }
 
+        public ObservableCollection<AthleteContact> ContactList { get; set; } = new ObservableCollection<AthleteContact>();
+
         public AthleteInformation()
         {
             InitializeComponent();
 
-            AthleteList = new ObservableCollection<Athlete>
-            {
-                new Athlete { Date = "10/01/2024", Name = "John Smith", Relationship = "Mother", PhoneNumber = "(123) 456-7890", Grade = "12" },
-                new Athlete { Date = "09/22/2024", Name = "Reece Thomas", Relationship = "Mother", PhoneNumber = "(555) 111-2222", Grade = "11" },
-                new Athlete { Date = "09/10/2024", Name = "Marcus Rye", Relationship = "Guardian", PhoneNumber = "(111) 222-3333", Grade = "9" }
-            };
+            _database = new Database();
+
+            LoadContacts();
 
             // Initialize Commands
             NavigateToHomeCommand = new Command(NavigateToHome);
@@ -51,7 +52,16 @@ namespace RecoveryAT
             AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1],"Sport","Injury","stat"); // should get from database, fix later
             await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
         }
-        
+        private void LoadContacts()
+        {
+            ContactList.Clear();
+            var contacts = _database.SelectAllContacts();
+            foreach (var contact in contacts)
+            {
+                ContactList.Add(contact);
+            }
+        }
+
         private void NavigateToHome(object obj)
         {
             Application.Current.MainPage = new NavigationPage(new MainTabbedPage());

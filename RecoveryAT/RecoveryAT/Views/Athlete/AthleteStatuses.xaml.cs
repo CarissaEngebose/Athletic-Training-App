@@ -38,7 +38,15 @@ namespace RecoveryAT
 
         public AthleteStatuses()
         {
+            _selectedStatus = "All"; // Initialize with a default value
             InitializeComponent();
+
+            _database = new Database();
+
+            AthleteList = [];
+            StatusOptions =
+            [
+                "All", // Add an option to show all athletes
 
             _businessLogic = new BusinessLogic(new Database());
             AthleteList = new ObservableCollection<AthleteForm>();
@@ -50,7 +58,7 @@ namespace RecoveryAT
                 "Limited Contact",
                 "Activity as Tolerated",
                 "Total Rest"
-            };
+            ];
 
             StatusOptions = new ObservableCollection<string>
             {

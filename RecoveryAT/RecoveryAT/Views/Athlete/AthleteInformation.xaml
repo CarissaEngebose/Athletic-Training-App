@@ -135,7 +135,7 @@
                                     </Frame>
 
                                     <!-- List of Athletes (Using CollectionView) -->
-                                    <CollectionView ItemsSource="{Binding AthleteList}">
+                                    <CollectionView ItemsSource="{Binding ContactList}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
                                                 <Frame BackgroundColor="#E0F7FA"
@@ -156,15 +156,8 @@
                                                             <ColumnDefinition Width="1*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <!-- Date -->
-                                                        <Label Text="{Binding Date}"
-                                                               FontSize="16"
-                                                                FontAttributes="Bold"
-                                                               Grid.Row="0"
-                                                                HorizontalOptions="Start"/>
-
                                                         <!-- Name -->
-                                                        <Label Text="{Binding Name}"
+                                                        <Label Text="{Binding ContactID}"
                                                                FontSize="14"
                                                                 FontAttributes="Bold"
                                                                Grid.Row="1"
@@ -172,7 +165,7 @@
                                                                VerticalOptions="Center"/>
 
                                                         <!-- Relationship -->
-                                                        <Label Text="{Binding Relationship}"
+                                                        <Label Text="{Binding ContactType}"
                                                                FontSize="14"
                                                                Grid.Row="2"
                                                                 Grid.Column="0"
@@ -184,15 +177,6 @@
                                                                Grid.Row="3"
                                                                 Grid.Column="0"
                                                                VerticalOptions="Center"/>
-
-                                                        <!-- Form Number -->
-                                                        <Label Text="{Binding Grade}"
-                                                               FontSize="14"
-                                                                FontAttributes="Bold"
-                                                               Grid.Row="1"
-                                                                Grid.Column="1"
-                                                               VerticalOptions="Center"
-                                                               HorizontalOptions="End"/>
                                                     </Grid>
                                                 </Frame>
                                             </DataTemplate>

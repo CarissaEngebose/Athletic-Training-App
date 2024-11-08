@@ -37,24 +37,31 @@
         <Label HeightRequest="125" />
 
         <!-- Code Input Fields -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+        <Grid HorizontalOptions="FillAndExpand" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <!-- Each Frame contains an Entry for code input -->
-            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry x:Name="CodeEntry1" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            <Frame Grid.Column="0" BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry x:Name="CodeEntry1" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" TextChanged="OnCodeEntryTextChanged" />
             </Frame>
-            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry x:Name="CodeEntry2" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            <Frame Grid.Column="1" BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry x:Name="CodeEntry2" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" TextChanged="OnCodeEntryTextChanged" />
             </Frame>
-            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry x:Name="CodeEntry3" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            <Frame Grid.Column="2" BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry x:Name="CodeEntry3" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" TextChanged="OnCodeEntryTextChanged" />
             </Frame>
-            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry x:Name="CodeEntry4" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            <Frame Grid.Column="3" BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry x:Name="CodeEntry4" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" TextChanged="OnCodeEntryTextChanged" />
             </Frame>
-            <Frame BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
-                <Entry x:Name="CodeEntry5" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" />
+            <Frame Grid.Column="4" BorderColor="Gray" CornerRadius="10" Padding="5" WidthRequest="70" HeightRequest="70">
+                <Entry x:Name="CodeEntry5" Placeholder=" " FontSize="26" HorizontalTextAlignment="Center" MaxLength="1" TextChanged="OnCodeEntryTextChanged" />
             </Frame>
-        </StackLayout>
+        </Grid>
 
         <!-- Spacer -->
         <Label HeightRequest="130" />
