@@ -68,6 +68,9 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="formKey">The key of the form to delete.</param>
         /// <returns>A message saying if the form was successfully deleted from the database or not.</returns>
+        /// 
+
+        ObservableCollection<AthleteForm> GetFormsFromToday(string schoolCode);
         public string DeleteForm(long formKey);
 
         /// <summary>
@@ -99,7 +102,8 @@ namespace RecoveryAT
         /// <param name="schoolCode">User's school code.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
-    
+
+        public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
         long GetLastInsertedFormKey(string schoolCode);
     }
 }

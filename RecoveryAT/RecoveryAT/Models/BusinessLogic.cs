@@ -223,6 +223,15 @@ namespace RecoveryAT
             return _database.UpdateContactStatus(formKey, newStatus);
         }
 
+        /// <summary>
+        /// Retrieves the list of all forms that are less than today's date.
+        /// </summary>
+        /// <returns>A list of forms.</returns>
+        public ObservableCollection<AthleteForm> GetFormsFromToday(string schoolCode)
+        {
+            var forms = _database.SelectFormsByDate(schoolCode, DateTime.Now);
+            return forms ?? [];
+        }
 
     }
 }
