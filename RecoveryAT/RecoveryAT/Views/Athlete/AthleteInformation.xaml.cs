@@ -15,22 +15,19 @@ namespace RecoveryAT
 {
     public partial class AthleteInformation : FlyoutPage
     {
-        private readonly Database _database;
-        
-        public ObservableCollection<Athlete> AthleteList { get; set; }
-
         public ICommand NavigateToPastFormsCommand { get; }
         public ICommand NavigateToStatisticsCommand { get; }
         public ICommand NavigateToAthleteStatusesCommand { get; }
         public ICommand NavigateToHomeCommand { get; }
 
-        public ObservableCollection<AthleteContact> ContactList { get; set; } = new ObservableCollection<AthleteContact>();
+        public ObservableCollection<Athlete> ContactList { get; set; } = [];
+
+        private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
+        /// </summary>
 
         public AthleteInformation()
         {
             InitializeComponent();
-
-            _database = new Database();
 
             LoadContacts();
 
@@ -49,38 +46,62 @@ namespace RecoveryAT
             var tappedItem = frame.BindingContext; // get the tapped item information
 
             Athlete currAthlete = (Athlete)tappedItem; // for testing purposes
-            AthleteForm selectedAthlete = new AthleteForm(currAthlete.Name.Split(" ")[0], currAthlete.Name.Split(" ")[1],"Sport","Injury","stat"); // should get from database, fix later
-            await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
+            if (currAthlete.Name != null)
+            {
+                var nameParts = currAthlete.Name.Split(" ");
+                AthleteForm selectedAthlete = new(nameParts[0], nameParts.Length > 1 ? nameParts[1] : string.Empty, "Sport", "Injury", "stat"); // should get from database, fix later
+                await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
+            }
         }
         private void LoadContacts()
         {
-            ContactList.Clear();
-            var contacts = _database.SelectAllContacts();
+            ContactList.Clear(); // Clear the list (should probably be done in a better way w/ caching later)
+
+            var athleteForms = MauiProgram.BusinessLogic.GetForms(schoolCode: SchoolCode);
+
+            if (athleteForms == null) return; // Skip if no forms found
+
+            foreach (var form in athleteForms)
+            {
+            var contacts = MauiProgram.BusinessLogic.GetContactsByFormKey(form.FormKey ?? 0);
+            if (contacts == null) continue; // Skip athlete if athlete has no contacts
+
             foreach (var contact in contacts)
             {
-                ContactList.Add(contact);
+                ContactList.Add(new Athlete
+                {
+                Name = form.FullName,
+                Relationship = contact.ContactType,
+                PhoneNumber = contact.PhoneNumber,
+                TreatmentType = form.TreatmentType,
+                Grade = form.Grade.ToString()
+                });
+            }
             }
         }
 
         private void NavigateToHome(object obj)
         {
+            if (Application.Current != null)
+            {
             Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
+            }
             IsPresented = false;
         }
 
-        private async void NavigateToPastForms()
+        private void NavigateToPastForms()
         {
             Detail = new NavigationPage(new AthletePastForms());
             IsPresented = false; // Hide flyout
         }
 
-        private async void NavigateToStatistics()
+        private void NavigateToStatistics()
         {
             Detail = new NavigationPage(new InjuryStatistics());
             IsPresented = false;
         }
 
-        private async void NavigateToAthleteStatuses()
+        private void NavigateToAthleteStatuses()
         {
             Detail = new NavigationPage(new AthleteStatuses());
             IsPresented = false;
@@ -89,10 +110,11 @@ namespace RecoveryAT
 
     public class Athlete
     {
-        public string Date { get; set; }
-        public string Name { get; set; }
-        public string Relationship { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Grade { get; set; }
+        public string? Name { get; set; }
+        public string? Relationship { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Grade { get; set; }
+
+        public string? TreatmentType { get; set; }
     }
 }

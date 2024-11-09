@@ -30,15 +30,18 @@ namespace RecoveryAT
             }
         }
 
-        public ObservableCollection<AthleteForm> AthleteList { get; set; } = new ObservableCollection<AthleteForm>();
-        public ObservableCollection<string> StatusOptions { get; set; } = new ObservableCollection<string>
-        {
+        public ObservableCollection<AthleteForm> AthleteList { get; set; } = [];
+        public ObservableCollection<string> StatusOptions { get; set; } =
+        [
             "All",
+            "Today",
             "Full Contact",
             "Limited Contact",
             "Activity as Tolerated",
             "Total Rest"
-        };
+        ];
+
+        private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
 
         // Constructor to initialize the AthletePastForms page
         public AthletePastForms()
@@ -70,12 +73,15 @@ namespace RecoveryAT
             try
             {
                 // Load all athletes from the database
-                var athletes = _database.SelectAllForms(); // This returns a List<AthleteForm>
+                var athletes = MauiProgram.BusinessLogic.GetForms(SchoolCode); // This returns a List<AthleteForm>
 
                 AthleteList.Clear(); // Clear the existing ObservableCollection
-                foreach (var athlete in athletes)
+                if (athletes != null)
                 {
-                    AthleteList.Add(athlete); // Add each item from the List to the ObservableCollection
+                    foreach (var athlete in athletes)
+                    {
+                        AthleteList.Add(athlete);
+                    }
                 }
                 OnPropertyChanged(nameof(AthleteList));
             }
@@ -89,13 +95,16 @@ namespace RecoveryAT
         {
             try
             {
-                // Convert athletes to a List to perform LINQ filtering, if needed
-                var athletes = _database.SelectAllForms().ToList();
+                List<AthleteForm> athletes = [];
 
                 // Filter by selected status if it's not "All"
-                if (SelectedStatus != "All" && !string.IsNullOrEmpty(SelectedStatus))
+                if (SelectedStatus == "Today")
                 {
-                    athletes = athletes.Where(a => a.Status == SelectedStatus).ToList();
+                    athletes = [.. MauiProgram.BusinessLogic.GetFormsFromToday(SchoolCode)];
+                }
+                else
+                {
+                    athletes = [.. MauiProgram.BusinessLogic.GetForms(SchoolCode)];
                 }
 
                 // Convert the filtered list back to ObservableCollection for data binding
