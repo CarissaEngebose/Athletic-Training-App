@@ -73,6 +73,10 @@ namespace RecoveryAT
             Week = CalculateWeek(FullDate.AddDays(-7)); // go to previous week
         }
 
+        public void LoadAthleteFormsFromDay(Day day){
+            day.IsSelected = true;
+        }
+
         // code for data binding
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName = null)
@@ -87,9 +91,11 @@ namespace RecoveryAT
         {
             this.DayName = dayName;
             this.DayNumber = dayNumber;
+            this.IsSelected = false;
         }
         public String DayName {get; set;}
         public int DayNumber {get; set;}
+        public bool IsSelected {get; set;}
         public static String[] dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     }
 }

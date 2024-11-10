@@ -29,8 +29,8 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -41,7 +41,8 @@
             <!--Month-->
             <Label Grid.Row="0"
                    Grid.Column="2"
-                   Text="{Binding Month}"></Label>
+                   Text="{Binding Month}"
+                   HorizontalOptions="End"></Label>
 
             <!--Previous Week Button-->
             <Button Text="◀"
@@ -62,7 +63,8 @@
                             Grid.ColumnSpan="2"
                             ItemsLayout="HorizontalList"
                             ItemsSource="{Binding Week}"
-                            SelectedItem="{Binding SelectedDay, Mode=TwoWay}">
+                            SelectedItem="{Binding SelectedDay, Mode=TwoWay}"
+                            HorizontalOptions="Center">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <!--Background frame-->
@@ -71,12 +73,15 @@
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
                                CornerRadius="8"
-                               HasShadow="False">
+                               HasShadow="True">
                             <!-- When Clicked -->
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnDayTapped"/>
+                            </Frame.GestureRecognizers>
                             <Frame.Triggers>
                                 <!--Set Background blue-->
                                 <DataTrigger TargetType="Frame"
-                                             Binding="{Binding SelectedDay}"
+                                             Binding="{Binding IsSelected}"
                                              Value="True">
                                     <Setter Property="BackgroundColor"
                                             Value="LightBlue"/>
@@ -98,7 +103,7 @@
 
             <!--Next Week Button-->
             <Button Text="▶"
-                    Command="{Binding GetYearCommand}"
+                    Command="{Binding GetNextWeek}"
                     BackgroundColor="Transparent"
                     TextColor="Black"
                     FontSize="24"

@@ -10,6 +10,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
@@ -18,14 +19,18 @@ namespace RecoveryAT
 {
     public partial class TrainerHomeScreen : ContentPage
     {
-        public CalendarViewModel ViewModel { get; }
-
+        public TrainerHomeScreenViewModel ViewModel = new TrainerHomeScreenViewModel();
         public TrainerHomeScreen()
         {
             InitializeComponent();
-            BindingContext = new TrainerHomeScreenViewModel();
+            BindingContext = ViewModel;
         }
         
+        public void onDayTapped(object sender, EventArgs e){
+            Day SelectedDay = (Day)((Frame)sender).BindingContext;
+            ViewModel.Calendar.LoadAthleteFormsFromDay(SelectedDay);
+        }
+
         public async void OnFrameTapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat")));
