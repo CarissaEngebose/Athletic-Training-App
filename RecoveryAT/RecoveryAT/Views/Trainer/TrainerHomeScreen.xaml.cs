@@ -23,13 +23,7 @@ namespace RecoveryAT
         public TrainerHomeScreen()
         {
             InitializeComponent();
-
-            // Initialize the ViewModel and bind it to the page's BindingContext
-            ViewModel = new CalendarViewModel();
-            BindingContext = ViewModel;
-
-            // Load the calendar data for the current year
-            ViewModel.LoadCalendarData(DateTime.Now.Year);
+            BindingContext = new TrainerHomeScreenViewModel();
         }
         
         public async void OnFrameTapped(object sender, EventArgs e)
@@ -37,7 +31,8 @@ namespace RecoveryAT
             await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last","Sport","Inj","stat")));
         }
     }
-
+}
+/*
     // ViewModel to manage the calendar's data and state
     public class CalendarViewModel : INotifyPropertyChanged
     {
@@ -184,4 +179,5 @@ namespace RecoveryAT
     {
         public string Name { get; set; }
     }
-}
+    */
+

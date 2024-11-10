@@ -12,27 +12,8 @@
              x:Class="RecoveryAT.TrainerHomeScreen"
              Title="">
 
-    <ContentPage.Resources>
-        <DataTemplate x:Key="MonthHeaderTemplate">
-            <StackLayout BackgroundColor="#E0E0E0"
-                         Padding="10"
-                         HeightRequest="100">
-                <Label Text="{Binding Name}"
-                       FontSize="20"
-                       FontAttributes="Bold"/>
-            </StackLayout>
-        </DataTemplate>
-    </ContentPage.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <StackLayout>
+        <!--Logo-->
         <Image Source="medical_icon.png"
                HeightRequest="100"
                Grid.Row="0"
@@ -40,91 +21,95 @@
                HorizontalOptions="Center"
                Margin="0,0,0,10"/>
 
-        <Grid Grid.Row="1"
-              Padding="0"
-              ColumnSpacing="0"
-              Margin="0,0,0,-40">
+        <!--Date-->
+        <Grid BindingContext="{Binding Calendar}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!--Year-->
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Text="{Binding Year}"></Label>
+            <!--Month-->
+            <Label Grid.Row="0"
+                   Grid.Column="2"
+                   Text="{Binding Month}"></Label>
+
+            <!--Previous Week Button-->
             <Button Text="◀"
-                    Command="{Binding PreviousYearCommand}"
+                    Command="{Binding GetPreviousWeek}"
                     BackgroundColor="Transparent"
                     TextColor="Black"
                     FontSize="24"
                     WidthRequest="50"
+                    Grid.Row="1"
+                    Grid.Column="0"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
 
-            <StackLayout Orientation="Horizontal"
-                         Grid.Column="1"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center">
-                <Label Text="{Binding CurrentYear}"
-                       FontSize="24"
-                       FontAttributes="Bold"/>
-            </StackLayout>
+            <!--Days of the week-->
+            <CollectionView x:Name="Week"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding Week}"
+                            SelectedItem="{Binding SelectedDay, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!--Background frame-->
+                        <Frame Padding="2"
+                               Margin="2"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               CornerRadius="8"
+                               HasShadow="False">
+                            <!-- When Clicked -->
+                            <Frame.Triggers>
+                                <!--Set Background blue-->
+                                <DataTrigger TargetType="Frame"
+                                             Binding="{Binding SelectedDay}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor"
+                                            Value="LightBlue"/>
+                                </DataTrigger>
+                            </Frame.Triggers>
+                            <!--write each day-->
+                            <StackLayout Orientation="Vertical"
+                                         HorizontalOptions="Center">
+                                <Label Text="{Binding DayName}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding DayNumber}"
+                                       FontSize="24"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
+            <!--Next Week Button-->
             <Button Text="▶"
-                    Command="{Binding NextYearCommand}"
+                    Command="{Binding GetYearCommand}"
                     BackgroundColor="Transparent"
                     TextColor="Black"
                     FontSize="24"
                     WidthRequest="50"
-                    Grid.Column="2"
+                    Grid.Row="1"
+                    Grid.Column="3"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"/>
         </Grid>
 
-        <CollectionView x:Name="CalendarCollectionView"
-                        Grid.Row="2"
-                        ItemsLayout="HorizontalList"
-                        Margin="10,-10,0,0"
-                        VerticalOptions="Center"
-                        IsGrouped="True"
-                        GroupHeaderTemplate="{StaticResource MonthHeaderTemplate}"
-                        SelectionMode="None"
-                        ItemsSource="{Binding CalendarData}"
-                        SelectedItem="{Binding SelectedDay, Mode=TwoWay}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="2"
-                           Margin="2"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           CornerRadius="8"
-                           HasShadow="False">
-                        <!-- Default neutral color -->
-                        <Frame.Triggers>
-                            <DataTrigger TargetType="Frame"
-                                         Binding="{Binding IsSelected}"
-                                         Value="True">
-                                <Setter Property="BackgroundColor"
-                                        Value="LightBlue"/>
-                                <!-- Selected state -->
-                            </DataTrigger>
-                        </Frame.Triggers>
-                        <StackLayout Orientation="Vertical"
-                                     HorizontalOptions="Center">
-                            <Label Text="{Binding DayOfWeek}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Day}"
-                                   FontSize="24"/>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={x:Reference CalendarCollectionView}, Path=BindingContext.DaySelectedCommand}"
-                                    CommandParameter="{Binding}"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
+        <!--Athlete Forms-->
         <Frame Padding="10"
                Margin="10,10"
                CornerRadius="8"
@@ -164,5 +149,5 @@
                        Text="12"/>
             </Grid>
         </Frame>
-    </Grid>
+    </StackLayout>
 </ContentPage>
