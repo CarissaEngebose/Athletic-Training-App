@@ -38,7 +38,7 @@
              <CarouselView x:Name="YearCarousel"
                           PositionChanged="YearChanged"
                           ItemsSource="{Binding Years}"
-                          Loop="False"
+                          Loop="True"
                           Grid.Row="0"
                           Grid.Column="1">
                 <CarouselView.ItemsLayout>

@@ -43,15 +43,15 @@ namespace RecoveryAT
         }
 
         public void MonthChanged(object sender, EventArgs e){
-            Frame MonthFrame = (Frame)sender;
-            String Month = (String)MonthFrame.BindingContext;
-            ViewModel.Calendar.SetMonth(Month);
+            //Frame MonthFrame = (Frame)sender;
+            //String Month = (String)MonthFrame.BindingContext;
+            //ViewModel.Calendar.SetMonth(Month);
         }
 
         public void YearChanged(object sender, EventArgs e){
-            Frame YearFrame = (Frame)sender;
-            String Year = (String)YearFrame.BindingContext;
-            ViewModel.Calendar.SetYear(Int32.Parse(Year));
+            //Frame YearFrame = (Frame)sender;
+            //String Year = (String)YearFrame.BindingContext;
+            //ViewModel.Calendar.SetYear(Int32.Parse(Year));
         }
     }
 }
