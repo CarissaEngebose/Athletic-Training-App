@@ -35,29 +35,55 @@
             </Grid.ColumnDefinitions>
 
             <!--Year-->
-            <Label Grid.Row="0"
-                   Grid.Column="1"
-                   Text="{Binding SelectedDate.Year}"></Label>
-                   
+             <CarouselView x:Name="YearCarousel"
+                          PositionChanged="YearChanged"
+                          ItemsSource="{Binding Years}"
+                          Loop="False"
+                          Grid.Row="0"
+                          Grid.Column="1">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CarouselView.ItemsLayout>
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="20"
+                               Margin="10"
+                               HasShadow="True"
+                               BackgroundColor="LightBlue"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"
+                               HeightRequest="75"
+                               WidthRequest="120">
+                            <Label Text="{Binding}"
+                                   FontSize="Medium"
+                                   HorizontalTextAlignment="Center"/>
+                        </Frame>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+
             <!--Month-->
             <CarouselView x:Name="MonthCarousel"
                           PositionChanged="MonthChanged"
                           ItemsSource="{Binding Months}"
-                          IndicatorView="MonthIndicator"
                           Loop="True"
                           Grid.Row="0"
-                          Grid.Column="0">
+                          Grid.Column="2">
+                <CarouselView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"/>
+                </CarouselView.ItemsLayout>
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="20"
-                                Margin="10"
+                               Margin="10"
                                HasShadow="True"
-                               BackgroundColor="LightGray"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Scale="0.8">
+                               BackgroundColor="LightBlue"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Fill"
+                               HeightRequest="75"
+                               WidthRequest="120">
                             <Label Text="{Binding}"
-                                   FontSize="Large"
+                                   FontSize="15"
                                    HorizontalTextAlignment="Center"/>
                         </Frame>
                     </DataTemplate>

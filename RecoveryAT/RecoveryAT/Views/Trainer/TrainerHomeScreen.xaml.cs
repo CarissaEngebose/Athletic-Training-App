@@ -45,5 +45,9 @@ namespace RecoveryAT
         public void MonthChanged(object sender, EventArgs e){
             
         }
+
+        public void YearChanged(object sender, EventArgs e){
+            
+        }
     }
 }

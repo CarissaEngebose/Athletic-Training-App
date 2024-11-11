@@ -5,7 +5,8 @@ namespace RecoveryAT{
     
     public class CalendarViewModel : INotifyPropertyChanged
     {
-        public List<String> Months;
+        public List<String> Months {get; set;}
+        public List<int> Years {get; set;} // property to make data binding easier
         private Date _selectedDate;
         public Date SelectedDate {get => _selectedDate; set{_selectedDate = value; OnPropertyChanged();}}
         public Action<DateTime> OnDaySelected;
@@ -13,6 +14,7 @@ namespace RecoveryAT{
         {
             SelectedDate = new Date(DateTime.Now, OnDaySelected);
             Months = new List<String>(Date.MonthNames);
+            Years = Enumerable.Range(1950, 101).ToList(); // generate list of years 1950 to 2050
         }
 
         public void SetNextWeek()
