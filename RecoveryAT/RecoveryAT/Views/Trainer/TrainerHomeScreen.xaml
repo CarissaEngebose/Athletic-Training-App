@@ -82,8 +82,8 @@
                                 <!--Set Background blue-->
                                 <DataTrigger TargetType="Frame"
                                              Binding="{Binding IsSelected}"
-                                             Value="True">
-                                    <Setter Property="BackgroundColor"
+                                             Value="true">
+                                             <Setter Property="BackgroundColor"
                                             Value="LightBlue"/>
                                 </DataTrigger>
                             </Frame.Triggers>

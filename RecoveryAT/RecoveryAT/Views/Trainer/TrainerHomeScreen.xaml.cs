@@ -10,6 +10,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -19,16 +20,18 @@ namespace RecoveryAT
 {
     public partial class TrainerHomeScreen : ContentPage
     {
-        public TrainerHomeScreenViewModel ViewModel = new TrainerHomeScreenViewModel();
-        public TrainerHomeScreen()
+        public TrainerHomeScreenViewModel ViewModel;
+        public TrainerHomeScreen(BusinessLogic businessLogic, String SchoolCode)
         {
             InitializeComponent();
+            ViewModel = new TrainerHomeScreenViewModel(businessLogic, SchoolCode);
             BindingContext = ViewModel;
         }
         
-        public void onDayTapped(object sender, EventArgs e){
-            Day SelectedDay = (Day)((Frame)sender).BindingContext;
-            ViewModel.Calendar.LoadAthleteFormsFromDay(SelectedDay);
+        public void OnDayTapped(object sender, EventArgs e){
+            Frame DayElement = (Frame)sender; // get the xaml Frame 
+            CalendarViewModel.Day SelectedDay = (CalendarViewModel.Day)DayElement.BindingContext; // convert to day object
+           SelectedDay.IsSelected = true;
         }
 
         public async void OnFrameTapped(object sender, EventArgs e)
