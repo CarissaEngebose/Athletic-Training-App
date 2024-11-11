@@ -103,7 +103,8 @@ namespace RecoveryAT
 
         private void NavigateToAthleteStatuses()
         {
-            Detail = new NavigationPage(new AthleteStatuses());
+            string schoolCode = "12345";
+            Detail = new NavigationPage(new AthleteStatuses(schoolCode));
             IsPresented = false;
         }
     }
