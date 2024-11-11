@@ -3,9 +3,12 @@ namespace RecoveryAT;
 // MainTabbedPage.xaml.cs
 public partial class MainTabbedPage : TabbedPage
 {
-    public MainTabbedPage()
+    public MainTabbedPage(BusinessLogic businessLogic, String SchoolCode)
     {
         InitializeComponent();
+        // Moved instantiation to code behind so that I can pass in a businessLogic and SchoolCode. This allows all screens to use the same Business logic
+        Children.Add(new NavigationPage(new TrainerHomeScreen(businessLogic, SchoolCode)) { IconImageSource = "home_icon.png", Title = "Home" });
+
         CurrentPageChanged += OnTabChanged;
     }
 

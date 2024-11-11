@@ -7,12 +7,6 @@
              android:TabbedPage.ToolbarPlacement="Bottom">
 
     <TabbedPage.Children>
-        <NavigationPage IconImageSource="home_icon.png" Title="Home">
-            <x:Arguments>
-                <local:TrainerHomeScreen />
-            </x:Arguments>
-        </NavigationPage>
-
         <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
             <x:Arguments>
                 <local:AthleteInformation />
