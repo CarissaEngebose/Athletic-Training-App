@@ -21,7 +21,7 @@ namespace RecoveryAT
     public partial class TrainerHomeScreen : ContentPage
     {
         public TrainerHomeScreenViewModel ViewModel;
-        public TrainerHomeScreen(BusinessLogic businessLogic, String SchoolCode)
+        public TrainerHomeScreen(IBusinessLogic businessLogic, String SchoolCode)
         {
             InitializeComponent();
             ViewModel = new TrainerHomeScreenViewModel(businessLogic, SchoolCode);

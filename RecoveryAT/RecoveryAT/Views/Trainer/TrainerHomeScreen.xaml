@@ -83,7 +83,7 @@
                                 <DataTrigger TargetType="Frame"
                                              Binding="{Binding IsSelected}"
                                              Value="true">
-                                             <Setter Property="BackgroundColor"
+                                    <Setter Property="BackgroundColor"
                                             Value="LightBlue"/>
                                 </DataTrigger>
                             </Frame.Triggers>
@@ -115,44 +115,49 @@
         </Grid>
 
         <!--Athlete Forms-->
-        <Frame Padding="10"
-               Margin="10,10"
-               CornerRadius="8"
-               HasShadow="True"
-               Grid.Row="3"
-               BackgroundColor="LightSkyBlue">
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnFrameTapped"/>
-            </Frame.GestureRecognizers>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+        <CollectionView ItemsSource="{Binding AthleteForms}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10"
+                           Margin="10,10"
+                           CornerRadius="8"
+                           HasShadow="True"
+                           Grid.Row="3"
+                           BackgroundColor="LightSkyBlue">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFrameTapped"/>
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       Text="{Binding SelectedDay.DateDisplay}"/>
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       Text="John Smith"/>
-                <Label Grid.Row="2"
-                       Grid.Column="0"
-                       Text="Football"/>
-                <Label Grid.Row="3"
-                       Grid.Column="0"
-                       Text="Ankle"/>
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       HorizontalOptions="End"
-                       Text="12"/>
-            </Grid>
-        </Frame>
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{Binding FullName}"/>
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="{Binding Sport}"/>
+                            <Label Grid.Row="3"
+                                   Grid.Column="0"
+                                   Text="{Binding InjuryArea}"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="{Binding Grade}"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+
+        </CollectionView>
     </StackLayout>
 </ContentPage>

@@ -12,20 +12,36 @@ using System.ComponentModel;
 */
 namespace RecoveryAT
 {
-    public partial class TrainerHomeScreenViewModel
+    public partial class TrainerHomeScreenViewModel : INotifyPropertyChanged
     {
         IBusinessLogic BusinessLogic;
         String SchoolCode;
-        public TrainerHomeScreenViewModel(BusinessLogic BusinessLogic, String SchoolCode){
+        public TrainerHomeScreenViewModel(IBusinessLogic BusinessLogic, String SchoolCode)
+        {
             Calendar.LoadAthleteForms += LoadAthleteFormsForDay; // set up event to load athlete forms when day is selected
             this.BusinessLogic = BusinessLogic;
             this.SchoolCode = SchoolCode;
+            this.AthleteForms = new ObservableCollection<AthleteForm>();
         }
 
+        ObservableCollection<AthleteForm> _athleteForms;
         public CalendarViewModel Calendar { get; set; } = new CalendarViewModel();
-        public ObservableCollection<AthleteForm> AthleteForms { get; set; } = new ObservableCollection<AthleteForm>();
-        public void LoadAthleteFormsForDay(DateTime date){
+        public ObservableCollection<AthleteForm> AthleteForms
+        {
+            get => _athleteForms;
+            set
+            {
+                _athleteForms = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void LoadAthleteFormsForDay(DateTime date)
+        {
             AthleteForms = BusinessLogic.GetFormsByDate(SchoolCode, date);
+            Console.WriteLine(date);
         }
     }
 
@@ -43,7 +59,7 @@ namespace RecoveryAT
         public string Month { get => _month; set { _month = value; OnPropertyChanged(); } }
         public int Year { get => _year; set { _year = value; OnPropertyChanged(); } }
         public int SelectedDay { get => _selectedDay; set { _selectedDay = value; OnPropertyChanged(); } }
-        public DateTime FullDate => new DateTime(Year, Array.IndexOf(monthNames, Month), Week[0].DayNumber);
+        public DateTime FullDate {get{return new DateTime(Year, Array.IndexOf(monthNames, Month), Week[0].DayNumber);}}
 
         public CalendarViewModel()
         {

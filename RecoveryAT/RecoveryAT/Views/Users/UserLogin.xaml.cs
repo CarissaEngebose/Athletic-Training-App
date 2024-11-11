@@ -51,6 +51,6 @@ public partial class UserLogin : ContentPage {
 
     private async void OnLoginSuccessful() {
         authService.Login(); // log the user in
-        await Navigation.PushModalAsync(new MainTabbedPage()); // navigate to the main tabbed page
+        await Navigation.PushModalAsync(new MainTabbedPage("THS24")); // navigate to the main tabbed page
     }
 }
