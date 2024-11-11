@@ -31,6 +31,10 @@ namespace RecoveryAT{
             SelectedDate = SelectedDate.AddMonths(SelectedDate.Month - Month); // calculate new month
         }
 
+        public void SetMonth(String Month){
+            SelectedDate = SelectedDate.AddMonths(SelectedDate.Month - Months.IndexOf(Month)); // calculate new month
+        }
+
         public void SetYear(int Year){
             SelectedDate = SelectedDate.AddYears(SelectedDate.Year - Year); // calculate new year
         }
