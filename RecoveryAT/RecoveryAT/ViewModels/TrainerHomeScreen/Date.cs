@@ -10,11 +10,11 @@ namespace CalendarManagment
         public int Year => _date.Year;
         public int Day => _date.Day;
         public int DayOfTheWeek => (int)_date.DayOfWeek;
+        public List<Day> Week {get; set;}
+        public Action<DateTime> OnNewDaySelected;
         public Date AddDays(double NumDays) => new Date(_date.AddDays(NumDays), OnNewDaySelected);
         public Date AddMonths(int months) => new Date(_date.AddMonths(months), OnNewDaySelected);
         public Date AddYears(int years) => new Date(_date.AddYears(years), OnNewDaySelected);
-        public List<Day> Week;
-        public Action<DateTime> OnNewDaySelected;
         public Date(int Month, int Year, int Day, Action<DateTime> OnNewDaySelected) : this(new DateTime(Month, Year, Day), OnNewDaySelected)
         {
         }

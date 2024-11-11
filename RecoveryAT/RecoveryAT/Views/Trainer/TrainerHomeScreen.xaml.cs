@@ -15,6 +15,7 @@ using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
+using CalendarManagment;
 
 namespace RecoveryAT
 {
@@ -30,7 +31,7 @@ namespace RecoveryAT
         
         public void OnDayTapped(object sender, EventArgs e){
             Frame DayElement = (Frame)sender; // get the xaml Frame 
-            CalendarViewModel.Day SelectedDay = (CalendarViewModel.Day)DayElement.BindingContext; // convert to day object
+            Day SelectedDay = (Day)DayElement.BindingContext; // convert to day object
             SelectedDay.IsSelected = true;
         }
 
@@ -39,6 +40,10 @@ namespace RecoveryAT
             Frame AthleteFormFrame = (Frame)sender; // get XAML frame
             AthleteForm SelectedAthleteForm = (AthleteForm)AthleteFormFrame.BindingContext; // get seleceted athlete form from clicked frame
             await Navigation.PushAsync(new AthleteFormInformation(SelectedAthleteForm)); // send to AthleteFormInformation view to display
+        }
+
+        public void MonthChanged(object sender, EventArgs e){
+            
         }
     }
 }
