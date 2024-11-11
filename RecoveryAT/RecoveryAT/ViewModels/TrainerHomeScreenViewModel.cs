@@ -59,14 +59,16 @@ namespace RecoveryAT
         public string Month { get => _month; set { _month = value; OnPropertyChanged(); } }
         public int Year { get => _year; set { _year = value; OnPropertyChanged(); } }
         public int SelectedDay { get => _selectedDay; set { _selectedDay = value; OnPropertyChanged(); } }
-        public DateTime FullDate {get{return new DateTime(Year, Array.IndexOf(monthNames, Month), Week[0].DayNumber);}}
+        public DateTime FullDate {get{return new DateTime(Year, Array.IndexOf(monthNames, Month), Week[SelectedDay].DayNumber);}}
 
         public CalendarViewModel()
         {
             // sets calendar date to today
+            SelectedDay = (int)DateTime.Now.DayOfWeek;
             Week = CalculateWeek(DateTime.Now);
             Month = monthNames[DateTime.Now.Month];
             Year = DateTime.Now.Year;
+            Week[(int)DateTime.Now.DayOfWeek].IsSelected = true; // selects today on startup
         }
 
         private List<Day> CalculateWeek(DateTime currDay)
@@ -78,15 +80,16 @@ namespace RecoveryAT
                 Day NewDay = new Day(Day.dayNames[currDayOfTheWeek], sundayDate.AddDays(currDayOfTheWeek).Day); // create a new day
                 daysOfTheWeek.Add(NewDay); // add new day to week
                 // set what happens when a new day is selected
-                NewDay.IsSelectedEvent += (SelectedDay) =>
+                NewDay.IsSelectedEvent += (NewSelectedDay) =>
                 {
                     foreach (Day day in Week) // for each day in the week
                     {
-                        if (!day.Equals(SelectedDay) && day.IsSelected) // if day isnt newly selected day
+                        if (!day.Equals(NewSelectedDay) && day.IsSelected) // if day isnt newly selected day
                         {
                             day.IsSelected = false; // deselect
                         }
                     }
+                    SelectedDay = Array.IndexOf(Day.dayNames, NewDay.DayName);
                     LoadAthleteForms?.Invoke(FullDate);
                 };
             }
