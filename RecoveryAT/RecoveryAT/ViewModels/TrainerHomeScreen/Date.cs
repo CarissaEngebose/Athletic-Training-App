@@ -27,13 +27,11 @@ namespace CalendarManagment
 
         private List<Day> CalculateWeek(DateTime StartDate)
         {
-            //DateTime sundayDate = _date.AddDays(-DayOfTheWeek); // gets closest previous sunday
             List<Day> daysOfTheWeek = new List<Day>(); // temporary storage of new days
             for (int CurrDay = 0; CurrDay < 7; CurrDay++) // for each day in the week starting at StartDate
             {
                 DateTime NewDate = StartDate.AddDays(CurrDay);
                 Day NewDay = new Day(Date.DaysOfWeek[(int)NewDate.DayOfWeek], NewDate.Day); // create a new day
-                Console.WriteLine("New day "+ NewDay.DayNumber);
                 daysOfTheWeek.Add(NewDay); // add new day to week
                 // set what happens when a new day is selected
                 NewDay.IsSelectedEvent += (NewSelectedDay) =>
@@ -48,7 +46,6 @@ namespace CalendarManagment
                     OnNewDaySelected?.Invoke(new DateTime(Year, Month, NewDay.DayNumber));
                 };
             }
-            Console.WriteLine("EnD>>>>>>>"+daysOfTheWeek[0]);
             return daysOfTheWeek;
         }
     }
