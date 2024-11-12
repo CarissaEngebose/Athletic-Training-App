@@ -11,7 +11,6 @@ namespace RecoveryAT
 {
     public partial class TrainerSchoolInformation : ContentPage
     {
-        private readonly BusinessLogic _businessLogic;
         private readonly string _firstName;
         private readonly string _lastName;
         private readonly string _email;
@@ -20,7 +19,6 @@ namespace RecoveryAT
         public TrainerSchoolInformation(string firstName, string lastName, string email, string hashedPassword)
         {
             InitializeComponent();
-            _businessLogic = new BusinessLogic(new Database());
 
             _firstName = firstName;
             _lastName = lastName;
@@ -54,14 +52,14 @@ namespace RecoveryAT
             var schoolCode = ConcatSchoolCode(codePart1, codePart2, codePart3, codePart4, codePart5);
 
             // Check if the school code already exists in the database
-            if (_businessLogic.SchoolCodeExists(schoolCode))
+            if (MauiProgram.BusinessLogic.SchoolCodeExists(schoolCode))
             {
                 await DisplayAlert("Error", "This school code already exists. Please enter a unique code.", "OK");
                 return;
             }
 
             // Create the user account in the database
-            var resultMessage = _businessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, schoolName, schoolCode);
+            var resultMessage = MauiProgram.BusinessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, schoolName, schoolCode);
 
             // Notify user of success or failure
             await DisplayAlert("Result", resultMessage, "OK");

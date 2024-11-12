@@ -193,7 +193,7 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="schoolCode">The school code to check.</param>
         /// <returns>True if the school code exists; otherwise, false.</returns>
-        internal bool SchoolCodeExists(string schoolCode)
+        public bool SchoolCodeExists(string schoolCode)
         {
             return _database.IsValidSchoolCode(schoolCode);
         }

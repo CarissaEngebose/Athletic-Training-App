@@ -36,6 +36,9 @@ namespace RecoveryAT
         /// </summary>
         /// <param name="schoolCode">The school code to search for forms.</param>
         /// <returns>A list of forms.</returns>
+        /// 
+
+        bool SchoolCodeExists(string schoolCode);
         ObservableCollection<AthleteForm>? GetForms(string schoolCode);
 
         /// <summary>
