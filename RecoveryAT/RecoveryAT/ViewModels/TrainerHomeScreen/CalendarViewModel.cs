@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Windows.Input;
 using CalendarManagment;
 
 namespace RecoveryAT{
@@ -8,12 +9,18 @@ namespace RecoveryAT{
         public List<int> Years {get; set;} // property to make data binding easier
         private Date _selectedDate;
         public Date SelectedDate {get => _selectedDate; set{_selectedDate = value; OnPropertyChanged();}}
-        public Action OnNewDateCreated;
+        public Action OnNewDateCreated; // called each time a new date is created
+        public ICommand SetNextWeekCommand {get; set;}
+        public ICommand SetPreviousWeekCommand {get; set;}
+
         public CalendarViewModel()
         {
             SelectedDate = new Date(DateTime.Now);
             Months = new List<String>(Date.MonthNames); // load in month names for data binding
             Years = Enumerable.Range(1950, 101).ToList(); // generate list of years 1950 to 2050
+
+            SetNextWeekCommand = new Command(execute: () => SetNextWeek());
+            SetPreviousWeekCommand = new Command(execute: () => SetPreviousWeek());
         }
 
         public void SetNextWeek()
@@ -29,16 +36,19 @@ namespace RecoveryAT{
         }
 
         public void SetMonth(int Month){
+            SelectedDate = SelectedDate.AddDays(1 - SelectedDate.Day); // set day to first of month
             SelectedDate = SelectedDate.AddMonths(Month - SelectedDate.Month + 1); // calculate new month
             OnNewDateCreated?.Invoke();
         }
 
         public void SetMonth(String Month){
+            SelectedDate = SelectedDate.AddDays(1 - SelectedDate.Day); // set day to first of month
             SelectedDate = SelectedDate.AddMonths(Months.IndexOf(Month) - SelectedDate.Month + 1); // calculate new month
             OnNewDateCreated?.Invoke();
         }
 
         public void SetYear(int Year){
+            SelectedDate = SelectedDate.AddDays(1 - SelectedDate.Day); // set day to first of month
             SelectedDate = SelectedDate.AddYears(Year - SelectedDate.Year); // calculate new year
             OnNewDateCreated?.Invoke();
         }
