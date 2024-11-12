@@ -45,10 +45,7 @@ namespace RecoveryAT
 
         public void LoadAthleteFormsForDay(DateTime date)
         {
-            //AthleteForms = _businessLogic.GetFormsByDate(_schoolCode, date); // uncomment once the business logic is fixed
-            // For testing purposes, delete later
-            AthleteForms.Clear();
-            AthleteForms.Add(new AthleteForm(""+date.Day,"" + date.Month,"" + date.Year,"inj","stat"));
+            AthleteForms = _businessLogic.GetFormsByDate(_schoolCode, date);
         }
     }
 }
