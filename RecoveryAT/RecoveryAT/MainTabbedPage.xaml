@@ -6,29 +6,5 @@
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
              android:TabbedPage.ToolbarPlacement="Bottom">
 
-    <TabbedPage.Children>
-        <NavigationPage IconImageSource="home_icon.png" Title="Home">
-            <x:Arguments>
-                <local:TrainerHomeScreen />
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
-            <x:Arguments>
-                <local:AthleteInformation />
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage IconImageSource="clipboard_icon.png" Title="Form">
-            <x:Arguments>
-                <local:SchoolCodeScreen />
-            </x:Arguments>
-        </NavigationPage>
-
-        <NavigationPage IconImageSource="profile_icon.png" Title="Profile">
-            <x:Arguments>
-                <local:UserProfile />
-            </x:Arguments>
-        </NavigationPage>
-    </TabbedPage.Children>
+    
 </TabbedPage>

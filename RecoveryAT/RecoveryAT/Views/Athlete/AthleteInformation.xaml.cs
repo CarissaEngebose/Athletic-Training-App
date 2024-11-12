@@ -84,7 +84,7 @@ namespace RecoveryAT
         {
             if (Application.Current != null)
             {
-            Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
+            Application.Current.MainPage = new NavigationPage(new MainTabbedPage(SchoolCode)); // added school code as paramater - Dominick
             }
             IsPresented = false;
         }

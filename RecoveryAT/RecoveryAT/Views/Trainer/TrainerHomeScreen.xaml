@@ -1,168 +1,214 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
     Name: Dominick Hagedorn
-    Date: 10/14/2024
+    Date: 11/12/2024
     Description: TrainerHomeScreen
     Bugs: None Known
-    Reflection: I struggled with this one quite a bit. I really couldn't figure out how to do the date picker 
-                in a way that looked good. After asking for help, my group was able to get a working scrollable calendar.
+    Reflection: I feel really good with how this page turned out. It
+    was lot of work to get all the code to be well organized, but it
+    was worth it. The page is a little slow, so ill have to fix that later.
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.TrainerHomeScreen"
              Title="">
 
-    <ContentPage.Resources>
-        <DataTemplate x:Key="MonthHeaderTemplate">
-            <StackLayout BackgroundColor="#E0E0E0"
-                         Padding="10"
-                         HeightRequest="100">
-                <Label Text="{Binding Name}"
-                       FontSize="20"
-                       FontAttributes="Bold"/>
-            </StackLayout>
-        </DataTemplate>
-    </ContentPage.Resources>
-
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+    <StackLayout VerticalOptions="Start">
+        <!--Logo-->
         <Image Source="medical_icon.png"
                HeightRequest="100"
-               Grid.Row="0"
                VerticalOptions="Start"
-               HorizontalOptions="Center"
-               Margin="0,0,0,10"/>
+               HorizontalOptions="Center"/>
 
-        <Grid Grid.Row="1"
-              Padding="0"
-              ColumnSpacing="0"
-              Margin="0,0,0,-40">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Button Text="◀"
-                    Command="{Binding PreviousYearCommand}"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"
-                    FontSize="24"
-                    WidthRequest="50"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
-
-            <StackLayout Orientation="Horizontal"
-                         Grid.Column="1"
-                         HorizontalOptions="Center"
-                         VerticalOptions="Center">
-                <Label Text="{Binding CurrentYear}"
-                       FontSize="24"
-                       FontAttributes="Bold"/>
-            </StackLayout>
-
-            <Button Text="▶"
-                    Command="{Binding NextYearCommand}"
-                    BackgroundColor="Transparent"
-                    TextColor="Black"
-                    FontSize="24"
-                    WidthRequest="50"
-                    Grid.Column="2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
-        </Grid>
-
-        <CollectionView x:Name="CalendarCollectionView"
-                        Grid.Row="2"
-                        ItemsLayout="HorizontalList"
-                        Margin="10,-10,0,0"
-                        VerticalOptions="Center"
-                        IsGrouped="True"
-                        GroupHeaderTemplate="{StaticResource MonthHeaderTemplate}"
-                        SelectionMode="None"
-                        ItemsSource="{Binding CalendarData}"
-                        SelectedItem="{Binding SelectedDay, Mode=TwoWay}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="2"
-                           Margin="2"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           CornerRadius="8"
-                           HasShadow="False">
-                        <!-- Default neutral color -->
-                        <Frame.Triggers>
-                            <DataTrigger TargetType="Frame"
-                                         Binding="{Binding IsSelected}"
-                                         Value="True">
-                                <Setter Property="BackgroundColor"
-                                        Value="LightBlue"/>
-                                <!-- Selected state -->
-                            </DataTrigger>
-                        </Frame.Triggers>
-                        <StackLayout Orientation="Vertical"
-                                     HorizontalOptions="Center">
-                            <Label Text="{Binding DayOfWeek}"
-                                   FontSize="16"
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Day}"
-                                   FontSize="24"/>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer
-                                    Command="{Binding Source={x:Reference CalendarCollectionView}, Path=BindingContext.DaySelectedCommand}"
-                                    CommandParameter="{Binding}"/>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-
-        <Frame Padding="10"
-               Margin="10,10"
-               CornerRadius="8"
-               HasShadow="True"
-               Grid.Row="3"
-               BackgroundColor="LightSkyBlue">
-            <Frame.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnFrameTapped"/>
-            </Frame.GestureRecognizers>
-            <Grid>
+        <!--Date-->
+        <Frame HasShadow="True"
+            WidthRequest="375">
+            <Grid BindingContext="{Binding Calendar}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       Text="{Binding SelectedDay.DateDisplay}"/>
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       Text="John Smith"/>
-                <Label Grid.Row="2"
-                       Grid.Column="0"
-                       Text="Football"/>
-                <Label Grid.Row="3"
-                       Grid.Column="0"
-                       Text="Ankle"/>
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       HorizontalOptions="End"
-                       Text="12"/>
+                <!--Month-->
+                <CarouselView x:Name="MonthCarousel"
+                              PositionChanged="MonthChanged"
+                              ItemsSource="{Binding Months}"
+                              Loop="True"
+                              Grid.Row="0"
+                              Grid.Column="1">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10"
+                                   Margin="10"
+                                   HasShadow="True"
+                                   BackgroundColor="#FFA2F3A2"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   HeightRequest="75"
+                                   WidthRequest="120">
+                                <Label Text="{Binding}"
+                                       FontSize="19"
+                                       FontFamily="OpenSans-Regular.ttf"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <!--Year-->
+                <CarouselView x:Name="YearCarousel"
+                              PositionChanged="YearChanged"
+                              ItemsSource="{Binding Years}"
+                              Loop="True"
+                              Grid.Row="0"
+                              Grid.Column="2">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10"
+                                   Margin="10"
+                                   HasShadow="True"
+                                   BackgroundColor="#FFA2F3A2"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   HeightRequest="75"
+                                   WidthRequest="120">
+                                <Label Text="{Binding}"
+                                       FontSize="30"
+                                       FontFamily="OpenSans-Regular.ttf"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <!--Previous Week Button-->
+                <Button Text="◀"
+                        Command="{Binding SetPreviousWeekCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        FontSize="24"
+                        WidthRequest="50"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                <!--Days of the week-->
+                <CollectionView x:Name="Week"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                ItemsLayout="HorizontalList"
+                                ItemsSource="{Binding SelectedDate.Week}"
+                                HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <!--Background frame-->
+                            <Frame Padding="2"
+                                   Margin="2"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   CornerRadius="8"
+                                   HasShadow="True">
+                                <!-- When Clicked -->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDayTapped"/>
+                                </Frame.GestureRecognizers>
+                                <Frame.Triggers>
+                                    <!--Set Background blue-->
+                                    <DataTrigger TargetType="Frame"
+                                                 Binding="{Binding IsSelected}"
+                                                 Value="true">
+                                        <Setter Property="BackgroundColor"
+                                                Value="LightBlue"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <!--write each day-->
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="Center">
+                                    <Label Text="{Binding DayName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding DayNumber}"
+                                           FontSize="24"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--Next Week Button-->
+                <Button Text="▶"
+                        Command="{Binding SetNextWeekCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        FontSize="24"
+                        WidthRequest="50"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
             </Grid>
         </Frame>
-    </Grid>
+
+        <!--Athlete Forms-->
+        <CollectionView ItemsSource="{Binding AthleteForms}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10"
+                           Margin="10,10"
+                           CornerRadius="8"
+                           HasShadow="True"
+                           Grid.Row="3"
+                           BackgroundColor="LightSkyBlue">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFrameTapped"/>
+                        </Frame.GestureRecognizers>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{Binding FullName}"/>
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="{Binding Sport}"/>
+                            <Label Grid.Row="3"
+                                   Grid.Column="0"
+                                   Text="{Binding InjuryArea}"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   HorizontalOptions="End"
+                                   Text="{Binding Grade}"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

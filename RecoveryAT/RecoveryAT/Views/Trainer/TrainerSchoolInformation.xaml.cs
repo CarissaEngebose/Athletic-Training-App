@@ -67,7 +67,7 @@ namespace RecoveryAT
             // Optionally, navigate to another page if account creation is successful
             if (resultMessage == "User account created successfully.")
             {
-                await Navigation.PushModalAsync(new MainTabbedPage());
+                await Navigation.PushModalAsync(new MainTabbedPage(schoolCode));
             }
         }
 

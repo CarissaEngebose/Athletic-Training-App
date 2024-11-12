@@ -99,7 +99,7 @@ namespace RecoveryAT
 
             if (isContactAdded && authService.IsLoggedIn)
             {
-                await Navigation.PushAsync(new MainTabbedPage());
+                await Navigation.PushAsync(new MainTabbedPage("THS24")); // added school code as parameter - Dominick
             }
             else
             {
