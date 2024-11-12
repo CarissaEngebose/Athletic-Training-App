@@ -29,17 +29,17 @@ namespace RecoveryAT{
         }
 
         public void SetMonth(int Month){
-            SelectedDate = SelectedDate.AddMonths(SelectedDate.Month - Month); // calculate new month
+            SelectedDate = SelectedDate.AddMonths(Month - SelectedDate.Month + 1); // calculate new month
             OnNewDateCreated?.Invoke();
         }
 
         public void SetMonth(String Month){
-            SelectedDate = SelectedDate.AddMonths(SelectedDate.Month - Months.IndexOf(Month)); // calculate new month
+            SelectedDate = SelectedDate.AddMonths(Months.IndexOf(Month) - SelectedDate.Month + 1); // calculate new month
             OnNewDateCreated?.Invoke();
         }
 
         public void SetYear(int Year){
-            SelectedDate = SelectedDate.AddYears(SelectedDate.Year - Year); // calculate new year
+            SelectedDate = SelectedDate.AddYears(Year - SelectedDate.Year); // calculate new year
             OnNewDateCreated?.Invoke();
         }
         public event PropertyChangedEventHandler? PropertyChanged;

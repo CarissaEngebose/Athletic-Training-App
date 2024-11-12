@@ -45,10 +45,12 @@ namespace RecoveryAT
         }
 
         public void MonthChanged(object sender, EventArgs e){
-            ViewModel.Calendar.SetMonth(MonthCarousel.Position + 1);
+            Console.WriteLine(MonthCarousel.Position);
+            ViewModel.Calendar.SetMonth(MonthCarousel.Position);
         }
 
         public void YearChanged(object sender, EventArgs e){
+            Console.WriteLine(YearCarousel.Position);
             ViewModel.Calendar.SetYear(YearCarousel.Position+1950);
         }
     }
