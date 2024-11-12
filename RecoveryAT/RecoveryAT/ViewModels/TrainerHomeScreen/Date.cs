@@ -44,7 +44,7 @@ namespace CalendarManagment
                         }
                     }
                     Console.WriteLine(">>>>>>>>>>>Date delagate");
-                    OnNewDaySelected?.Invoke(this._date);
+                    OnNewDaySelected?.Invoke(new DateTime(Year, Month, NewDay.DayNumber));
                 };
             }
             return daysOfTheWeek;
