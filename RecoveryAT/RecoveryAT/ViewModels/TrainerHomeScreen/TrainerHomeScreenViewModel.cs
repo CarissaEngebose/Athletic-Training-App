@@ -30,15 +30,24 @@ namespace RecoveryAT
 
         public TrainerHomeScreenViewModel(IBusinessLogic BusinessLogic, String SchoolCode)
         {
-            Calendar.OnDaySelected += LoadAthleteFormsForDay; // set up event to load athlete forms when day is selected
+            NewDateCreated(); // a new date is created upon instantiation
+            Calendar.OnNewDateCreated += NewDateCreated; // called each time the date is changed
+
             this._businessLogic = BusinessLogic;
             this._schoolCode = SchoolCode;
             this.AthleteForms = new ObservableCollection<AthleteForm>();
         }
 
+        // code that needs to be run everytime a new date is created
+        private void NewDateCreated(){
+            Calendar.SelectedDate.OnNewDaySelected += LoadAthleteFormsForDay; // set up event to load athlete forms when day is selected
+        }
+
         public void LoadAthleteFormsForDay(DateTime date)
         {
-            AthleteForms = _businessLogic.GetFormsByDate(_schoolCode, date);
+            //AthleteForms = _businessLogic.GetFormsByDate(_schoolCode, date);
+            AthleteForms.Add(new AthleteForm(""+date.Day,"" + date.Month,"" + date.Year,"inj","stat"));
+            Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>"+AthleteForms[0]);
         }
     }
 }

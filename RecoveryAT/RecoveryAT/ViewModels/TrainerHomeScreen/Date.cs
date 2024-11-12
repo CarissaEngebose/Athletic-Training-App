@@ -12,16 +12,16 @@ namespace CalendarManagment
         public int DayOfTheWeek => (int)_date.DayOfWeek;
         public List<Day> Week {get; set;}
         public Action<DateTime> OnNewDaySelected;
-        public Date AddDays(double NumDays) => new Date(_date.AddDays(NumDays), OnNewDaySelected);
-        public Date AddMonths(int months) => new Date(_date.AddMonths(months), OnNewDaySelected);
-        public Date AddYears(int years) => new Date(_date.AddYears(years), OnNewDaySelected);
-        public Date(int Month, int Year, int Day, Action<DateTime> OnNewDaySelected) : this(new DateTime(Month, Year, Day), OnNewDaySelected)
+        public Date AddDays(double NumDays) => new Date(_date.AddDays(NumDays));
+        public Date AddMonths(int months) => new Date(_date.AddMonths(months));
+        public Date AddYears(int years) => new Date(_date.AddYears(years));
+
+        public Date(int Month, int Year, int Day) : this(new DateTime(Month, Year, Day))
         {
         }
 
-        public Date(DateTime NewDate, Action<DateTime> OnNewDaySelected){
+        public Date(DateTime NewDate){
             _date = NewDate;
-            this.OnNewDaySelected = OnNewDaySelected;
             Week = CalculateWeek();
         }
 
@@ -43,6 +43,7 @@ namespace CalendarManagment
                             day.IsSelected = false; // deselect
                         }
                     }
+                    Console.WriteLine(">>>>>>>>>>>Date delagate");
                     OnNewDaySelected?.Invoke(this._date);
                 };
             }

@@ -14,6 +14,7 @@ public class Day : INotifyPropertyChanged
         set
         {
             _isSelected = value;
+            Console.WriteLine(">>>>>>>>>>>>>>day is set");
             IsSelectedEvent?.Invoke(this);
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
         }
