@@ -22,10 +22,17 @@ namespace RecoveryAT
     public partial class TrainerHomeScreen : ContentPage
     {
         public TrainerHomeScreenViewModel ViewModel;
-        public TrainerHomeScreen(IBusinessLogic businessLogic, String SchoolCode)
+        public AuthenticationService authService;
+        private string schoolCode;
+        private IBusinessLogic _businessLogic;
+
+        public TrainerHomeScreen()
         {
             InitializeComponent();
-            ViewModel = new TrainerHomeScreenViewModel(businessLogic, SchoolCode);
+            authService = ((App)Application.Current).AuthService;
+            schoolCode = authService.SchoolCode;
+            _businessLogic = MauiProgram.BusinessLogic;
+            ViewModel = new TrainerHomeScreenViewModel(_businessLogic, schoolCode);
             BindingContext = ViewModel;
             MonthCarousel.Position = ViewModel.Calendar.SelectedDate.Month - 1;
             YearCarousel.Position = ViewModel.Calendar.SelectedDate.Year-1950;
