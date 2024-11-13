@@ -44,6 +44,10 @@ namespace RecoveryAT
             Frame DayElement = (Frame)sender; // get the xaml Frame 
             Day SelectedDay = (Day)DayElement.BindingContext; // convert to day object
             SelectedDay.IsSelected = true;
+
+            // Load forms for the selected day
+            DateTime selectedDate = new DateTime(ViewModel.Calendar.SelectedDate.Year, ViewModel.Calendar.SelectedDate.Month, SelectedDay.DayNumber);
+            ViewModel.LoadAthleteFormsForDay(selectedDate); // Load forms for the selected date
         }
 
         public async void OnFrameTapped(object sender, EventArgs e)
