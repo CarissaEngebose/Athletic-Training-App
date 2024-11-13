@@ -233,5 +233,13 @@ namespace RecoveryAT
             return forms ?? [];
         }
 
+        // Placeholder for validating user credentials (replace with actual validation logic next sprint)
+        public bool ValidateCredentials(string email, string password) {
+            if(string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password)) {
+                return false;
+            }
+            return true;
+        }
+
     }
 }

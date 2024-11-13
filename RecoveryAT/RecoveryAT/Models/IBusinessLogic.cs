@@ -108,5 +108,8 @@ namespace RecoveryAT
 
         public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
         long GetLastInsertedFormKey(string schoolCode);
+
+        // Placeholder for validating user credentials (replace with actual validation logic next sprint)
+        public bool ValidateCredentials(string email, string password);
     }
 }
