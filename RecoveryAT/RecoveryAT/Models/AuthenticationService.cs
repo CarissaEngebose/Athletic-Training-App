@@ -10,6 +10,7 @@
 
 public class AuthenticationService {
     public bool IsLoggedIn { get; private set; }
+    public string SchoolCode = "THS24"; // just for testing purposes -- need to get from database next milestone
 
     public void Login() {
         IsLoggedIn = true;
