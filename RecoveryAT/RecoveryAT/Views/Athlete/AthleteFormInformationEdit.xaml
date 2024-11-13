@@ -121,7 +121,6 @@
                         FontSize="Medium">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
-                            <x:String>All</x:String>
                             <x:String>Full Contact</x:String>
                             <x:String>Limited Contact</x:String>
                             <x:String>Activity as Tolerated</x:String>
