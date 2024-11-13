@@ -82,6 +82,11 @@ namespace RecoveryAT
 
         ObservableCollection<AthleteForm> SelectAllForms();
 
+        /// <summary>
+        /// Retrieves all contacts associated with a specific form key.
+        /// </summary>
+        /// <param name="formKey">The form key associated with the athlete form.</param>
+        /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
         
         long GetLastInsertedFormKey(string schoolCode);
@@ -97,6 +102,14 @@ namespace RecoveryAT
         /// <param name="query">The search query.</param>
         /// <returns>A list of athlete forms matching the search criteria.</returns>
         ObservableCollection<AthleteForm> SearchAthletesByContact(string query);
+
+        /// <summary>
+        /// Saves the updated form and associated contacts to the database.
+        /// </summary>
+        /// <param name="form">The form with updated details.</param>
+        /// <param name="updatedContacts">A list of updated contacts associated with the form.</param>
+        /// <returns>A message indicating whether the update was successful.</returns>
+        string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts);
 
     }
 }

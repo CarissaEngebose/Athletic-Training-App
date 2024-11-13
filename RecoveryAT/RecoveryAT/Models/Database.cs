@@ -911,6 +911,96 @@ namespace RecoveryAT
             return searchResults;
         }
 
+        /// <summary>
+        /// Saves the updated information for a form and associated contacts to the database.
+        /// </summary>
+        /// <param name="form">The form with updated details.</param>
+        /// <param name="updatedContacts">A list of updated contacts associated with the form.</param>
+        /// <returns>A message indicating whether the update was successful.</returns>
+        public string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                using var transaction = conn.BeginTransaction();
+
+                // Update the form's details
+                using var formCmd = new NpgsqlCommand
+                {
+                    Connection = conn,
+                    CommandText = @"
+                        UPDATE athlete_forms 
+                        SET treatment_type = @treatmentType, 
+                            trainer_comments = @trainerComments, 
+                            athlete_status = @athleteStatus 
+                        WHERE form_key = @formKey"
+                };
+                formCmd.Parameters.AddWithValue("formKey", form.FormKey);
+                formCmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
+                formCmd.Parameters.AddWithValue("trainerComments", form.TrainerComments ?? (object)DBNull.Value);
+                formCmd.Parameters.AddWithValue("athleteStatus", form.Status ?? (object)DBNull.Value);
+
+                int formRowsAffected = formCmd.ExecuteNonQuery();
+
+                // Update each contact associated with the form
+                foreach (var contact in updatedContacts)
+                {
+                    using var contactCmd = new NpgsqlCommand
+                    {
+                        Connection = conn,
+                        CommandText = @"
+                            UPDATE athlete_contacts 
+                            SET contact_type = @contactType, 
+                                phone_number = @phoneNumber 
+                            WHERE contact_id = @contactID"
+                    };
+                    contactCmd.Parameters.AddWithValue("contactID", contact.ContactID);
+                    contactCmd.Parameters.AddWithValue("contactType", contact.ContactType ?? (object)DBNull.Value);
+                    contactCmd.Parameters.AddWithValue("phoneNumber", contact.PhoneNumber ?? (object)DBNull.Value);
+
+                    contactCmd.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+
+                if (formRowsAffected > 0)
+                {
+                    // Update the local collection for real-time sync
+                    var formIndex = forms.IndexOf(forms.FirstOrDefault(f => f.FormKey == form.FormKey));
+                    if (formIndex >= 0)
+                    {
+                        forms[formIndex] = form; // Update the form in the local ObservableCollection
+                    }
+
+                    // Update contacts in the local ObservableCollection
+                    foreach (var contact in updatedContacts)
+                    {
+                        var contactIndex = contacts.IndexOf(contacts.FirstOrDefault(c => c.ContactID == contact.ContactID));
+                        if (contactIndex >= 0)
+                        {
+                            contacts[contactIndex] = contact;
+                        }
+                    }
+
+                    return "Form and contacts updated successfully.";
+                }
+                else
+                {
+                    return "No rows were affected. The form may not exist.";
+                }
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return "An error occurred while updating the form.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return "An unexpected error occurred while updating the form.";
+            }
+        }
 
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.

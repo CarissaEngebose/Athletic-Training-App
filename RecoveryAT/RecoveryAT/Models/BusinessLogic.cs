@@ -261,5 +261,21 @@ namespace RecoveryAT
         {
             return _database.SearchAthletesByContact(query);
         }
+
+        /// <summary>
+        /// Saves the updated form and associated contacts.
+        /// </summary>
+        /// <param name="form">The form with updated details.</param>
+        /// <param name="updatedContacts">A list of updated contacts associated with the form.</param>
+        /// <returns>A message indicating whether the update was successful.</returns>
+        public string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts)
+        {
+            return _database.SaveUpdatedForm(form, updatedContacts);
+        }
+
+        public ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey)
+        {
+            return _database.SelectContactsByFormKey(formKey);
+        }
     }
 }

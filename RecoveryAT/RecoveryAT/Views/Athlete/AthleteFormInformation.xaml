@@ -86,6 +86,16 @@
                 </Grid>
             </Frame>
 
+            <!-- Treatment Type Section -->
+              <Label FontAttributes="Bold" 
+                     FontSize="Large" 
+                     Margin="0,20,0,5">Athlete Treatment Type:</Label>
+              <Label x:Name="TreatmentTypeLabel"
+                     FontSize="Medium"
+                     Margin="0,0,0,10"
+                     Text="{Binding TreatmentType}">
+            </Label>
+
             <!-- Athlete Comment Section -->
             <Label FontAttributes="Bold"
                    FontSize="Large"
@@ -99,7 +109,8 @@
             <Label FontAttributes="Bold"
                    FontSize="Large"
                    Margin="0,20,0,5">Trainer Comments:</Label>
-            <Label FontSize="Medium"
+            <Label x:Name="TrainerCommentsLabel"
+                   FontSize="Medium"
                    Margin="0,0,0,10"
                    Text="{Binding TrainerComments}">
             </Label>
@@ -108,10 +119,27 @@
             <Label FontAttributes="Bold"
                    FontSize="Large"
                    Margin="0,20,0,5">Athlete Status:</Label>
-            <Label FontSize="Medium"
+            <Label x:Name="StatusLabel"
+                   FontSize="Medium"
                    Margin="0,0,0,10"
-                   Text="{Binding AthleteStatus}">
+                   Text="{Binding Status}">
             </Label>
+
+              <!-- Contact Type Section -->
+              <Label FontAttributes="Bold"
+                     FontSize="Large"
+                     Margin="0,20,0,5">Contact Type:</Label>
+              <Label x:Name="ContactTypeLabel"
+                     FontSize="Medium"
+                     Margin="0,0,0,10" />
+
+              <!-- Contact Phone Number Section -->
+              <Label FontAttributes="Bold"
+                     FontSize="Large"
+                     Margin="0,20,0,5">Contact Phone Number:</Label>
+              <Label x:Name="ContactPhoneNumberLabel"
+                     FontSize="Medium"
+                     Margin="0,0,0,10" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

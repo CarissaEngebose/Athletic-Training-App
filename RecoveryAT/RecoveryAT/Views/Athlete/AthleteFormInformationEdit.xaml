@@ -12,61 +12,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformationEdit"
              Title=""
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Padding="0,0,0,20"> <!-- Bottom padding to add space above tab bar -->
 
     <Grid>
-        <!-- Grid layout with two rows: content and save button -->
+        <!-- Grid layout with three rows: content, spacer, and save button -->
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/> <!-- Main content takes all available space -->
+            <RowDefinition Height="Auto"/> <!-- Spacer row to push button above tab bar -->
             <RowDefinition Height="Auto"/> <!-- Save button adjusts to content size -->
         </Grid.RowDefinitions>
 
         <!-- Scrollable Content Section in the first row -->
         <ScrollView Grid.Row="0">
-            <VerticalStackLayout Padding="10"> <!-- Arranges elements vertically -->
-
-                <!-- Student Name Label -->
-                <Label FontSize="35" 
+            <VerticalStackLayout Padding="10">
+                
+                <Label FontSize="35"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
-                       Margin="10,5">
-                    Jane Stewart
-                </Label>
+                       Margin="10,5"
+                       Text="{Binding FullName}"></Label>
 
-                <!-- General Student Information Frame -->
+                <!-- Frame containing general student information (Grade, Sport, Injury) -->
                 <Frame Padding="10"
                        Margin="0,10"
                        CornerRadius="8"  
-                       HasShadow="True"> <!-- Adds shadow for emphasis -->
+                       HasShadow="True">
                     <Grid>
-                        <!-- Rows and columns to arrange information -->
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/> <!-- 50% width -->
-                            <ColumnDefinition Width="*"/> <!-- 50% width -->
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Grade Label -->
-                        <Label Grid.Row="0" Grid.Column="0" 
-                               FontAttributes="Bold" FontSize="Medium">Grade:</Label>
-                        <Label Grid.Row="0" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">9</Label>
+                        <!-- Grade label -->
+                        <Label Grid.Row="0" Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="Medium">Grade:</Label>
+                        <Label Grid.Row="0" Grid.Column="1"
+                               HorizontalOptions="End"
+                               FontSize="Medium"
+                               Text="{Binding Grade}"></Label>
 
-                        <!-- Sport Label -->
-                        <Label Grid.Row="1" Grid.Column="0" 
-                               FontAttributes="Bold" FontSize="Medium">Sport:</Label>
-                        <Label Grid.Row="1" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">Volleyball</Label>
+                        <!-- Sport label -->
+                        <Label Grid.Row="1" Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="Medium">Sport:</Label>
+                        <Label Grid.Row="1" Grid.Column="1"
+                               HorizontalOptions="End"
+                               FontSize="Medium"
+                               Text="{Binding Sport}"></Label>
 
-                        <!-- Injury Label -->
-                        <Label Grid.Row="2" Grid.Column="0" 
-                               FontAttributes="Bold" FontSize="Medium">Injury:</Label>
-                        <Label Grid.Row="2" Grid.Column="1" 
-                               HorizontalOptions="End" FontSize="Medium">Shoulder</Label>
+                        <!-- Injury label -->
+                        <Label Grid.Row="2" Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="Medium">Injury:</Label>
+                        <Label Grid.Row="2" Grid.Column="1"
+                               HorizontalOptions="End"
+                               FontSize="Medium"
+                               Text="{Binding InjuredArea}"></Label>
                     </Grid>
                 </Frame>
 
@@ -76,7 +84,9 @@
                        Margin="0,20,0,5">
                     Athlete Treatment Type:
                 </Label>
-                <Picker x:Name="TreatmentType" Title="Select Treatment Type">
+                <Picker x:Name="TreatmentType" 
+                        Title="Select Treatment Type"
+                        FontSize="Medium">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Eval</x:String>
@@ -98,7 +108,7 @@
                         FontSize="Medium"
                         Margin="0,0,0,10"
                         AutoSize="TextChanges"
-                        Placeholder="Enter trainer's comments..." />
+                        Placeholder="Enter Comments" />
 
                 <!-- Athlete Status Section -->
                 <Label FontAttributes="Bold" 
@@ -106,7 +116,9 @@
                        Margin="0,20,0,5">
                     Athlete Status:
                 </Label>
-                <Picker x:Name="StatusPicker" Title="Select Status">
+                <Picker x:Name="StatusPicker" 
+                        Title="Select Status"
+                        FontSize="Medium">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>All</x:String>
@@ -117,11 +129,32 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
+
+                <!-- Contact Type Section -->
+                <Label FontAttributes="Bold" 
+                       FontSize="Large" 
+                       Margin="0,20,0,5">
+                    Contact Type:
+                </Label>
+                <Entry x:Name="ContactTypeEntry"
+                       FontSize="Medium"
+                       Placeholder="Enter contact type" />
+
+                <!-- Phone Number Section -->
+                <Label FontAttributes="Bold" 
+                       FontSize="Large" 
+                       Margin="0,20,0,5">
+                    Phone Number:
+                </Label>
+                <Entry x:Name="PhoneNumberEntry"
+                       FontSize="Medium"
+                       Placeholder="Enter phone number" />
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Save Changes Button at the bottom -->
-        <Button Text="Save Changes"
+        <!-- Save Changes Button in the third row -->
+        <Button Grid.Row="1"
+                Text="Save Changes"
                 BackgroundColor="Blue"  
                 TextColor="White"
                 FontSize="20"
@@ -130,8 +163,8 @@
                 HeightRequest="50"
                 WidthRequest="250"
                 HorizontalOptions="Center"  
-                VerticalOptions="End" 
-                Margin="10,150"
+                VerticalOptions="End"
                 Clicked="OnSaveChangesClicked"/>  
     </Grid>
 </ContentPage>
+
