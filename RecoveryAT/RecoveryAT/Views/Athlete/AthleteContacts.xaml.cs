@@ -99,11 +99,13 @@ namespace RecoveryAT
 
             if (isContactAdded && authService.IsLoggedIn)
             {
-                await Navigation.PushAsync(new MainTabbedPage("THS24")); // added school code as parameter - Dominick
+                // Set MainTabbedPage as the root page if logged in
+                Application.Current.MainPage = new MainTabbedPage("THS24");
             }
             else
             {
-                await Navigation.PushModalAsync(new WelcomeScreen());
+                // Set WelcomeScreen as the root page if logged in
+                Application.Current.MainPage = new WelcomeScreen();
             }
         }
     }
