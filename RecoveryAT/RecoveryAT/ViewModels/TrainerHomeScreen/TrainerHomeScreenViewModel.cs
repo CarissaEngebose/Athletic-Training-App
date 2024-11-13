@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using CalendarManagment;
+
 /*
     Name: Dominick Hagedorn
     Date: 11/10/2024
@@ -19,7 +21,8 @@ namespace RecoveryAT
         private ObservableCollection<AthleteForm> _athleteForms;
         public CalendarViewModel Calendar { get; set; } = new CalendarViewModel();
         public event PropertyChangedEventHandler? PropertyChanged;
-        public ObservableCollection<AthleteForm> AthleteForms {
+        public ObservableCollection<AthleteForm> AthleteForms
+        {
             get => _athleteForms;
             set
             {
@@ -30,22 +33,26 @@ namespace RecoveryAT
 
         public TrainerHomeScreenViewModel(IBusinessLogic BusinessLogic, String SchoolCode)
         {
-            NewDateCreated(); // a new date is created upon instantiation
-            Calendar.OnNewDateCreated += NewDateCreated; // called each time the date is changed
-
             this._businessLogic = BusinessLogic;
             this._schoolCode = SchoolCode;
             this.AthleteForms = new ObservableCollection<AthleteForm>();
+
+            NewDateCreated(); // Create a new date on instantiation
+            Calendar.OnNewDateCreated += NewDateCreated; // Called each time the date changes
+
+            // Load forms for today's date on initialization
+            LoadAthleteFormsForDay(DateTime.Today);
         }
 
         // code that needs to be run everytime a new date is created
-        private void NewDateCreated(){
-            Calendar.SelectedDate.OnNewDaySelected += LoadAthleteFormsForDay; // set up event to load athlete forms when day is selected
+        private void NewDateCreated()
+        {
+            Calendar.SelectedDate.OnNewDaySelected += LoadAthleteFormsForDay;
         }
 
         public void LoadAthleteFormsForDay(DateTime date)
         {
-            AthleteForms = _businessLogic.GetFormsByDate(_schoolCode, date);
+            AthleteForms = _businessLogic.GetFormsByDateSeen(_schoolCode, date);
         }
     }
 }

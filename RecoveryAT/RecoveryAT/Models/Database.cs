@@ -212,6 +212,78 @@ namespace RecoveryAT
         }
 
         /// <summary>
+        /// Gets a list of forms for a school code filtered by the date_seen parameter.
+        /// </summary>
+        /// <param name="schoolCode">The school code of the forms to retrieve.</param>
+        /// <param name="dateSeen">The date when the forms were seen.</param>
+        /// <returns>An ObservableCollection of forms that were seen on the specified date.</returns>
+        public ObservableCollection<AthleteForm> SelectFormsByDateSeen(string schoolCode, DateTime dateSeen)
+        {
+            var formsByDateSeen = new ObservableCollection<AthleteForm>(); // Create a new collection to hold the results
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+            SELECT form_key, school_code, first_name, last_name, grade, sport,
+                injured_area, injured_side, treatment_type, athlete_comments,
+                trainer_comments, athlete_status, date_created, date_seen
+            FROM athlete_forms
+            WHERE school_code = @school_code
+            AND date_seen = @dateSeen", conn);
+
+                cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the school code parameter
+                cmd.Parameters.AddWithValue("dateSeen", dateSeen);      // Set the date_seen parameter
+
+                using var reader = cmd.ExecuteReader();
+
+                // Loop through each row in the result and add it to the formsByDateSeen collection
+                while (reader.Read())
+                {
+                    var formKey = reader.GetInt64(0);
+                    var firstName = reader.GetString(2);
+                    var lastName = reader.GetString(3);
+                    var grade = reader.GetInt16(4);
+                    var sport = reader.GetString(5);
+                    var injuredArea = reader.GetString(6);
+                    var injuredSide = reader.GetString(7);
+                    var treatmentType = reader.GetString(8);
+                    var athleteComments = reader.IsDBNull(9) ? null : reader.GetString(9);
+                    var trainerComments = reader.IsDBNull(10) ? null : reader.GetString(10);
+                    var status = reader.IsDBNull(11) ? null : reader.GetString(11);
+                    var dateCreated = reader.GetDateTime(12);
+
+                    // Create a new instance of AthleteForm with the retrieved data
+                    var form = new AthleteForm(
+                        formKey,
+                        schoolCode,
+                        firstName,
+                        lastName,
+                        grade,
+                        sport,
+                        injuredArea,
+                        injuredSide,
+                        treatmentType,
+                        dateCreated,
+                        athleteComments,
+                        trainerComments,
+                        status
+                    );
+                    formsByDateSeen.Add(form); // Add to the collection
+                }
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                // Handle any database-specific errors.
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return formsByDateSeen; // Return the collection of forms filtered by date_seen
+        }
+
+        /// <summary>
         /// Gets a specific form by its key.
         /// </summary>
         /// <param name="formKey">The key of the form to retrieve.</param>

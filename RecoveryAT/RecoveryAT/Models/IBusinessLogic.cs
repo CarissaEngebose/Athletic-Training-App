@@ -108,5 +108,7 @@ namespace RecoveryAT
 
         public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
         long GetLastInsertedFormKey(string schoolCode);
+        ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen);
+
     }
 }

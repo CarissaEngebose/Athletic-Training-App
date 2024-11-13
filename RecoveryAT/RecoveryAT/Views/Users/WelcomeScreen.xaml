@@ -36,8 +36,8 @@
                    VerticalOptions="End" />
             
             <!-- Welcome Text -->
-            <Label Text="Welcome" 
-                   FontSize="40" 
+            <Label Text="Welcome to RecoveryAT" 
+                   FontSize="35" 
                    HorizontalOptions="Center" 
                    FontAttributes="Bold" 
                    VerticalOptions="Center" />

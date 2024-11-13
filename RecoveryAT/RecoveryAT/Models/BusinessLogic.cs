@@ -233,5 +233,15 @@ namespace RecoveryAT
             return forms ?? [];
         }
 
+        /// <summary>
+        /// Retrieves a list of forms by the date they were seen.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for forms.</param>
+        /// <param name="dateSeen">The date when the forms were seen.</param>
+        /// <returns>A list of forms seen on the specified date.</returns>
+        public ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen)
+        {
+            return _database.SelectFormsByDateSeen(schoolCode, dateSeen);
+        }
     }
 }

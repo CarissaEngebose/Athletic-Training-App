@@ -19,8 +19,8 @@
         
         <!-- RecoveryAT Icon -->
         <Image Source="medical_icon.png"
-               WidthRequest="100"
-               HeightRequest="100"
+               WidthRequest="75"
+               HeightRequest="75"
                HorizontalOptions="Center"
                VerticalOptions="Start"/>
         

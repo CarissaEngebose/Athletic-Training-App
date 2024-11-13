@@ -16,13 +16,14 @@
     <StackLayout VerticalOptions="Start">
         <!--Logo-->
         <Image Source="medical_icon.png"
-               HeightRequest="100"
+               HeightRequest="75"
                VerticalOptions="Start"
-               HorizontalOptions="Center"/>
+               HorizontalOptions="Center"
+               Margin="0,10"/>
 
         <!--Date-->
         <Frame HasShadow="True"
-            WidthRequest="375">
+               WidthRequest="400">
             <Grid BindingContext="{Binding Calendar}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -30,8 +31,8 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
@@ -50,7 +51,7 @@
                             <Frame Padding="10"
                                    Margin="10"
                                    HasShadow="True"
-                                   BackgroundColor="#FFA2F3A2"
+                                   BackgroundColor="LightBlue"
                                    HorizontalOptions="Fill"
                                    VerticalOptions="Fill"
                                    HeightRequest="75"
@@ -59,7 +60,8 @@
                                        FontSize="19"
                                        FontFamily="OpenSans-Regular.ttf"
                                        HorizontalTextAlignment="Center"
-                                       VerticalTextAlignment="Center"/>
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"/>
                             </Frame>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
@@ -80,7 +82,7 @@
                             <Frame Padding="10"
                                    Margin="10"
                                    HasShadow="True"
-                                   BackgroundColor="#FFA2F3A2"
+                                   BackgroundColor="LightBlue"
                                    HorizontalOptions="Fill"
                                    VerticalOptions="Fill"
                                    HeightRequest="75"
@@ -89,7 +91,8 @@
                                        FontSize="30"
                                        FontFamily="OpenSans-Regular.ttf"
                                        HorizontalTextAlignment="Center"
-                                       VerticalTextAlignment="Center"/>
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"/>
                             </Frame>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
@@ -118,7 +121,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <!--Background frame-->
-                            <Frame Padding="2"
+                            <Frame Padding="4"
                                    Margin="2"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
@@ -137,14 +140,16 @@
                                                 Value="LightBlue"/>
                                     </DataTrigger>
                                 </Frame.Triggers>
-                                <!--write each day-->
+                                <!--Write each day-->
                                 <StackLayout Orientation="Vertical"
                                              HorizontalOptions="Center">
                                     <Label Text="{Binding DayName}"
                                            FontSize="16"
-                                           FontAttributes="Bold"/>
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"/>
                                     <Label Text="{Binding DayNumber}"
-                                           FontSize="24"/>
+                                           FontSize="23"
+                                           WidthRequest="30"/>
                                 </StackLayout>
                             </Frame>
                         </DataTemplate>
@@ -165,50 +170,56 @@
             </Grid>
         </Frame>
 
-        <!--Athlete Forms-->
-        <CollectionView ItemsSource="{Binding AthleteForms}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="10"
-                           Margin="10,10"
-                           CornerRadius="8"
-                           HasShadow="True"
-                           Grid.Row="3"
-                           BackgroundColor="LightSkyBlue">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnFrameTapped"/>
-                        </Frame.GestureRecognizers>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+        <!--Athlete Forms in a ScrollView-->
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout BindableLayout.ItemsSource="{Binding AthleteForms}"
+                         Orientation="Vertical">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10"
+                               Margin="10,5"
+                               CornerRadius="8"
+                               HasShadow="True"
+                               BackgroundColor="LightSkyBlue"
+                               HeightRequest="125">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFrameTapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Label Grid.Row="1"
-                                   Grid.Column="0"
-                                   Text="{Binding FullName}"/>
-                            <Label Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="{Binding Sport}"/>
-                            <Label Grid.Row="3"
-                                   Grid.Column="0"
-                                   Text="{Binding InjuryArea}"/>
-                            <Label Grid.Row="1"
-                                   Grid.Column="1"
-                                   HorizontalOptions="End"
-                                   Text="{Binding Grade}"/>
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                                <Label Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="{Binding Date, StringFormat='{0:MMMM d, yyyy}'}"/>
+                                <Label Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{Binding FullName}"
+                                       FontAttributes="Bold"/>
+                                <Label Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="{Binding Sport}"/>
+                                <Label Grid.Row="3"
+                                       Grid.Column="0"
+                                       Text="{Binding InjuredArea}"/>
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalOptions="End"
+                                       Text="{Binding Grade}"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
 
-
-        </CollectionView>
     </StackLayout>
 </ContentPage>

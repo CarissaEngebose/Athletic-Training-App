@@ -28,7 +28,9 @@ namespace RecoveryAT
             ViewModel = new TrainerHomeScreenViewModel(businessLogic, SchoolCode);
             BindingContext = ViewModel;
             MonthCarousel.Position = ViewModel.Calendar.SelectedDate.Month - 1;
-            YearCarousel.Position = ViewModel.Calendar.SelectedDate.Year-1950;
+            YearCarousel.Position = ViewModel.Calendar.SelectedDate.Year - 1950;
+
+            ViewModel.Calendar.SelectedDate = new Date(DateTime.Today); // set to today's date
         }
         
         public void OnDayTapped(object sender, EventArgs e){

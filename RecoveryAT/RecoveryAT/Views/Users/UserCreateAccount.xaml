@@ -19,7 +19,7 @@
         <AbsoluteLayout>
 
             <!-- Main Content -->
-            <StackLayout Padding="20"
+            <StackLayout Padding="30"
                          VerticalOptions="Start"
                          Spacing="15"
                          AbsoluteLayout.LayoutBounds="0.5, 0.1, AutoSize, AutoSize"
@@ -29,8 +29,8 @@
                 <Image Source="medical_icon.png"
                        HorizontalOptions="Center"
                        VerticalOptions="Start"
-                       WidthRequest="80"
-                       HeightRequest="80"
+                       WidthRequest="75"
+                       HeightRequest="75"
                        Margin="0,-30,0,-20" />
 
                 <!-- Title -->
