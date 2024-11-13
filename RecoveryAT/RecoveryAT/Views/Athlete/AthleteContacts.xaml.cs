@@ -100,7 +100,7 @@ namespace RecoveryAT
             if (isContactAdded && authService.IsLoggedIn)
             {
                 // Set MainTabbedPage as the root page if logged in
-                Application.Current.MainPage = new MainTabbedPage("THS24");
+                Application.Current.MainPage = new MainTabbedPage();
             }
             else
             {

@@ -35,7 +35,8 @@
             <!-- Email Field -->
             <Label Text="Email" 
                    FontAttributes="Bold"/>
-            <Entry Placeholder="Enter your email" 
+            <Entry x:Name="EmailEntry"
+                   Placeholder="Enter your email" 
                    Margin="0,0,0,20" 
                    Keyboard="Email"/>
 
@@ -57,7 +58,8 @@
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>
-            <Entry Placeholder="Enter your password" 
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Enter your password" 
                    IsPassword="True" 
                    Margin="0,0,0,20"/>
 
