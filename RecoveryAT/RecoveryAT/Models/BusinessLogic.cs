@@ -251,5 +251,15 @@ namespace RecoveryAT
         {
             return _database.SelectFormsByDateSeen(schoolCode, dateSeen);
         }
+
+        /// <summary>
+        /// Searches athletes by name, contact type, phone number, grade, or treatment type.
+        /// </summary>
+        /// <param name="query">The search query.</param>
+        /// <returns>A list of athlete forms matching the search criteria.</returns>
+        public ObservableCollection<AthleteForm> SearchAthletesByContact(string query)
+        {
+            return _database.SearchAthletesByContact(query);
+        }
     }
 }

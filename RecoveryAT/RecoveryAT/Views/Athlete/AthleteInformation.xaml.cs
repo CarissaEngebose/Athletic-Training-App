@@ -1,13 +1,6 @@
-/*
-    Name: Luke Kastern
-    Date: 10/14/2024
-    Description: AthleteInformation Screen with Flyout Menu
-    Bugs: Search bar and bottom nav bar currently don’t do anything.
-    Reflection: I was able to use my AthletePastForms screen as the base and then add the flyout screen. 
-                It was hard for me to implement, but my group was able to help.
-*/
-
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 
@@ -20,10 +13,11 @@ namespace RecoveryAT
         public ICommand NavigateToAthleteStatusesCommand { get; }
         public ICommand NavigateToHomeCommand { get; }
 
-        public ObservableCollection<Athlete> ContactList { get; set; } = [];
+        public ObservableCollection<Athlete> ContactList { get; set; } = new();
+        private ObservableCollection<Athlete> _allContacts = new(); // To store the full list for resetting
+        public string SearchQuery { get; set; }
 
-        private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
-        /// </summary>
+        private readonly string SchoolCode = "THS24";
 
         public AthleteInformation()
         {
@@ -31,7 +25,6 @@ namespace RecoveryAT
 
             LoadContacts();
 
-            // Initialize Commands
             NavigateToHomeCommand = new Command(NavigateToHome);
             NavigateToPastFormsCommand = new Command(NavigateToPastForms);
             NavigateToStatisticsCommand = new Command(NavigateToStatistics);
@@ -40,43 +33,68 @@ namespace RecoveryAT
             BindingContext = this;
         }
 
+        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
+            {
+                ContactList.Clear();
+                foreach (var contact in _allContacts)
+                    ContactList.Add(contact);
+            }
+            else
+            {
+                var filteredContacts = _allContacts.Where(c => 
+                    (c.Name != null && c.Name.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
+                    (c.Relationship != null && c.Relationship.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
+                    (c.PhoneNumber != null && c.PhoneNumber.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
+                    (c.Grade != null && c.Grade.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase))
+                );
+
+                ContactList.Clear();
+                foreach (var contact in filteredContacts)
+                    ContactList.Add(contact);
+            }
+        }
+
         private async void OnTileTapped(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            var tappedItem = frame.BindingContext; // get the tapped item information
+            var tappedItem = frame.BindingContext;
 
-            Athlete currAthlete = (Athlete)tappedItem; // for testing purposes
-            if (currAthlete.Name != null)
+            if (tappedItem is Athlete currAthlete && currAthlete.Name != null)
             {
                 var nameParts = currAthlete.Name.Split(" ");
-                AthleteForm selectedAthlete = new(nameParts[0], nameParts.Length > 1 ? nameParts[1] : string.Empty, "Sport", "Injury", "stat"); // should get from database, fix later
-                await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete)); // navigate to athlete form information on tapped
+                var selectedAthlete = new AthleteForm(nameParts[0], nameParts.Length > 1 ? nameParts[1] : string.Empty, "Sport", "Injury", "stat");
+                await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete));
             }
         }
+
         private void LoadContacts()
         {
-            ContactList.Clear(); // Clear the list (should probably be done in a better way w/ caching later)
+            ContactList.Clear();
+            _allContacts.Clear();
 
             var athleteForms = MauiProgram.BusinessLogic.GetForms(schoolCode: SchoolCode);
-
-            if (athleteForms == null) return; // Skip if no forms found
+            if (athleteForms == null) return;
 
             foreach (var form in athleteForms)
             {
-            var contacts = MauiProgram.BusinessLogic.GetContactsByFormKey(form.FormKey ?? 0);
-            if (contacts == null) continue; // Skip athlete if athlete has no contacts
+                var contacts = MauiProgram.BusinessLogic.GetContactsByFormKey(form.FormKey ?? 0);
+                if (contacts == null) continue;
 
-            foreach (var contact in contacts)
-            {
-                ContactList.Add(new Athlete
+                foreach (var contact in contacts)
                 {
-                Name = form.FullName,
-                Relationship = contact.ContactType,
-                PhoneNumber = contact.PhoneNumber,
-                TreatmentType = form.TreatmentType,
-                Grade = form.Grade.ToString()
-                });
-            }
+                    var athlete = new Athlete
+                    {
+                        Name = form.FullName,
+                        Relationship = contact.ContactType,
+                        PhoneNumber = contact.PhoneNumber,
+                        TreatmentType = form.TreatmentType,
+                        Grade = form.Grade.ToString()
+                    };
+                    ContactList.Add(athlete);
+                    _allContacts.Add(athlete);
+                }
             }
         }
 
@@ -84,7 +102,7 @@ namespace RecoveryAT
         {
             if (Application.Current != null)
             {
-            Application.Current.MainPage = new NavigationPage(new MainTabbedPage()); // added school code as paramater - Dominick
+                Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
             }
             IsPresented = false;
         }
@@ -92,7 +110,7 @@ namespace RecoveryAT
         private void NavigateToPastForms()
         {
             Detail = new NavigationPage(new AthletePastForms());
-            IsPresented = false; // Hide flyout
+            IsPresented = false;
         }
 
         private void NavigateToStatistics()
@@ -103,8 +121,7 @@ namespace RecoveryAT
 
         private void NavigateToAthleteStatuses()
         {
-            string schoolCode = "12345";
-            Detail = new NavigationPage(new AthleteStatuses(schoolCode));
+            Detail = new NavigationPage(new AthleteStatuses(SchoolCode));
             IsPresented = false;
         }
     }
@@ -115,7 +132,6 @@ namespace RecoveryAT
         public string? Relationship { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Grade { get; set; }
-
         public string? TreatmentType { get; set; }
     }
 }

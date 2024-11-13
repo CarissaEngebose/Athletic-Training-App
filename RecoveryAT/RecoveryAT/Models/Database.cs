@@ -852,6 +852,66 @@ namespace RecoveryAT
             }
         }
 
+        public ObservableCollection<AthleteForm> SearchAthletesByContact(string query)
+        {
+            var searchResults = new ObservableCollection<AthleteForm>();
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+                
+                // Modify the query to include additional search criteria
+                var cmd = new NpgsqlCommand(@"
+                    SELECT form_key, school_code, first_name, last_name, grade, sport,
+                        injured_area, injured_side, treatment_type, athlete_comments,
+                        trainer_comments, athlete_status, date_created
+                    FROM athlete_forms 
+                    WHERE LOWER(first_name) LIKE @query 
+                    OR LOWER(last_name) LIKE @query 
+                    OR LOWER(sport) LIKE @query 
+                    OR LOWER(injured_area) LIKE @query
+                    OR LOWER(treatment_type) LIKE @query
+                    OR CAST(grade AS TEXT) LIKE @query
+                    OR EXISTS (
+                        SELECT 1 FROM athlete_contacts c 
+                        WHERE c.form_key = athlete_forms.form_key 
+                        AND (LOWER(c.contact_type) LIKE @query OR c.phone_number LIKE @query)
+                    )", conn);
+
+                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
+
+                using var reader = cmd.ExecuteReader();
+                
+                // Populate results
+                while (reader.Read())
+                {
+                    var form = new AthleteForm(
+                        formKey: reader.GetInt64(0),
+                        schoolCode: reader.GetString(1),
+                        firstName: reader.GetString(2),
+                        lastName: reader.GetString(3),
+                        grade: reader.GetInt16(4),
+                        sport: reader.GetString(5),
+                        injuredArea: reader.GetString(6),
+                        injuredSide: reader.GetString(7),
+                        treatmentType: reader.GetString(8),
+                        athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
+                        trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
+                        status: reader.IsDBNull(11) ? null : reader.GetString(11),
+                        date: reader.GetDateTime(12)
+                    );
+                    searchResults.Add(form);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return searchResults;
+        }
+
+
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>

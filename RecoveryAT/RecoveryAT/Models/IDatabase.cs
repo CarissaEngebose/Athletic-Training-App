@@ -91,5 +91,12 @@ namespace RecoveryAT
         string UpdateContactStatus(long? formKey, string newStatus);
         ObservableCollection<AthleteForm> SelectFormsByDateSeen(string schoolCode, DateTime dateSeen);
 
+        /// <summary>
+        /// Searches athletes by name, contact type, phone number, grade, or treatment type.
+        /// </summary>
+        /// <param name="query">The search query.</param>
+        /// <returns>A list of athlete forms matching the search criteria.</returns>
+        ObservableCollection<AthleteForm> SearchAthletesByContact(string query);
+
     }
 }
