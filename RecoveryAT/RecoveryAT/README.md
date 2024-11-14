@@ -20,3 +20,4 @@ Sprint 3 Changes:
     Got AthletePastForms connected and functional with the database.
     Got AthleteFormInformation connected and functional with the database.
     Got AthleteFormInformationEdit connected and functional with the database.
+    Updated AthleteStatuses so trainers can update statuses from the screen.
