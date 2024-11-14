@@ -135,6 +135,11 @@ namespace RecoveryAT
         /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
 
+        ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
+
+        ObservableCollection<AthleteForm> GetFormsBeforeToday();
+
+
         /// <summary>
         /// Gets a list of statistics for all sports.
         /// </summary>

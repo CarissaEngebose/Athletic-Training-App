@@ -590,6 +590,59 @@ namespace RecoveryAT
             return searchResults;
         }
 
+        public ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query)
+        {
+            var searchResults = new ObservableCollection<AthleteForm>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                var cmd = new NpgsqlCommand(@"
+                    SELECT form_key, school_code, first_name, last_name, grade, sport,
+                        injured_area, injured_side, treatment_type, athlete_comments,
+                        trainer_comments, athlete_status, date_created
+                    FROM athlete_forms
+                    WHERE LOWER(first_name) LIKE @query 
+                    OR LOWER(last_name) LIKE @query 
+                    OR LOWER(sport) LIKE @query 
+                    OR LOWER(athlete_status) LIKE @query
+                    OR LOWER(treatment_type) LIKE @query
+                    OR CAST(date_created AS TEXT) LIKE @query", conn);
+
+                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
+
+                using var reader = cmd.ExecuteReader();
+
+                // Read each result and add it to the ObservableCollection
+                while (reader.Read())
+                {
+                    var form = new AthleteForm(
+                        formKey: reader.GetInt64(0),
+                        schoolCode: reader.GetString(1),
+                        firstName: reader.GetString(2),
+                        lastName: reader.GetString(3),
+                        grade: reader.GetInt16(4),
+                        sport: reader.GetString(5),
+                        injuredArea: reader.GetString(6),
+                        injuredSide: reader.GetString(7),
+                        treatmentType: reader.GetString(8),
+                        athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
+                        trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
+                        status: reader.IsDBNull(11) ? null : reader.GetString(11),
+                        date: reader.GetDateTime(12)
+                    );
+                    searchResults.Add(form);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+
+            return searchResults;
+        }
 
         public ObservableCollection<AthleteForm> SelectAllForms()
         {
@@ -639,6 +692,62 @@ namespace RecoveryAT
             return forms;
         }
 
+        /// <summary>
+        /// Retrieves all athlete forms with a date_created less than today's date.
+        /// </summary>
+        /// <returns>An ObservableCollection of AthleteForm objects created before today.</returns>
+        public ObservableCollection<AthleteForm> SelectFormsBeforeToday()
+        {
+            var pastForms = new ObservableCollection<AthleteForm>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                    SELECT form_key, school_code, first_name, last_name, grade, sport,
+                        injured_area, injured_side, treatment_type, athlete_comments,
+                        trainer_comments, athlete_status, date_created
+                    FROM athlete_forms 
+                    WHERE date_created < @today", conn);
+
+                cmd.Parameters.AddWithValue("today", DateTime.Today);
+
+                using var reader = cmd.ExecuteReader();
+
+                // Populate results
+                while (reader.Read())
+                {
+                    var form = new AthleteForm(
+                        formKey: reader.GetInt64(0),
+                        schoolCode: reader.GetString(1),
+                        firstName: reader.GetString(2),
+                        lastName: reader.GetString(3),
+                        grade: reader.GetInt16(4),
+                        sport: reader.GetString(5),
+                        injuredArea: reader.GetString(6),
+                        injuredSide: reader.GetString(7),
+                        treatmentType: reader.GetString(8),
+                        athleteComments: reader.IsDBNull(9) ? null : reader.GetString(9),
+                        trainerComments: reader.IsDBNull(10) ? null : reader.GetString(10),
+                        status: reader.IsDBNull(11) ? null : reader.GetString(11),
+                        date: reader.GetDateTime(12)
+                    );
+                    pastForms.Add(form);
+                }
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving past forms: {ex.Message}");
+            }
+
+            return pastForms;
+        }
 
         /// <summary>
         /// selects all contacts from the database
