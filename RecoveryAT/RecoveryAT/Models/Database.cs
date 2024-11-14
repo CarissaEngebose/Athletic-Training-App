@@ -1123,7 +1123,7 @@ namespace RecoveryAT
 
                 // query to get injury statistics
                 using var cmd = new NpgsqlCommand(@"
-                    SELECT injured_area, COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS percentage
+                    SELECT injured_area, ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS percentage
                     FROM athlete_forms
                     WHERE school_code = @schoolCode
                     GROUP BY injured_area", conn);
@@ -1169,7 +1169,7 @@ namespace RecoveryAT
 
                 // query to get injury statistics
                 using var cmd = new NpgsqlCommand(@"
-                    SELECT injured_area, COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS percentage
+                    SELECT injured_area, ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS percentage
                     FROM athlete_forms
                     WHERE school_code = @schoolCode AND sport = @sport
                     GROUP BY injured_area", conn);
