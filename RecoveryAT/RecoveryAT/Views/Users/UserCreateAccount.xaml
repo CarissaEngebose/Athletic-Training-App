@@ -140,7 +140,7 @@
                 <!-- Create Account Button -->
                 <Button Text="Create Account"
                         x:Name="createAccountButton"
-                        BackgroundColor="#2196F3"
+                        BackgroundColor="Blue"
                         TextColor="White"
                         CornerRadius="12"
                         FontSize="23"

@@ -124,7 +124,7 @@
                                    <!-- Create School Button -->
                                    <Button Text="Create School"
                                            x:Name="createSchoolButton"
-                                           BackgroundColor="#2196F3"
+                                           BackgroundColor="Blue"
                                            TextColor="White"
                                            CornerRadius="12"
                                            FontSize="23"

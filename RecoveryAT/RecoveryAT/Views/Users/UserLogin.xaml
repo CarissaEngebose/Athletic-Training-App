@@ -69,6 +69,7 @@
                     WidthRequest="275" 
                     BackgroundColor="Blue" 
                     TextColor="White" 
+                    FontSize="23"
                     CornerRadius="10"
                     HorizontalOptions="Center"
                     Clicked="OnLoginClicked"/>

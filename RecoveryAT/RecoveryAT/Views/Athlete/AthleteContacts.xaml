@@ -33,8 +33,8 @@
                        HeightRequest="95"/>
 
                 <!-- Title label for the page -->
-                <Label Text="Add Contact Information"
-                       FontSize="24"
+                <Label Text="Add Parent/Guardian Contact Information"
+                       FontSize="22"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        Margin="0,20,0,20"/>
@@ -73,7 +73,7 @@
                 <!-- Finish button to submit contact information -->
                 <Button Text="Finish"
                         FontSize="22"
-                        BackgroundColor="#2196F3"
+                        BackgroundColor="Blue"
                         TextColor="White"
                         CornerRadius="8"
                         HeightRequest="50"
