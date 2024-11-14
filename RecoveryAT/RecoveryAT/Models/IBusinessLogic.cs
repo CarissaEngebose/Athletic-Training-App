@@ -134,5 +134,20 @@ namespace RecoveryAT
         /// <param name="formKey">The form key associated with the athlete form.</param>
         /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
+
+        /// <summary>
+        /// Gets a list of statistics for all sports.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for forms.</param>
+        /// <returns>A list of injury statistics.</returns>
+        ObservableCollection<InjuryStatistic>? GetStatisticsForAllSports(string schoolCode);
+
+        /// <summary>
+        /// Gets a list of statistics for a certain sport.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for forms.</param>
+        /// <param name="sport">The sport to search for forms.</param>
+        /// <returns>A list of injury statistics.</returns>
+        ObservableCollection<InjuryStatistic>? GetStatisticsForSport(string schoolCode, string sport);
     }
 }

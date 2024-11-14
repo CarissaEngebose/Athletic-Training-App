@@ -111,5 +111,19 @@ namespace RecoveryAT
         /// <returns>A message indicating whether the update was successful.</returns>
         string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts);
 
+        /// <summary>
+        /// Searches injuries and returns their corresponding statistics for all sports.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search the forms on.</param>
+        /// <returns>A list of statistics for a school code and all sports.</returns>
+        ObservableCollection<InjuryStatistic> GetStatisticsForAllSports(string schoolCode);
+
+        /// <summary>
+        /// Searches injuries and returns their corresponding statistics for a certain sport.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search the forms on.</param>
+        /// <param name="sport">The sport to select statistics for.</param>
+        /// <returns>A list of statistics for a school code and sport.</returns>
+        ObservableCollection<InjuryStatistic> GetStatisticsForSport(string schoolCode, string sport);
     }
 }

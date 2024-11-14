@@ -37,7 +37,10 @@
         <Label HeightRequest="10"/>
 
         <!-- Dropdown List (Sport Picker) -->
-        <Frame CornerRadius="8" BorderColor="Gray" Padding="20" Margin="10, 0" BackgroundColor="Transparent">
+        <Frame CornerRadius="8"
+                BorderColor="Gray"
+                Padding="5"
+                Margin="10,5,10,0">
             <Picker x:Name="sportPicker"
                     Title="Select Sport"
                     FontSize="16"

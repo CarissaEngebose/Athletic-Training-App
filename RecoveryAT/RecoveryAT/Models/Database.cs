@@ -1002,6 +1002,99 @@ namespace RecoveryAT
             }
         }
 
+        // Method to retrieve injury statistics for a specific school
+        public ObservableCollection<InjuryStatistic> GetStatisticsForAllSports(string schoolCode)
+        {
+            var injuryStatistics = new ObservableCollection<InjuryStatistic>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                // query to get injury statistics
+                using var cmd = new NpgsqlCommand(@"
+                    SELECT injured_area, COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS percentage
+                    FROM athlete_forms
+                    WHERE school_code = @schoolCode
+                    GROUP BY injured_area", conn);
+
+                // add parameters
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+
+                using var reader = cmd.ExecuteReader();
+
+                // read the results and add them to the statistics collection
+                while (reader.Read())
+                {
+                    injuryStatistics.Add(new InjuryStatistic
+                    {
+                        InjuryType = reader.GetString(0),
+                        Percentage = reader.GetFloat(1),
+                    });
+                }
+                // return the generated statistics
+                return injuryStatistics;
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return null; 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return null; 
+            }
+        }
+
+        // Method to retrieve injury statistics for a specific school and sport
+        public ObservableCollection<InjuryStatistic> GetStatisticsForSport(string schoolCode, string sport)
+        {
+            var injuryStatistics = new ObservableCollection<InjuryStatistic>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                // query to get injury statistics
+                using var cmd = new NpgsqlCommand(@"
+                    SELECT injured_area, COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS percentage
+                    FROM athlete_forms
+                    WHERE school_code = @schoolCode AND sport = @sport
+                    GROUP BY injured_area", conn);
+
+                // add parameters
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                cmd.Parameters.AddWithValue("sport", sport);
+
+                using var reader = cmd.ExecuteReader();
+
+                // read the results and add them to the statistics collection
+                while (reader.Read())
+                {
+                    injuryStatistics.Add(new InjuryStatistic
+                    {
+                        InjuryType = reader.GetString(0),
+                        Percentage = reader.GetFloat(1),
+                    });
+                }
+                // return the generated statistics
+                return injuryStatistics;
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return null; 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return null; 
+            }
+        }
+
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>

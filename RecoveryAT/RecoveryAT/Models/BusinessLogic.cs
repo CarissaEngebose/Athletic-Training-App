@@ -277,5 +277,26 @@ namespace RecoveryAT
         {
             return _database.SelectContactsByFormKey(formKey);
         }
+
+        /// <summary>
+        /// Gets a list of statistics for all sports.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for forms.</param>
+        /// <returns>A list of injury statistics.</returns>
+        public ObservableCollection<InjuryStatistic>? GetStatisticsForAllSports(string schoolCode)
+        {
+            return _database.GetStatisticsForAllSports(schoolCode);
+        }
+
+        /// <summary>
+        /// Gets a list of statistics for a certain sport.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for forms.</param>
+        /// <param name="sport">The sport to search for forms.</param>
+        /// <returns>A list of injury statistics.</returns>
+        public ObservableCollection<InjuryStatistic>? GetStatisticsForSport(string schoolCode, string sport)
+        {
+            return _database.GetStatisticsForSport(schoolCode, sport);
+        }
     }
 }

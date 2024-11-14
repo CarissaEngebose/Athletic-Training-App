@@ -10,66 +10,55 @@
 */
 
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microcharts;
 using SkiaSharp;
 using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
-{
+{    
     // The InjuryStatistics class represents the page for displaying injury statistics
     public partial class InjuryStatistics : ContentPage
     {
-        ChartEntry[] entries = new[]
-        {
-            new ChartEntry(32)
-            {
-                Label = "Ankle",
-                ValueLabel = "32%",
-                Color = SKColor.Parse("#4A90E2")
-            },
-            new ChartEntry(12)
-            {
-                Label = "Shoulder",
-                ValueLabel = "12%",
-                Color = SKColor.Parse("#7ED321")
-            },
-            new ChartEntry(15)
-            {
-                Label = "Knee",
-                ValueLabel = "15%",
-                Color = SKColor.Parse("#F5A623")
-            },
-            new ChartEntry(21)
-            {
-                Label = "Head",
-                ValueLabel = "21%",
-                Color = SKColor.Parse("#9013FE")
-            },
-            new ChartEntry(20)
-            {
-                Label = "Wrist",
-                ValueLabel = "20%",
-                Color = SKColor.Parse("#D0021B")
-            }
-        };
+        private IBusinessLogic _businessLogic;
+        private AuthenticationService authService;
 
         // Constructor to initialize the page components
         public InjuryStatistics()
         {
             InitializeComponent(); // Load the XAML components
 
-            // Set the default selection to "All Sports" in the picker
-            sportPicker.SelectedIndex = 0;
+            _businessLogic = MauiProgram.BusinessLogic;
 
-            // create pie chart
+            authService = ((App)Application.Current).AuthService; // gets the current user information
+        }
+
+        // this method is called when the page is about to appear
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            sportPicker.SelectedIndex = 0; // set the default selection to "All Sports" in the picker
+
+            var entries = await GetInjuryStatisticsForSportAsync("All Sports"); // fetch entries for all sports
+
+            // update the chart with the fetched statistics
+            UpdateChartWithEntries(entries);
+        }
+
+        // Method to create and display a pie chart with specified entries
+        private void UpdateChartWithEntries(List<ChartEntry> entries)
+        {
             chartView.Chart = new PieChart
             {
-                LabelTextSize = 40, Entries = entries
+                LabelTextSize = 40,
+                Entries = entries
             };
         }
 
-        // Event handler for when a sport is selected from the dropdown picker
-        private void OnSportSelected(object sender, EventArgs e)
+        // event handler for when a sport is selected from the dropdown picker
+        private async void OnSportSelected(object sender, EventArgs e)
         {
             // Cast the sender to a Picker control
             var picker = (Picker)sender;
@@ -82,9 +71,45 @@ namespace RecoveryAT
                 // Retrieve the selected sport's name
                 string selectedSport = (string)picker.SelectedItem;
 
-                // Logic to update the pie chart based on the selected sport
-                // Example: Display an alert (replace with actual chart logic)
+                // Fetch injury statistics from the database based on the selected sport
+                var entries = await GetInjuryStatisticsForSportAsync(selectedSport);
+
+                // Update the chart with the fetched statistics
+                UpdateChartWithEntries(entries);
             }
+        }
+
+        // async method to retrieve injury statistics for a specific sport from the database
+        private async Task<List<ChartEntry>> GetInjuryStatisticsForSportAsync(string sport)
+        {
+            List<ChartEntry> entries = new List<ChartEntry>();
+
+            try
+            {
+                string schoolCode = authService.SchoolCode; // gets school code from user information 
+
+                // fetch injury statistics based on the sport
+                var statistics = sport == "All Sports"
+                    ? _businessLogic.GetStatisticsForAllSports(schoolCode)
+                    : _businessLogic.GetStatisticsForSport(schoolCode, sport);
+
+                // covert data to ChartEntry objects for the pie chart
+                foreach (var stat in statistics)
+                {
+                    entries.Add(new ChartEntry(stat.Percentage)
+                    {
+                        Label = stat.InjuryType,
+                        ValueLabel = $"{stat.Percentage}%",
+                        Color = SKColor.Parse(stat.ColorHex)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to load statistics: {ex.Message}", "OK");
+            }
+
+            return entries;
         }
     }
 }
