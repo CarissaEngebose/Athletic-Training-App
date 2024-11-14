@@ -21,7 +21,7 @@
 
         <NavigationPage IconImageSource="clipboard_icon.png" Title="Form">
             <x:Arguments>
-                <local:SchoolCodeScreen />
+                <local:InjuryFormReport />
             </x:Arguments>
         </NavigationPage>
 

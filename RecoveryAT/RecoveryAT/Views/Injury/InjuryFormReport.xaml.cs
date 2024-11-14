@@ -20,13 +20,24 @@ namespace RecoveryAT
         private string _schoolCode;
 
         private bool _isEvalSelected;
+        private AuthenticationService authService;
 
-        // Constructor to initialize the InjuryFormReport page
+        // Constructor to initialize the InjuryFormReport page (for athletes)
         public InjuryFormReport(string schoolCode)
         {
             InitializeComponent(); // Load the XAML components
             BindingContext = this; // Set the BindingContext for data binding with the UI
             _schoolCode = schoolCode; // school code to insert into the database
+            _isEvalSelected = false;
+        }
+
+        // Constructor to initialize the InjuryFormReport page (for trainers)
+        public InjuryFormReport()
+        {
+            InitializeComponent(); // Load the XAML components
+            BindingContext = this; // Set the BindingContext for data binding with the UI
+            authService = ((App)Application.Current).AuthService;
+            _schoolCode = authService.SchoolCode; // school code to insert into the database
             _isEvalSelected = false;
         }
 
@@ -97,7 +108,11 @@ namespace RecoveryAT
             }
             else
             {
-                await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
+                if (authService == null){
+                    await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
+                } else {
+                    Application.Current.MainPage = new MainTabbedPage(); // navigate to the home screen
+                }
             }
         }
 
