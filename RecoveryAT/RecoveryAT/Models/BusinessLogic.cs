@@ -277,5 +277,15 @@ namespace RecoveryAT
         {
             return _database.SelectContactsByFormKey(formKey);
         }
+
+        public ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query)
+        {
+            return _database.SearchAthletesByMultipleCriteria(query);
+        }
+
+        public ObservableCollection<AthleteForm> GetFormsBeforeToday()
+        {
+            return _database.SelectFormsBeforeToday();
+        }
     }
 }

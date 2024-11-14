@@ -8,14 +8,15 @@
 */
 
 using System.Collections.ObjectModel;
+using System;
+using System.Linq;
 
 namespace RecoveryAT
 {
     public partial class AthletePastForms : FlyoutPage
     {
-        private readonly Database _database;
-
         private string _selectedStatus;
+
         public string SelectedStatus
         {
             get => _selectedStatus;
@@ -30,26 +31,23 @@ namespace RecoveryAT
             }
         }
 
-        public ObservableCollection<AthleteForm> AthleteList { get; set; } = [];
-        public ObservableCollection<string> StatusOptions { get; set; } =
-        [
+        public ObservableCollection<AthleteForm> AthleteList { get; set; } = new ObservableCollection<AthleteForm>();
+        public ObservableCollection<string> StatusOptions { get; set; } = new ObservableCollection<string>
+        {
             "All",
-            "Today",
-            "Full Contact",
-            "Limited Contact",
-            "Activity as Tolerated",
-            "Total Rest"
-        ];
+            "Eval",
+            "Tape",
+            "Rehab",
+            "Wound",
+            "Other"
+        };
 
         private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
 
-        // Constructor to initialize the AthletePastForms page
         public AthletePastForms()
         {
             _selectedStatus = "All"; // Initialize _selectedStatus with a non-null value
             InitializeComponent();
-
-            _database = new Database();
 
             LoadAthletes(); // Load all athletes initially
 
@@ -60,22 +58,20 @@ namespace RecoveryAT
         private async void OnTileTapped(object sender, EventArgs e)
         {
             var frame = (Frame)sender;
-            var tappedItem = frame.BindingContext; // get the tapped item information
+            var tappedItem = frame.BindingContext;
 
-            // For testing purposes, selectedAthlete should be formed from data from database instead - fix later - Dominick
-            AthleteForm currForm = (AthleteForm)tappedItem; // for testing, remove later
-            // AthleteForm selectedAthlete = new AthleteForm(currForm.Name.Split(" ")[0], currForm.Name.Split(" ")[1],currForm.Sport,currForm.Injury,"stat"); // this should retrieve from the database instead, fix later
-            await Navigation.PushAsync(new AthleteFormInformation(currForm)); // navigate to athlete form information on tapped
+            AthleteForm currForm = (AthleteForm)tappedItem;
+            await Navigation.PushAsync(new AthleteFormInformation(currForm));
         }
 
         private void LoadAthletes()
         {
             try
             {
-                // Load all athletes from the database
-                var athletes = MauiProgram.BusinessLogic.GetForms(SchoolCode); // This returns a List<AthleteForm>
+                // Load all athletes with forms created before today’s date
+                ObservableCollection<AthleteForm> athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
 
-                AthleteList.Clear(); // Clear the existing ObservableCollection
+                AthleteList.Clear();
                 if (athletes != null)
                 {
                     foreach (var athlete in athletes)
@@ -95,19 +91,20 @@ namespace RecoveryAT
         {
             try
             {
-                List<AthleteForm> athletes = [];
+                ObservableCollection<AthleteForm> athletes;
 
-                // Filter by selected status if it's not "All"
-                if (SelectedStatus == "Today")
+                // Get filtered athletes based on SelectedStatus and created date
+                if (SelectedStatus == "All")
                 {
-                    athletes = [.. MauiProgram.BusinessLogic.GetFormsFromToday(SchoolCode)];
+                    athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
                 }
                 else
                 {
-                    athletes = [.. MauiProgram.BusinessLogic.GetForms(SchoolCode)];
+                    athletes = new ObservableCollection<AthleteForm>(
+                        MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.TreatmentType == SelectedStatus)
+                    );
                 }
 
-                // Convert the filtered list back to ObservableCollection for data binding
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
@@ -123,14 +120,12 @@ namespace RecoveryAT
 
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
-            // If the search bar is empty, reload or filter athletes based on status
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
                 FilterAndSortAthletes();
             }
             else
             {
-                // Perform search with the new text
                 SearchAthletes(e.NewTextValue);
             }
         }
@@ -139,11 +134,15 @@ namespace RecoveryAT
         {
             try
             {
-                // Call the search method in the Database class
-                var searchResults = _database.SearchAthletes(query);
+                var searchResults = MauiProgram.BusinessLogic.SearchAthletesByMultipleCriteria(query);
+
+                // Filter search results to only include forms created before today’s date
+                var filteredResults = new ObservableCollection<AthleteForm>(
+                    searchResults.Where(a => a.Date < DateTime.Today)
+                );
 
                 AthleteList.Clear();
-                foreach (var athlete in searchResults)
+                foreach (var athlete in filteredResults)
                 {
                     AthleteList.Add(athlete);
                 }
@@ -154,6 +153,5 @@ namespace RecoveryAT
                 Console.WriteLine($"Error searching athletes: {ex.Message}");
             }
         }
-
     }
 }

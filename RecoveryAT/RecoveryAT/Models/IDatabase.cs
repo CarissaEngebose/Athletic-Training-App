@@ -111,5 +111,9 @@ namespace RecoveryAT
         /// <returns>A message indicating whether the update was successful.</returns>
         string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts);
 
+        ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
+
+        ObservableCollection<AthleteForm> SelectFormsBeforeToday();
+
     }
 }

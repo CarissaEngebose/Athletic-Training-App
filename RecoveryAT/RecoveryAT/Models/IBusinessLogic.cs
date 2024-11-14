@@ -134,5 +134,10 @@ namespace RecoveryAT
         /// <param name="formKey">The form key associated with the athlete form.</param>
         /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
+
+        ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
+
+        ObservableCollection<AthleteForm> GetFormsBeforeToday();
+
     }
 }
