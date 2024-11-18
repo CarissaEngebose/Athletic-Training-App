@@ -41,7 +41,7 @@
                    Margin="10,5"
                    Text="{Binding FullName}"></Label>
 
-            <!-- Frame containing general student information (Grade, Sport, Injury) -->
+            <!-- Frame containing general student information (DateOfBirth, Sport, Injury) -->
             <Frame Padding="10"
                    Margin="0,10"
                    CornerRadius="8"  
@@ -57,14 +57,14 @@
                         <ColumnDefinition Width="*"/>  <!-- 50% width -->
                     </Grid.ColumnDefinitions>
 
-                    <!-- Grade label -->
+                    <!-- DateOfBirth label -->
                     <Label Grid.Row="0" Grid.Column="0"
                            FontAttributes="Bold"
-                           FontSize="Medium">Grade:</Label>
+                           FontSize="Medium">Date of Birth:</Label>
                     <Label Grid.Row="0" Grid.Column="1"
                            HorizontalOptions="End"
                            FontSize="Medium"
-                           Text="{Binding Grade}"></Label>
+                           Text="{Binding DateOfBirth, StringFormat='{}{0:MM/dd/yyyy}'}"></Label>
 
                     <!-- Sport label -->
                     <Label Grid.Row="1" Grid.Column="0"
@@ -103,16 +103,6 @@
             <Label FontSize="Medium"
                    Margin="0,0,0,10"
                    Text="{Binding AthleteComments}">
-            </Label>
-
-            <!-- Trainer Comment Section -->
-            <Label FontAttributes="Bold"
-                   FontSize="Large"
-                   Margin="0,20,0,5">Trainer Comments:</Label>
-            <Label x:Name="TrainerCommentsLabel"
-                   FontSize="Medium"
-                   Margin="0,0,0,10"
-                   Text="{Binding TrainerComments}">
             </Label>
 
             <!-- Athlete Status Section -->

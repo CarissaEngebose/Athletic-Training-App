@@ -1,10 +1,9 @@
 /**
     Name: Carissa Engebose
     Date: 10/27/24
-    Description: Business logic implementation for adding, deleting and updating a form.
+    Description: Business logic interface for managing forms, users, and related data.
     Bugs: None that I know of.
-    Reflection: This class didn't take very long to create once I figured out which screens I wanted to have 
-    functionality for this sprint. 
+    Reflection: This interface provides a clear structure for all the required operations in the RecoveryAT app.
 **/
 
 using System;
@@ -13,13 +12,11 @@ using System.Collections.ObjectModel;
 
 namespace RecoveryAT
 {
-
     /// <summary>
-    /// Defines the business logic related to managing the airports.
+    /// Defines the business logic for managing athlete forms and related data.
     /// </summary>
     public interface IBusinessLogic
     {
-
         /// <summary>
         /// Checks if the provided school code components are valid in the database.
         /// </summary>
@@ -29,20 +26,30 @@ namespace RecoveryAT
         /// <param name="codePart4">Fourth part of the school code.</param>
         /// <param name="codePart5">Fifth part of the school code.</param>
         /// <returns>A message indicating the result of the validation.</returns>
-        public string IsValidSchoolCode(string codePart1, string codePart2, string codePart3, string codePart4, string codePart5);
+        string IsValidSchoolCode(string codePart1, string codePart2, string codePart3, string codePart4, string codePart5);
 
         /// <summary>
-        /// Gets a list of all forms from the database.
+        /// Checks if a school code already exists in the database.
+        /// </summary>
+        /// <param name="schoolCode">The school code to check.</param>
+        /// <returns>True if the school code exists; otherwise, false.</returns>
+        bool SchoolCodeExists(string schoolCode);
+
+        /// <summary>
+        /// Gets a list of all forms for a given school code.
         /// </summary>
         /// <param name="schoolCode">The school code to search for forms.</param>
         /// <returns>A list of forms.</returns>
-        /// 
-
-        bool SchoolCodeExists(string schoolCode);
         ObservableCollection<AthleteForm>? GetForms(string schoolCode);
 
         /// <summary>
-        /// Gets a list of all forms with a date from the database.
+        /// Retrieves all athlete forms from the database.
+        /// </summary>
+        /// <returns>An observable collection of all athlete forms.</returns>
+        ObservableCollection<AthleteForm> GetAllForms();
+
+        /// <summary>
+        /// Retrieves all forms created on a specific date.
         /// </summary>
         /// <param name="schoolCode">The school code to search for forms.</param>
         /// <param name="date">The date to search for forms.</param>
@@ -55,78 +62,105 @@ namespace RecoveryAT
         /// <param name="schoolCode">The identifier of the athlete's school.</param>
         /// <param name="firstName">The athlete's first name.</param>
         /// <param name="lastName">The athlete's last name.</param>
-        /// <param name="grade">The athlete's grade (6 - 12).</param>
         /// <param name="sport">The sport the athlete participates in.</param>
         /// <param name="injuredArea">The location of the athlete's injury.</param>
         /// <param name="injuredSide">The side of the athlete's injury.</param>
         /// <param name="treatmentType">The type of treatment the athlete is receiving.</param>
-        /// <param name="athleteComments">Comments from the athlete.</param>
-        /// <returns>A message saying if the form was successfully added or not.</returns>
-        public string AddForm(string schoolCode, string firstName, string lastName, int? grade, string sport,
-                      string injuredArea, string injuredSide, string treatmentType,
-                      string? athleteComments, string? trainerComments, string? status, DateTime date);
+        /// <param name="dateOfBirth">The athlete's date of birth.</param>
+        /// <param name="athleteComments">Optional comments from the athlete.</param>
+        /// <param name="status">The athlete's current status.</param>
+        /// <param name="dateCreated">The date the form was created.</param>
+        /// <returns>A message indicating if the form was successfully added.</returns>
+        string AddForm(string schoolCode, string firstName, string lastName, string sport,
+                       string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
+                       string? athleteComments, string? status, DateTime dateCreated);
 
         /// <summary>
-        /// Deletes a form by its key.
+        /// Deletes a form by its unique key.
         /// </summary>
-        /// <param name="formKey">The key of the form to delete.</param>
-        /// <returns>A message saying if the form was successfully deleted from the database or not.</returns>
-        /// 
-
-        ObservableCollection<AthleteForm> GetFormsFromToday(string schoolCode);
-        public string DeleteForm(long formKey);
+        /// <param name="formKey">The unique identifier of the form to delete.</param>
+        /// <returns>A message indicating if the form was successfully deleted.</returns>
+        string DeleteForm(long formKey);
 
         /// <summary>
-        /// Edits an existing athlete form's trainer comments and status.
+        /// Updates an existing form with new details.
         /// </summary>
-        /// <param name="formKey">The identifier of the athlete's school.</param>
-        /// <param name="schoolCode">The identifier of the athlete's school.</param>
+        /// <param name="formKey">The unique identifier of the form to update.</param>
+        /// <param name="schoolCode">The school code associated with the form.</param>
         /// <param name="firstName">The athlete's first name.</param>
         /// <param name="lastName">The athlete's last name.</param>
-        /// <param name="grade">The athlete's grade (6 - 12).</param>
         /// <param name="sport">The sport the athlete participates in.</param>
         /// <param name="injuredArea">The location of the athlete's injury.</param>
         /// <param name="injuredSide">The side of the athlete's injury.</param>
         /// <param name="treatmentType">The type of treatment the athlete is receiving.</param>
-        /// <param name="athleteComments">Comments from the athlete.</param>
+        /// <param name="dateOfBirth">The athlete's date of birth.</param>
+        /// <param name="athleteComments">Optional comments from the athlete.</param>
+        /// <param name="status">The athlete's current status.</param>
+        /// <param name="dateCreated">The date the form was created.</param>
         /// <returns>A message indicating if the form was successfully updated.</returns>
-        public string EditForm(long formKey, string schoolCode, string firstName, string lastName, int grade, string sport,
-                      string injuredArea, string injuredSide, string treatmentType,
-                      string? athleteComments, string trainerComments, string status, DateTime date);
+        string EditForm(long formKey, string schoolCode, string firstName, string lastName, string sport,
+                        string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
+                        string? athleteComments, string status, DateTime dateCreated);
 
         /// <summary>
-        /// Inserts a new user into the database.
+        /// Inserts a new user into the system.
         /// </summary>
-        /// <param name="firstName">User's first name.</param>
-        /// <param name="lastName">User's last name.</param>
-        /// <param name="email">User's email address.</param>
-        /// <param name="hashedPassword">User's hashed password.</param>
-        /// <param name="schoolName">User's school name.</param>
-        /// <param name="schoolCode">User's school code.</param>
-        /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
 
-        public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
+        /// <summary>
+        /// Retrieves the last inserted form key for a given school code.
+        /// </summary>
         long GetLastInsertedFormKey(string schoolCode);
 
-        // Placeholder for validating user credentials (replace with actual validation logic next sprint)
-        public bool ValidateCredentials(string email, string password);
+        /// <summary>
+        /// Validates user credentials (placeholder).
+        /// </summary>
+        bool ValidateCredentials(string email, string password);
+
+        /// <summary>
+        /// Retrieves forms seen on a specific date.
+        /// </summary>
         ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen);
 
         /// <summary>
-        /// Searches athletes by name, contact type, phone number, grade, or treatment type.
+        /// Searches for athletes based on a query string.
         /// </summary>
-        /// <param name="query">The search query.</param>
-        /// <returns>A list of athlete forms matching the search criteria.</returns>
+        ObservableCollection<AthleteForm> SearchAthletes(string query);
+
+        /// <summary>
+        /// Searches athletes by contact information.
+        /// </summary>
         ObservableCollection<AthleteForm> SearchAthletesByContact(string query);
 
         /// <summary>
-        /// Saves the updated form and associated contacts.
+        /// Retrieves forms created before today.
         /// </summary>
-        /// <param name="form">The form with updated details.</param>
-        /// <param name="updatedContacts">A list of updated contacts associated with the form.</param>
-        /// <returns>A message indicating whether the update was successful.</returns>
+        ObservableCollection<AthleteForm> GetFormsBeforeToday();
+
+        /// <summary>
+        /// Saves an updated form along with associated contacts.
+        /// </summary>
         string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts);
+
+        /// <summary>
+        /// Retrieves contacts associated with a specific form key.
+        /// </summary>
+        ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
+
+        /// <summary>
+        /// Searches athletes based on multiple criteria.
+        /// </summary>
+        ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
+
+        /// <summary>
+        /// Retrieves injury statistics for all sports within a school.
+        /// </summary>
+        ObservableCollection<InjuryStatistic>? GetStatisticsForAllSports(string schoolCode);
+
+        /// <summary>
+        /// Retrieves injury statistics for a specific sport within a school.
+        /// </summary>
+        ObservableCollection<InjuryStatistic>? GetStatisticsForSport(string schoolCode, string sport);
 
         /// <summary>
         /// Retrieves all contacts associated with a specific form key.
@@ -135,24 +169,21 @@ namespace RecoveryAT
         /// <returns>A collection of AthleteContact objects if they exist; otherwise, an empty collection.</returns>
         ObservableCollection<AthleteContact> SelectContactsByFormKey(long formKey);
 
-        ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
-
-        ObservableCollection<AthleteForm> GetFormsBeforeToday();
-
+        /// <summary>
+        /// Inserts a new contact associated with a specific form.
+        /// </summary>
+        /// <param name="formKey">The form key associated with the contact.</param>
+        /// <param name="contactType">The type of contact (e.g., "Guardian").</param>
+        /// <param name="phoneNumber">The phone number of the contact.</param>
+        /// <returns>A message indicating the result of the operation.</returns>
+        string InsertContact(long formKey, string contactType, string phoneNumber);
 
         /// <summary>
-        /// Gets a list of statistics for all sports.
+        /// Updates the contact status of an athlete form.
         /// </summary>
-        /// <param name="schoolCode">The school code to search for forms.</param>
-        /// <returns>A list of injury statistics.</returns>
-        ObservableCollection<InjuryStatistic>? GetStatisticsForAllSports(string schoolCode);
-
-        /// <summary>
-        /// Gets a list of statistics for a certain sport.
-        /// </summary>
-        /// <param name="schoolCode">The school code to search for forms.</param>
-        /// <param name="sport">The sport to search for forms.</param>
-        /// <returns>A list of injury statistics.</returns>
-        ObservableCollection<InjuryStatistic>? GetStatisticsForSport(string schoolCode, string sport);
+        /// <param name="formKey">The unique identifier for the athlete form.</param>
+        /// <param name="newStatus">The new contact status to apply.</param>
+        /// <returns>A string indicating success or failure of the update.</returns>
+        string UpdateContactStatus(long formKey, string newStatus);
     }
 }

@@ -170,8 +170,8 @@
                                                                Grid.Column="0"
                                                                VerticalOptions="Center"/>
 
-                                                        <!-- Grade -->
-                                                        <Label Text="{Binding Grade}"
+                                                        <!-- Date of Birth -->
+                                                        <Label Text="{Binding DateOfBirth, StringFormat='{0:MM/dd/yyyy}'}"
                                                                FontSize="14"
                                                                FontAttributes="Bold"
                                                                Grid.Row="1"

@@ -47,26 +47,38 @@ namespace RecoveryAT
             // Gets the entries to be inserted into the database
             var firstName = FirstNameEntry.Text;
             var lastName = LastNameEntry.Text;
-            var grade = GradePicker.SelectedIndex >= 0 ? int.Parse((string)GradePicker.SelectedItem) : (int?)null;
             var sport = SportPicker.SelectedItem as string;
             var injuredArea = InjuredAreaEntry.Text;
             var injuredSide = InjuredSide.SelectedItem as string;
             var treatmentType = TreatmentType.SelectedItem as string;
             var athleteComments = CommentsEditor.Text;
+            var dateOfBirth = DateOfBirthPicker.Date;
+
+            // Validate required fields
+            if (string.IsNullOrWhiteSpace(_schoolCode) ||
+                string.IsNullOrWhiteSpace(firstName) ||
+                string.IsNullOrWhiteSpace(lastName) ||
+                string.IsNullOrWhiteSpace(sport) ||
+                string.IsNullOrWhiteSpace(injuredArea) ||
+                string.IsNullOrWhiteSpace(injuredSide) ||
+                string.IsNullOrWhiteSpace(treatmentType))
+            {
+                await DisplayAlert("Error", "All fields must be filled in, except comments.", "OK");
+                return;
+            }
 
             // Call AddForm and store the response message
             string resultMessage = MauiProgram.BusinessLogic.AddForm(
                 _schoolCode,
                 firstName,
                 lastName,
-                grade,
                 sport,
                 injuredArea,
                 injuredSide,
                 treatmentType,
+                dateOfBirth,
                 athleteComments,
-                null,  // trainerComments is null initially
-                null,  // status is null initially
+                null, // status is null initially
                 DateTime.Now
             );
 
@@ -84,6 +96,7 @@ namespace RecoveryAT
             }
         }
 
+
         // if the result message is successful, clear all of the form entries
         // Inside the InjuryFormReport class
 
@@ -95,7 +108,6 @@ namespace RecoveryAT
             // Clear the form if submission was successful
             FirstNameEntry.Text = string.Empty;
             LastNameEntry.Text = string.Empty;
-            GradePicker.SelectedIndex = -1;
             SportPicker.SelectedIndex = -1;
             InjuredAreaEntry.Text = string.Empty;
             InjuredSide.SelectedIndex = -1;
@@ -108,13 +120,38 @@ namespace RecoveryAT
             }
             else
             {
-                if (authService == null){
+                if (authService == null)
+                {
                     await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
-                } else {
+                }
+                else
+                {
                     Application.Current.MainPage = new MainTabbedPage(); // navigate to the home screen
                 }
             }
         }
 
+        private void OnDateOfBirthSelected(object sender, DateChangedEventArgs e)
+        {
+            if (e.NewDate != DateTime.Today) // If a date other than the placeholder date is selected
+            {
+                PlaceholderLabel.IsVisible = false; // Hide the placeholder
+                DateOfBirthPicker.TextColor = Colors.Black; // Show the selected date
+            }
+            else
+            {
+                PlaceholderLabel.IsVisible = true; // Show the placeholder if no date is selected
+                DateOfBirthPicker.TextColor = Colors.Transparent; // Keep the default date hidden
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Reset the placeholder and DatePicker appearance on page load
+            PlaceholderLabel.IsVisible = true; // Show the placeholder initially
+            DateOfBirthPicker.TextColor = Colors.Transparent; // Hide the default date
+        }
     }
 }

@@ -8,132 +8,179 @@ Reflection: This screen took a little while to get the layout exactly how I want
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              x:Class="RecoveryAT.InjuryFormReport"
              BackgroundColor="White"
              Title="">
 
-    <ScrollView>
-        <StackLayout Padding="20" Spacing="10">
+       <ScrollView>
+              <StackLayout Padding="20"
+                           Spacing="10">
 
-            <!-- RecoveryAT Icon -->
-            <Image Source="medical_icon.png" 
-                   WidthRequest="75" 
-                   HeightRequest="75" 
-                   HorizontalOptions="Center" 
-                   VerticalOptions="Start" />
+                     <!-- RecoveryAT Icon -->
+                     <Image Source="medical_icon.png"
+                            WidthRequest="75"
+                            HeightRequest="75"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"/>
 
-            <!-- Athlete Name -->
-            <Label Text="First Name" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Entry x:Name="FirstNameEntry" Placeholder="Enter your first name" />
-            </Frame>
+                     <!-- Athlete Name -->
+                     <Label Text="First Name"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Entry x:Name="FirstNameEntry"
+                                   Placeholder="Enter your first name"/>
+                     </Frame>
 
-            <Label Text="Last Name" FontAttributes="Bold" FontSize="Body"/>
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Entry x:Name="LastNameEntry" Placeholder="Enter your last name" />
-            </Frame>
+                     <Label Text="Last Name"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Entry x:Name="LastNameEntry"
+                                   Placeholder="Enter your last name"/>
+                     </Frame>
 
-            <!-- Grade -->
-            <Label Text="Grade" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Picker x:Name="GradePicker" Title="Select your grade">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>6</x:String>
-                            <x:String>7</x:String>
-                            <x:String>8</x:String>
-                            <x:String>9</x:String>
-                            <x:String>10</x:String>
-                            <x:String>11</x:String>
-                            <x:String>12</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                     <!-- Date of Birth -->
+                     <Label Text="Date of Birth"
+                                   FontAttributes="Bold"
+                                   FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                                   BorderColor="Gray"
+                                   Padding="5">
+                            <Grid>
+                                   <!-- Placeholder Label -->
+                                   <Label x:Name="PlaceholderLabel"
+                                          Text="Enter your date of birth"
+                                          TextColor="Gray"
+                                          VerticalOptions="Center"
+                                          IsVisible="True"
+                                          Margin="5,0"
+                                          HorizontalOptions="Start"/>
 
-            <!-- Sport -->
-            <Label Text="Sport" FontAttributes="Bold" FontSize="Body"/>
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Picker x:Name="SportPicker" Title="Select your sport">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Football</x:String>
-                            <x:String>Volleyball</x:String>
-                            <x:String>Basketball</x:String>
-                            <x:String>Baseball</x:String>
-                            <x:String>Soccer</x:String>
-                            <x:String>Cross Country</x:String>
-                            <x:String>Track &amp; Field</x:String>
-                            <x:String>Swim &amp; Dive</x:String>
-                            <x:String>Softball</x:String>
-                            <x:String>Tennis</x:String>
-                            <x:String>Hockey</x:String>
-                            <x:String>Wrestling</x:String>
-                            <x:String>Dance</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                                   <!-- DatePicker -->
+                                   <DatePicker x:Name="DateOfBirthPicker"
+                                               Format="MM/dd/yyyy"
+                                               MaximumDate="{x:Static system:DateTime.Today}"
+                                               DateSelected="OnDateOfBirthSelected"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="FillAndExpand"
+                                               BackgroundColor="Transparent"
+                                               TextColor="Transparent"/>
+                            </Grid>
+                     </Frame>
 
-            <!-- Injured Area -->
-            <Label Text="Injured Area" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Entry x:Name="InjuredAreaEntry" Placeholder="Enter where your injury is" />
-            </Frame>
+                     <!-- Sport -->
+                     <Label Text="Sport"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Picker x:Name="SportPicker"
+                                    Title="Select your sport">
+                                   <Picker.ItemsSource>
+                                          <x:Array Type="{x:Type x:String}">
+                                                 <x:String>Football</x:String>
+                                                 <x:String>Volleyball</x:String>
+                                                 <x:String>Basketball</x:String>
+                                                 <x:String>Baseball</x:String>
+                                                 <x:String>Soccer</x:String>
+                                                 <x:String>Cross Country</x:String>
+                                                 <x:String>Track &amp; Field</x:String>
+                                                 <x:String>Swim &amp; Dive</x:String>
+                                                 <x:String>Softball</x:String>
+                                                 <x:String>Tennis</x:String>
+                                                 <x:String>Hockey</x:String>
+                                                 <x:String>Wrestling</x:String>
+                                                 <x:String>Dance</x:String>
+                                          </x:Array>
+                                   </Picker.ItemsSource>
+                            </Picker>
+                     </Frame>
 
-            <!-- Injured Side -->
-            <Label Text="Injured Side" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Picker x:Name="InjuredSide" Title="Select the side you are injured on">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Right</x:String>
-                            <x:String>Left</x:String>
-                            <x:String>Both</x:String>
-                            <x:String>N/A</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                     <!-- Injured Area -->
+                     <Label Text="Injured Area"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Entry x:Name="InjuredAreaEntry"
+                                   Placeholder="Enter where your injury is"/>
+                     </Frame>
 
-            <!-- Treatment Type -->
-            <Label Text="Treatment Type" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Picker x:Name="TreatmentType" Title="Select your treatment type">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Eval</x:String>
-                            <x:String>Tape</x:String>
-                            <x:String>Rehab</x:String>
-                            <x:String>Wound</x:String>
-                            <x:String>Other</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                     <!-- Injured Side -->
+                     <Label Text="Injured Side"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Picker x:Name="InjuredSide"
+                                    Title="Select the side you are injured on">
+                                   <Picker.ItemsSource>
+                                          <x:Array Type="{x:Type x:String}">
+                                                 <x:String>Right</x:String>
+                                                 <x:String>Left</x:String>
+                                                 <x:String>Both</x:String>
+                                                 <x:String>N/A</x:String>
+                                          </x:Array>
+                                   </Picker.ItemsSource>
+                            </Picker>
+                     </Frame>
 
-            <!-- Comments -->
-            <Label Text="Comments" FontAttributes="Bold" FontSize="Body" />
-            <Frame CornerRadius="10" BorderColor="Gray" Padding="5">
-                <Editor x:Name="CommentsEditor" 
-                        Placeholder="Enter any comments or details"
-                        AutoSize="TextChanges" 
-                        HeightRequest="100" />
-            </Frame>
+                     <!-- Treatment Type -->
+                     <Label Text="Treatment Type"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Picker x:Name="TreatmentType"
+                                    Title="Select your treatment type">
+                                   <Picker.ItemsSource>
+                                          <x:Array Type="{x:Type x:String}">
+                                                 <x:String>Eval</x:String>
+                                                 <x:String>Tape</x:String>
+                                                 <x:String>Rehab</x:String>
+                                                 <x:String>Wound</x:String>
+                                                 <x:String>Other</x:String>
+                                          </x:Array>
+                                   </Picker.ItemsSource>
+                            </Picker>
+                     </Frame>
 
-            <!-- Submit Button -->
-            <Button Text="Submit Form" 
-                    BackgroundColor="Blue"
-                    TextColor="White"
-                    FontSize="26"
-                    CornerRadius="30" 
-                    Padding="5"
-                    HeightRequest="50" 
-                    WidthRequest="250" 
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center" 
-                    Clicked="OnSubmitClicked" />
-        </StackLayout>
-    </ScrollView>
+                     <!-- Comments -->
+                     <Label Text="Comments"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Editor x:Name="CommentsEditor"
+                                    Placeholder="Enter any comments or details"
+                                    AutoSize="TextChanges"
+                                    HeightRequest="100"/>
+                     </Frame>
+
+                     <!-- Submit Button -->
+                     <Button Text="Submit Form"
+                             BackgroundColor="Blue"
+                             TextColor="White"
+                             FontSize="26"
+                             CornerRadius="30"
+                             Padding="5"
+                             HeightRequest="50"
+                             WidthRequest="250"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Clicked="OnSubmitClicked"/>
+              </StackLayout>
+       </ScrollView>
 
 </ContentPage>

@@ -42,9 +42,6 @@ public partial class AthleteFormInformation : ContentPage
 
             // Update the TreatmentType label
             TreatmentTypeLabel.Text = string.IsNullOrWhiteSpace(currentForm.TreatmentType) ? "No Treatment Type" : currentForm.TreatmentType;
-
-            // Update the TrainerComments label
-            TrainerCommentsLabel.Text = string.IsNullOrWhiteSpace(currentForm.TrainerComments) ? "No Trainer Comments" : currentForm.TrainerComments;
         }
     }
 

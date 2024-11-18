@@ -199,7 +199,7 @@
 
                                 <Label Grid.Row="0"
                                        Grid.Column="0"
-                                       Text="{Binding Date, StringFormat='{0:MMMM d, yyyy}'}"/>
+                                       Text="{Binding DateCreated, StringFormat='{0:MMMM d, yyyy}'}"/>
                                 <Label Grid.Row="1"
                                        Grid.Column="0"
                                        Text="{Binding FullName}"

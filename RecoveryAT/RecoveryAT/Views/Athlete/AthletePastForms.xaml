@@ -131,7 +131,7 @@
                                                             <ColumnDefinition Width="2*"/>
                                                         </Grid.ColumnDefinitions>
 
-                                                        <Label Text="{Binding Date, StringFormat='{}{0:MMM d, yyyy}'}"
+                                                        <Label Text="{Binding DateCreated, StringFormat='{}{0:MMM d, yyyy}'}"
                                                                 FontSize="16"
                                                                 FontAttributes="Bold"
                                                                 Grid.Row="0"

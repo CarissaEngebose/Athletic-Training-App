@@ -138,7 +138,7 @@ namespace RecoveryAT
 
                 // Filter search results to only include forms created before today’s date
                 var filteredResults = new ObservableCollection<AthleteForm>(
-                    searchResults.Where(a => a.Date < DateTime.Today)
+                    searchResults.Where(a => a.DateCreated < DateTime.Today)
                 );
 
                 AthleteList.Clear();

@@ -46,8 +46,7 @@ namespace RecoveryAT
                 var filteredContacts = _allContacts.Where(c => 
                     (c.Name != null && c.Name.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
                     (c.Relationship != null && c.Relationship.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
-                    (c.PhoneNumber != null && c.PhoneNumber.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
-                    (c.Grade != null && c.Grade.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase))
+                    (c.PhoneNumber != null && c.PhoneNumber.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase))
                 );
 
                 ContactList.Clear();
@@ -90,7 +89,7 @@ namespace RecoveryAT
                         Relationship = contact.ContactType,
                         PhoneNumber = contact.PhoneNumber,
                         TreatmentType = form.TreatmentType,
-                        Grade = form.Grade.ToString()
+                        DateOfBirth = form.DateOfBirth,
                     };
                     ContactList.Add(athlete);
                     _allContacts.Add(athlete);
@@ -133,5 +132,6 @@ namespace RecoveryAT
         public string? PhoneNumber { get; set; }
         public string? Grade { get; set; }
         public string? TreatmentType { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }

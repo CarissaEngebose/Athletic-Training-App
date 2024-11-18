@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!--!
-    Name: Dominick Hagedorn
-    Date: 10/14/2024
-    Description: AthleteFormInformationEdit screen
-    Bugs: None known
-    Reflection: This was one of the easier screens. The information box was the hardest to get 
-                to look right, but it wasn't too bad. I also just had to change the comment 
-                boxes to be editable and add a save changes button.
--->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.AthleteFormInformationEdit"
@@ -16,14 +7,13 @@
              Padding="0,0,0,20"> <!-- Bottom padding to add space above tab bar -->
 
     <Grid>
-        <!-- Grid layout with three rows: content, spacer, and save button -->
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/> <!-- Main content takes all available space -->
             <RowDefinition Height="Auto"/> <!-- Spacer row to push button above tab bar -->
             <RowDefinition Height="Auto"/> <!-- Save button adjusts to content size -->
         </Grid.RowDefinitions>
 
-        <!-- Scrollable Content Section in the first row -->
+        <!-- Scrollable Content Section -->
         <ScrollView Grid.Row="0">
             <VerticalStackLayout Padding="10">
                 
@@ -31,9 +21,9 @@
                        FontAttributes="Bold"
                        HorizontalOptions="Center"
                        Margin="10,5"
-                       Text="{Binding FullName}"></Label>
+                       Text="{Binding FullName}" />
 
-                <!-- Frame containing general student information (Grade, Sport, Injury) -->
+                <!-- Frame containing general student information (Sport, Injury, Date of Birth) -->
                 <Frame Padding="10"
                        Margin="0,10"
                        CornerRadius="8"  
@@ -49,44 +39,41 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Grade label -->
+                        <!-- Date of Birth -->
                         <Label Grid.Row="0" Grid.Column="0"
                                FontAttributes="Bold"
-                               FontSize="Medium">Grade:</Label>
+                               FontSize="Medium">Date of Birth:</Label>
                         <Label Grid.Row="0" Grid.Column="1"
                                HorizontalOptions="End"
                                FontSize="Medium"
-                               Text="{Binding Grade}"></Label>
+                               Text="{Binding DateOfBirth, StringFormat='{}{0:MM/dd/yyyy}'}" />
 
-                        <!-- Sport label -->
+                        <!-- Sport -->
                         <Label Grid.Row="1" Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="Medium">Sport:</Label>
                         <Label Grid.Row="1" Grid.Column="1"
                                HorizontalOptions="End"
                                FontSize="Medium"
-                               Text="{Binding Sport}"></Label>
+                               Text="{Binding Sport}" />
 
-                        <!-- Injury label -->
+                        <!-- Injury -->
                         <Label Grid.Row="2" Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="Medium">Injury:</Label>
                         <Label Grid.Row="2" Grid.Column="1"
                                HorizontalOptions="End"
                                FontSize="Medium"
-                               Text="{Binding InjuredArea}"></Label>
+                               Text="{Binding InjuredArea}" />
                     </Grid>
                 </Frame>
 
-                <!-- Treatment Type Section -->
-                <Label FontAttributes="Bold" 
-                       FontSize="Large" 
-                       Margin="0,20,0,5">
+                <!-- Remaining sections (Treatment Type, Trainer Comments, etc.) -->
+                <!-- No changes needed here -->
+                <Label FontAttributes="Bold" FontSize="Large" Margin="0,20,0,5">
                     Athlete Treatment Type:
                 </Label>
-                <Picker x:Name="TreatmentType" 
-                        Title="Select Treatment Type"
-                        FontSize="Medium">
+                <Picker x:Name="TreatmentType" Title="Select Treatment Type" FontSize="Medium">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Eval</x:String>
@@ -98,27 +85,11 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <!-- Trainer Comment Section -->
-                <Label FontAttributes="Bold" 
-                       FontSize="Large" 
-                       Margin="0,20,0,5">
-                    Trainer Comments:
-                </Label>
-                <Editor x:Name="TrainerCommentsEditor"
-                        FontSize="Medium"
-                        Margin="0,0,0,10"
-                        AutoSize="TextChanges"
-                        Placeholder="Enter Comments" />
-
                 <!-- Athlete Status Section -->
-                <Label FontAttributes="Bold" 
-                       FontSize="Large" 
-                       Margin="0,20,0,5">
+                <Label FontAttributes="Bold" FontSize="Large" Margin="0,20,0,5">
                     Athlete Status:
                 </Label>
-                <Picker x:Name="StatusPicker" 
-                        Title="Select Status"
-                        FontSize="Medium">
+                <Picker x:Name="StatusPicker" Title="Select Status" FontSize="Medium">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Full Contact</x:String>
@@ -130,28 +101,20 @@
                 </Picker>
 
                 <!-- Contact Type Section -->
-                <Label FontAttributes="Bold" 
-                       FontSize="Large" 
-                       Margin="0,20,0,5">
+                <Label FontAttributes="Bold" FontSize="Large" Margin="0,20,0,5">
                     Contact Type:
                 </Label>
-                <Entry x:Name="ContactTypeEntry"
-                       FontSize="Medium"
-                       Placeholder="Enter contact type" />
+                <Entry x:Name="ContactTypeEntry" FontSize="Medium" Placeholder="Enter contact type" />
 
                 <!-- Phone Number Section -->
-                <Label FontAttributes="Bold" 
-                       FontSize="Large" 
-                       Margin="0,20,0,5">
+                <Label FontAttributes="Bold" FontSize="Large" Margin="0,20,0,5">
                     Phone Number:
                 </Label>
-                <Entry x:Name="PhoneNumberEntry"
-                       FontSize="Medium"
-                       Placeholder="Enter phone number" />
+                <Entry x:Name="PhoneNumberEntry" FontSize="Medium" Placeholder="Enter phone number" />
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Save Changes Button in the third row -->
+        <!-- Save Changes Button -->
         <Button Grid.Row="1"
                 Text="Save Changes"
                 BackgroundColor="Blue"  
@@ -166,4 +129,3 @@
                 Clicked="OnSaveChangesClicked"/>  
     </Grid>
 </ContentPage>
-

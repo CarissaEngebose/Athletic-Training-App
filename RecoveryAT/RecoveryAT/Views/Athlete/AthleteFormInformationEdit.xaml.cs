@@ -27,7 +27,6 @@ public partial class AthleteFormInformationEdit : ContentPage
         // Set initial values for editable fields
         BindingContext = _currentForm;
         TreatmentType.SelectedItem = _currentForm.TreatmentType;
-        TrainerCommentsEditor.Text = _currentForm.TrainerComments;
         StatusPicker.SelectedItem = _currentForm.Status;
 
         // Load contact information
@@ -65,7 +64,6 @@ public partial class AthleteFormInformationEdit : ContentPage
 
         // Update form details
         _currentForm.TreatmentType = (string)TreatmentType.SelectedItem;
-        _currentForm.TrainerComments = TrainerCommentsEditor.Text;
         _currentForm.Status = (string)StatusPicker.SelectedItem;
 
         // Update contact details if available
