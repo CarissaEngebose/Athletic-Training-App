@@ -271,5 +271,30 @@ namespace RecoveryAT
             // Delegate to the database layer
             return _database.UpdateContactStatus(formKey, newStatus);
         }
+
+        public Dictionary<string, string> GetUserByEmail(string email)
+        {
+            return _database.GetUserByEmail(email);
+        }
+
+        public bool DeleteUserAccount(string email)
+        {
+            return _database.DeleteUserAccount(email); // Pass the request to the Database class
+        }
+
+        /// <summary>
+        /// Checks if a user exists in the database based on their email.
+        /// </summary>
+        /// <param name="email">The email to check.</param>
+        /// <returns>True if the email exists; otherwise, false.</returns>
+        public bool IsEmailRegistered(string email)
+        {
+            return _database.IsEmailRegistered(email);
+        }
+
+        public bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email)
+        {
+            return _database.UpdateUserProfile(originalEmail, firstName, lastName, schoolName, schoolCode, email);
+        }
     }
 }

@@ -1,0 +1,174 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.UserProfileEdit"
+             BackgroundColor="White"
+             Title="Edit Profile">
+
+    <Grid>
+        <!-- Define rows for layout -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Profile Image -->
+            <RowDefinition Height="Auto"/>
+            <!-- Scrollable content -->
+            <RowDefinition Height="*"/>
+            <!-- Buttons (Save and Cancel) -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- User Icon -->
+        <Image Grid.Row="0"
+               Source="red_cross.png"
+               WidthRequest="120"
+               HeightRequest="120"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Margin="0,20,0,10"/>
+
+        <!-- Scrollable Content (Edit Profile Information) -->
+        <ScrollView Grid.Row="1">
+            <StackLayout VerticalOptions="FillAndExpand"
+                         HorizontalOptions="FillAndExpand"
+                         Spacing="10"
+                         Padding="10">
+
+                <!-- First Name -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="First Name"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="FirstNameEntry"
+                               Placeholder="First Name"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Last Name -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Last Name"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="LastNameEntry"
+                               Placeholder="Last Name"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- School Name -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="School Name"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="SchoolNameEntry"
+                               Placeholder="School Name"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- School Code -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="School Code"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="SchoolCodeEntry"
+                               Placeholder="School Code"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Email -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Email"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="EmailEntry"
+                               Placeholder="Email"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"
+                               IsReadOnly="True"/>
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Buttons (Save on top of Cancel) -->
+        <StackLayout Grid.Row="2"
+                     Orientation="Vertical"
+                     Spacing="10"
+                     HorizontalOptions="Center"
+                     VerticalOptions="End"
+                     Margin="10">
+            <!-- Save Button -->
+            <Button Text="Save"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    FontSize="24"
+                    CornerRadius="30"
+                    Padding="5"
+                    HeightRequest="50"
+                    WidthRequest="150"
+                    Clicked="OnSaveClicked"/>
+
+            <!-- Cancel Button -->
+            <Button Text="Cancel"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    FontSize="24"
+                    CornerRadius="30"
+                    Padding="5"
+                    HeightRequest="50"
+                    WidthRequest="150"
+                    Clicked="OnCancelClicked"/>
+        </StackLayout>
+    </Grid>
+</ContentPage>

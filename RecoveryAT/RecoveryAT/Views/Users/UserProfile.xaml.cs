@@ -21,34 +21,79 @@ namespace RecoveryAT
         {
             InitializeComponent(); // initialize the XAML components
             authService = ((App)Application.Current).AuthService; // access the auth service from App
-
         }
 
         // Event handler for when the "Edit" button or icon is tapped
-        private void OnEditTapped(object sender, EventArgs e)
+        private async void OnEditTapped(object sender, EventArgs e)
         {
-            // TODO: Add navigation to an edit profile screen or enable inline editing
+            // Navigate to the UserProfileEdit screen
+            await Navigation.PushModalAsync(new UserProfileEdit());
         }
 
         // Event handler for when the "Logout" button is clicked
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            // TODO: Implement actual logout logic (e.g., clear user session or navigate to login page)
             bool confirmLogout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
             if (confirmLogout)
             {
                 authService.Logout(); // log the user out
-                await Navigation.PushModalAsync(new UserLogin());// navigate back to the log in screen
+                await Navigation.PushModalAsync(new UserLogin()); // navigate back to the login screen
             }
         }
 
         private async void OnDeleteAccountClicked(object sender, EventArgs e)
         {
-            // TODO: Implement actual logout logic (e.g., clear user session or navigate to login page)
-            bool confirmDelete = await DisplayAlert("Delete Account", "Are you sure you want to delete your account?", "Yes", "No");
+            string email = authService.GetLoggedInUserEmail(); // Get the email of the logged-in user
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                await DisplayAlert("Error", "Could not retrieve your email for account deletion.", "OK");
+                return;
+            }
+
+            bool confirmDelete = await DisplayAlert("Delete Account", "Are you sure you want to delete your account? This action cannot be undone.", "Yes", "No");
             if (confirmDelete)
             {
-                // delete the user from the database
+                var result = ((App)Application.Current).BusinessLogic.DeleteUserAccount(email);
+
+                if (result)
+                {
+                    await DisplayAlert("Account Deleted", "Your account has been successfully deleted.", "OK");
+                    await Navigation.PushModalAsync(new UserLogin()); // Navigate to the login page
+                }
+                else
+                {
+                    await DisplayAlert("Error", "An error occurred while deleting your account. Please try again later.", "OK");
+                }
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            string email = authService.GetLoggedInUserEmail(); // Get the logged-in user's email
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
+                return;
+            }
+
+            // Fetch user data from the database via BusinessLogic
+            var userData = ((App)Application.Current).BusinessLogic.GetUserByEmail(email);
+
+            if (userData != null)
+            {
+                // Update UI elements directly
+                NameLabel.Text = $"{userData["FirstName"]} {userData["LastName"]}";
+                SchoolNameLabel.Text = userData["SchoolName"];
+                SchoolCodeLabel.Text = userData["SchoolCode"];
+                EmailLabel.Text = userData["Email"];
+            }
+            else
+            {
+                DisplayAlert("Error", "User data could not be loaded.", "OK");
             }
         }
     }

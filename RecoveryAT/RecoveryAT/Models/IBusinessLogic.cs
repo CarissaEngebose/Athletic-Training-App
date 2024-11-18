@@ -185,5 +185,38 @@ namespace RecoveryAT
         /// <param name="newStatus">The new contact status to apply.</param>
         /// <returns>A string indicating success or failure of the update.</returns>
         string UpdateContactStatus(long formKey, string newStatus);
+
+        /// <summary>
+        /// Deletes a user account based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to delete.</param>
+        /// <returns>True if the user account was successfully deleted, otherwise false.</returns>
+        bool DeleteUserAccount(string email);
+
+        /// <summary>
+        /// Retrieves user information based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to retrieve.</param>
+        /// <returns>A dictionary containing user information, or null if not found.</returns>
+        Dictionary<string, string> GetUserByEmail(string email);
+
+        /// <summary>
+        /// Checks if a user exists in the database based on their email.
+        /// </summary>
+        /// <param name="email">The email to check.</param>
+        /// <returns>True if the email exists; otherwise, false.</returns>
+        bool IsEmailRegistered(string email);
+
+        /// <summary>
+        /// Updates a user's profile information in the database.
+        /// </summary>
+        /// <param name="originalEmail">The original email of the user (used as a key).</param>
+        /// <param name="firstName">The updated first name.</param>
+        /// <param name="lastName">The updated last name.</param>
+        /// <param name="schoolName">The updated school name.</param>
+        /// <param name="schoolCode">The updated school code.</param>
+        /// <param name="email">The updated email.</param>
+        /// <returns>True if the update was successful; otherwise, false.</returns>
+        bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email);
     }
 }

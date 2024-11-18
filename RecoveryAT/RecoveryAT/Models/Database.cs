@@ -1171,6 +1171,142 @@ namespace RecoveryAT
             }
         }
 
+        public bool DeleteUserAccount(string email)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand("DELETE FROM users WHERE email = @Email", conn);
+                cmd.Parameters.AddWithValue("Email", email);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                return rowsAffected > 0; // Return true if the account was deleted
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Fetches user information based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to retrieve.</param>
+        /// <returns>A dictionary containing user information, or null if not found.</returns>
+        public Dictionary<string, string> GetUserByEmail(string email)
+        {
+            var userInfo = new Dictionary<string, string>();
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                SELECT first_name, last_name, email, school_name, school_code
+                FROM public.users
+                WHERE email = @Email", conn);
+
+                cmd.Parameters.AddWithValue("Email", email);
+
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    userInfo["FirstName"] = reader.GetString(0);
+                    userInfo["LastName"] = reader.GetString(1);
+                    userInfo["Email"] = reader.GetString(2);
+                    userInfo["SchoolName"] = reader.GetString(3);
+                    userInfo["SchoolCode"] = reader.GetString(4);
+                }
+                else
+                {
+                    return null; // User not found
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving user data: {ex.Message}");
+                return null;
+            }
+
+            return userInfo;
+        }
+
+        /// <summary>
+        /// Checks if a user exists in the database based on their email.
+        /// </summary>
+        /// <param name="email">The email to check.</param>
+        /// <returns>True if the email exists; otherwise, false.</returns>
+        public bool IsEmailRegistered(string email)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+        SELECT COUNT(1)
+        FROM public.users
+        WHERE email = @Email", conn);
+
+                cmd.Parameters.AddWithValue("Email", email);
+
+                var result = cmd.ExecuteScalar();
+                return result != null && (long)result > 0; // True if email exists, false otherwise
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"General error: {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email)
+        {
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                UPDATE public.users
+                SET first_name = @FirstName, 
+                    last_name = @LastName, 
+                    school_name = @SchoolName, 
+                    school_code = @SchoolCode, 
+                    email = @Email
+                WHERE email = @OriginalEmail", conn);
+
+                cmd.Parameters.AddWithValue("FirstName", firstName);
+                cmd.Parameters.AddWithValue("LastName", lastName);
+                cmd.Parameters.AddWithValue("SchoolName", schoolName);
+                cmd.Parameters.AddWithValue("SchoolCode", schoolCode);
+                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("OriginalEmail", originalEmail);
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Database error: {ex.Message}");
+                return false;
+            }
+        }
+
         /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>

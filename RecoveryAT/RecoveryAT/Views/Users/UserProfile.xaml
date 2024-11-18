@@ -31,12 +31,14 @@
 
         <!-- Ellipses on Top -->
         <Button ImageSource="edit.png"
-                BackgroundColor="Transparent"
-                   WidthRequest="75"
-                   HeightRequest="75"
-                   HorizontalOptions="End"
-                   VerticalOptions="End">
-            </Button>
+              BackgroundColor="Transparent"
+              WidthRequest="75"
+              HeightRequest="75"
+              HorizontalOptions="End"
+              VerticalOptions="End"
+              Clicked="OnEditTapped">
+       </Button>
+
 
         <!-- User Icon -->
         <Image Grid.Row="1"
@@ -50,12 +52,13 @@
         <!-- Scrollable Content (Trainer Information) -->
         <ScrollView Grid.Row="2">
             <StackLayout VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    Spacing="10"
-                    Padding="10">
+                         HorizontalOptions="FillAndExpand"
+                         Spacing="10"
+                         Padding="10">
 
                 <!-- Trainer's Name -->
-                <Label Text="Jayne Robins"
+                <Label x:Name="NameLabel"
+                       Text="Name Placeholder"
                        FontSize="30"
                        HorizontalOptions="Center"
                        FontAttributes="Bold"
@@ -63,18 +66,19 @@
 
                 <!-- School Name Information -->
                 <Frame BorderColor="Gray"
-                        CornerRadius="5"
-                        Padding="10"
-                        Margin="10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start">
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
                     <StackLayout>
                         <Label Text="School Name"
                                FontSize="20"
                                HorizontalOptions="Start"
                                VerticalOptions="Start"
                                FontAttributes="Bold"/>
-                        <Label Text="Luxemburg-Casco High School"
+                        <Label x:Name="SchoolNameLabel"
+                               Text="School Name Placeholder"
                                FontSize="14"
                                HorizontalOptions="Start"
                                VerticalOptions="End"/>
@@ -83,18 +87,19 @@
 
                 <!-- School Code Information -->
                 <Frame BorderColor="Gray"
-                        CornerRadius="5"
-                        Padding="10"
-                        Margin="10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start">
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
                     <StackLayout>
                         <Label Text="School Code"
                                FontSize="20"
                                HorizontalOptions="Start"
                                VerticalOptions="Start"
                                FontAttributes="Bold"/>
-                        <Label Text="12345"
+                        <Label x:Name="SchoolCodeLabel"
+                               Text="School Code Placeholder"
                                FontSize="14"
                                HorizontalOptions="Start"
                                VerticalOptions="Start"/>
@@ -103,18 +108,19 @@
 
                 <!-- Email Information -->
                 <Frame BorderColor="Gray"
-                        CornerRadius="5"
-                        Padding="10"
-                        Margin="10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start">
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
                     <StackLayout>
                         <Label Text="Email"
                                FontSize="20"
                                HorizontalOptions="Start"
                                VerticalOptions="Start"
                                FontAttributes="Bold"/>
-                        <Label Text="jrobins@bellinhealth.org"
+                        <Label x:Name="EmailLabel"
+                               Text="Email Placeholder"
                                FontSize="14"
                                HorizontalOptions="Start"
                                VerticalOptions="Start"/>
@@ -123,11 +129,11 @@
 
                 <!-- Password Information -->
                 <Frame BorderColor="Gray"
-                        CornerRadius="5"
-                        Padding="10"
-                        Margin="10"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="Start">
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
                     <StackLayout>
                         <Label Text="Password"
                                FontSize="20"
