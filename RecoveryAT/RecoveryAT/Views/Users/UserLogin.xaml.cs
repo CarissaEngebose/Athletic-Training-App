@@ -5,6 +5,7 @@
     Bugs: None known
     Reflection: This was another easy screen. The hardest part was figuring out how to do the "forgot password" link.
 */
+using BCrypt.Net;
 
 namespace RecoveryAT;
 

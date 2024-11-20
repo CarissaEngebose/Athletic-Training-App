@@ -218,5 +218,8 @@ namespace RecoveryAT
         /// <param name="email">The updated email.</param>
         /// <returns>True if the update was successful; otherwise, false.</returns>
         bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email);
+
+        ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode);
+
     }
 }

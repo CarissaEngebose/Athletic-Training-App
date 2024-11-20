@@ -71,11 +71,36 @@ namespace RecoveryAT
 
         private async void OnTileTapped(object sender, EventArgs e)
         {
-            var frame = (Frame)sender;
-            var tappedItem = frame.BindingContext; // get the tapped item information
+            try
+            {
+                var frame = (Frame)sender;
+                var tappedAthlete = frame.BindingContext as AthleteForm;
 
-            // Should pass in a valid AthleteForm with info from database, Dummy data now fix later - Dominick
-            await Navigation.PushAsync(new AthleteFormInformation(new AthleteForm("First", "Last", "Sport", "Inj", "stat"))); // navigate to athlete form information on tapped
+                if (tappedAthlete != null && tappedAthlete.FormKey.HasValue)
+                {
+                    // Fetch the full athlete details from the database using the FormKey
+                    var athleteForm = _businessLogic.GetAllForms()
+                                                    .FirstOrDefault(a => a.FormKey == tappedAthlete.FormKey.Value);
+
+                    if (athleteForm != null)
+                    {
+                        // Navigate to the AthleteFormInformation page with the fetched athleteForm
+                        await Navigation.PushAsync(new AthleteFormInformation(athleteForm));
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", "Athlete information not found in the database.", "OK");
+                    }
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Invalid athlete selection or missing FormKey.", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+            }
         }
 
         private void LoadAthletes()

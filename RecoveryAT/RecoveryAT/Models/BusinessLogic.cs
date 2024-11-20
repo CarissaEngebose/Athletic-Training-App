@@ -296,5 +296,10 @@ namespace RecoveryAT
         {
             return _database.UpdateUserProfile(originalEmail, firstName, lastName, schoolName, schoolCode, email);
         }
+
+        public ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode)
+        {
+            return _database.SelectFormsBySchoolCode(schoolCode);
+        }
     }
 }

@@ -213,7 +213,7 @@
                                 <Label Grid.Row="1"
                                        Grid.Column="1"
                                        HorizontalOptions="End"
-                                       Text="{Binding Grade}"/>
+                                       Text="{Binding DateOfBirth, StringFormat='{0:MM/dd/yyyy}'}"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>
