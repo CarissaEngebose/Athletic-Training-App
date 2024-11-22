@@ -15,7 +15,7 @@ using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {
-    public partial class AthleteStatuses : FlyoutPage
+    public partial class AthleteStatuses : ContentPage
     {
         private readonly BusinessLogic _businessLogic;
         private readonly string _schoolCode;

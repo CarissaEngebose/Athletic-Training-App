@@ -15,7 +15,7 @@
 
         <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
             <x:Arguments>
-                <local:AthleteInformation />
+                <local:AthleteTabbedPage />
             </x:Arguments>
         </NavigationPage>
 

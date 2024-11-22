@@ -72,7 +72,7 @@ namespace RecoveryAT
         /// <summary>
         /// Date the form was created.
         /// </summary>
-        public DateTime DateCreated { get; set; }
+        public DateTime? DateCreated { get; set; }
 
         /// <summary>
         /// Date the athlete was seen.

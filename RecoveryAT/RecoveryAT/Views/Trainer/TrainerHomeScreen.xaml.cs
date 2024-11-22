@@ -1,21 +1,6 @@
-/*
-    Name: Dominick Hagedorn
-    Date: 10/14/2024
-    Description: TrainerHomeScreen
-    Bugs: None Known
-    Reflection: I struggled with this one quite a bit. I really couldn't figure out how to do the date picker 
-                in a way that looked good. After asking for help, my group was able to get a working scrollable calendar.
-*/
-
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using Microsoft.Maui.Controls;
 using CalendarManagment;
+using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {
@@ -34,35 +19,24 @@ namespace RecoveryAT
             _businessLogic = MauiProgram.BusinessLogic;
             ViewModel = new TrainerHomeScreenViewModel(_businessLogic, schoolCode);
             BindingContext = ViewModel;
-            MonthCarousel.Position = ViewModel.Calendar.SelectedDate.Month - 1;
-            YearCarousel.Position = ViewModel.Calendar.SelectedDate.Year - 1950;
 
-            ViewModel.Calendar.SelectedDate = new Date(DateTime.Today); // set to today's date
+            // Initialize the DatePicker with today's date
+            DatePicker.Date = DateTime.Today;
+            ViewModel.Calendar.SelectedDate = new Date(DatePicker.Date);
         }
-        
-        public void OnDayTapped(object sender, EventArgs e){
-            Frame DayElement = (Frame)sender; // get the xaml Frame 
-            Day SelectedDay = (Day)DayElement.BindingContext; // convert to day object
-            SelectedDay.IsSelected = true;
 
-            // Load forms for the selected day
-            DateTime selectedDate = new DateTime(ViewModel.Calendar.SelectedDate.Year, ViewModel.Calendar.SelectedDate.Month, SelectedDay.DayNumber);
-            ViewModel.LoadAthleteFormsForDay(selectedDate); // Load forms for the selected date
+        private void OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            // Update ViewModel's selected date and load forms
+            ViewModel.Calendar.SelectedDate = new Date(e.NewDate);
+            ViewModel.LoadAthleteFormsForDay(e.NewDate);
         }
 
         public async void OnFrameTapped(object sender, EventArgs e)
         {
-            Frame AthleteFormFrame = (Frame)sender; // get XAML frame
-            AthleteForm SelectedAthleteForm = (AthleteForm)AthleteFormFrame.BindingContext; // get seleceted athlete form from clicked frame
-            await Navigation.PushAsync(new AthleteFormInformation(SelectedAthleteForm)); // send to AthleteFormInformation view to display
-        }
-
-        public void MonthChanged(object sender, EventArgs e){
-            ViewModel.Calendar.SetMonth(MonthCarousel.Position);
-        }
-
-        public void YearChanged(object sender, EventArgs e){
-            ViewModel.Calendar.SetYear(YearCarousel.Position+1950);
+            Frame athleteFormFrame = (Frame)sender; // get XAML frame
+            AthleteForm selectedAthleteForm = (AthleteForm)athleteFormFrame.BindingContext; // get selected athlete form from clicked frame
+            await Navigation.PushAsync(new AthleteFormInformation(selectedAthleteForm)); // send to AthleteFormInformation view to display
         }
     }
 }

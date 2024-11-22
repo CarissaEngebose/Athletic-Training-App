@@ -64,13 +64,14 @@ namespace RecoveryAT
         public static AthleteDetail FromFormAndContact(AthleteForm form, AthleteContact contact)
         {
             return new AthleteDetail(
-                fullName: form.FullName,
-                relationship: contact.ContactType,
-                phoneNumber: contact.PhoneNumber,
-                treatmentType: form.TreatmentType,
-                athleteComments: form.AthleteComments,
-                dateOfBirth: form.DateOfBirth
+                fullName: form.FullName ?? "Unknown Athlete",
+                relationship: contact.ContactType ?? "Unknown Contact",
+                phoneNumber: contact.PhoneNumber ?? "No Phone Number",
+                treatmentType: form.TreatmentType ?? "Unknown Treatment",
+                athleteComments: form.AthleteComments ?? "No Comments",
+                dateOfBirth: form.DateOfBirth != default ? form.DateOfBirth : DateTime.MinValue
             );
         }
+
     }
 }

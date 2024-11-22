@@ -7,13 +7,8 @@ using Microsoft.Maui.Controls;
 
 namespace RecoveryAT;
 
-public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
+public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 {
-    public ICommand NavigateToPastFormsCommand { get; }
-    public ICommand NavigateToStatisticsCommand { get; }
-    public ICommand NavigateToAthleteStatusesCommand { get; }
-    public ICommand NavigateToHomeCommand { get; }
-
     private readonly IBusinessLogic _businessLogic;
     private ObservableCollection<AthleteDetail> _displayList = new();
     private ObservableCollection<AthleteDetail> _allItems = new();
@@ -38,14 +33,7 @@ public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
     {
         InitializeComponent();
         _businessLogic = new BusinessLogic(new Database());
-
         LoadData();
-
-        NavigateToHomeCommand = new Command(NavigateToHome);
-        NavigateToPastFormsCommand = new Command(NavigateToPastForms);
-        NavigateToStatisticsCommand = new Command(NavigateToStatistics);
-        NavigateToAthleteStatusesCommand = new Command(NavigateToAthleteStatuses);
-
         BindingContext = this;
     }
 
@@ -62,36 +50,40 @@ public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
 
     private void LoadData()
     {
-        _allItems.Clear();
-        _displayList.Clear();
-
-        // Fetch forms from business logic
-        var athleteForms = _businessLogic.GetForms(schoolCode: SchoolCode);
-        if (athleteForms != null && athleteForms.Any())
+        try
         {
+            _allItems.Clear();
+
+            var athleteForms = _businessLogic.GetForms(schoolCode: SchoolCode) ?? new ObservableCollection<AthleteForm>();
+
             foreach (var form in athleteForms)
             {
-                // Ensure AthleteComments defaults to "No Comments" if null or empty
                 form.AthleteComments = string.IsNullOrWhiteSpace(form.AthleteComments) ? "No Comments" : form.AthleteComments;
 
-                // Fetch associated contacts
-                var contacts = _businessLogic.GetContactsByFormKey(form.FormKey ?? 0);
+                var contacts = _businessLogic.GetContactsByFormKey(form.FormKey ?? 0) ?? new ObservableCollection<AthleteContact>();
 
-                if (contacts.Any())
+                bool detailsAdded = false;
+
+                foreach (var contact in contacts)
                 {
-                    foreach (var contact in contacts)
+                    var detail = AthleteDetail.FromFormAndContact(form, contact);
+                    if (detail != null && !string.IsNullOrWhiteSpace(detail.FullName))
                     {
-                        var detail = AthleteDetail.FromFormAndContact(form, contact);
                         _allItems.Add(detail);
+                        detailsAdded = true;
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"Skipped invalid detail for contact: {contact.ContactType}, Phone={contact.PhoneNumber}");
                     }
                 }
-                else
+
+                if (!detailsAdded)
                 {
-                    // Add form without contacts
                     var detail = new AthleteDetail(
                         fullName: form.FullName,
                         relationship: "No Contact",
-                        phoneNumber: string.Empty, // No need to show phone number
+                        phoneNumber: string.Empty,
                         treatmentType: form.TreatmentType,
                         athleteComments: form.AthleteComments,
                         dateOfBirth: form.DateOfBirth
@@ -99,10 +91,16 @@ public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
                     _allItems.Add(detail);
                 }
             }
-        }
 
-        // Update the DisplayList
-        DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error loading data: {ex.Message}");
+        }
     }
 
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -113,14 +111,14 @@ public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
         }
         else
         {
-            var query = e.NewTextValue.ToLowerInvariant(); // Case-insensitive search
+            var query = e.NewTextValue.ToLowerInvariant();
             var filteredItems = _allItems.Where(item =>
                 (item.FullName?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
                 (item.Relationship?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
                 (item.PhoneNumber?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
                 (item.TreatmentType?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
                 (item.AthleteComments?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.DateOfBirth.ToString("MM/dd/yyyy")?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) // Date of Birth formatted as string
+                (item.DateOfBirth.ToString("MM/dd/yyyy")?.Contains(query, StringComparison.OrdinalIgnoreCase) == true)
             );
 
             DisplayList = new ObservableCollection<AthleteDetail>(filteredItems);
@@ -134,45 +132,17 @@ public partial class AthleteInformation : FlyoutPage, INotifyPropertyChanged
 
         if (tappedItem != null)
         {
-            // Fetch the corresponding AthleteForm for the selected AthleteDetail
             var athleteForm = _businessLogic.GetForms(schoolCode: SchoolCode)
                                             .FirstOrDefault(form => form.FullName == tappedItem.FullName);
 
             if (athleteForm != null)
             {
-                await Detail.Navigation.PushAsync(new AthleteFormInformation(athleteForm));
+                await Navigation.PushAsync(new AthleteFormInformation(athleteForm));
             }
             else
             {
                 await DisplayAlert("Error", "Athlete information not found.", "OK");
             }
         }
-    }
-
-    private void NavigateToHome(object obj)
-    {
-        if (Application.Current != null)
-        {
-            Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
-        }
-        IsPresented = false;
-    }
-
-    private void NavigateToPastForms()
-    {
-        Detail = new NavigationPage(new AthletePastForms());
-        IsPresented = false;
-    }
-
-    private void NavigateToStatistics()
-    {
-        Detail = new NavigationPage(new InjuryStatistics());
-        IsPresented = false;
-    }
-
-    private void NavigateToAthleteStatuses()
-    {
-        Detail = new NavigationPage(new AthleteStatuses(SchoolCode));
-        IsPresented = false;
     }
 }

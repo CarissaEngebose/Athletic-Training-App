@@ -37,7 +37,7 @@
             
             <!-- Welcome Text -->
             <Label Text="Welcome to RecoveryAT" 
-                   FontSize="35" 
+                   FontSize="33" 
                    HorizontalOptions="Center" 
                    FontAttributes="Bold" 
                    VerticalOptions="Center" />
@@ -50,7 +50,7 @@
                     BackgroundColor="Blue"
                     TextColor="White"
                     FontSize="26"
-                    CornerRadius="30" 
+                    CornerRadius="25" 
                     Padding="5"
                     HeightRequest="50" 
                     WidthRequest="250" 

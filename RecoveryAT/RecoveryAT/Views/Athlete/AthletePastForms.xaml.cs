@@ -1,19 +1,10 @@
-/*
-    Name: Luke Kastern
-    Date: 10/14/2024
-    Description: AthletePastForms Screen
-    Bugs: None Known
-    Reflection: This was fairly easy because I had AthleteStatus as a reference, 
-                but it was hard to get the form number to be the only element on the right side.
-*/
-
 using System.Collections.ObjectModel;
 using System;
 using System.Linq;
 
 namespace RecoveryAT
 {
-    public partial class AthletePastForms : FlyoutPage
+    public partial class AthletePastForms : ContentPage
     {
         private string _selectedStatus;
 
