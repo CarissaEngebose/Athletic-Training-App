@@ -44,6 +44,12 @@ namespace RecoveryAT
                 return;
             }
 
+            // checks if entered password is strong and secure - Dominick
+            CredentialsValidator.PasswordStatus passwordStatus = CredentialsValidator.ValidatePassword(password); // get password status
+            if(passwordStatus != CredentialsValidator.PasswordStatus.Good){ // if password is not good
+                await DisplayAlert("Error", CredentialsValidator.GetMessage(passwordStatus), "OK"); // display what needs to be fixed
+            }
+
             // Optionally, hash the password (replace with actual hashing)
             var hashedPassword = "hashed_password_example"; // Replace with hashing code
 
