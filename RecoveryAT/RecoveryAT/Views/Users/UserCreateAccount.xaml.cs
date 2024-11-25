@@ -51,6 +51,11 @@ namespace RecoveryAT
                 return; // horrible password, make them redo it
             }
 
+            if(!CredentialsValidator.isValidEmail(email)){ // if email isnt formated correctly
+                await DisplayAlert("Error", "Email is invalid", "OK"); // tell the user
+                return; // dont create account
+            }
+
             // Optionally, hash the password (replace with actual hashing)
             var hashedPassword = "hashed_password_example"; // Replace with hashing code
 
