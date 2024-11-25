@@ -7,15 +7,6 @@
     screens I wanted to complete.
 **/
 
-/**
-    Name: Carissa Engebose
-    Date: 10/27/24
-    Description: Created the business logic implementation to be used when creating a form.
-    Bugs: None that I know of.
-    Reflection: This class didn't take very long once I figured out the methods I wanted to start with and the
-    screens I wanted to complete.
-**/
-
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -168,12 +159,11 @@ namespace RecoveryAT
 
         public bool ValidateCredentials(string email, string password)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            if (CredentialsValidator.isValidEmail(email) && CredentialsValidator.isValidPassword(password))
             {
-                return false;
+                return true;
             }
-
-            return true; // Placeholder validation logic.
+            return false;
         }
 
         public ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen)
