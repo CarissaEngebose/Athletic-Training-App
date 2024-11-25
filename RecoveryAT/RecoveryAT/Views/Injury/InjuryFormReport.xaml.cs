@@ -1,50 +1,38 @@
-/*
-    Name: Carissa Engebose
-    Date: 10/28/2024
-    Description: A screen that allows a user to enter information related to injuries that will 
-                be sent back to their athletic trainer.
-    Bugs: None Known
-    Reflection: This screen took a little while to figure out because I kept running into issues with using the grade.Value
-                when it was null (which honestly shouldn't have taken me as long as it did to figure out). Other than that,
-                I think connecting it with the database went very well.
-*/
-
-using Microsoft.Maui.Controls; // Import necessary MAUI controls
-using System; // Import system-level utilities
+using Microsoft.Maui.Controls;
+using System;
 
 namespace RecoveryAT
 {
-    // The InjuryFormReport class inherits from ContentPage to represent a page in the MAUI app
     public partial class InjuryFormReport : ContentPage
     {
         private string _schoolCode;
-
         private bool _isEvalSelected;
-        private AuthenticationService authService;
+        private AuthenticationService _authService;
 
-        // Constructor to initialize the InjuryFormReport page (for athletes)
+        // Constructor for athletes with provided SchoolCode
         public InjuryFormReport(string schoolCode)
         {
-            InitializeComponent(); // Load the XAML components
-            BindingContext = this; // Set the BindingContext for data binding with the UI
-            _schoolCode = schoolCode; // school code to insert into the database
+            InitializeComponent();
+            BindingContext = this;
+            _schoolCode = schoolCode;
             _isEvalSelected = false;
         }
 
-        // Constructor to initialize the InjuryFormReport page (for trainers)
+        // Constructor for trainers
         public InjuryFormReport()
         {
-            InitializeComponent(); // Load the XAML components
-            BindingContext = this; // Set the BindingContext for data binding with the UI
-            authService = ((App)Application.Current).AuthService;
-            _schoolCode = authService.SchoolCode; // school code to insert into the database
+            InitializeComponent();
+            BindingContext = this;
+            _authService = ((App)Application.Current).AuthService;
+
+            // Retrieve SchoolCode from AuthenticationService
+            _schoolCode = _authService?.GetSchoolCode() ?? "DefaultCode";
             _isEvalSelected = false;
         }
 
-        // Event handler for the Submit button click event
         private async void OnSubmitClicked(object sender, EventArgs e)
         {
-            // Gets the entries to be inserted into the database
+            // Get form inputs
             var firstName = FirstNameEntry.Text;
             var lastName = LastNameEntry.Text;
             var sport = SportPicker.SelectedItem as string;
@@ -78,7 +66,7 @@ namespace RecoveryAT
                 treatmentType,
                 dateOfBirth,
                 athleteComments,
-                null, // status is null initially
+                null, // Status is null initially
                 DateTime.Now
             );
 
@@ -90,58 +78,61 @@ namespace RecoveryAT
             // Display result message to the user
             await DisplayAlert("Form Submission", resultMessage, "OK");
 
-            if (resultMessage.Contains("successfully"))
+            if (resultMessage.Contains("successfully", StringComparison.OrdinalIgnoreCase))
             {
-                FormSubmissionIsSuccessful();
+                await FormSubmissionIsSuccessful();
             }
         }
 
-
-        // if the result message is successful, clear all of the form entries
-        // Inside the InjuryFormReport class
-
-        private async void FormSubmissionIsSuccessful()
+        private async Task FormSubmissionIsSuccessful()
         {
-            // Assuming AddForm returns a formKey after inserting the form into the database
-            long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);  // Fetch the last inserted formKey
-
-            // Clear the form if submission was successful
-            FirstNameEntry.Text = string.Empty;
-            LastNameEntry.Text = string.Empty;
-            SportPicker.SelectedIndex = -1;
-            InjuredAreaEntry.Text = string.Empty;
-            InjuredSide.SelectedIndex = -1;
-            TreatmentType.SelectedIndex = -1;
-            CommentsEditor.Text = string.Empty;
-
-            if (_isEvalSelected)
+            try
             {
-                await Navigation.PushAsync(new AthleteContacts(formKey)); // Pass formKey to AthleteContacts
-            }
-            else
-            {
-                if (authService == null)
+                // Fetch the last inserted formKey for the current SchoolCode
+                long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);
+
+                // Clear the form inputs
+                FirstNameEntry.Text = string.Empty;
+                LastNameEntry.Text = string.Empty;
+                SportPicker.SelectedIndex = -1;
+                InjuredAreaEntry.Text = string.Empty;
+                InjuredSide.SelectedIndex = -1;
+                TreatmentType.SelectedIndex = -1;
+                CommentsEditor.Text = string.Empty;
+
+                if (_isEvalSelected)
                 {
-                    await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
+                    await Navigation.PushAsync(new AthleteContacts(formKey)); // Navigate to AthleteContacts
                 }
                 else
                 {
-                    Application.Current.MainPage = new MainTabbedPage(); // navigate to the home screen
+                    if (_authService == null)
+                    {
+                        await Navigation.PushAsync(new WelcomeScreen()); // Navigate to the Welcome screen
+                    }
+                    else
+                    {
+                        Application.Current.MainPage = new MainTabbedPage(); // Navigate to the MainTabbedPage
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"An error occurred while submitting the form: {ex.Message}", "OK");
             }
         }
 
         private void OnDateOfBirthSelected(object sender, DateChangedEventArgs e)
         {
-            if (e.NewDate != DateTime.Today) // If a date other than the placeholder date is selected
+            if (e.NewDate != DateTime.Today)
             {
-                PlaceholderLabel.IsVisible = false; // Hide the placeholder
-                DateOfBirthPicker.TextColor = Colors.Black; // Show the selected date
+                PlaceholderLabel.IsVisible = false;
+                DateOfBirthPicker.TextColor = Colors.Black;
             }
             else
             {
-                PlaceholderLabel.IsVisible = true; // Show the placeholder if no date is selected
-                DateOfBirthPicker.TextColor = Colors.Transparent; // Keep the default date hidden
+                PlaceholderLabel.IsVisible = true;
+                DateOfBirthPicker.TextColor = Colors.Transparent;
             }
         }
 
@@ -149,9 +140,9 @@ namespace RecoveryAT
         {
             base.OnAppearing();
 
-            // Reset the placeholder and DatePicker appearance on page load
-            PlaceholderLabel.IsVisible = true; // Show the placeholder initially
-            DateOfBirthPicker.TextColor = Colors.Transparent; // Hide the default date
+            // Reset placeholder visibility and DatePicker appearance
+            PlaceholderLabel.IsVisible = true;
+            DateOfBirthPicker.TextColor = Colors.Transparent;
         }
     }
 }
