@@ -56,7 +56,7 @@ Reflection: This screen took a little while to get the layout exactly how I want
                                    <!-- Placeholder Label -->
                                    <Label x:Name="PlaceholderLabel"
                                           Text="Enter your date of birth"
-                                          TextColor="Gray"
+                                          TextColor="LightGray"
                                           VerticalOptions="Center"
                                           IsVisible="True"
                                           Margin="5,0"
@@ -82,7 +82,8 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             BorderColor="Gray"
                             Padding="5">
                             <Picker x:Name="SportPicker"
-                                    Title="Select your sport">
+                                    Title="Select your sport"
+                                    TextColor= "LightGray">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Football</x:String>
@@ -122,7 +123,8 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             BorderColor="Gray"
                             Padding="5">
                             <Picker x:Name="InjuredSide"
-                                    Title="Select the side you are injured on">
+                                    Title="Select the side you are injured on"
+                                    TextColor= "LightGray">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Right</x:String>
@@ -142,7 +144,8 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             BorderColor="Gray"
                             Padding="5">
                             <Picker x:Name="TreatmentType"
-                                    Title="Select your treatment type">
+                                    Title="Select your treatment type"
+                                    TextColor= "LightGray">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Eval</x:String>
@@ -168,11 +171,11 @@ Reflection: This screen took a little while to get the layout exactly how I want
                                     HeightRequest="100"/>
                      </Frame>
 
-                     <Button Text="Download as Text"
+                     <Button Text="Download as Text file"
                              BackgroundColor="Blue"
                              TextColor="White"
                              FontSize="18"
-                             CornerRadius="30"
+                             CornerRadius="25"
                              Padding="5"
                              HeightRequest="50"
                              WidthRequest="250"
@@ -185,7 +188,7 @@ Reflection: This screen took a little while to get the layout exactly how I want
                              BackgroundColor="Blue"
                              TextColor="White"
                              FontSize="26"
-                             CornerRadius="30"
+                             CornerRadius="25"
                              Padding="5"
                              HeightRequest="50"
                              WidthRequest="250"

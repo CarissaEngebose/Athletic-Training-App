@@ -92,7 +92,7 @@ namespace RecoveryAT
                 var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
 
                 // Prepare the content
-                var formDetails = $@"Injury Form Details:
+                var formDetails = $@"Here are your Injury Form Responeses:
 - First Name: {FirstNameEntry?.Text ?? "N/A"}
 - Last Name: {LastNameEntry?.Text ?? "N/A"}
 - Date of Birth: {DateOfBirthPicker?.Date.ToString("MM/dd/yyyy") ?? "N/A"}
