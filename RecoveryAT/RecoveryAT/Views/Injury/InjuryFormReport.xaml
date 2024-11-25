@@ -47,11 +47,11 @@ Reflection: This screen took a little while to get the layout exactly how I want
 
                      <!-- Date of Birth -->
                      <Label Text="Date of Birth"
-                                   FontAttributes="Bold"
-                                   FontSize="Body"/>
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
                      <Frame CornerRadius="10"
-                                   BorderColor="Gray"
-                                   Padding="5">
+                            BorderColor="Gray"
+                            Padding="5">
                             <Grid>
                                    <!-- Placeholder Label -->
                                    <Label x:Name="PlaceholderLabel"
@@ -167,6 +167,18 @@ Reflection: This screen took a little while to get the layout exactly how I want
                                     AutoSize="TextChanges"
                                     HeightRequest="100"/>
                      </Frame>
+
+                     <Button Text="Download as Text"
+                             BackgroundColor="Blue"
+                             TextColor="White"
+                             FontSize="18"
+                             CornerRadius="30"
+                             Padding="5"
+                             HeightRequest="50"
+                             WidthRequest="250"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"
+                             Clicked="OnDownloadTextClicked"/>
 
                      <!-- Submit Button -->
                      <Button Text="Submit Form"

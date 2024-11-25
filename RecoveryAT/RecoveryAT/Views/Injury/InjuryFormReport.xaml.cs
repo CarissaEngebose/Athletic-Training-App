@@ -1,5 +1,4 @@
-using Microsoft.Maui.Controls;
-using System;
+using System.IO;
 
 namespace RecoveryAT
 {
@@ -81,6 +80,40 @@ namespace RecoveryAT
             if (resultMessage.Contains("successfully", StringComparison.OrdinalIgnoreCase))
             {
                 await FormSubmissionIsSuccessful();
+            }
+        }
+
+        private async void OnDownloadTextClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Define the file path
+                var fileName = "InjuryFormDetails.txt";
+                var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
+
+                // Prepare the content
+                var formDetails = $@"Injury Form Details:
+- First Name: {FirstNameEntry?.Text ?? "N/A"}
+- Last Name: {LastNameEntry?.Text ?? "N/A"}
+- Date of Birth: {DateOfBirthPicker?.Date.ToString("MM/dd/yyyy") ?? "N/A"}
+- Sport: {SportPicker?.SelectedItem as string ?? "N/A"}
+- Injured Area: {InjuredAreaEntry?.Text ?? "N/A"}
+- Injured Side: {InjuredSide?.SelectedItem as string ?? "N/A"}
+- Treatment Type: {TreatmentType?.SelectedItem as string ?? "N/A"}
+- Comments: {CommentsEditor?.Text ?? "N/A"}";
+
+                // Save the text file
+                File.WriteAllText(filePath, formDetails);
+
+                // Automatically open the file
+                await Launcher.OpenAsync(new OpenFileRequest
+                {
+                    File = new ReadOnlyFile(filePath)
+                });
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", $"Failed to save or open text file: {ex.Message}", "OK");
             }
         }
 
