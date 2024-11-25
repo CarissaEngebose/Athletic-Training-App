@@ -83,7 +83,9 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             Padding="5">
                             <Picker x:Name="SportPicker"
                                     Title="Select your sport"
-                                    TextColor= "LightGray">
+                                    TitleColor="LightGray" 
+                                    TextColor="LightGray"
+                                    SelectedIndexChanged="SelectedIndexChanged">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Football</x:String>
@@ -124,7 +126,9 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             Padding="5">
                             <Picker x:Name="InjuredSide"
                                     Title="Select the side you are injured on"
-                                    TextColor= "LightGray">
+                                    TitleColor="LightGray"
+                                    TextColor="LightGray"
+                                    SelectedIndexChanged="SelectedIndexChanged">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Right</x:String>
@@ -137,26 +141,29 @@ Reflection: This screen took a little while to get the layout exactly how I want
                      </Frame>
 
                      <!-- Treatment Type -->
-                     <Label Text="Treatment Type"
-                            FontAttributes="Bold"
-                            FontSize="Body"/>
-                     <Frame CornerRadius="10"
-                            BorderColor="Gray"
-                            Padding="5">
-                            <Picker x:Name="TreatmentType"
-                                    Title="Select your treatment type"
-                                    TextColor= "LightGray">
-                                   <Picker.ItemsSource>
-                                          <x:Array Type="{x:Type x:String}">
-                                                 <x:String>Eval</x:String>
-                                                 <x:String>Tape</x:String>
-                                                 <x:String>Rehab</x:String>
-                                                 <x:String>Wound</x:String>
-                                                 <x:String>Other</x:String>
-                                          </x:Array>
-                                   </Picker.ItemsSource>
-                            </Picker>
-                     </Frame>
+<Label Text="Treatment Type"
+       FontAttributes="Bold"
+       FontSize="Body"/>
+<Frame CornerRadius="10"
+       BorderColor="Gray"
+       Padding="5">
+    <Picker x:Name="TreatmentType"
+            Title="Select your treatment type"
+            TitleColor="LightGray"
+            TextColor="LightGray"
+            SelectedIndexChanged="SelectedIndexChanged">
+        <Picker.ItemsSource>
+            <x:Array Type="{x:Type x:String}">
+                <x:String>Eval</x:String>
+                <x:String>Tape</x:String>
+                <x:String>Rehab</x:String>
+                <x:String>Wound</x:String>
+                <x:String>Other</x:String>
+            </x:Array>
+        </Picker.ItemsSource>
+    </Picker>
+</Frame>
+
 
                      <!-- Comments -->
                      <Label Text="Comments"

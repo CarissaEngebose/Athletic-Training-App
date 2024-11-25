@@ -83,6 +83,19 @@ namespace RecoveryAT
             }
         }
 
+        private void SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = sender as Picker;
+            if (picker.SelectedIndex == -1) // No selection made
+            {
+                picker.TextColor = Color.FromArgb("#D3D3D3"); // Light Gray color
+            }
+            else // An item is selected
+            {
+                picker.TextColor = Color.FromArgb("#000000"); // Predefined Black color
+            }
+        }
+
         private async void OnDownloadTextClicked(object sender, EventArgs e)
         {
             try
@@ -92,7 +105,7 @@ namespace RecoveryAT
                 var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
 
                 // Prepare the content
-                var formDetails = $@"Here are your Injury Form Responeses:
+                var formDetails = $@"Here are your injury form responses:
 - First Name: {FirstNameEntry?.Text ?? "N/A"}
 - Last Name: {LastNameEntry?.Text ?? "N/A"}
 - Date of Birth: {DateOfBirthPicker?.Date.ToString("MM/dd/yyyy") ?? "N/A"}

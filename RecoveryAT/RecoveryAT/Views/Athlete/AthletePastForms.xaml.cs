@@ -57,8 +57,13 @@ namespace RecoveryAT
         {
             try
             {
-                // Load all athletes with forms created before today’s date
-                ObservableCollection<AthleteForm> athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
+                // Get the SchoolCode for the logged-in user
+                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+
+                // Load all athletes with forms created before today’s date and matching the user's SchoolCode
+                ObservableCollection<AthleteForm> athletes = new ObservableCollection<AthleteForm>(
+                    MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.SchoolCode == schoolCode)
+                );
 
                 AthleteList.Clear();
                 if (athletes != null)
@@ -80,17 +85,22 @@ namespace RecoveryAT
         {
             try
             {
+                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+
                 ObservableCollection<AthleteForm> athletes;
 
-                // Get filtered athletes based on SelectedStatus and created date
+                // Get filtered athletes based on SelectedStatus, created date, and user's SchoolCode
                 if (SelectedStatus == "All")
                 {
-                    athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
+                    athletes = new ObservableCollection<AthleteForm>(
+                        MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.SchoolCode == schoolCode)
+                    );
                 }
                 else
                 {
                     athletes = new ObservableCollection<AthleteForm>(
-                        MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.TreatmentType == SelectedStatus)
+                        MauiProgram.BusinessLogic.GetFormsBeforeToday()
+                            .Where(a => a.TreatmentType == SelectedStatus && a.SchoolCode == schoolCode)
                     );
                 }
 
@@ -123,11 +133,13 @@ namespace RecoveryAT
         {
             try
             {
+                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+
                 var searchResults = MauiProgram.BusinessLogic.SearchAthletesByMultipleCriteria(query);
 
-                // Filter search results to only include forms created before today’s date
+                // Filter search results to only include forms created before today’s date and matching the user's SchoolCode
                 var filteredResults = new ObservableCollection<AthleteForm>(
-                    searchResults.Where(a => a.DateCreated < DateTime.Today)
+                    searchResults.Where(a => a.DateCreated < DateTime.Today && a.SchoolCode == schoolCode)
                 );
 
                 AthleteList.Clear();
