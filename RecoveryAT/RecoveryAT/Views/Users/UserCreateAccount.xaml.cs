@@ -48,6 +48,7 @@ namespace RecoveryAT
             CredentialsValidator.PasswordStatus passwordStatus = CredentialsValidator.ValidatePassword(password); // get password status
             if(passwordStatus != CredentialsValidator.PasswordStatus.Good){ // if password is not good
                 await DisplayAlert("Error", CredentialsValidator.GetMessage(passwordStatus), "OK"); // display what needs to be fixed
+                return; // horrible password, make them redo it
             }
 
             // Optionally, hash the password (replace with actual hashing)
