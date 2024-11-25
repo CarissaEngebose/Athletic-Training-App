@@ -55,7 +55,7 @@ namespace RecoveryAT
             PasswordStatus.NoSymbol => "The password must contain at least one symbol.",
             PasswordStatus.NoNumber => "The password must contain at least one number.",
             PasswordStatus.Good => "The password is good.",
-            _ => "Unknown password status."
+            _ => "Unknown password status. How?"
         };
     }
 
