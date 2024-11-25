@@ -33,8 +33,6 @@ namespace RecoveryAT
             "Other"
         };
 
-        private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
-
         public AthletePastForms()
         {
             _selectedStatus = "All"; // Initialize _selectedStatus with a non-null value

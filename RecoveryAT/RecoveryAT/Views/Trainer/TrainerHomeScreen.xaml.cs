@@ -15,7 +15,7 @@ namespace RecoveryAT
         {
             InitializeComponent();
             authService = ((App)Application.Current).AuthService;
-            schoolCode = authService.SchoolCode;
+            schoolCode = authService.GetSchoolCode();
             _businessLogic = MauiProgram.BusinessLogic;
             ViewModel = new TrainerHomeScreenViewModel(_businessLogic, schoolCode);
             BindingContext = ViewModel;

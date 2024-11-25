@@ -12,7 +12,6 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
     private readonly IBusinessLogic _businessLogic;
     private ObservableCollection<AthleteDetail> _displayList = new();
     private ObservableCollection<AthleteDetail> _allItems = new();
-
     public event PropertyChangedEventHandler PropertyChanged;
 
     public ObservableCollection<AthleteDetail> DisplayList
@@ -27,25 +26,50 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 
     public string SearchQuery { get; set; }
 
-    private readonly string SchoolCode = "THS24";
+    private string SchoolCode { get; set; }
 
     public AthleteInformation()
     {
         InitializeComponent();
         _businessLogic = new BusinessLogic(new Database());
-        LoadData();
+        LoadSchoolCode();
         BindingContext = this;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        LoadSchoolCode(); // Refresh SchoolCode when the page appears
         LoadData(); // Refresh data when the page appears
     }
 
     private void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private void LoadSchoolCode()
+    {
+        // Retrieve SchoolCode dynamically from the user's profile
+        var authService = ((App)Microsoft.Maui.Controls.Application.Current).AuthService;
+        string email = authService.GetLoggedInUserEmail();
+
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            var userData = ((App)Microsoft.Maui.Controls.Application.Current).BusinessLogic.GetUserByEmail(email);
+            if (userData != null && userData.ContainsKey("SchoolCode"))
+            {
+                SchoolCode = userData["SchoolCode"];
+            }
+            else
+            {
+                SchoolCode = "DefaultCode"; // Fallback value in case of error
+            }
+        }
+        else
+        {
+            SchoolCode = "DefaultCode"; // Fallback value if email is unavailable
+        }
     }
 
     private void LoadData()
