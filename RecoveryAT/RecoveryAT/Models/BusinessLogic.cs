@@ -159,12 +159,11 @@ namespace RecoveryAT
 
         public bool ValidateCredentials(string email, string password)
         {
-            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            if (CredentialsValidator.isValidEmail(email) && CredentialsValidator.isValidPassword(password))
             {
-                return false;
+                return true;
             }
-
-            return true; // Placeholder validation logic.
+            return false;
         }
 
         public ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen)
