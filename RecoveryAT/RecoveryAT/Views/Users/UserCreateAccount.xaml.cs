@@ -46,6 +46,18 @@ namespace RecoveryAT
                 return;
             }
 
+            // checks if entered password is strong and secure - Dominick
+            CredentialsValidator.PasswordStatus passwordStatus = CredentialsValidator.ValidatePassword(passwordEntry.Text); // get password status
+            if(passwordStatus != CredentialsValidator.PasswordStatus.Good){ // if password is not good
+                await DisplayAlert("Error", CredentialsValidator.GetMessage(passwordStatus), "OK"); // display what needs to be fixed
+                return; // horrible password, make them redo it
+            }
+
+            if(!CredentialsValidator.isValidEmail(email)){ // if email isnt formated correctly
+                await DisplayAlert("Error", "Email is invalid", "OK"); // tell the user
+                return; // dont create account
+            }
+
             // Navigate to TrainerSchoolInformation and pass the collected data
             await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword));
         }
