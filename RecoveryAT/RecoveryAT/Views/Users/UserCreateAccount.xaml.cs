@@ -56,8 +56,8 @@ namespace RecoveryAT
                 return; // dont create account
             }
 
-            // Optionally, hash the password (replace with actual hashing)
-            var hashedPassword = "hashed_password_example"; // Replace with hashing code
+            // hash the password
+            var hashedPassword = AuthenticationService.HashPassword(password);
 
             // Navigate to TrainerSchoolInformation and pass the collected data
             await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword));

@@ -204,5 +204,13 @@ namespace RecoveryAT
         /// <param name="email">The updated email.</param>
         /// <returns>True if the update was successful; otherwise, false.</returns>
         bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email);
+
+        /// <summary>
+        /// Checks if a email password pair is in the database
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <param name="hashedPassword">hashed user password</param>
+        /// <returns>whether or not the login in valid</returns>
+        public bool IsValidLogin(String email, String hashedPassword);
     }
 }

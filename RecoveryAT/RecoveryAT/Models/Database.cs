@@ -1308,6 +1308,16 @@ namespace RecoveryAT
         }
 
         /// <summary>
+        /// Checks if a email password pair is in the database
+        /// </summary>
+        /// <param name="email">user email</param>
+        /// <param name="hashedPassword">hashed user password</param>
+        /// <returns>whether or not the login in valid</returns>
+        public bool IsValidLogin(String email, String hashedPassword){
+            return true; // add actual logic later.
+        }
+
+        /// <summary>
         /// Builds a ConnectionString, which is used to connect to the database.
         /// </summary>
         /// <returns>The connection string to the PostgreSQL database.</returns>

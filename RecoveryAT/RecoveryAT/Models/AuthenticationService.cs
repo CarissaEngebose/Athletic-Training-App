@@ -1,5 +1,5 @@
 using RecoveryAT;
-
+using BCrypt;
 public class AuthenticationService
 {
     public bool IsLoggedIn { get; private set; }
@@ -48,5 +48,15 @@ public class AuthenticationService
         }
 
         return "DefaultCode"; // Fallback if SchoolCode is not available
+    }
+
+    /// <summary>
+    /// Hash a given password
+    /// </summary>
+    /// <param name="password">password to hash</param>
+    /// <returns>hashed password</returns>
+    public static String HashPassword(String password)
+    {
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
 }
