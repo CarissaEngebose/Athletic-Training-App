@@ -56,6 +56,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+	  <Using Include="BCrypt.Net.BCrypt" Alias="BC" />
 	  <PackageReference Include="Microcharts.Maui" Version="1.0.0" />
 	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.82" />
 	  <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
