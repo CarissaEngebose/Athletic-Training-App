@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 
@@ -1313,8 +1314,19 @@ namespace RecoveryAT
         /// <param name="email">user email</param>
         /// <param name="hashedPassword">hashed user password</param>
         /// <returns>whether or not the login in valid</returns>
-        public bool IsValidLogin(String email, String hashedPassword){
-            return true; // add actual logic later.
+        public bool IsValidLogin(String email, String hashedEnteredPassword)
+        {
+            using var conn = new NpgsqlConnection(connString);
+            conn.Open();
+
+            using var cmd = new NpgsqlCommand(@"
+        SELECT hashed_password
+        FROM public.users
+        WHERE email = @Email", conn);
+
+            cmd.Parameters.AddWithValue("Email", email);
+            String storedPassword = (String)cmd.ExecuteScalar();
+            return BCrypt.Net.BCrypt.Verify(hashedEnteredPassword, storedPassword);
         }
 
         /// <summary>
