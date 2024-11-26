@@ -161,7 +161,7 @@ namespace RecoveryAT
         {
             if (CredentialsValidator.isValidEmail(email) && CredentialsValidator.isValidPassword(password))
             {
-                return _database.IsValidLogin(email,AuthenticationService.HashPassword(password));
+                return _database.IsValidLogin(email,password);
             }
             return false;
         }

@@ -14,6 +14,7 @@ using System.Collections.ObjectModel;
 using BCrypt.Net;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+//using Windows.Security.Authentication.OnlineId; idk what this is for but it was giving me an error - dominick
 
 namespace RecoveryAT
 {
@@ -1314,7 +1315,7 @@ namespace RecoveryAT
         /// <param name="email">user email</param>
         /// <param name="hashedPassword">hashed user password</param>
         /// <returns>whether or not the login in valid</returns>
-        public bool IsValidLogin(String email, String hashedEnteredPassword)
+        public bool IsValidLogin(String email, String enteredPassword)
         {
             using var conn = new NpgsqlConnection(connString);
             conn.Open();
@@ -1326,7 +1327,7 @@ namespace RecoveryAT
 
             cmd.Parameters.AddWithValue("Email", email);
             String storedPassword = (String)cmd.ExecuteScalar();
-            return BCrypt.Net.BCrypt.Verify(hashedEnteredPassword, storedPassword);
+            return BCrypt.Net.BCrypt.Verify(enteredPassword, storedPassword);
         }
 
         /// <summary>
