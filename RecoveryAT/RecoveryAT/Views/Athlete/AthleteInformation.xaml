@@ -1,133 +1,193 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RecoveryAT.AthleteInformation">
+<!-- 
+    Name: Luke Kastern
+    Date: 10/14/2024
+    Description: AthleteInformation Screen with Flyout Menu
+    Bugs: Search bar and bottom nav bar currently don’t do anything.
+    Reflection: I was able to use my AthletePastForms screen as the base and then add the flyout screen. 
+                It was hard for me to implement, but my group was able to help.
+-->
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="RecoveryAT.AthleteInformation"
+            Title="">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <ScrollView Grid.Row="0">
-            <StackLayout Padding="10">
-
-                <!-- Icon at the top center -->
-                <Grid Padding="10"
-                        VerticalOptions="Start">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Source="medical_icon.png"
-                           HorizontalOptions="Center"
-                           WidthRequest="75"
-                           HeightRequest="75"
-                           Grid.Column="1"/>
-                </Grid>
-
-                <!-- Header Label -->
+    <!-- Flyout Menu (Side Navigation) -->
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu"
+                BackgroundColor="#64B5F6">
+            <VerticalStackLayout Padding="10">
                 <Label Text="Athlete Information"
-                       FontSize="32"
-                       Margin="10,0"
-                       HorizontalOptions="Start"
-                       FontAttributes="Bold"/>
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="0,10"/>
 
-                <!-- Search Bar -->
-                <Frame CornerRadius="8"
-                       BorderColor="Gray"
-                       Padding="5"
-                       Margin="10,25,10,25">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                <Label Text="Home"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToHomeCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
 
-                        <Entry Placeholder="Search"
-                               Text="{Binding SearchQuery, Mode=TwoWay}"
-                               TextChanged="OnSearchTextChanged"
-                               HorizontalOptions="FillAndExpand"
-                               Grid.Column="0"/>
-                    </Grid>
-                </Frame>
+                <Label Text="Past Forms"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToPastFormsCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
 
-                <!-- List of Athletes (Using CollectionView) -->
-                <CollectionView ItemsSource="{Binding DisplayList}"
-                        SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BackgroundColor="#E0F7FA"
-                                   CornerRadius="10"
-                                   Margin="0,5">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="OnTileTapped"
-                                                          CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid Padding="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="1*"/>
-                                    </Grid.ColumnDefinitions>
+                <Label Text="Statistics"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToStatisticsCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
 
-                                    <!-- Name -->
-                                    <Label Text="{Binding FullName}"
-                                           FontSize="14"
-                                           FontAttributes="Bold"
-                                           Grid.Row="1"
-                                           Grid.Column="0"
-                                           VerticalOptions="Center"/>
+                <Label Text="Athlete Statuses"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NavigateToAthleteStatusesCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+        </ContentPage>
+    </FlyoutPage.Flyout>
 
-                                    <!-- Relationship -->
-                                    <Label Text="{Binding Relationship}"
-                                           FontSize="14"
-                                           Grid.Row="2"
-                                           Grid.Column="0"
-                                           VerticalOptions="Center"/>
 
-                                    <!-- Phone Number -->
-                                    <Label Text="{Binding PhoneNumber}"
-                                           FontSize="14"
-                                           Grid.Row="3"
-                                           Grid.Column="0"
-                                           VerticalOptions="Center">
-                                        <Label.Triggers>
-                                            <DataTrigger TargetType="Label"
-                                                         Binding="{Binding Relationship, FallbackValue='No Contact'}"
-                                                         Value="No Contact">
-                                                <Setter Property="IsVisible"
-                                                        Value="False"/>
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
+    <!-- Main Content Area -->
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <ContentPage Title="">
+                    <ContentPage.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                                    <!-- Treatment Type -->
-                                    <Label Text="{Binding TreatmentType}"
-                                           FontSize="14"
-                                           Grid.Row="4"
-                                           Grid.Column="0"
-                                           VerticalOptions="Center"/>
+                            <ScrollView Grid.Row="0">
+                                <StackLayout Padding="10">
 
-                                    <!-- Date of Birth -->
-                                    <Label Text="{Binding DateOfBirth, StringFormat='{0:MM/dd/yyyy}'}"
-                                           FontSize="14"
-                                           FontAttributes="Bold"
-                                           Grid.Row="1"
-                                           Grid.Column="1"
-                                           HorizontalOptions="End"/>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-        </ScrollView>
-    </Grid>
-</ContentPage>
+                                    <!-- Icon at the top center -->
+                                    <Grid Padding="10"
+                                          VerticalOptions="Start">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="medical_icon.png"
+                                               HorizontalOptions="Center"
+                                               WidthRequest="75"
+                                               HeightRequest="75"
+                                               Grid.Column="1"/>
+                                    </Grid>
+
+                                    <!-- Header Label -->
+                                    <Label Text="Athlete Information"
+                                           FontSize="32"
+                                           Margin="10,0"
+                                           HorizontalOptions="Start"
+                                           FontAttributes="Bold"/>
+
+                                    <!-- Search Bar -->
+                                    <Frame CornerRadius="8"
+                                        BorderColor="Gray"
+                                        Padding="5"
+                                        Margin="10,25,10,25">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Entry Placeholder="Search"
+                                                Text="{Binding SearchQuery, Mode=TwoWay}"
+                                                TextChanged="OnSearchTextChanged"
+                                                HorizontalOptions="FillAndExpand"
+                                                Grid.Column="0"/>
+                                        </Grid>
+                                    </Frame>
+
+                                    <!-- List of Athletes (Using CollectionView) -->
+                                    <CollectionView ItemsSource="{Binding ContactList}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame BackgroundColor="#E0F7FA"
+                                                       CornerRadius="10"
+                                                       Margin="0,5">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="OnTileTapped" CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
+                                                    <Grid Padding="10">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="3*"/>
+                                                            <ColumnDefinition Width="1*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Name -->
+                                                        <Label Text="{Binding Name}"
+                                                               FontSize="14"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"/>
+
+                                                        <!-- Relationship -->
+                                                        <Label Text="{Binding Relationship}"
+                                                               FontSize="14"
+                                                               Grid.Row="2"
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"/>
+
+                                                        <!-- Phone Number -->
+                                                        <Label Text="{Binding PhoneNumber}"
+                                                               FontSize="14"
+                                                               Grid.Row="3"
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"/>
+
+                                                        <!-- Treatment Type -->
+                                                        <Label Text="{Binding TreatmentType}"
+                                                               FontSize="14"
+                                                               Grid.Row="4"
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"/>
+
+                                                        <!-- Date of Birth -->
+                                                        <Label Text="{Binding DateOfBirth, StringFormat='{0:MM/dd/yyyy}'}"
+                                                               FontSize="14"
+                                                               FontAttributes="Bold"
+                                                               Grid.Row="1"
+                                                               Grid.Column="1"
+                                                               HorizontalOptions="End"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </ScrollView>
+                        </Grid>
+                    </ContentPage.Content>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>

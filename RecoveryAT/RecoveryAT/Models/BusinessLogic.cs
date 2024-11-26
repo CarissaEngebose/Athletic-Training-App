@@ -7,6 +7,15 @@
     screens I wanted to complete.
 **/
 
+/**
+    Name: Carissa Engebose
+    Date: 10/27/24
+    Description: Created the business logic implementation to be used when creating a form.
+    Bugs: None that I know of.
+    Reflection: This class didn't take very long once I figured out the methods I wanted to start with and the
+    screens I wanted to complete.
+**/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -285,11 +294,6 @@ namespace RecoveryAT
         public bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email)
         {
             return _database.UpdateUserProfile(originalEmail, firstName, lastName, schoolName, schoolCode, email);
-        }
-
-        public ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode)
-        {
-            return _database.SelectFormsBySchoolCode(schoolCode);
         }
     }
 }

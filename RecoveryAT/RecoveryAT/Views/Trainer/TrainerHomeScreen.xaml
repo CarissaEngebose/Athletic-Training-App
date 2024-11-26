@@ -1,46 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Name: Dominick Hagedorn
+    Date: 11/12/2024
+    Description: TrainerHomeScreen
+    Bugs: None Known
+    Reflection: I feel really good with how this page turned out. It
+    was lot of work to get all the code to be well organized, but it
+    was worth it. The page is a little slow, so ill have to fix that later.
+-->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="RecoveryAT.TrainerHomeScreen"
              Title="">
 
-    <StackLayout VerticalOptions="StartAndExpand"
-                 Spacing="10">
-
-        <!-- Logo -->
+    <StackLayout VerticalOptions="Start">
+        <!--Logo-->
         <Image Source="medical_icon.png"
-               HeightRequest="100"
+               HeightRequest="75"
                VerticalOptions="Start"
                HorizontalOptions="Center"
                Margin="0,10"/>
 
-        <!-- Calendar -->
-        <Frame Padding="5"
-               CornerRadius="8"
-               BorderColor="Black"
-               BackgroundColor="Transparent"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               HeightRequest="70"
-               WidthRequest="350">
-            <!-- Fixed width to center align -->
-            <Grid VerticalOptions="Center"
-                    HorizontalOptions="Center">
-                <DatePicker x:Name="DatePicker"
-                            Date="{Binding Calendar.SelectedDate}"
-                            Format="dddd, MMMM d, yyyy"
-                            MinimumDate="2000-01-01"
-                            MaximumDate="2100-12-31"
-                            FontSize="20"
-                            TextColor="Black"
-                            HorizontalOptions="Fill"
-                            VerticalOptions="CenterAndExpand"
-                            Margin="0"
-                            DateSelected="OnDateSelected"/>
+        <!--Date-->
+        <Frame HasShadow="True"
+               WidthRequest="400">
+            <Grid BindingContext="{Binding Calendar}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Month-->
+                <CarouselView x:Name="MonthCarousel"
+                              PositionChanged="MonthChanged"
+                              ItemsSource="{Binding Months}"
+                              Loop="True"
+                              Grid.Row="0"
+                              Grid.Column="1">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10"
+                                   Margin="10"
+                                   HasShadow="True"
+                                   BackgroundColor="LightBlue"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   HeightRequest="75"
+                                   WidthRequest="120">
+                                <Label Text="{Binding}"
+                                       FontSize="19"
+                                       FontFamily="OpenSans-Regular.ttf"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <!--Year-->
+                <CarouselView x:Name="YearCarousel"
+                              PositionChanged="YearChanged"
+                              ItemsSource="{Binding Years}"
+                              Loop="True"
+                              Grid.Row="0"
+                              Grid.Column="2">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="10"
+                                   Margin="10"
+                                   HasShadow="True"
+                                   BackgroundColor="LightBlue"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill"
+                                   HeightRequest="75"
+                                   WidthRequest="120">
+                                <Label Text="{Binding}"
+                                       FontSize="30"
+                                       FontFamily="OpenSans-Regular.ttf"
+                                       HorizontalTextAlignment="Center"
+                                       VerticalTextAlignment="Center"
+                                       FontAttributes="Bold"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <!--Previous Week Button-->
+                <Button Text="◀"
+                        Command="{Binding SetPreviousWeekCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        FontSize="24"
+                        WidthRequest="50"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
+
+                <!--Days of the week-->
+                <CollectionView x:Name="Week"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                ItemsLayout="HorizontalList"
+                                ItemsSource="{Binding SelectedDate.Week}"
+                                HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <!--Background frame-->
+                            <Frame Padding="4"
+                                   Margin="2"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   CornerRadius="8"
+                                   HasShadow="True">
+                                <!-- When Clicked -->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnDayTapped"/>
+                                </Frame.GestureRecognizers>
+                                <Frame.Triggers>
+                                    <!--Set Background blue-->
+                                    <DataTrigger TargetType="Frame"
+                                                 Binding="{Binding IsSelected}"
+                                                 Value="true">
+                                        <Setter Property="BackgroundColor"
+                                                Value="LightBlue"/>
+                                    </DataTrigger>
+                                </Frame.Triggers>
+                                <!--Write each day-->
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="Center">
+                                    <Label Text="{Binding DayName}"
+                                           FontSize="16"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="Center"/>
+                                    <Label Text="{Binding DayNumber}"
+                                           FontSize="23"
+                                           WidthRequest="30"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!--Next Week Button-->
+                <Button Text="▶"
+                        Command="{Binding SetNextWeekCommand}"
+                        BackgroundColor="Transparent"
+                        TextColor="Black"
+                        FontSize="24"
+                        WidthRequest="50"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"/>
             </Grid>
         </Frame>
 
-        <!-- Athlete Forms in a ScrollView -->
+        <!--Athlete Forms in a ScrollView-->
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout BindableLayout.ItemsSource="{Binding AthleteForms}"
                          Orientation="Vertical">
@@ -49,7 +179,7 @@
                         <Frame Padding="10"
                                Margin="10,5"
                                CornerRadius="8"
-                               HasShadow="False"
+                               HasShadow="True"
                                BackgroundColor="LightSkyBlue"
                                HeightRequest="125">
                             <Frame.GestureRecognizers>
@@ -83,12 +213,13 @@
                                 <Label Grid.Row="1"
                                        Grid.Column="1"
                                        HorizontalOptions="End"
-                                       Text="{Binding DateOfBirth, StringFormat='{0:MM/dd/yyyy}'}"/>
+                                       Text="{Binding Grade}"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
         </ScrollView>
+
     </StackLayout>
 </ContentPage>

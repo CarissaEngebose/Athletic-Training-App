@@ -100,8 +100,7 @@
             <Label FontAttributes="Bold"
                    FontSize="Large"
                    Margin="0,20,0,5">Athlete Comments:</Label>
-            <Label x:Name="AthleteCommentsLabel"
-                   FontSize="Medium"
+            <Label FontSize="Medium"
                    Margin="0,0,0,10"
                    Text="{Binding AthleteComments}">
             </Label>

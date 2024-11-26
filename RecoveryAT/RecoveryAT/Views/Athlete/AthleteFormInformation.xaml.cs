@@ -1,3 +1,12 @@
+/*
+    Name: Dominick Hagedorn
+    Date: 10/14/2024
+    Description: AthleteFormInformation screen
+    Bugs: None known
+    Reflection: This was one of the easier screens. The information box was the hardest 
+                to get to look right, but it wasn't too bad.
+*/
+
 using System.ComponentModel;
 
 namespace RecoveryAT;
@@ -33,9 +42,6 @@ public partial class AthleteFormInformation : ContentPage
 
             // Update the TreatmentType label
             TreatmentTypeLabel.Text = string.IsNullOrWhiteSpace(currentForm.TreatmentType) ? "No Treatment Type" : currentForm.TreatmentType;
-
-            // Update the AthleteComments label
-            AthleteCommentsLabel.Text = string.IsNullOrWhiteSpace(currentForm.AthleteComments) ? "No Comments" : currentForm.AthleteComments;
         }
     }
 

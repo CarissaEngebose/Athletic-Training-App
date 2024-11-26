@@ -15,8 +15,9 @@
              BackgroundColor="White">
 
     <ContentPage.Content>
-       <!-- changed to a scroll view so I can scroll and see bottom fields - Dominick-->
-        <ScrollView>
+        <!-- Use AbsoluteLayout for precise positioning -->
+        <AbsoluteLayout>
+
             <!-- Main Content -->
             <StackLayout Padding="30"
                          VerticalOptions="Start"
@@ -150,6 +151,6 @@
                         Margin="0,20,0,0" 
                         Clicked="CreateAccountClicked"/>
             </StackLayout>
-            </ScrollView>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

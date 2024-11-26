@@ -47,16 +47,16 @@ Reflection: This screen took a little while to get the layout exactly how I want
 
                      <!-- Date of Birth -->
                      <Label Text="Date of Birth"
-                            FontAttributes="Bold"
-                            FontSize="Body"/>
+                                   FontAttributes="Bold"
+                                   FontSize="Body"/>
                      <Frame CornerRadius="10"
-                            BorderColor="Gray"
-                            Padding="5">
+                                   BorderColor="Gray"
+                                   Padding="5">
                             <Grid>
                                    <!-- Placeholder Label -->
                                    <Label x:Name="PlaceholderLabel"
                                           Text="Enter your date of birth"
-                                          TextColor="LightGray"
+                                          TextColor="Gray"
                                           VerticalOptions="Center"
                                           IsVisible="True"
                                           Margin="5,0"
@@ -82,10 +82,7 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             BorderColor="Gray"
                             Padding="5">
                             <Picker x:Name="SportPicker"
-                                    Title="Select your sport"
-                                    TitleColor="LightGray" 
-                                    TextColor="LightGray"
-                                    SelectedIndexChanged="SelectedIndexChanged">
+                                    Title="Select your sport">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Football</x:String>
@@ -125,10 +122,7 @@ Reflection: This screen took a little while to get the layout exactly how I want
                             BorderColor="Gray"
                             Padding="5">
                             <Picker x:Name="InjuredSide"
-                                    Title="Select the side you are injured on"
-                                    TitleColor="LightGray"
-                                    TextColor="LightGray"
-                                    SelectedIndexChanged="SelectedIndexChanged">
+                                    Title="Select the side you are injured on">
                                    <Picker.ItemsSource>
                                           <x:Array Type="{x:Type x:String}">
                                                  <x:String>Right</x:String>
@@ -141,29 +135,25 @@ Reflection: This screen took a little while to get the layout exactly how I want
                      </Frame>
 
                      <!-- Treatment Type -->
-<Label Text="Treatment Type"
-       FontAttributes="Bold"
-       FontSize="Body"/>
-<Frame CornerRadius="10"
-       BorderColor="Gray"
-       Padding="5">
-    <Picker x:Name="TreatmentType"
-            Title="Select your treatment type"
-            TitleColor="LightGray"
-            TextColor="LightGray"
-            SelectedIndexChanged="SelectedIndexChanged">
-        <Picker.ItemsSource>
-            <x:Array Type="{x:Type x:String}">
-                <x:String>Eval</x:String>
-                <x:String>Tape</x:String>
-                <x:String>Rehab</x:String>
-                <x:String>Wound</x:String>
-                <x:String>Other</x:String>
-            </x:Array>
-        </Picker.ItemsSource>
-    </Picker>
-</Frame>
-
+                     <Label Text="Treatment Type"
+                            FontAttributes="Bold"
+                            FontSize="Body"/>
+                     <Frame CornerRadius="10"
+                            BorderColor="Gray"
+                            Padding="5">
+                            <Picker x:Name="TreatmentType"
+                                    Title="Select your treatment type">
+                                   <Picker.ItemsSource>
+                                          <x:Array Type="{x:Type x:String}">
+                                                 <x:String>Eval</x:String>
+                                                 <x:String>Tape</x:String>
+                                                 <x:String>Rehab</x:String>
+                                                 <x:String>Wound</x:String>
+                                                 <x:String>Other</x:String>
+                                          </x:Array>
+                                   </Picker.ItemsSource>
+                            </Picker>
+                     </Frame>
 
                      <!-- Comments -->
                      <Label Text="Comments"
@@ -178,24 +168,12 @@ Reflection: This screen took a little while to get the layout exactly how I want
                                     HeightRequest="100"/>
                      </Frame>
 
-                     <Button Text="Download as Text file"
-                             BackgroundColor="Blue"
-                             TextColor="White"
-                             FontSize="18"
-                             CornerRadius="25"
-                             Padding="5"
-                             HeightRequest="50"
-                             WidthRequest="250"
-                             HorizontalOptions="Center"
-                             VerticalOptions="Center"
-                             Clicked="OnDownloadTextClicked"/>
-
                      <!-- Submit Button -->
                      <Button Text="Submit Form"
                              BackgroundColor="Blue"
                              TextColor="White"
                              FontSize="26"
-                             CornerRadius="25"
+                             CornerRadius="30"
                              Padding="5"
                              HeightRequest="50"
                              WidthRequest="250"

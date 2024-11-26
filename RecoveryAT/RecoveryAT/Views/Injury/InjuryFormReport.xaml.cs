@@ -1,37 +1,50 @@
-using System.IO;
+/*
+    Name: Carissa Engebose
+    Date: 10/28/2024
+    Description: A screen that allows a user to enter information related to injuries that will 
+                be sent back to their athletic trainer.
+    Bugs: None Known
+    Reflection: This screen took a little while to figure out because I kept running into issues with using the grade.Value
+                when it was null (which honestly shouldn't have taken me as long as it did to figure out). Other than that,
+                I think connecting it with the database went very well.
+*/
+
+using Microsoft.Maui.Controls; // Import necessary MAUI controls
+using System; // Import system-level utilities
 
 namespace RecoveryAT
 {
+    // The InjuryFormReport class inherits from ContentPage to represent a page in the MAUI app
     public partial class InjuryFormReport : ContentPage
     {
         private string _schoolCode;
-        private bool _isEvalSelected;
-        private AuthenticationService _authService;
 
-        // Constructor for athletes with provided SchoolCode
+        private bool _isEvalSelected;
+        private AuthenticationService authService;
+
+        // Constructor to initialize the InjuryFormReport page (for athletes)
         public InjuryFormReport(string schoolCode)
         {
-            InitializeComponent();
-            BindingContext = this;
-            _schoolCode = schoolCode;
+            InitializeComponent(); // Load the XAML components
+            BindingContext = this; // Set the BindingContext for data binding with the UI
+            _schoolCode = schoolCode; // school code to insert into the database
             _isEvalSelected = false;
         }
 
-        // Constructor for trainers
+        // Constructor to initialize the InjuryFormReport page (for trainers)
         public InjuryFormReport()
         {
-            InitializeComponent();
-            BindingContext = this;
-            _authService = ((App)Application.Current).AuthService;
-
-            // Retrieve SchoolCode from AuthenticationService
-            _schoolCode = _authService?.GetSchoolCode() ?? "DefaultCode";
+            InitializeComponent(); // Load the XAML components
+            BindingContext = this; // Set the BindingContext for data binding with the UI
+            authService = ((App)Application.Current).AuthService;
+            _schoolCode = authService.SchoolCode; // school code to insert into the database
             _isEvalSelected = false;
         }
 
+        // Event handler for the Submit button click event
         private async void OnSubmitClicked(object sender, EventArgs e)
         {
-            // Get form inputs
+            // Gets the entries to be inserted into the database
             var firstName = FirstNameEntry.Text;
             var lastName = LastNameEntry.Text;
             var sport = SportPicker.SelectedItem as string;
@@ -65,7 +78,7 @@ namespace RecoveryAT
                 treatmentType,
                 dateOfBirth,
                 athleteComments,
-                null, // Status is null initially
+                null, // status is null initially
                 DateTime.Now
             );
 
@@ -77,108 +90,58 @@ namespace RecoveryAT
             // Display result message to the user
             await DisplayAlert("Form Submission", resultMessage, "OK");
 
-            if (resultMessage.Contains("successfully", StringComparison.OrdinalIgnoreCase))
+            if (resultMessage.Contains("successfully"))
             {
-                await FormSubmissionIsSuccessful();
+                FormSubmissionIsSuccessful();
             }
         }
 
-        private void SelectedIndexChanged(object sender, EventArgs e)
+
+        // if the result message is successful, clear all of the form entries
+        // Inside the InjuryFormReport class
+
+        private async void FormSubmissionIsSuccessful()
         {
-            var picker = sender as Picker;
-            if (picker.SelectedIndex == -1) // No selection made
+            // Assuming AddForm returns a formKey after inserting the form into the database
+            long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);  // Fetch the last inserted formKey
+
+            // Clear the form if submission was successful
+            FirstNameEntry.Text = string.Empty;
+            LastNameEntry.Text = string.Empty;
+            SportPicker.SelectedIndex = -1;
+            InjuredAreaEntry.Text = string.Empty;
+            InjuredSide.SelectedIndex = -1;
+            TreatmentType.SelectedIndex = -1;
+            CommentsEditor.Text = string.Empty;
+
+            if (_isEvalSelected)
             {
-                picker.TextColor = Color.FromArgb("#D3D3D3"); // Light Gray color
+                await Navigation.PushAsync(new AthleteContacts(formKey)); // Pass formKey to AthleteContacts
             }
-            else // An item is selected
+            else
             {
-                picker.TextColor = Color.FromArgb("#000000"); // Predefined Black color
-            }
-        }
-
-        private async void OnDownloadTextClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                // Define the file path
-                var fileName = "InjuryFormDetails.txt";
-                var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
-
-                // Prepare the content
-                var formDetails = $@"Here are your injury form responses:
-- First Name: {FirstNameEntry?.Text ?? "N/A"}
-- Last Name: {LastNameEntry?.Text ?? "N/A"}
-- Date of Birth: {DateOfBirthPicker?.Date.ToString("MM/dd/yyyy") ?? "N/A"}
-- Sport: {SportPicker?.SelectedItem as string ?? "N/A"}
-- Injured Area: {InjuredAreaEntry?.Text ?? "N/A"}
-- Injured Side: {InjuredSide?.SelectedItem as string ?? "N/A"}
-- Treatment Type: {TreatmentType?.SelectedItem as string ?? "N/A"}
-- Comments: {CommentsEditor?.Text ?? "N/A"}";
-
-                // Save the text file
-                File.WriteAllText(filePath, formDetails);
-
-                // Automatically open the file
-                await Launcher.OpenAsync(new OpenFileRequest
+                if (authService == null)
                 {
-                    File = new ReadOnlyFile(filePath)
-                });
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", $"Failed to save or open text file: {ex.Message}", "OK");
-            }
-        }
-
-        private async Task FormSubmissionIsSuccessful()
-        {
-            try
-            {
-                // Fetch the last inserted formKey for the current SchoolCode
-                long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);
-
-                // Clear the form inputs
-                FirstNameEntry.Text = string.Empty;
-                LastNameEntry.Text = string.Empty;
-                SportPicker.SelectedIndex = -1;
-                InjuredAreaEntry.Text = string.Empty;
-                InjuredSide.SelectedIndex = -1;
-                TreatmentType.SelectedIndex = -1;
-                CommentsEditor.Text = string.Empty;
-
-                if (_isEvalSelected)
-                {
-                    await Navigation.PushAsync(new AthleteContacts(formKey)); // Navigate to AthleteContacts
+                    await Navigation.PushAsync(new WelcomeScreen()); // navigate to the welcome screen
                 }
                 else
                 {
-                    if (_authService == null)
-                    {
-                        await Navigation.PushAsync(new WelcomeScreen()); // Navigate to the Welcome screen
-                    }
-                    else
-                    {
-                        Application.Current.MainPage = new MainTabbedPage(); // Navigate to the MainTabbedPage
-                    }
+                    Application.Current.MainPage = new MainTabbedPage(); // navigate to the home screen
                 }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", $"An error occurred while submitting the form: {ex.Message}", "OK");
             }
         }
 
         private void OnDateOfBirthSelected(object sender, DateChangedEventArgs e)
         {
-            if (e.NewDate != DateTime.Today)
+            if (e.NewDate != DateTime.Today) // If a date other than the placeholder date is selected
             {
-                PlaceholderLabel.IsVisible = false;
-                DateOfBirthPicker.TextColor = Colors.Black;
+                PlaceholderLabel.IsVisible = false; // Hide the placeholder
+                DateOfBirthPicker.TextColor = Colors.Black; // Show the selected date
             }
             else
             {
-                PlaceholderLabel.IsVisible = true;
-                DateOfBirthPicker.TextColor = Colors.Transparent;
+                PlaceholderLabel.IsVisible = true; // Show the placeholder if no date is selected
+                DateOfBirthPicker.TextColor = Colors.Transparent; // Keep the default date hidden
             }
         }
 
@@ -186,9 +149,9 @@ namespace RecoveryAT
         {
             base.OnAppearing();
 
-            // Reset placeholder visibility and DatePicker appearance
-            PlaceholderLabel.IsVisible = true;
-            DateOfBirthPicker.TextColor = Colors.Transparent;
+            // Reset the placeholder and DatePicker appearance on page load
+            PlaceholderLabel.IsVisible = true; // Show the placeholder initially
+            DateOfBirthPicker.TextColor = Colors.Transparent; // Hide the default date
         }
     }
 }

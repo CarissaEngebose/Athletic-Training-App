@@ -1,10 +1,19 @@
+/*
+    Name: Luke Kastern
+    Date: 10/14/2024
+    Description: AthletePastForms Screen
+    Bugs: None Known
+    Reflection: This was fairly easy because I had AthleteStatus as a reference, 
+                but it was hard to get the form number to be the only element on the right side.
+*/
+
 using System.Collections.ObjectModel;
 using System;
 using System.Linq;
 
 namespace RecoveryAT
 {
-    public partial class AthletePastForms : ContentPage
+    public partial class AthletePastForms : FlyoutPage
     {
         private string _selectedStatus;
 
@@ -33,6 +42,8 @@ namespace RecoveryAT
             "Other"
         };
 
+        private readonly string SchoolCode = "THS24"; // REMOVE THIS LATER! Just for testing purposes
+
         public AthletePastForms()
         {
             _selectedStatus = "All"; // Initialize _selectedStatus with a non-null value
@@ -57,13 +68,8 @@ namespace RecoveryAT
         {
             try
             {
-                // Get the SchoolCode for the logged-in user
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
-
-                // Load all athletes with forms created before today’s date and matching the user's SchoolCode
-                ObservableCollection<AthleteForm> athletes = new ObservableCollection<AthleteForm>(
-                    MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.SchoolCode == schoolCode)
-                );
+                // Load all athletes with forms created before today’s date
+                ObservableCollection<AthleteForm> athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
 
                 AthleteList.Clear();
                 if (athletes != null)
@@ -85,22 +91,17 @@ namespace RecoveryAT
         {
             try
             {
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
-
                 ObservableCollection<AthleteForm> athletes;
 
-                // Get filtered athletes based on SelectedStatus, created date, and user's SchoolCode
+                // Get filtered athletes based on SelectedStatus and created date
                 if (SelectedStatus == "All")
                 {
-                    athletes = new ObservableCollection<AthleteForm>(
-                        MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.SchoolCode == schoolCode)
-                    );
+                    athletes = MauiProgram.BusinessLogic.GetFormsBeforeToday();
                 }
                 else
                 {
                     athletes = new ObservableCollection<AthleteForm>(
-                        MauiProgram.BusinessLogic.GetFormsBeforeToday()
-                            .Where(a => a.TreatmentType == SelectedStatus && a.SchoolCode == schoolCode)
+                        MauiProgram.BusinessLogic.GetFormsBeforeToday().Where(a => a.TreatmentType == SelectedStatus)
                     );
                 }
 
@@ -133,13 +134,11 @@ namespace RecoveryAT
         {
             try
             {
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
-
                 var searchResults = MauiProgram.BusinessLogic.SearchAthletesByMultipleCriteria(query);
 
-                // Filter search results to only include forms created before today’s date and matching the user's SchoolCode
+                // Filter search results to only include forms created before today’s date
                 var filteredResults = new ObservableCollection<AthleteForm>(
-                    searchResults.Where(a => a.DateCreated < DateTime.Today && a.SchoolCode == schoolCode)
+                    searchResults.Where(a => a.DateCreated < DateTime.Today)
                 );
 
                 AthleteList.Clear();

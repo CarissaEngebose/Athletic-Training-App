@@ -2,138 +2,173 @@
 <!-- 
     Name: Hannah Hotchkiss
     Date: 10/14/2024
-    Description: AthleteStatuses - Displays athletes with their statuses, injuries, and sports.
+    Description: AthleteStatuses with Flyout Menu - Displays athletes with their statuses, injuries, and sports.
     Bugs: None Known
     Reflection: This screen was more complicated as a prototype, especially with the binding of example athletes and statuses.
 -->
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:RecoveryAT"
-             x:Class="RecoveryAT.AthleteStatuses"
-             Title="">
+<FlyoutPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:local="clr-namespace:RecoveryAT"
+            x:Class="RecoveryAT.AthleteStatuses">
 
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <!-- Scrollable content -->
-                <RowDefinition Height="Auto"/>
-                <!-- Bottom navigation -->
-            </Grid.RowDefinitions>
+    <!-- Flyout Menu -->
+    <FlyoutPage.Flyout>
+        <ContentPage Title="Menu"
+                     BackgroundColor="#64B5F6">
+            <!-- Light blue background -->
+            <VerticalStackLayout Padding="10">
+                <Label Text="Athlete Information"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="White"
+                       Margin="0,10"/>
+                <Label Text="Past Forms"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
+                <Label Text="Statistics"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
+                <Label Text="Athlete Statuses"
+                       FontSize="18"
+                       TextColor="White"
+                       Margin="0,5"/>
+            </VerticalStackLayout>
+        </ContentPage>
+    </FlyoutPage.Flyout>
 
-            <!-- Scrollable Content Section -->
-            <ScrollView Grid.Row="0">
-                <StackLayout Padding="10">
-
-                    <!-- Header Icon -->
-                    <Grid Padding="10"
-                          VerticalOptions="Start">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Image Source="medical_icon.png"
-                               WidthRequest="80"
-                               HeightRequest="80"
-                               Grid.Column="1"
-                               HorizontalOptions="Center"/>
-                    </Grid>
-
-                    <!-- Header Label -->
-                    <Label Text="Athlete Statuses"
-                           FontSize="32"
-                           Margin="10,0"
-                           HorizontalOptions="Start"
-                           FontAttributes="Bold"/>
-
-                    <!-- Status Picker -->
-                    <Frame CornerRadius="8"
-                           BorderColor="Gray"
-                           Padding="5"
-                           Margin="10,5,10,0">
-                        <Picker Title="Select Status"
-                                ItemsSource="{Binding SearchOptions}"
-                                SelectedItem="{Binding SelectedStatus}"
-                                HorizontalOptions="FillAndExpand"/>
-                    </Frame>
-
-                    <!-- Search Bar -->
-                    <Frame CornerRadius="8"
-                           BorderColor="Gray"
-                           Padding="5"
-                           Margin="10,25,10,25">
+    <!-- Main Content -->
+    <FlyoutPage.Detail>
+        <NavigationPage>
+            <x:Arguments>
+                <ContentPage Title="">
+                    <ContentPage.Content>
                         <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <!-- Scrollable content -->
+                                <RowDefinition Height="Auto"/>
+                                <!-- Bottom navigation -->
+                            </Grid.RowDefinitions>
 
-                            <Entry Placeholder="Search" 
-                                   HorizontalOptions="FillAndExpand"
-                                   TextColor="Black"
-                                   Grid.Column="0"
-                                   TextChanged="OnSearchTextChanged"/>
-                        </Grid>
-                    </Frame>
+                            <!-- Scrollable Content Section -->
+                            <ScrollView Grid.Row="0">
+                                <StackLayout Padding="10">
 
-                    <!-- List of Athletes -->
-                    <CollectionView ItemsSource="{Binding AthleteList}">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame BackgroundColor="#E0F7FA"
-                                       CornerRadius="10"
-                                       Margin="0,5"
-                                       Padding="5">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="OnTileTapped"
-                                                              CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid Padding="0">
+                                    <!-- Header Icon -->
+                                    <Grid Padding="10"
+                                          VerticalOptions="Start">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.4*"/>
-                                            <ColumnDefinition Width="1.4*"/>
-                                            <ColumnDefinition Width="1.5*"/>
-                                            <ColumnDefinition Width="1.5*"/>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Athlete Information -->
-                                        <Label Text="{Binding FirstName}"
-                                               FontAttributes="Bold"
-                                               Grid.Column="0"
-                                               VerticalOptions="Center"
-                                               HorizontalOptions="Start"/>
-                                        <Label Text="{Binding LastName}"
-                                               FontAttributes="Bold"
+                                        <Image Source="medical_icon.png"
+                                               WidthRequest="80"
+                                               HeightRequest="80"
                                                Grid.Column="1"
-                                               VerticalOptions="Center"
-                                               HorizontalOptions="Start"/>
-                                        <Label Text="{Binding InjuredArea}"
-                                               Grid.Column="2"
-                                               VerticalOptions="Center"
-                                               HorizontalOptions="Start"/>
-                                        <Label Text="{Binding Sport}"
-                                               Grid.Column="3"
-                                               VerticalOptions="Center"
-                                               HorizontalOptions="Start"/>
-
-                                        <!-- Status Picker -->
-                                        <Picker Title="{Binding Status}"
-                                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:AthleteStatuses}}, Path=StatusOptions}"
-                                                SelectedItem="{Binding Status, Mode=TwoWay}"
-                                                Grid.Column="4"
-                                                HorizontalOptions="FillAndExpand"
-                                                VerticalOptions="Center"
-                                                TextColor="Black"      
-                                                SelectedIndexChanged="OnStatusChanged"/>
+                                               HorizontalOptions="Center"/>
                                     </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </StackLayout>
-            </ScrollView>
-        </Grid>
-    </ContentPage.Content>
-</ContentPage>
+
+                                    <!-- Header Label -->
+                                    <Label Text="Athlete Statuses"
+                                           FontSize="32"
+                                           Margin="10,0"
+                                           HorizontalOptions="Start"
+                                           FontAttributes="Bold"/>
+
+                                    <!-- Status Picker -->
+                                    <Frame CornerRadius="8"
+                                           BorderColor="Gray"
+                                           Padding="5"
+                                           Margin="10,5,10,0">
+                                        <Picker Title="Select Status"
+                                                ItemsSource="{Binding SearchOptions}"
+                                                SelectedItem="{Binding SelectedStatus}"
+                                                HorizontalOptions="FillAndExpand"/>
+                                    </Frame>
+
+                                    <!-- Search Bar -->
+                                    <Frame CornerRadius="8"
+                                           BorderColor="Gray"
+                                           Padding="5"
+                                           Margin="10,25,10,25">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Entry Placeholder="Search" 
+                                                   HorizontalOptions="FillAndExpand"
+                                                   TextColor="Black"
+                                                   Grid.Column="0"
+                                                   TextChanged="OnSearchTextChanged"/>
+                                        </Grid>
+                                    </Frame>
+
+                                    <!-- List of Athletes -->
+                                    <CollectionView ItemsSource="{Binding AthleteList}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Frame BackgroundColor="#E0F7FA"
+                                                       CornerRadius="10"
+                                                       Margin="0,5"
+                                                       Padding="5">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Tapped="OnTileTapped"
+                                                                              CommandParameter="{Binding .}"/>
+                                                    </Frame.GestureRecognizers>
+                                                    <Grid Padding="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="2*"/>
+                                                            <ColumnDefinition Width="4*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Athlete Information -->
+                                                        <Label Text="{Binding FirstName}"
+                                                               FontAttributes="Bold"
+                                                               Grid.Column="0"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
+                                                        <Label Text="{Binding LastName}"
+                                                               FontAttributes="Bold"
+                                                               Grid.Column="1"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
+                                                        <Label Text="{Binding InjuredArea}"
+                                                               Grid.Column="2"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
+                                                        <Label Text="{Binding Sport}"
+                                                               Grid.Column="3"
+                                                               VerticalOptions="Center"
+                                                               HorizontalOptions="Start"/>
+
+                                                        <!-- Status Picker -->
+                                                        <Picker Title="{Binding Status}"
+                                                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type local:AthleteStatuses}}, Path=StatusOptions}"
+                                                                SelectedItem="{Binding Status, Mode=TwoWay}"
+                                                                Grid.Column="4"
+                                                                HorizontalOptions="FillAndExpand"
+                                                                VerticalOptions="Center"
+                                                                TextColor="Black"      
+                                                                SelectedIndexChanged="OnStatusChanged"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
+                            </ScrollView>
+                        </Grid>
+                    </ContentPage.Content>
+                </ContentPage>
+            </x:Arguments>
+        </NavigationPage>
+    </FlyoutPage.Detail>
+</FlyoutPage>

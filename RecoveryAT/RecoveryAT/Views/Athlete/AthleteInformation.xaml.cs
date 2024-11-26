@@ -1,172 +1,137 @@
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 
-namespace RecoveryAT;
-
-public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
+namespace RecoveryAT
 {
-    private readonly IBusinessLogic _businessLogic;
-    private ObservableCollection<AthleteDetail> _displayList = new();
-    private ObservableCollection<AthleteDetail> _allItems = new();
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    public ObservableCollection<AthleteDetail> DisplayList
+    public partial class AthleteInformation : FlyoutPage
     {
-        get => _displayList;
-        set
+        public ICommand NavigateToPastFormsCommand { get; }
+        public ICommand NavigateToStatisticsCommand { get; }
+        public ICommand NavigateToAthleteStatusesCommand { get; }
+        public ICommand NavigateToHomeCommand { get; }
+
+        public ObservableCollection<Athlete> ContactList { get; set; } = new();
+        private ObservableCollection<Athlete> _allContacts = new(); // To store the full list for resetting
+        public string SearchQuery { get; set; }
+
+        private readonly string SchoolCode = "THS24";
+
+        public AthleteInformation()
         {
-            _displayList = value;
-            OnPropertyChanged(nameof(DisplayList));
+            InitializeComponent();
+
+            LoadContacts();
+
+            NavigateToHomeCommand = new Command(NavigateToHome);
+            NavigateToPastFormsCommand = new Command(NavigateToPastForms);
+            NavigateToStatisticsCommand = new Command(NavigateToStatistics);
+            NavigateToAthleteStatusesCommand = new Command(NavigateToAthleteStatuses);
+
+            BindingContext = this;
         }
-    }
 
-    public string SearchQuery { get; set; }
-
-    private string SchoolCode { get; set; }
-
-    public AthleteInformation()
-    {
-        InitializeComponent();
-        _businessLogic = new BusinessLogic(new Database());
-        LoadSchoolCode();
-        BindingContext = this;
-    }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        LoadSchoolCode(); // Refresh SchoolCode when the page appears
-        LoadData(); // Refresh data when the page appears
-    }
-
-    private void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    private void LoadSchoolCode()
-    {
-        // Retrieve SchoolCode dynamically from the user's profile
-        var authService = ((App)Microsoft.Maui.Controls.Application.Current).AuthService;
-        string email = authService.GetLoggedInUserEmail();
-
-        if (!string.IsNullOrWhiteSpace(email))
+        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
-            var userData = ((App)Microsoft.Maui.Controls.Application.Current).BusinessLogic.GetUserByEmail(email);
-            if (userData != null && userData.ContainsKey("SchoolCode"))
+            if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                SchoolCode = userData["SchoolCode"];
+                ContactList.Clear();
+                foreach (var contact in _allContacts)
+                    ContactList.Add(contact);
             }
             else
             {
-                SchoolCode = "DefaultCode"; // Fallback value in case of error
+                var filteredContacts = _allContacts.Where(c => 
+                    (c.Name != null && c.Name.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
+                    (c.Relationship != null && c.Relationship.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase)) ||
+                    (c.PhoneNumber != null && c.PhoneNumber.Contains(e.NewTextValue, StringComparison.OrdinalIgnoreCase))
+                );
+
+                ContactList.Clear();
+                foreach (var contact in filteredContacts)
+                    ContactList.Add(contact);
             }
         }
-        else
+
+        private async void OnTileTapped(object sender, EventArgs e)
         {
-            SchoolCode = "DefaultCode"; // Fallback value if email is unavailable
+            var frame = (Frame)sender;
+            var tappedItem = frame.BindingContext;
+
+            if (tappedItem is Athlete currAthlete && currAthlete.Name != null)
+            {
+                var nameParts = currAthlete.Name.Split(" ");
+                var selectedAthlete = new AthleteForm(nameParts[0], nameParts.Length > 1 ? nameParts[1] : string.Empty, "Sport", "Injury", "stat");
+                await Detail.Navigation.PushAsync(new AthleteFormInformation(selectedAthlete));
+            }
         }
-    }
 
-    private void LoadData()
-    {
-        try
+        private void LoadContacts()
         {
-            _allItems.Clear();
+            ContactList.Clear();
+            _allContacts.Clear();
 
-            var athleteForms = _businessLogic.GetForms(schoolCode: SchoolCode) ?? new ObservableCollection<AthleteForm>();
+            var athleteForms = MauiProgram.BusinessLogic.GetForms(schoolCode: SchoolCode);
+            if (athleteForms == null) return;
 
             foreach (var form in athleteForms)
             {
-                form.AthleteComments = string.IsNullOrWhiteSpace(form.AthleteComments) ? "No Comments" : form.AthleteComments;
-
-                var contacts = _businessLogic.GetContactsByFormKey(form.FormKey ?? 0) ?? new ObservableCollection<AthleteContact>();
-
-                bool detailsAdded = false;
+                var contacts = MauiProgram.BusinessLogic.GetContactsByFormKey(form.FormKey ?? 0);
+                if (contacts == null) continue;
 
                 foreach (var contact in contacts)
                 {
-                    var detail = AthleteDetail.FromFormAndContact(form, contact);
-                    if (detail != null && !string.IsNullOrWhiteSpace(detail.FullName))
+                    var athlete = new Athlete
                     {
-                        _allItems.Add(detail);
-                        detailsAdded = true;
-                    }
-                    else
-                    {
-                        Debug.WriteLine($"Skipped invalid detail for contact: {contact.ContactType}, Phone={contact.PhoneNumber}");
-                    }
-                }
-
-                if (!detailsAdded)
-                {
-                    var detail = new AthleteDetail(
-                        fullName: form.FullName,
-                        relationship: "No Contact",
-                        phoneNumber: string.Empty,
-                        treatmentType: form.TreatmentType,
-                        athleteComments: form.AthleteComments,
-                        dateOfBirth: form.DateOfBirth
-                    );
-                    _allItems.Add(detail);
+                        Name = form.FullName,
+                        Relationship = contact.ContactType,
+                        PhoneNumber = contact.PhoneNumber,
+                        TreatmentType = form.TreatmentType,
+                        DateOfBirth = form.DateOfBirth,
+                    };
+                    ContactList.Add(athlete);
+                    _allContacts.Add(athlete);
                 }
             }
-
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
-            });
         }
-        catch (Exception ex)
+
+        private void NavigateToHome(object obj)
         {
-            Debug.WriteLine($"Error loading data: {ex.Message}");
+            if (Application.Current != null)
+            {
+                Application.Current.MainPage = new NavigationPage(new MainTabbedPage());
+            }
+            IsPresented = false;
+        }
+
+        private void NavigateToPastForms()
+        {
+            Detail = new NavigationPage(new AthletePastForms());
+            IsPresented = false;
+        }
+
+        private void NavigateToStatistics()
+        {
+            Detail = new NavigationPage(new InjuryStatistics());
+            IsPresented = false;
+        }
+
+        private void NavigateToAthleteStatuses()
+        {
+            Detail = new NavigationPage(new AthleteStatuses(SchoolCode));
+            IsPresented = false;
         }
     }
 
-    private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    public class Athlete
     {
-        if (string.IsNullOrWhiteSpace(e.NewTextValue))
-        {
-            DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
-        }
-        else
-        {
-            var query = e.NewTextValue.ToLowerInvariant();
-            var filteredItems = _allItems.Where(item =>
-                (item.FullName?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.Relationship?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.PhoneNumber?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.TreatmentType?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.AthleteComments?.Contains(query, StringComparison.OrdinalIgnoreCase) == true) ||
-                (item.DateOfBirth.ToString("MM/dd/yyyy")?.Contains(query, StringComparison.OrdinalIgnoreCase) == true)
-            );
-
-            DisplayList = new ObservableCollection<AthleteDetail>(filteredItems);
-        }
-    }
-
-    private async void OnTileTapped(object sender, EventArgs e)
-    {
-        var frame = (Frame)sender;
-        var tappedItem = frame.BindingContext as AthleteDetail;
-
-        if (tappedItem != null)
-        {
-            var athleteForm = _businessLogic.GetForms(schoolCode: SchoolCode)
-                                            .FirstOrDefault(form => form.FullName == tappedItem.FullName);
-
-            if (athleteForm != null)
-            {
-                await Navigation.PushAsync(new AthleteFormInformation(athleteForm));
-            }
-            else
-            {
-                await DisplayAlert("Error", "Athlete information not found.", "OK");
-            }
-        }
+        public string? Name { get; set; }
+        public string? Relationship { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Grade { get; set; }
+        public string? TreatmentType { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 }
