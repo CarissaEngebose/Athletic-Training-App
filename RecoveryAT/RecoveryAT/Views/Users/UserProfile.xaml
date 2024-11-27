@@ -1,181 +1,174 @@
-<!-- 
-    Name: Carissa Engebose
-    Date: 10/9/2024
-    Description: A screen for the athletic trainer to see and edit information about their profile.
-    Bugs: None that I know of.
-    Reflection: This screen was a little difficult because of all the spacing and making the user icon where I wanted it to be, but
-    overall I think it went pretty good. I also had to change where the information for the user is because I wasn't able to figure
-    out how to get the labels to be on opposite sides, but I actually think the way it looks now is better.
--->
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.UserProfile"
              BackgroundColor="White"
              Title="">
 
-       <Grid>
-              <!-- Define rows for layout -->
-              <Grid.RowDefinitions>
-                     <RowDefinition Height="Auto"/>
-                     <!-- Ellipses -->
-                     <RowDefinition Height="Auto"/>
-                     <!-- Profile Image -->
-                     <RowDefinition Height="*"/>
-                     <!-- Scrollable content -->
-                     <RowDefinition Height="Auto"/>
-                     <!-- Logout Button -->
-                     <RowDefinition Height="Auto"/>
-                     <!-- Tab Bar -->
-              </Grid.RowDefinitions>
-
-              <!-- Ellipses on Top -->
-              <Button ImageSource="edit.png"
-                      BackgroundColor="Transparent"
-                      WidthRequest="75"
-                      HeightRequest="75"
-                      HorizontalOptions="End"
-                      VerticalOptions="End"
-                      Clicked="OnEditTapped"
-                      Grid.Row="0"/>
-
-              <!-- User Icon -->
-              <Image Grid.Row="1"
-                     Source="red_cross.png"
-                     WidthRequest="120"
-                     HeightRequest="120"
-                     HorizontalOptions="Center"
-                     VerticalOptions="Start"
-                     Margin="0,5,0,5"/>
-
-              <!-- Scrollable Content (Trainer Information) -->
-              <ScrollView Grid.Row="2">
-                     <StackLayout VerticalOptions="FillAndExpand"
-                                  HorizontalOptions="FillAndExpand"
-                                  Spacing="10"
-                                  Padding="10">
-
-                            <!-- Trainer's Name -->
-                            <Label x:Name="NameLabel"
-                                   Text="Name Placeholder"
-                                   FontSize="30"
-                                   HorizontalOptions="Center"
-                                   FontAttributes="Bold"
-                                   VerticalOptions="Center"/>
-
-                            <!-- School Name Information -->
-                            <Frame BorderColor="Gray"
-                                   CornerRadius="5"
-                                   Padding="10"
-                                   Margin="10"
-                                   HorizontalOptions="FillAndExpand"
-                                   VerticalOptions="Start">
-                                   <StackLayout>
-                                          <Label Text="School Name"
-                                                 FontSize="20"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"
-                                                 FontAttributes="Bold"/>
-                                          <Label x:Name="SchoolNameLabel"
-                                                 Text="School Name Placeholder"
-                                                 FontSize="14"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="End"/>
-                                   </StackLayout>
-                            </Frame>
-
-                            <!-- School Code Information -->
-                            <Frame BorderColor="Gray"
-                                   CornerRadius="5"
-                                   Padding="10"
-                                   Margin="10"
-                                   HorizontalOptions="FillAndExpand"
-                                   VerticalOptions="Start">
-                                   <StackLayout>
-                                          <Label Text="School Code"
-                                                 FontSize="20"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"
-                                                 FontAttributes="Bold"/>
-                                          <Label x:Name="SchoolCodeLabel"
-                                                 Text="School Code Placeholder"
-                                                 FontSize="14"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"/>
-                                   </StackLayout>
-                            </Frame>
-
-                            <!-- Email Information -->
-                            <Frame BorderColor="Gray"
-                                   CornerRadius="5"
-                                   Padding="10"
-                                   Margin="10"
-                                   HorizontalOptions="FillAndExpand"
-                                   VerticalOptions="Start">
-                                   <StackLayout>
-                                          <Label Text="Email"
-                                                 FontSize="20"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"
-                                                 FontAttributes="Bold"/>
-                                          <Label x:Name="EmailLabel"
-                                                 Text="Email Placeholder"
-                                                 FontSize="14"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"/>
-                                   </StackLayout>
-                            </Frame>
-
-                            <!-- Password Information -->
-                            <Frame BorderColor="Gray"
-                                   CornerRadius="5"
-                                   Padding="10"
-                                   Margin="10"
-                                   HorizontalOptions="FillAndExpand"
-                                   VerticalOptions="Start">
-                                   <StackLayout>
-                                          <Label Text="Password"
-                                                 FontSize="20"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Center"
-                                                 FontAttributes="Bold"/>
-                                          <Label Text="***********"
-                                                 FontSize="14"
-                                                 HorizontalOptions="Start"
-                                                 VerticalOptions="Start"/>
-                                   </StackLayout>
-                            </Frame>
-
-                            <Label HeightRequest="5"/>
-
+       <!-- Wrap the entire Grid in a ScrollView -->
+       <ScrollView>
+              <Grid>
+                     <!-- Define rows for layout -->
+                     <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Ellipses -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- Profile Image -->
+                            <RowDefinition Height="*"/>
+                            <!-- Scrollable content -->
+                            <RowDefinition Height="Auto"/>
                             <!-- Logout Button -->
-                            <Button Text="Log Out"
-                                    BackgroundColor="Blue"
-                                    TextColor="White"
-                                    FontSize="24"
-                                    CornerRadius="25"
-                                    Padding="5"
-                                    HeightRequest="50"
-                                    WidthRequest="250"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    Clicked="OnLogoutClicked"/>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Tab Bar -->
+                     </Grid.RowDefinitions>
 
-                            <!-- Logout Button -->
-                            <Button Text="Delete Account"
-                                    BackgroundColor="Red"
-                                    TextColor="White"
-                                    FontSize="24"
-                                    CornerRadius="25"
-                                    Padding="5"
-                                    Margin="20"
-                                    HeightRequest="50"
-                                    WidthRequest="300"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="Center"
-                                    Clicked="OnDeleteAccountClicked"/>
+                     <!-- Ellipses on Top -->
+                     <Button ImageSource="edit.png"
+                             BackgroundColor="Transparent"
+                             WidthRequest="75"
+                             HeightRequest="75"
+                             HorizontalOptions="End"
+                             VerticalOptions="End"
+                             Clicked="OnEditTapped"
+                             Grid.Row="0"/>
 
-                     </StackLayout>
-              </ScrollView>
-       </Grid>
+                     <!-- User Icon -->
+                     <Image Grid.Row="1"
+                            Source="red_cross.png"
+                            WidthRequest="120"
+                            HeightRequest="120"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Margin="0,5,0,5"/>
+
+                     <!-- Scrollable Content (Trainer Information) -->
+                     <ScrollView Grid.Row="2">
+                            <StackLayout VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand"
+                                         Spacing="10"
+                                         Padding="10">
+
+                                   <!-- Trainer's Name -->
+                                   <Label x:Name="NameLabel"
+                                          Text="Name Placeholder"
+                                          FontSize="30"
+                                          HorizontalOptions="Center"
+                                          FontAttributes="Bold"
+                                          VerticalOptions="Center"/>
+
+                                   <!-- School Name Information -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="School Name"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Label x:Name="SchoolNameLabel"
+                                                        Text="School Name Placeholder"
+                                                        FontSize="14"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="End"/>
+                                          </StackLayout>
+                                   </Frame>
+
+                                   <!-- School Code Information -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="School Code"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Label x:Name="SchoolCodeLabel"
+                                                        Text="School Code Placeholder"
+                                                        FontSize="14"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"/>
+                                          </StackLayout>
+                                   </Frame>
+
+                                   <!-- Email Information -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="Email"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Label x:Name="EmailLabel"
+                                                        Text="Email Placeholder"
+                                                        FontSize="14"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"/>
+                                          </StackLayout>
+                                   </Frame>
+
+                                   <!-- Password Information -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="Password"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Center"
+                                                        FontAttributes="Bold"/>
+                                                 <Label Text="***********"
+                                                        FontSize="14"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"/>
+                                          </StackLayout>
+                                   </Frame>
+
+                                   <Label HeightRequest="5"/>
+
+                                   <!-- Logout Button -->
+                                   <Button Text="Log Out"
+                                           BackgroundColor="Blue"
+                                           TextColor="White"
+                                           FontSize="24"
+                                           CornerRadius="25"
+                                           Padding="5"
+                                           HeightRequest="50"
+                                           WidthRequest="250"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Clicked="OnLogoutClicked"/>
+
+                                   <!-- Delete Account Button -->
+                                   <Button Text="Delete Account"
+                                           BackgroundColor="Red"
+                                           TextColor="White"
+                                           FontSize="24"
+                                           CornerRadius="25"
+                                           Padding="5"
+                                           Margin="20"
+                                           HeightRequest="50"
+                                           WidthRequest="300"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           Clicked="OnDeleteAccountClicked"/>
+
+                            </StackLayout>
+                     </ScrollView>
+              </Grid>
+       </ScrollView>
 </ContentPage>

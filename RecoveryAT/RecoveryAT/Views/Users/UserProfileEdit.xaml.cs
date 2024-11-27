@@ -45,7 +45,7 @@ namespace RecoveryAT
         private async void OnCancelClicked(object sender, EventArgs e)
         {
             // Navigate back to the UserProfile screen
-            await Navigation.PopModalAsync();
+            await Navigation.PopAsync();
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace RecoveryAT
             if (isUpdated)
             {
                 await DisplayAlert("Success", "Profile updated successfully.", "OK");
-                await Navigation.PopModalAsync(); // Navigate back to the UserProfile page
+                await Navigation.PopAsync(); // Navigate back to the UserProfile page
             }
             else
             {

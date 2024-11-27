@@ -4,30 +4,30 @@
              BackgroundColor="White"
              Title="Edit Profile">
 
-    <Grid>
-        <!-- Define rows for layout -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Profile Image -->
-            <RowDefinition Height="Auto"/>
-            <!-- Scrollable content -->
-            <RowDefinition Height="*"/>
-            <!-- Buttons (Save and Cancel) -->
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <!-- Wrap the entire Grid in a ScrollView -->
+    <ScrollView>
+        <Grid>
+            <!-- Define rows for layout -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Profile Image -->
+                <RowDefinition Height="*"/>
+                <!-- Buttons (Save and Cancel) -->
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <!-- User Icon -->
-        <Image Grid.Row="0"
-               Source="red_cross.png"
-               WidthRequest="120"
-               HeightRequest="120"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               Margin="0,20,0,10"/>
+            <!-- User Icon -->
+            <Image Grid.Row="0"
+                   Source="red_cross.png"
+                   WidthRequest="120"
+                   HeightRequest="120"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"
+                   Margin="0,20,0,10"/>
 
-        <!-- Scrollable Content (Edit Profile Information) -->
-        <ScrollView Grid.Row="1">
-            <StackLayout VerticalOptions="FillAndExpand"
+            <!-- Scrollable Content (Edit Profile Information) -->
+            <StackLayout Grid.Row="1"
+                         VerticalOptions="FillAndExpand"
                          HorizontalOptions="FillAndExpand"
                          Spacing="10"
                          Padding="10">
@@ -137,38 +137,37 @@
                                IsReadOnly="True"/>
                     </StackLayout>
                 </Frame>
-
             </StackLayout>
-        </ScrollView>
 
-        <!-- Buttons (Save on top of Cancel) -->
-        <StackLayout Grid.Row="2"
-                     Orientation="Vertical"
-                     Spacing="10"
-                     HorizontalOptions="Center"
-                     VerticalOptions="End"
-                     Margin="10">
-            <!-- Save Button -->
-            <Button Text="Save"
-                    BackgroundColor="Blue"
-                    TextColor="White"
-                    FontSize="24"
-                    CornerRadius="30"
-                    Padding="5"
-                    HeightRequest="50"
-                    WidthRequest="150"
-                    Clicked="OnSaveClicked"/>
+            <!-- Buttons (Save on top of Cancel) -->
+            <StackLayout Grid.Row="2"
+                         Orientation="Vertical"
+                         Spacing="10"
+                         HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         Margin="10">
+                <!-- Save Button -->
+                <Button Text="Save"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        FontSize="24"
+                        CornerRadius="25"
+                        Padding="5"
+                        HeightRequest="50"
+                        WidthRequest="150"
+                        Clicked="OnSaveClicked"/>
 
-            <!-- Cancel Button -->
-            <Button Text="Cancel"
-                    BackgroundColor="Red"
-                    TextColor="White"
-                    FontSize="24"
-                    CornerRadius="30"
-                    Padding="5"
-                    HeightRequest="50"
-                    WidthRequest="150"
-                    Clicked="OnCancelClicked"/>
-        </StackLayout>
-    </Grid>
+                <!-- Cancel Button -->
+                <Button Text="Cancel"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        FontSize="24"
+                        CornerRadius="25"
+                        Padding="5"
+                        HeightRequest="50"
+                        WidthRequest="150"
+                        Clicked="OnCancelClicked"/>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

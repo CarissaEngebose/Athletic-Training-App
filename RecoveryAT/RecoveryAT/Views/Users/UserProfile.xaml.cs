@@ -27,7 +27,7 @@ namespace RecoveryAT
         private async void OnEditTapped(object sender, EventArgs e)
         {
             // Navigate to the UserProfileEdit screen
-            await Navigation.PushModalAsync(new UserProfileEdit());
+            await Navigation.PushAsync(new UserProfileEdit());
         }
 
         // Event handler for when the "Logout" button is clicked
@@ -37,7 +37,7 @@ namespace RecoveryAT
             if (confirmLogout)
             {
                 _user.Logout(); // log the user out
-                await Navigation.PushModalAsync(new UserLogin()); // navigate back to the login screen
+                await Navigation.PushAsync(new UserLogin()); // navigate back to the login screen
             }
         }
 
@@ -59,7 +59,7 @@ namespace RecoveryAT
                 if (result)
                 {
                     await DisplayAlert("Account Deleted", "Your account has been successfully deleted.", "OK");
-                    await Navigation.PushModalAsync(new UserLogin()); // Navigate to the login page
+                    await Navigation.PushAsync(new UserLogin()); // Navigate to the login page
                 }
                 else
                 {
