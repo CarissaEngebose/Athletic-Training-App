@@ -30,9 +30,13 @@ public partial class UserLogin : ContentPage
     // Event handler for when the user clicks the Login button
     private async void OnLoginClicked(object sender, EventArgs e)
     {
-        string email = EmailEntry.Text as string;
-        string password = PasswordEntry.Text as string;
+        string email = EmailEntry.Text;
 
+        // check if values are null - Carissa
+        if (string.IsNullOrWhiteSpace(PasswordEntry.Text) || string.IsNullOrWhiteSpace(email)) {
+            await DisplayAlert("Login Failed", "Email and password must be filled out.", "OK");
+            return;
+        }
         // Check if the email is registered
         if (!_businessLogic.IsEmailRegistered(email))
         {
@@ -40,17 +44,17 @@ public partial class UserLogin : ContentPage
             return;
         }
 
-        // Validate the user's credentials
-        bool isAuthenticated = _businessLogic.ValidateCredentials(email, password);
+        // get the user from the email - Carissa
+        User user = _businessLogic.GetUserFromEmail(email);
 
-        if (isAuthenticated)
+        if (user != null && !string.IsNullOrEmpty(user.HashedPassword) && BCrypt.Net.BCrypt.Verify(PasswordEntry.Text, user.HashedPassword))
         {
             OnLoginSuccessful(email); // Pass the email to OnLoginSuccessful
         }
         else
         {
             // Show an alert if login fails
-            await DisplayAlert("Login Failed", "Invalid username or password.", "OK");
+            await DisplayAlert("Login Failed", "Incorrect Password.", "OK");
         }
     }
 

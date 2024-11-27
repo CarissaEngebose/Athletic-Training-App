@@ -1242,6 +1242,54 @@ namespace RecoveryAT
         }
 
         /// <summary>
+        /// Fetches user information based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to retrieve.</param>
+        /// <returns>A User containing user information, or null if not found.</returns>
+        public User GetUserFromEmail(string email)
+        {
+            User user = null; 
+
+            try
+            {
+                using var conn = new NpgsqlConnection(connString);
+                conn.Open();
+
+                using var cmd = new NpgsqlCommand(@"
+                SELECT first_name, last_name, email, hashed_password, school_name, school_code
+                FROM public.users
+                WHERE email = @Email", conn);
+
+                cmd.Parameters.AddWithValue("Email", email);
+
+                using var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    user = new User(
+                        firstName: reader.GetString(0),
+                        lastName: reader.GetString(1),
+                        email: reader.GetString(2),
+                        hashedPassword: reader.GetString(3),
+                        schoolName: reader.GetString(4),
+                        schoolCode: reader.GetString(5)
+                    );
+                    return user;
+
+                }
+                else
+                {
+                    return null; // User not found
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving user data: {ex.Message}");
+                return null;
+            }
+
+        }
+
+        /// <summary>
         /// Checks if a user exists in the database based on their email.
         /// </summary>
         /// <param name="email">The email to check.</param>

@@ -201,6 +201,13 @@ namespace RecoveryAT
         Dictionary<string, string> GetUserByEmail(string email);
 
         /// <summary>
+        /// Retrieves user information based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to retrieve.</param>
+        /// <returns>A User that stores the information from the database.</returns>
+        User GetUserFromEmail(string email);
+
+        /// <summary>
         /// Checks if a user exists in the database based on their email.
         /// </summary>
         /// <param name="email">The email to check.</param>

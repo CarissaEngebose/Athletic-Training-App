@@ -267,6 +267,11 @@ namespace RecoveryAT
             return _database.GetUserByEmail(email);
         }
 
+        public User GetUserFromEmail(string email)
+        {
+            return _database.GetUserFromEmail(email);
+        }
+
         public bool DeleteUserAccount(string email)
         {
             return _database.DeleteUserAccount(email); // Pass the request to the Database class
