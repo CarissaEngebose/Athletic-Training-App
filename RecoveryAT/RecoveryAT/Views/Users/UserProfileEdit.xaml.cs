@@ -5,19 +5,19 @@ namespace RecoveryAT
 {
     public partial class UserProfileEdit : ContentPage
     {
-        private AuthenticationService authService;
+        private User _user;
 
         public UserProfileEdit()
         {
             InitializeComponent();
-            authService = ((App)Application.Current).AuthService;
+            _user = ((App)Application.Current).User;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            string email = authService.GetLoggedInUserEmail(); // Get the logged-in user's email
+            string email = _user.Email; // Get the logged-in user's email
 
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -28,13 +28,13 @@ namespace RecoveryAT
             // Fetch user data from the database via BusinessLogic
             var userData = ((App)Application.Current).BusinessLogic.GetUserByEmail(email);
 
-            if (userData != null)
+            if (_user != null)
             {
-                FirstNameEntry.Text = userData["FirstName"];
-                LastNameEntry.Text = userData["LastName"];
-                SchoolNameEntry.Text = userData["SchoolName"];
-                SchoolCodeEntry.Text = userData["SchoolCode"];
-                EmailEntry.Text = userData["Email"];
+                FirstNameEntry.Text = _user.FirstName;
+                LastNameEntry.Text = _user.LastName;
+                SchoolNameEntry.Text = _user.SchoolName;
+                SchoolCodeEntry.Text = _user.SchoolCode;
+                EmailEntry.Text = _user.Email;
             }
             else
             {
@@ -59,7 +59,7 @@ namespace RecoveryAT
 
             // Update user data in the database via BusinessLogic
             bool isUpdated = ((App)Application.Current).BusinessLogic.UpdateUserProfile(
-                authService.GetLoggedInUserEmail(),
+                _user.Email,
                 firstName,
                 lastName,
                 schoolName,

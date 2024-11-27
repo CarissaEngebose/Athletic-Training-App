@@ -58,7 +58,7 @@ namespace RecoveryAT
             try
             {
                 // Get the SchoolCode for the logged-in user
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+                var schoolCode = ((App)Application.Current).User.SchoolCode;
 
                 // Load all athletes with forms created before today’s date and matching the user's SchoolCode
                 ObservableCollection<AthleteForm> athletes = new ObservableCollection<AthleteForm>(
@@ -85,7 +85,7 @@ namespace RecoveryAT
         {
             try
             {
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+                var schoolCode = ((App)Application.Current).User.SchoolCode;
 
                 ObservableCollection<AthleteForm> athletes;
 
@@ -133,7 +133,7 @@ namespace RecoveryAT
         {
             try
             {
-                var schoolCode = ((App)Application.Current).AuthService.GetSchoolCode();
+                var schoolCode = ((App)Application.Current).User.SchoolCode;
 
                 var searchResults = MauiProgram.BusinessLogic.SearchAthletesByMultipleCriteria(query);
 

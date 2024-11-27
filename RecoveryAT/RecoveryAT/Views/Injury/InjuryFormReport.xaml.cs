@@ -6,7 +6,7 @@ namespace RecoveryAT
     {
         private string _schoolCode;
         private bool _isEvalSelected;
-        private AuthenticationService _authService;
+        private User _user;
 
         // Constructor for athletes with provided SchoolCode
         public InjuryFormReport(string schoolCode)
@@ -22,10 +22,10 @@ namespace RecoveryAT
         {
             InitializeComponent();
             BindingContext = this;
-            _authService = ((App)Application.Current).AuthService;
+            _user = ((App)Application.Current).User;
 
-            // Retrieve SchoolCode from AuthenticationService
-            _schoolCode = _authService?.GetSchoolCode() ?? "DefaultCode";
+            // Retrieve SchoolCode from User
+            _schoolCode = _user?.SchoolCode ?? "DefaultCode";
             _isEvalSelected = false;
         }
 
@@ -152,7 +152,7 @@ namespace RecoveryAT
                 }
                 else
                 {
-                    if (_authService == null)
+                    if (_user == null)
                     {
                         await Navigation.PushAsync(new WelcomeScreen()); // Navigate to the Welcome screen
                     }

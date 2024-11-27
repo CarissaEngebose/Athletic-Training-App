@@ -7,15 +7,15 @@ namespace RecoveryAT
     public partial class TrainerHomeScreen : ContentPage
     {
         public TrainerHomeScreenViewModel ViewModel;
-        public AuthenticationService authService;
+        public User user;
         private string schoolCode;
         private IBusinessLogic _businessLogic;
 
         public TrainerHomeScreen()
         {
             InitializeComponent();
-            authService = ((App)Application.Current).AuthService;
-            schoolCode = authService.GetSchoolCode();
+            user = ((App)Application.Current).User;
+            schoolCode = user.SchoolCode;
             _businessLogic = MauiProgram.BusinessLogic;
             ViewModel = new TrainerHomeScreenViewModel(_businessLogic, schoolCode);
             BindingContext = ViewModel;

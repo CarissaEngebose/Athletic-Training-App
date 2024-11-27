@@ -15,12 +15,12 @@ namespace RecoveryAT
 {
     public partial class UserProfile : ContentPage
     {
-        private AuthenticationService authService; // reference to the authentication service
+        private User _user; // reference to the user
 
         public UserProfile()
         {
             InitializeComponent(); // initialize the XAML components
-            authService = ((App)Application.Current).AuthService; // access the auth service from App
+            _user = ((App)Application.Current).User; // access the user from App
         }
 
         // Event handler for when the "Edit" button or icon is tapped
@@ -36,14 +36,14 @@ namespace RecoveryAT
             bool confirmLogout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
             if (confirmLogout)
             {
-                authService.Logout(); // log the user out
+                _user.Logout(); // log the user out
                 await Navigation.PushModalAsync(new UserLogin()); // navigate back to the login screen
             }
         }
 
         private async void OnDeleteAccountClicked(object sender, EventArgs e)
         {
-            string email = authService.GetLoggedInUserEmail(); // Get the email of the logged-in user
+            string email = _user.Email; // Get the email of the logged-in user
 
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -54,7 +54,7 @@ namespace RecoveryAT
             bool confirmDelete = await DisplayAlert("Delete Account", "Are you sure you want to delete your account? This action cannot be undone.", "Yes", "No");
             if (confirmDelete)
             {
-                var result = ((App)Application.Current).BusinessLogic.DeleteUserAccount(email);
+                var result = MauiProgram.BusinessLogic.DeleteUserAccount(email);
 
                 if (result)
                 {
@@ -72,7 +72,7 @@ namespace RecoveryAT
         {
             base.OnAppearing();
 
-            string email = authService.GetLoggedInUserEmail(); // Get the logged-in user's email
+            string email = _user.Email; // Get the logged-in user's email
 
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -81,19 +81,19 @@ namespace RecoveryAT
             }
 
             // Fetch user data from the database via BusinessLogic
-            var userData = ((App)Application.Current).BusinessLogic.GetUserByEmail(email);
+            User user = MauiProgram.BusinessLogic.GetUserFromEmail(email);
 
-            if (userData != null)
+            if (_user != null)
             {
                 // Update UI elements directly
-                NameLabel.Text = $"{userData["FirstName"]} {userData["LastName"]}";
-                SchoolNameLabel.Text = userData["SchoolName"];
-                SchoolCodeLabel.Text = userData["SchoolCode"];
-                EmailLabel.Text = userData["Email"];
+                NameLabel.Text = _user.FullName;
+                SchoolNameLabel.Text = _user.SchoolName;
+                SchoolCodeLabel.Text = _user.SchoolCode;
+                EmailLabel.Text = _user.Email;
             }
             else
             {
-                DisplayAlert("Error", "User data could not be loaded.", "OK");
+                DisplayAlert("Error", "User information could not be loaded.", "OK");
             }
         }
     }

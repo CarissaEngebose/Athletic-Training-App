@@ -10,7 +10,7 @@ namespace RecoveryAT
     public partial class InjuryStatistics : ContentPage
     {
         private readonly IBusinessLogic _businessLogic;
-        private readonly AuthenticationService _authService;
+        private readonly User _user;
 
         // Constructor to initialize the page components
         public InjuryStatistics()
@@ -18,7 +18,7 @@ namespace RecoveryAT
             InitializeComponent(); // Load the XAML components
 
             _businessLogic = MauiProgram.BusinessLogic; // Access business logic
-            _authService = ((App)Application.Current).AuthService; // Access authentication service
+            _user = ((App)Application.Current).User; // Access user
         }
 
         // Method called when the page is about to appear
@@ -70,8 +70,8 @@ namespace RecoveryAT
 
             try
             {
-                // Retrieve the school code from authentication service
-                string schoolCode = _authService.GetSchoolCode();
+                // Retrieve the school code from user
+                string schoolCode = _user.SchoolCode;
 
                 // Fetch statistics based on the sport
                 var statistics = sport == "All Sports"

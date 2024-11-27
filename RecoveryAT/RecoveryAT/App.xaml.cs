@@ -2,13 +2,13 @@
 
 public partial class App : Application
 {
-	public AuthenticationService AuthService { get; private set; } // creates an authentication service
+	public User User { get; set; } // creates an user service
     public IBusinessLogic BusinessLogic { get; private set; } // Publicly accessible BusinessLogic instance
 
 	public App()
 	{
 		InitializeComponent();
-        AuthService = new AuthenticationService(); // creates an authentication service instance
+        User = new User(); // creates a user instance
 
         var navPage = new NavigationPage(new WelcomeScreen())
         {

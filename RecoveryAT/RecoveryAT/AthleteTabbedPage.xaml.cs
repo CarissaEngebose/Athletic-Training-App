@@ -15,9 +15,9 @@ namespace RecoveryAT
             NavigationPage.SetHasNavigationBar(this, false);
 
             // Retrieve SchoolCode dynamically from the user's profile
-            var authService = ((App)Microsoft.Maui.Controls.Application.Current).AuthService;
-            string email = authService.GetLoggedInUserEmail();
-
+            var user = ((App)Microsoft.Maui.Controls.Application.Current).User;
+            string email = user.Email;
+            
             if (!string.IsNullOrWhiteSpace(email))
             {
                 var userData = ((App)Microsoft.Maui.Controls.Application.Current).BusinessLogic.GetUserByEmail(email);

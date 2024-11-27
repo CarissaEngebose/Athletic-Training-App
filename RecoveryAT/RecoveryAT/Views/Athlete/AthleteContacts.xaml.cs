@@ -19,10 +19,10 @@ namespace RecoveryAT
 {
     public partial class AthleteContacts : ContentPage
     {
-        private readonly BusinessLogic _businessLogic;
+        private IBusinessLogic _businessLogic;
         private ObservableCollection<AthleteContact> _contacts;
         private long _formKey;
-        private AuthenticationService authService;
+        private User user;
 
         public ObservableCollection<AthleteContact> Contacts
         {
@@ -37,8 +37,8 @@ namespace RecoveryAT
         public AthleteContacts(long formKey)
         {
             InitializeComponent();
-            authService = ((App)Application.Current).AuthService;
-            _businessLogic = new BusinessLogic(new Database());
+            user = ((App)Application.Current).User;
+            _businessLogic = MauiProgram.BusinessLogic;
             _formKey = formKey;
 
             LoadContacts();
@@ -97,7 +97,7 @@ namespace RecoveryAT
         {
             bool isContactAdded = await OnAddContactClicked();
 
-            if (isContactAdded && authService.IsLoggedIn)
+            if (isContactAdded && user.IsLoggedIn)
             {
                 // Set MainTabbedPage as the root page if logged in
                 Application.Current.MainPage = new MainTabbedPage();

@@ -10,14 +10,14 @@ namespace RecoveryAT;
 
 public partial class UserLogin : ContentPage
 {
-    private AuthenticationService authService;
+    private User _user;
     private IBusinessLogic _businessLogic;
 
     // Constructor for initializing the UserLogin screen
     public UserLogin()
     {
         InitializeComponent(); // Load XAML components
-        authService = ((App)Application.Current).AuthService;
+        _user = ((App)Application.Current).User;
         _businessLogic = MauiProgram.BusinessLogic;
     }
 
@@ -45,11 +45,11 @@ public partial class UserLogin : ContentPage
         }
 
         // get the user from the email - Carissa
-        User user = _businessLogic.GetUserFromEmail(email);
+        _user = _businessLogic.GetUserFromEmail(email);
 
-        if (user != null && !string.IsNullOrEmpty(user.HashedPassword) && BCrypt.Net.BCrypt.Verify(PasswordEntry.Text, user.HashedPassword))
+        if (_user != null && !string.IsNullOrEmpty(_user.HashedPassword) && BCrypt.Net.BCrypt.Verify(PasswordEntry.Text, _user.HashedPassword))
         {
-            OnLoginSuccessful(email); // Pass the email to OnLoginSuccessful
+            OnLoginSuccessful(); // Pass the email to OnLoginSuccessful
         }
         else
         {
@@ -64,9 +64,9 @@ public partial class UserLogin : ContentPage
         await Navigation.PushAsync(new UserCreateAccount()); // navigate to the create account page
     }
 
-    private async void OnLoginSuccessful(string email)
+    private async void OnLoginSuccessful()
     {
-        authService.Login(email); // Pass the logged-in user's email to the authentication service
+        ((App)Application.Current).User = _user;
         await Navigation.PushModalAsync(new MainTabbedPage()); // Navigate to the main tabbed page
     }
 }

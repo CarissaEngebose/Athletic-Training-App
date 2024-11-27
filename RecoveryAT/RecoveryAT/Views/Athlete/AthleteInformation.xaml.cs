@@ -51,8 +51,8 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
     private void LoadSchoolCode()
     {
         // Retrieve SchoolCode dynamically from the user's profile
-        var authService = ((App)Microsoft.Maui.Controls.Application.Current).AuthService;
-        string email = authService.GetLoggedInUserEmail();
+        var user = ((App)Microsoft.Maui.Controls.Application.Current).User;
+        string email = user.Email;
 
         if (!string.IsNullOrWhiteSpace(email))
         {
