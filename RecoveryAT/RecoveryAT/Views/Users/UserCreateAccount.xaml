@@ -53,6 +53,7 @@
                        Margin="0,0,0,15">
                     <Entry Placeholder=""
                            x:Name="firstNameEntry"
+                           Keyboard="Default"
                            BackgroundColor="White"
                            FontSize="16"
                            TextColor="Gray" />
@@ -72,6 +73,7 @@
                        Margin="0,0,0,15">
                     <Entry Placeholder=""
                            x:Name="lastNameEntry"
+                           Keyboard="Default"
                            BackgroundColor="White"
                            FontSize="16"
                            TextColor="Gray" />
@@ -91,6 +93,7 @@
                        Margin="0,0,0,15">
                     <Entry Placeholder=""
                            x:Name="emailEntry"
+                           Keyboard="Email"
                            BackgroundColor="White"
                            FontSize="16"
                            TextColor="Gray" />
@@ -110,6 +113,7 @@
                        Margin="0,0,0,15">
                     <Entry Placeholder=""
                            IsPassword="True"
+                           Keyboard="Default"
                            x:Name="passwordEntry"
                            BackgroundColor="White"
                            FontSize="16"
@@ -130,6 +134,7 @@
                        Margin="0,0,0,15">
                     <Entry Placeholder=""
                            IsPassword="True"
+                           Keyboard="Default"
                            x:Name="confirmPasswordEntry"
                            BackgroundColor="White"
                            FontSize="16"

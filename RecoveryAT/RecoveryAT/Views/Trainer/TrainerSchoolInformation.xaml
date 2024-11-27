@@ -43,7 +43,8 @@
                                    CornerRadius="8"
                                    Padding="5"
                                    HasShadow="False"
-                                   Margin="0,0,0,15">
+                                   Margin="0,0,0,15"
+                                   WidthRequest="375">
                                    <Entry Placeholder=""
                                           x:Name="schoolNameEntry"
                                           BackgroundColor="White"
@@ -67,7 +68,7 @@
                                           <Frame BorderColor="LightGray"
                                                         CornerRadius="10"
                                                         Padding="5"
-                                                        WidthRequest="70"
+                                                        WidthRequest="65"
                                                         HeightRequest="70">
                                                  <Entry x:Name="CodeEntry1"
                                                                Placeholder=" "
@@ -78,7 +79,7 @@
                                           <Frame BorderColor="LightGray"
                                                         CornerRadius="10"
                                                         Padding="5"
-                                                        WidthRequest="70"
+                                                        WidthRequest="65"
                                                         HeightRequest="70">
                                                  <Entry x:Name="CodeEntry2"
                                                                Placeholder=" "
@@ -89,7 +90,7 @@
                                           <Frame BorderColor="LightGray"
                                                         CornerRadius="10"
                                                         Padding="5"
-                                                        WidthRequest="70"
+                                                        WidthRequest="65"
                                                         HeightRequest="70">
                                                  <Entry x:Name="CodeEntry3"
                                                                Placeholder=" "
@@ -100,7 +101,7 @@
                                           <Frame BorderColor="LightGray"
                                                         CornerRadius="10"
                                                         Padding="5"
-                                                        WidthRequest="70"
+                                                        WidthRequest="65"
                                                         HeightRequest="70">
                                                  <Entry x:Name="CodeEntry4"
                                                                Placeholder=" "
@@ -111,7 +112,7 @@
                                           <Frame BorderColor="LightGray"
                                                         CornerRadius="10"
                                                         Padding="5"
-                                                        WidthRequest="70"
+                                                        WidthRequest="65"
                                                         HeightRequest="70">
                                                  <Entry x:Name="CodeEntry5"
                                                                Placeholder=" "

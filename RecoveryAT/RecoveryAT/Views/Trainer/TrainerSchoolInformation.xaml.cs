@@ -1,12 +1,3 @@
-/*
-    Name: Luke Kastern
-    Date: 10/14/2024
-    Description: TrainerSchoolInformation Screen
-    Bugs: None known
-    Reflection: This was a very easy screen to implement. The only challenge was aligning the 5 boxes 
-                for the 5-digit code to make it look nice and closer to the prototype.
-*/
-
 namespace RecoveryAT
 {
     public partial class TrainerSchoolInformation : ContentPage
@@ -24,6 +15,26 @@ namespace RecoveryAT
             _lastName = lastName;
             _email = email;
             _hashedPassword = hashedPassword;
+
+            // Attach TextChanged event handlers to move between entry boxes
+            AttachTextChangedHandlers();
+        }
+
+        private void AttachTextChangedHandlers()
+        {
+            CodeEntry1.TextChanged += (s, e) => MoveToNextEntry(CodeEntry1, CodeEntry2);
+            CodeEntry2.TextChanged += (s, e) => MoveToNextEntry(CodeEntry2, CodeEntry3);
+            CodeEntry3.TextChanged += (s, e) => MoveToNextEntry(CodeEntry3, CodeEntry4);
+            CodeEntry4.TextChanged += (s, e) => MoveToNextEntry(CodeEntry4, CodeEntry5);
+        }
+
+        private void MoveToNextEntry(Entry current, Entry next)
+        {
+            // Move focus to the next entry when current entry is filled
+            if (current.Text?.Length == current.MaxLength)
+            {
+                next.Focus();
+            }
         }
 
         private async void OnCreateSchoolClicked(object sender, EventArgs e)
@@ -37,11 +48,11 @@ namespace RecoveryAT
             var codePart5 = CodeEntry5.Text;
 
             // Validate school name and code parts
-            if (string.IsNullOrWhiteSpace(schoolName) || 
-                string.IsNullOrWhiteSpace(codePart1) || 
-                string.IsNullOrWhiteSpace(codePart2) || 
-                string.IsNullOrWhiteSpace(codePart3) || 
-                string.IsNullOrWhiteSpace(codePart4) || 
+            if (string.IsNullOrWhiteSpace(schoolName) ||
+                string.IsNullOrWhiteSpace(codePart1) ||
+                string.IsNullOrWhiteSpace(codePart2) ||
+                string.IsNullOrWhiteSpace(codePart3) ||
+                string.IsNullOrWhiteSpace(codePart4) ||
                 string.IsNullOrWhiteSpace(codePart5))
             {
                 await DisplayAlert("Error", "Please enter all school information.", "OK");
@@ -67,14 +78,14 @@ namespace RecoveryAT
             // Optionally, navigate to another page if account creation is successful
             if (resultMessage == "User account created successfully.")
             {
-                await Navigation.PushModalAsync(new MainTabbedPage());
+                await Navigation.PushModalAsync(new UserLogin());
             }
         }
 
         // Method to concatenate parts of the school code
         private string ConcatSchoolCode(string part1, string part2, string part3, string part4, string part5)
         {
-            return string.Concat(part1, part2, part3, part4, part5);
+            return string.Concat(part1?.Trim(), part2?.Trim(), part3?.Trim(), part4?.Trim(), part5?.Trim());
         }
     }
 }
