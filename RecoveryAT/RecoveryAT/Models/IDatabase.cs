@@ -80,8 +80,8 @@ namespace RecoveryAT
         /// <param name="hashedPassword">User's hashed password.</param>
         /// <param name="schoolName">User's school name.</param>
         /// <param name="schoolCode">User's school code.</param>
-        /// <param name="key">A key used for encryption.</param>
-        /// <param name="iv">An iv used for encryption.</param>
+        /// <param name="key">A key to encrypt the school name.</param>
+        /// <param name="iv">An iv to encrypt the school name.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
 
@@ -124,12 +124,12 @@ namespace RecoveryAT
         string UpdateContactStatus(long? formKey, string newStatus);
 
         /// <summary>
-        /// Retrieves forms by date last seen.
+        /// Retrieves forms by date last created.
         /// </summary>
         /// <param name="schoolCode">The school code to filter by.</param>
-        /// <param name="dateSeen">The date to search for.</param>
-        /// <returns>A collection of athlete forms last seen on the specified date.</returns>
-        ObservableCollection<AthleteForm> SelectFormsByDateSeen(string schoolCode, DateTime dateSeen);
+        /// <param name="dateCreated">The date to search for.</param>
+        /// <returns>A collection of athlete forms last created on the specified date.</returns>
+        ObservableCollection<AthleteForm> SelectFormsByDateCreated(string schoolCode, DateTime dateCreated);
 
         /// <summary>
         /// Searches athletes by name, contact type, phone number, or other attributes.

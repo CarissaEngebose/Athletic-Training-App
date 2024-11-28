@@ -89,7 +89,7 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
                 SELECT form_key, school_code, first_name, last_name, sport, injured_area,
                        injured_side, treatment_type, athlete_comments, athlete_status, 
-                       date_created, date_seen, date_of_birth, key, iv
+                       date_created, date_seen, date_of_birth
                 FROM athlete_forms
                 WHERE school_code = @school_code", conn);
                 cmd.Parameters.AddWithValue("school_code", schoolCode);
@@ -110,9 +110,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.IsDBNull(10) ? DateTime.Now : reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     forms.Add(form);
                 }
@@ -142,7 +140,7 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
-                   athlete_status, date_created, date_seen, date_of_birth, key, iv
+                   athlete_status, date_created, date_seen, date_of_birth
             FROM athlete_forms
             WHERE school_code = @school_code
             AND date_created = @dateCreated",
@@ -166,8 +164,6 @@ namespace RecoveryAT
                     var status = reader.IsDBNull(9) ? null : reader.GetString(9);
                     var dateSeen = reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11);
                     var dateOfBirth = reader.GetDateTime(12);
-                    var key = reader.GetString(13);
-                    var iv = reader.GetString(14);
 
                     // Create a new instance of AthleteForm with the retrieved data
                     var form = new AthleteForm(
@@ -183,9 +179,7 @@ namespace RecoveryAT
                         dateSeen: dateSeen,
                         dateOfBirth: dateOfBirth,
                         athleteComments: athleteComments,
-                        status: status,
-                        key: key,
-                        iv: iv
+                        status: status
                     );
                     forms.Add(form); // Add to the collection
                 }
@@ -203,11 +197,11 @@ namespace RecoveryAT
         /// Gets a list of forms for a school code filtered by the date_seen parameter.
         /// </summary>
         /// <param name="schoolCode">The school code of the forms to retrieve.</param>
-        /// <param name="dateSeen">The date when the forms were seen.</param>
+        /// <param name="dateCreated">The date when the forms were seen.</param>
         /// <returns>An ObservableCollection of forms that were seen on the specified date.</returns>
-        public ObservableCollection<AthleteForm> SelectFormsByDateSeen(string schoolCode, DateTime dateSeen)
+        public ObservableCollection<AthleteForm> SelectFormsByDateCreated(string schoolCode, DateTime dateCreated)
         {
-            var formsByDateSeen = new ObservableCollection<AthleteForm>(); // Create a new collection to hold the results
+            var formsByDateCreated = new ObservableCollection<AthleteForm>(); // Create a new collection to hold the results
 
             try
             {
@@ -217,17 +211,17 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
-                   athlete_status, date_created, date_seen, date_of_birth, key, iv
+                   athlete_status, date_created, date_seen, date_of_birth
             FROM athlete_forms
             WHERE school_code = @school_code
-            AND date_seen = @dateSeen", conn);
+            AND date_created = @dateCreated", conn);
 
                 cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the school code parameter
-                cmd.Parameters.AddWithValue("dateSeen", dateSeen);      // Set the date_seen parameter
+                cmd.Parameters.AddWithValue("dateCreated", dateCreated);      // Set the date_created parameter
 
                 using var reader = cmd.ExecuteReader();
 
-                // Loop through each row in the result and add it to the formsByDateSeen collection
+                // Loop through each row in the result and add it to the formsByDateCreated collection
                 while (reader.Read())
                 {
                     var formKey = reader.GetInt64(0);
@@ -239,10 +233,8 @@ namespace RecoveryAT
                     var treatmentType = reader.GetString(7);
                     var athleteComments = reader.IsDBNull(8) ? null : reader.GetString(8);
                     var status = reader.IsDBNull(9) ? null : reader.GetString(9);
-                    var dateCreated = reader.GetDateTime(10);
+                    var dateSeen = reader.GetDateTime(11);
                     var dateOfBirth = reader.GetDateTime(12);
-                    var key = reader.GetString(13);
-                    var iv = reader.GetString(14);
 
                     // Create a new instance of AthleteForm with the retrieved data
                     var form = new AthleteForm(
@@ -258,11 +250,9 @@ namespace RecoveryAT
                         dateSeen: dateSeen,
                         dateOfBirth: dateOfBirth,
                         athleteComments: athleteComments,
-                        status: status,
-                        key: key,
-                        iv: iv
+                        status: status
                     );
-                    formsByDateSeen.Add(form); // Add to the collection
+                    formsByDateCreated.Add(form); // Add to the collection
                 }
             }
             catch (Npgsql.PostgresException ex)
@@ -271,7 +261,7 @@ namespace RecoveryAT
                 Console.WriteLine($"Database error: {ex.Message}");
             }
 
-            return formsByDateSeen; // Return the collection of forms filtered by date_seen
+            return formsByDateCreated; // Return the collection of forms filtered by date_created
         }
 
         /// <summary>
@@ -288,7 +278,7 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport, injured_area, 
                    injured_side, treatment_type, athlete_comments, athlete_status, 
-                   date_created, date_seen, date_of_birth, key, iv
+                   date_created, date_seen, date_of_birth
             FROM athlete_forms 
             WHERE form_key = @formKey", conn);
                 cmd.Parameters.AddWithValue("formKey", formKey); // Set the parameter value.
@@ -309,8 +299,6 @@ namespace RecoveryAT
                     var dateCreated = reader.GetDateTime(10);
                     var dateSeen = reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11);
                     var dateOfBirth = reader.GetDateTime(12);
-                    var key = reader.GetString(13);
-                    var iv = reader.GetString(14);
 
                     // Create a new instance of AthleteForm with the retrieved data
                     var form = new AthleteForm(
@@ -326,9 +314,7 @@ namespace RecoveryAT
                         dateSeen: dateSeen,
                         dateOfBirth: dateOfBirth,
                         athleteComments: athleteComments,
-                        status: status,
-                        key: key,
-                        iv: iv
+                        status: status
                     );
                     forms.Add(form);
                 }
@@ -543,7 +529,7 @@ namespace RecoveryAT
                 var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
-                   athlete_status, date_created, date_seen, date_of_birth, key, iv
+                   athlete_status, date_created, date_seen, date_of_birth
             FROM athlete_forms 
             WHERE LOWER(first_name) LIKE @query 
             OR LOWER(last_name) LIKE @query 
@@ -568,9 +554,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     searchResults.Add(form);
                 }
@@ -625,9 +609,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     searchResults.Add(form);
                 }
@@ -652,7 +634,7 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
                 SELECT form_key, school_code, first_name, last_name, sport, injured_area,
                        injured_side, treatment_type, athlete_comments, athlete_status, 
-                       date_created, date_seen, date_of_birth, key, iv
+                       date_created, date_seen, date_of_birth
                 FROM athlete_forms", conn);
 
                 using var reader = cmd.ExecuteReader();
@@ -671,9 +653,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.IsDBNull(10) ? DateTime.Now : reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     forms.Add(form);
                 }
@@ -702,7 +682,7 @@ namespace RecoveryAT
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
-                   athlete_status, date_created, date_seen, date_of_birth, key, iv
+                   athlete_status, date_created, date_seen, date_of_birth
             FROM athlete_forms 
             WHERE date_created < @today", conn);
 
@@ -726,9 +706,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     pastForms.Add(form);
                 }
@@ -969,7 +947,7 @@ namespace RecoveryAT
                 var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
-                   athlete_status, date_created, date_seen, date_of_birth, key, iv
+                   athlete_status, date_created, date_seen, date_of_birth
             FROM athlete_forms 
             WHERE LOWER(first_name) LIKE @query 
             OR LOWER(last_name) LIKE @query 
@@ -1002,9 +980,7 @@ namespace RecoveryAT
                         status: reader.IsDBNull(9) ? null : reader.GetString(9),
                         dateCreated: reader.GetDateTime(10),
                         dateSeen: reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11),
-                        dateOfBirth: reader.GetDateTime(12),
-                        key: reader.GetString(13),
-                        iv: reader.GetString(14)
+                        dateOfBirth: reader.GetDateTime(12)
                     );
                     searchResults.Add(form);
                 }

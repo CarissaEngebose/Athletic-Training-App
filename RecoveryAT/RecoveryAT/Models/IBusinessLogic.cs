@@ -70,12 +70,10 @@ namespace RecoveryAT
         /// <param name="athleteComments">Optional comments from the athlete.</param>
         /// <param name="status">The athlete's current status.</param>
         /// <param name="dateCreated">The date the form was created.</param>
-        /// <param name="key">The athlete's key for encryption.</param>
-        /// <param name="iv">The iv for encryption.</param>
         /// <returns>A message indicating if the form was successfully added.</returns>
         string AddForm(string schoolCode, string firstName, string lastName, string sport,
                        string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                       string? athleteComments, string? status, DateTime dateCreated, string key, string iv);
+                       string? athleteComments, string? status, DateTime dateCreated);
 
         /// <summary>
         /// Deletes a form by its unique key.
@@ -99,12 +97,10 @@ namespace RecoveryAT
         /// <param name="athleteComments">Optional comments from the athlete.</param>
         /// <param name="status">The athlete's current status.</param>
         /// <param name="dateCreated">The date the form was created.</param>
-        /// <param name="key">The athlete's key for encryption.</param>
-        /// <param name="iv">The iv for encryption.</param>
         /// <returns>A message indicating if the form was successfully updated.</returns>
         string EditForm(long formKey, string schoolCode, string firstName, string lastName, string sport,
                         string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                        string? athleteComments, string status, DateTime dateCreated, string key, string iv);
+                        string? athleteComments, string status, DateTime dateCreated);
 
         /// <summary>
         /// Inserts a new user into the system.
@@ -122,9 +118,9 @@ namespace RecoveryAT
         bool ValidateCredentials(string email, string password);
 
         /// <summary>
-        /// Retrieves forms seen on a specific date.
+        /// Retrieves forms created on a specific date.
         /// </summary>
-        ObservableCollection<AthleteForm> GetFormsByDateSeen(string schoolCode, DateTime dateSeen);
+        ObservableCollection<AthleteForm> GetFormsByDateCreated(string schoolCode, DateTime dateCreated);
 
         /// <summary>
         /// Searches for athletes based on a query string.

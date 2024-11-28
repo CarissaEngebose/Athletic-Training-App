@@ -52,7 +52,7 @@ namespace RecoveryAT
 
         public void LoadAthleteFormsForDay(DateTime date)
         {
-            AthleteForms = _businessLogic.GetFormsByDateSeen(_schoolCode, date);
+            AthleteForms = _businessLogic.GetFormsByDateCreated(_schoolCode, date);
         }
     }
 }
