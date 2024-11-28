@@ -233,7 +233,7 @@ namespace RecoveryAT
                     var treatmentType = reader.GetString(7);
                     var athleteComments = reader.IsDBNull(8) ? null : reader.GetString(8);
                     var status = reader.IsDBNull(9) ? null : reader.GetString(9);
-                    var dateSeen = reader.GetDateTime(11);
+                    var dateSeen = reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11);
                     var dateOfBirth = reader.GetDateTime(12);
 
                     // Create a new instance of AthleteForm with the retrieved data
