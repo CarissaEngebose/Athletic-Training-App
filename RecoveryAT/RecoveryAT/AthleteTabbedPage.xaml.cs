@@ -20,10 +20,11 @@ namespace RecoveryAT
             
             if (!string.IsNullOrWhiteSpace(email))
             {
-                var userData = ((App)Microsoft.Maui.Controls.Application.Current).BusinessLogic.GetUserByEmail(email);
-                if (userData != null && userData.ContainsKey("SchoolCode"))
+                var userData = MauiProgram.BusinessLogic.GetUserFromEmail(email);
+
+                if (user != null && user.SchoolCode != null)
                 {
-                    SchoolCode = userData["SchoolCode"];
+                    SchoolCode = user.SchoolCode;
                 }
                 else
                 {
@@ -38,13 +39,13 @@ namespace RecoveryAT
             // Create instances of tabs and pass the required parameters
             var athleteInformationPage = new NavigationPage(new AthleteInformation())
             {
-                Title = "Athlete Information",
+                Title = "Info",
                 IconImageSource = "athlete_icon.png"
             };
 
             var athletePastFormsPage = new NavigationPage(new AthletePastForms())
             {
-                Title = "Past Forms",
+                Title = "Forms",
                 IconImageSource = "forms_icon.png" 
             };
 
@@ -56,7 +57,7 @@ namespace RecoveryAT
 
             var athleteStatusesPage = new NavigationPage(new AthleteStatuses(SchoolCode))
             {
-                Title = "Athlete Statuses",
+                Title = "Statuses",
                 IconImageSource = "statuses_icon.png" 
             };
 
