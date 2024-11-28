@@ -80,8 +80,10 @@ namespace RecoveryAT
         /// <param name="hashedPassword">User's hashed password.</param>
         /// <param name="schoolName">User's school name.</param>
         /// <param name="schoolCode">User's school code.</param>
+        /// <param name="key">A key used for encryption.</param>
+        /// <param name="iv">An iv used for encryption.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
-        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
 
         /// <summary>
         /// Searches athletes based on a query string.

@@ -63,6 +63,7 @@ namespace RecoveryAT
                 await DisplayAlert("Error", "Passwords do not match.", "OK");
                 return;
             }
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text); // hashes the password if it is strong and secure
 
             // Navigate to TrainerSchoolInformation and pass the collected data

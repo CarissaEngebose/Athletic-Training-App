@@ -47,12 +47,18 @@ public partial class UserLogin : ContentPage
         // get the user from the email - Carissa
         _user = _businessLogic.GetUserFromEmail(email);
 
+        if(_user == null) {
+            await DisplayAlert("Login Failed", "User information not found.", "OK");
+            return;
+        }
+
         if (_user != null && !string.IsNullOrEmpty(_user.HashedPassword) && BCrypt.Net.BCrypt.Verify(PasswordEntry.Text, _user.HashedPassword))
         {
             OnLoginSuccessful(); // Pass the email to OnLoginSuccessful
         }
         else
         {
+            Console.WriteLine($"Password: {PasswordEntry.Text}");
             // Show an alert if login fails
             await DisplayAlert("Login Failed", "Incorrect Password.", "OK");
         }

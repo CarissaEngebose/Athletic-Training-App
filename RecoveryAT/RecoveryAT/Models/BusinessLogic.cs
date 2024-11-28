@@ -70,7 +70,7 @@ namespace RecoveryAT
 
         public string AddForm(string schoolCode, string firstName, string lastName, string sport,
                       string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                      string? athleteComments, string? status, DateTime dateCreated)
+                      string? athleteComments, string? status, DateTime dateCreated, string key, string iv)
         {
             if (string.IsNullOrWhiteSpace(schoolCode) ||
                 string.IsNullOrWhiteSpace(firstName) ||
@@ -97,7 +97,9 @@ namespace RecoveryAT
                 dateSeen: null, // DateSeen is optional and can be null for a new form
                 dateOfBirth: dateOfBirth,
                 athleteComments: athleteComments,
-                status: status
+                status: status,
+                key: key,
+                iv: iv
             );
 
             // Insert the form into the database and return the result
@@ -111,7 +113,7 @@ namespace RecoveryAT
 
         public string EditForm(long formKey, string schoolCode, string firstName, string lastName, string sport,
                        string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                       string? athleteComments, string status, DateTime dateCreated)
+                       string? athleteComments, string status, DateTime dateCreated, string key, string iv)
         {
             // Validate input parameters
             if (string.IsNullOrWhiteSpace(schoolCode) ||
@@ -140,16 +142,18 @@ namespace RecoveryAT
                 dateSeen: null, // Assuming DateSeen is not updated here; set to null
                 dateOfBirth: dateOfBirth,
                 athleteComments: athleteComments,
-                status: status
+                status: status,
+                key: key,
+                iv: iv
             );
 
             // Call the database method to update the form and return the result
             return _database.UpdateForm(updatedForm);
         }
 
-        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode)
+        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
         {
-            return _database.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode);
+            return _database.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode, key, iv);
         }
 
         public long GetLastInsertedFormKey(string schoolCode)

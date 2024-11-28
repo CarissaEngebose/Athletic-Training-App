@@ -14,11 +14,13 @@ public class User {
     public string? HashedPassword;
     public string? SchoolName;
     public string? SchoolCode; 
+    public string? IV;
+    public string? Key;
 
     /// <summary>
     /// Creates a user with all the values attached.
     /// </summary>
-    public User(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode)
+    public User(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
     {
         IsLoggedIn = true;
         FirstName = firstName;
@@ -27,6 +29,8 @@ public class User {
         HashedPassword = hashedPassword;
         SchoolName = schoolName;
         SchoolCode = schoolCode;
+        Key = key;
+        IV = iv; 
     }
 
     /// <summary>
@@ -58,6 +62,8 @@ public class User {
         HashedPassword = null;
         SchoolName = null;
         SchoolCode = null;
+        IV = null;
+        Key = null;
     }
 
     /// <summary>

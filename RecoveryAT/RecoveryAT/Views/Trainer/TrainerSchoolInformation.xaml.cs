@@ -40,7 +40,6 @@ namespace RecoveryAT
         private async void OnCreateSchoolClicked(object sender, EventArgs e)
         {
             // Retrieve school name and individual parts of the school code
-            var schoolName = schoolNameEntry.Text;
             var codePart1 = CodeEntry1.Text;
             var codePart2 = CodeEntry2.Text;
             var codePart3 = CodeEntry3.Text;
@@ -48,7 +47,7 @@ namespace RecoveryAT
             var codePart5 = CodeEntry5.Text;
 
             // Validate school name and code parts
-            if (string.IsNullOrWhiteSpace(schoolName) ||
+            if (string.IsNullOrWhiteSpace(schoolNameEntry.Text) ||
                 string.IsNullOrWhiteSpace(codePart1) ||
                 string.IsNullOrWhiteSpace(codePart2) ||
                 string.IsNullOrWhiteSpace(codePart3) ||
@@ -69,14 +68,23 @@ namespace RecoveryAT
                 return;
             }
 
+            var (key, iv) = EncryptionHelper.GenerateKeyAndIV(); // get the key to encrypt the school name
+            var encryptedSchoolName = EncryptionHelper.Encrypt(schoolNameEntry.Text, key, iv);
+
             // Create the user account in the database
-            var resultMessage = MauiProgram.BusinessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, schoolName, schoolCode);
+            var resultMessage = MauiProgram.BusinessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, encryptedSchoolName, schoolCode, key, iv);
 
             // Notify user of success or failure
             await DisplayAlert("Result", resultMessage, "OK");
 
-            // Optionally, navigate to another page if account creation is successful
-            if (resultMessage == "User account created successfully.")
+            try
+            {
+                if (resultMessage == "User account created successfully.")
+                {
+                    await Navigation.PushModalAsync(new MainTabbedPage());
+                }
+            }
+            catch (Exception ex)
             {
                 await Navigation.PushModalAsync(new UserLogin());
             }

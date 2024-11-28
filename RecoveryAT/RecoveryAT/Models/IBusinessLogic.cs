@@ -70,10 +70,12 @@ namespace RecoveryAT
         /// <param name="athleteComments">Optional comments from the athlete.</param>
         /// <param name="status">The athlete's current status.</param>
         /// <param name="dateCreated">The date the form was created.</param>
+        /// <param name="key">The athlete's key for encryption.</param>
+        /// <param name="iv">The iv for encryption.</param>
         /// <returns>A message indicating if the form was successfully added.</returns>
         string AddForm(string schoolCode, string firstName, string lastName, string sport,
                        string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                       string? athleteComments, string? status, DateTime dateCreated);
+                       string? athleteComments, string? status, DateTime dateCreated, string key, string iv);
 
         /// <summary>
         /// Deletes a form by its unique key.
@@ -97,15 +99,17 @@ namespace RecoveryAT
         /// <param name="athleteComments">Optional comments from the athlete.</param>
         /// <param name="status">The athlete's current status.</param>
         /// <param name="dateCreated">The date the form was created.</param>
+        /// <param name="key">The athlete's key for encryption.</param>
+        /// <param name="iv">The iv for encryption.</param>
         /// <returns>A message indicating if the form was successfully updated.</returns>
         string EditForm(long formKey, string schoolCode, string firstName, string lastName, string sport,
                         string injuredArea, string injuredSide, string treatmentType, DateTime dateOfBirth,
-                        string? athleteComments, string status, DateTime dateCreated);
+                        string? athleteComments, string status, DateTime dateCreated, string key, string iv);
 
         /// <summary>
         /// Inserts a new user into the system.
         /// </summary>
-        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode);
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
 
         /// <summary>
         /// Retrieves the last inserted form key for a given school code.
