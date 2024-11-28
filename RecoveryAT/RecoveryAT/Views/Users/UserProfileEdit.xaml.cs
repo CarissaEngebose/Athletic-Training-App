@@ -32,7 +32,7 @@ namespace RecoveryAT
             {
                 FirstNameEntry.Text = _user.FirstName;
                 LastNameEntry.Text = _user.LastName;
-                SchoolNameEntry.Text = _user.SchoolName;
+                SchoolNameEntry.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
                 SchoolCodeEntry.Text = _user.SchoolCode;
                 EmailEntry.Text = _user.Email;
             }

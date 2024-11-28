@@ -87,7 +87,7 @@ namespace RecoveryAT
             {
                 // Update UI elements directly
                 NameLabel.Text = _user.FullName;
-                SchoolNameLabel.Text = _user.SchoolName;
+                SchoolNameLabel.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
                 SchoolCodeLabel.Text = _user.SchoolCode;
                 EmailLabel.Text = _user.Email;
             }
