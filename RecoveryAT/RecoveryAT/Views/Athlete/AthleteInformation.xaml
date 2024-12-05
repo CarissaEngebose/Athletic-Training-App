@@ -100,8 +100,8 @@
                                            VerticalOptions="Center">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
-                                                         Binding="{Binding Relationship, FallbackValue='No Contact'}"
-                                                         Value="No Contact">
+                                                         Binding="{Binding Relationship, FallbackValue='No Contact Information'}"
+                                                         Value="No Contact Information">
                                                 <Setter Property="IsVisible"
                                                         Value="False"/>
                                             </DataTrigger>

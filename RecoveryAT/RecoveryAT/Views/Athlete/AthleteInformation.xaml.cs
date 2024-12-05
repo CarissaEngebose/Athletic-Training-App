@@ -56,10 +56,9 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 
         if (!string.IsNullOrWhiteSpace(email))
         {
-            var userData = ((App)Microsoft.Maui.Controls.Application.Current).BusinessLogic.GetUserByEmail(email);
-            if (userData != null && userData.ContainsKey("SchoolCode"))
+            if (user != null)
             {
-                SchoolCode = userData["SchoolCode"];
+                SchoolCode = user.SchoolCode;
             }
             else
             {
@@ -106,7 +105,7 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
                 {
                     var detail = new AthleteDetail(
                         fullName: form.FullName,
-                        relationship: "No Contact",
+                        relationship: "No Contact Information",
                         phoneNumber: string.Empty,
                         treatmentType: form.TreatmentType,
                         athleteComments: form.AthleteComments,
