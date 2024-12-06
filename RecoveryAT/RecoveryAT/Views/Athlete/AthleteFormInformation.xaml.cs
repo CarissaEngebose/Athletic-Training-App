@@ -13,7 +13,13 @@ public partial class AthleteFormInformation : ContentPage
         this.athleteForm = athleteForm;
 
         // Initialize the BusinessLogic instance internally
-        _businessLogic = new BusinessLogic(new Database());
+        _businessLogic = new BusinessLogic(
+                         new ContactsDatabase(),
+                         new FormsDatabase(),
+                         new UsersDatabase(),
+                         new SearchDatabase(),
+                         new Database());
+
 
         BindingContext = athleteForm;
     }

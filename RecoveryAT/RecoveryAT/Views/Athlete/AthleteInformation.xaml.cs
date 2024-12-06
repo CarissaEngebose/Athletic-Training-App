@@ -31,7 +31,13 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
     public AthleteInformation()
     {
         InitializeComponent();
-        _businessLogic = new BusinessLogic(new Database());
+        _businessLogic = new BusinessLogic(
+                         new ContactsDatabase(),
+                         new FormsDatabase(),
+                         new UsersDatabase(),
+                         new SearchDatabase(),
+                         new Database());
+
         LoadSchoolCode();
         BindingContext = this;
     }

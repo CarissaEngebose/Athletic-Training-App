@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-    Name: Hannah Hotchkiss
-    Date: 10/14/2024
-    Description: AthleteContacts - This page allows users to add contact information for athletes, 
+    Date: 12/06/24
+    Description: This page allows users to add contact information for athletes, 
                  including their phone number and relationship to the athlete.
     Bugs: None Known
-    Reflection: This screen was fairly easy as there isn't much going on. 
-                The hardest part was getting the image of the garbage can 
-                for the button to be exactly where I wanted it inside the frame.
+    Reflection: This screen was fairly easy as there isn't much going on.
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

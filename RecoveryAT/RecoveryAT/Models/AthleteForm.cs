@@ -1,10 +1,9 @@
 /**
-    Name: Carissa Engebose
-    Date: 10/27/24
+    Date: 12/06/24
     Description: Class to store athlete form information that will be used throughout the RecoveryAT app.
-    Bugs: None that I know of.
-    Reflection: The class didn't take very long to create once I looked at my database to see the information
-    I wanted to store for each form.
+    Bugs: None that we know of.
+    Reflection: The class didn't take very long to create once we looked at the database to see the information
+    we wanted to store for each form.
 **/
 
 namespace RecoveryAT
@@ -148,19 +147,6 @@ namespace RecoveryAT
             DateOfBirth = dateOfBirth;
             AthleteComments = athleteComments;
             Status = status;
-        }
-
-        // ONLY USED FOR TESTING PURPOSES - WILL REMOVE WHEN DATABASE IS IN EFFECT FOR ATHLETE STATUSES
-        public AthleteForm(string firstName, string lastName, string sport, string injuredArea, string status)
-        {
-            SchoolCode = "12345";
-            FirstName = firstName;
-            LastName = lastName;
-            Sport = sport;
-            InjuredArea = injuredArea;
-            Status = status;
-            InjuredSide = "Left";
-            TreatmentType = "Tape";
         }
     }
 }

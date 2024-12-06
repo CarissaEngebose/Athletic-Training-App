@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-    Name: Carissa Engebose
-    Date: 10/9/2024
+    Date: 12/06/24
     Description: A screen that allows a user to enter a 5-character school code corresponding to the athletic trainer 
                  for a specific school. This ensures that only the correct trainer can access the forms for their school.
-    Bugs: None that I know of.
-    Reflection: This screen was relatively easy to build, though it took a while to fine-tune the layout. 
-                Overall, I think it came out well.
+    Bugs: None that we know of.
+    Reflection: This screen was relatively easy to build, though it took a while to fine-tune the layout.
 -->
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"

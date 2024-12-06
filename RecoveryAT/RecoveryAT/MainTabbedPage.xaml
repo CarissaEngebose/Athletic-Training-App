@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Date: 12/06/24
+    Description: This is the main tabbed page of the application, serving as a navigation hub. 
+                 It includes tabs for Home, Athletes, Form, and Profile screens, with icons and titles.
+    Bugs: None reported.
+    Reflection: Straightforward to implement using the MAUI TabbedPage component.
+-->
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:RecoveryAT"
              x:Class="RecoveryAT.MainTabbedPage"
              xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             android:TabbedPage.ToolbarPlacement="Bottom">
+             android:TabbedPage.ToolbarPlacement="Bottom"
+             BarBackgroundColor="White">
 
+    <!-- Defines the child pages for the tabbed layout -->
     <TabbedPage.Children>
+        <!-- Home Tab -->
         <NavigationPage IconImageSource="home_icon.png" Title="Home">
             <x:Arguments>
-                <local:TrainerHomeScreen />
+                <local:TrainerHomeScreen /> <!-- Displays the TrainerHomeScreen -->
             </x:Arguments>
         </NavigationPage>
 
+        <!-- Athletes Tab -->
         <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
             <x:Arguments>
-                <local:AthleteTabbedPage />
+                <local:AthleteTabbedPage /> <!-- Displays the AthleteTabbedPage -->
             </x:Arguments>
         </NavigationPage>
 
+        <!-- Form Tab -->
         <NavigationPage IconImageSource="clipboard_icon.png" Title="Form">
             <x:Arguments>
-                <local:InjuryFormReport />
+                <local:InjuryFormReport /> <!-- Displays the InjuryFormReport -->
             </x:Arguments>
         </NavigationPage>
 
+        <!-- Profile Tab -->
         <NavigationPage IconImageSource="profile_icon.png" Title="Profile">
             <x:Arguments>
-                <local:UserProfile />
+                <local:UserProfile /> <!-- Displays the UserProfile -->
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

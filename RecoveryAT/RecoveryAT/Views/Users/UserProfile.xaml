@@ -1,3 +1,10 @@
+<!---
+    Date: 12/06/24
+    Description: A screen for the athletic trainer to view and edit profile information.
+    Bugs: None that I know of.
+    Reflection: This screen was a little difficult because of all the spacing and aligning the user icon properly.
+-->
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.UserProfile"

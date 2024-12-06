@@ -1,11 +1,8 @@
 /*
-    Name: Carissa Engebose
-    Date: 10/9/2024
+    Date: 12/06/24
     Description: A screen for the athletic trainer to view and edit profile information.
     Bugs: None that I know of.
-    Reflection: This screen was a little difficult because of all the spacing and aligning the user icon properly. 
-                I also had to adjust the information layout, as I couldn't place the labels on opposite sides, 
-                but the new layout turned out better.
+    Reflection: This part of the UserProfile screen was easy to implement.
 */
 
 using System;

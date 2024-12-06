@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-    Name: Hannah Hotchkiss
-    Date: 10/14/2024
-    Description: AthleteStatuses - Displays athletes with their statuses, injuries, and sports.
+    Date: 12/06/24
+    Description: Displays athletes with their statuses, injuries, and sports.
     Bugs: None Known
-    Reflection: This screen was more complicated as a prototype, especially with the binding of example athletes and statuses.
+    Reflection: This screen was faily easy to implement. The hardest part
+                was getting the size of each column right.
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

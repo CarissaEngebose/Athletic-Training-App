@@ -1,7 +1,7 @@
 /**
-    Name: Carissa Engebose
-    Date: 11/26/24
+    Date: 12/06/24
     Description: Implementation of a user for the program.
+    Bugs: None that we know of.
     Reflection: This class didn't take long at all and is used in place of the Authentication Service file.
 **/
 

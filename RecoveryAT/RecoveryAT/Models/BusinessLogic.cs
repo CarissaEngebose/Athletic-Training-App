@@ -1,7 +1,7 @@
 /**
     Date: 12/05/24
     Description: Created the business logic implementation to be used when creating/deleting/editing a form and editing/creating/deleting a user. 
-    It also handles communicating with the database and returning values to be displayed in the app.
+                 It also handles communicating with the database and returning values to be displayed in the app.
     Bugs: None that we know of.
     Reflection: This class took a while to fully develop because we only starting implementing a few things at a time for each sprint
     and built it up from there. 
@@ -18,14 +18,26 @@ namespace RecoveryAT
     /// </summary>
     public class BusinessLogic : IBusinessLogic
     {
+        private readonly IContactsDatabase _contactsDatabase;
+        private readonly IFormsDatabase _formsDatabase;
+        private readonly IUsersDatabase _usersDatabase;
+        private readonly ISearchDatabase _searchDatabase;
         private readonly IDatabase _database;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BusinessLogic"/> class.
         /// </summary>
         /// <param name="database">The database to interact with.</param>
-        public BusinessLogic(IDatabase database)
+        public BusinessLogic(IContactsDatabase contactsDatabase,
+                             IFormsDatabase formsDatabase,
+                             IUsersDatabase usersDatabase,
+                             ISearchDatabase searchDatabase,
+                             IDatabase database)
         {
+            _contactsDatabase = contactsDatabase;
+            _formsDatabase = formsDatabase;
+            _usersDatabase = usersDatabase;
+            _searchDatabase = searchDatabase;
             _database = database;
         }
 
@@ -71,7 +83,7 @@ namespace RecoveryAT
         /// <returns>A list of athlete forms for a school code.</returns>
         public ObservableCollection<AthleteForm>? GetForms(string schoolCode)
         {
-            return _database.SelectFormsBySchoolCode(schoolCode);
+            return _formsDatabase.SelectFormsBySchoolCode(schoolCode);
         }
 
         /// <summary>
@@ -80,7 +92,7 @@ namespace RecoveryAT
         /// <returns>An observable collection of all athlete forms.</returns>
         public ObservableCollection<AthleteForm> GetAllForms()
         {
-            return _database.SelectAllForms(); 
+            return _formsDatabase.SelectAllForms(); 
         }
 
         /// <summary>
@@ -91,7 +103,7 @@ namespace RecoveryAT
         /// <returns>A list of forms.</returns>
         public ObservableCollection<AthleteForm>? GetFormsByDate(string schoolCode, DateTime date)
         {
-            return _database.SelectFormsByDate(schoolCode, date);
+            return _formsDatabase.SelectFormsByDate(schoolCode, date);
         }
 
         /// <summary>
@@ -142,7 +154,7 @@ namespace RecoveryAT
             );
 
             // Insert the form into the database and return the result
-            return _database.InsertForm(form);
+            return _formsDatabase.InsertForm(form);
         }
 
         /// <summary>
@@ -152,7 +164,7 @@ namespace RecoveryAT
         /// <returns>A message indicating if the form was successfully deleted.</returns>
         public string DeleteForm(long formKey)
         {
-            return _database.DeleteForm(formKey);
+            return _formsDatabase.DeleteForm(formKey);
         }
 
         /// <summary>
@@ -206,7 +218,7 @@ namespace RecoveryAT
             );
 
             // Call the database method to update the form and return the result
-            return _database.UpdateForm(updatedForm);
+            return _formsDatabase.UpdateForm(updatedForm);
         }
 
         /// <summary>
@@ -223,7 +235,7 @@ namespace RecoveryAT
         /// <returns>A message indicating if the form was successfully inserted.</returns>
         public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
         {
-            return _database.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode, key, iv);
+            return _usersDatabase.InsertUser(firstName, lastName, email, hashedPassword, schoolName, schoolCode, key, iv);
         }
 
         /// <summary>
@@ -233,7 +245,7 @@ namespace RecoveryAT
         /// <returns>The form key that was just inserted for a school code.</returns>
         public long GetLastInsertedFormKey(string schoolCode)
         {
-            return _database.GetLastInsertedFormKey(schoolCode);
+            return _formsDatabase.GetLastInsertedFormKey(schoolCode);
         }
 
         /// <summary>
@@ -260,7 +272,7 @@ namespace RecoveryAT
         /// <returns>A list of AthleteForms for a certain date.</returns>
         public ObservableCollection<AthleteForm> GetFormsByDateCreated(string schoolCode, DateTime dateCreated)
         {
-            return _database.SelectFormsByDateCreated(schoolCode, dateCreated);
+            return _formsDatabase.SelectFormsByDateCreated(schoolCode, dateCreated);
         }
 
         /// <summary>
@@ -270,7 +282,7 @@ namespace RecoveryAT
         /// <returns>A list of AthleteForms that have the query in it anywhere.</returns>
         public ObservableCollection<AthleteForm> SearchAthletes(string query)
         {
-            return _database.SearchAthletes(query);
+            return _searchDatabase.SearchAthletes(query);
         }
 
         /// <summary>
@@ -280,7 +292,7 @@ namespace RecoveryAT
         /// <returns>A list of AthleteForms for the specified criteria.</returns>
         public ObservableCollection<AthleteForm> SearchAthletesByContact(string query)
         {
-            return _database.SearchAthletesByContact(query);
+            return _searchDatabase.SearchAthletesByContact(query);
         }
 
         /// <summary>
@@ -289,7 +301,7 @@ namespace RecoveryAT
         /// <returns>A list of AthleteForms for a date less than today.</returns>
         public ObservableCollection<AthleteForm> GetFormsBeforeToday()
         {
-            return _database.SelectFormsBeforeToday();
+            return _formsDatabase.SelectFormsBeforeToday();
         }
 
         /// <summary>
@@ -300,7 +312,7 @@ namespace RecoveryAT
         /// <returns>A string stating if the updated form was saved.</returns>
         public string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts)
         {
-            return _database.SaveUpdatedForm(form, updatedContacts);
+            return _formsDatabase.SaveUpdatedForm(form, updatedContacts);
         }
 
         /// <summary>
@@ -310,7 +322,7 @@ namespace RecoveryAT
         /// <returns>A list of AthleteContacts that correspond to the athlete's form.</returns>
         public ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey)
         {
-            return _database.SelectContactsByFormKey(formKey);
+            return _contactsDatabase.SelectContactsByFormKey(formKey);
         }
 
         /// <summary>
@@ -320,7 +332,7 @@ namespace RecoveryAT
         /// <returns>A list of athletes that match the criteria.</returns>
         public ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query)
         {
-            return _database.SearchAthletesByMultipleCriteria(query);
+            return _searchDatabase.SearchAthletesByMultipleCriteria(query);
         }
 
         /// <summary>
@@ -356,7 +368,7 @@ namespace RecoveryAT
                 return new ObservableCollection<AthleteContact>(); // Return an empty collection for invalid formKey.
             }
 
-            return _database.SelectContactsByFormKey(formKey);
+            return _contactsDatabase.SelectContactsByFormKey(formKey);
         }
 
         /// <summary>
@@ -374,7 +386,7 @@ namespace RecoveryAT
                 return "Error: All fields must be filled in.";
             }
 
-            return _database.InsertContact(formKey, contactType, phoneNumber);
+            return _contactsDatabase.InsertContact(formKey, contactType, phoneNumber);
         }
 
         /// <summary>
@@ -392,7 +404,7 @@ namespace RecoveryAT
             }
 
             // Delegate to the database layer
-            return _database.UpdateContactStatus(formKey, newStatus);
+            return _contactsDatabase.UpdateContactStatus(formKey, newStatus);
         }
 
         /// <summary>
@@ -402,7 +414,7 @@ namespace RecoveryAT
         /// <returns>True if the user account was successfully deleted, otherwise false.</returns>
         public bool DeleteUserAccount(string email)
         {
-            return _database.DeleteUserAccount(email); // Pass the request to the Database class
+            return _usersDatabase.DeleteUserAccount(email); // Pass the request to the Database class
         }
 
         /// <summary>
@@ -412,7 +424,7 @@ namespace RecoveryAT
         /// <returns>A dictionary containing user information, or null if not found.</returns>
         public Dictionary<string, string> GetUserByEmail(string email)
         {
-            return _database.GetUserByEmail(email);
+            return _usersDatabase.GetUserByEmail(email);
         }
 
         /// <summary>
@@ -422,7 +434,7 @@ namespace RecoveryAT
         /// <returns>A User that stores the information from the database.</returns>
         public User GetUserFromEmail(string email)
         {
-            return _database.GetUserFromEmail(email);
+            return _usersDatabase.GetUserFromEmail(email);
         }
 
         /// <summary>
@@ -432,7 +444,7 @@ namespace RecoveryAT
         /// <returns>True if the email exists; otherwise, false.</returns>
         public bool IsEmailRegistered(string email)
         {
-            return _database.IsEmailRegistered(email);
+            return _usersDatabase.IsEmailRegistered(email);
         }
 
         /// <summary>
@@ -447,7 +459,7 @@ namespace RecoveryAT
         /// <returns>True if the update was successful; otherwise, false.</returns>
         public bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email)
         {
-            return _database.UpdateUserProfile(originalEmail, firstName, lastName, schoolName, schoolCode, email);
+            return _usersDatabase.UpdateUserProfile(originalEmail, firstName, lastName, schoolName, schoolCode, email);
         }
 
         /// <summary>
@@ -457,7 +469,7 @@ namespace RecoveryAT
         /// <returns>A list of all the forms for a specific school.</returns>
         public ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode)
         {
-            return _database.SelectFormsBySchoolCode(schoolCode);
+            return _formsDatabase.SelectFormsBySchoolCode(schoolCode);
         }
     }
 }

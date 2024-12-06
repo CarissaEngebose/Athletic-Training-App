@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Date: 12/06/24
+    Description: This page allows users to add contact information for athletes, 
+                 including their phone number and relationship to the athlete.
+    Bugs: None
+    Reflection: This was very easy to implement because there isn't anything in it,
+                but the declaration of the XML file
+-->
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="RecoveryAT.AthleteTabbedPage">

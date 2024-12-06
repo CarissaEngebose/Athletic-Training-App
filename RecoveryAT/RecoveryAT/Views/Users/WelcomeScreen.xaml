@@ -1,12 +1,11 @@
 ﻿<!-- 
-    Name: Carissa Engebose
-    Date: 10/9/2024
-    Description: A welcome screen that will navigate to the school code screen (to fill out a form) or login depending on if the user
-    is an athlete or an athletic trainer.
+    Date: 12/06/24
+    Description: A welcome screen that will navigate to the school code screen 
+                 (to fill out a form) or login depending on if the user
+                 is an athlete or an athletic trainer.
     Bugs: None that I know of.
-    Reflection: This screen was the first one I created so it did take a little bit of work to figure out how I wanted everything
-    laid out. It also took me a while to figure out how to space things correcly with the circles on the top of the screen, but overall,
-    I think it went pretty well.
+    Reflection: This was easy to implement because there isn't much on the screen
+                and they are all one above the next.
 -->
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"

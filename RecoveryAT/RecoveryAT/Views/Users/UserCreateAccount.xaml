@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-       Name: Hannah Hotchkiss
-       Date: 10/14/2024
-       Description: UserCreateAccount - This page allows users to create an account by providing their email, password, and confirming their password.
-       Users can select a status from a dropdown menu and search for athletes using a search bar.
+       Date: 12/06/24
+       Description: This page allows users to create an account by providing their email, password, 
+                    and confirming their password. Users can select a status from a dropdown menu and 
+                    search for athletes using a search bar.
        Bugs: None Known
-       Reflection: This screen was a easy as well because there also wasn't too much going on. The hardest part was 
-       adding the aesthetic blue overlapping circles to the bottom of the screen.
+       Reflection: This screen was a easy to implement because there isn't much going on on the screen.
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

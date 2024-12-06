@@ -1,13 +1,12 @@
 /**
-    Name: Carissa Engebose
-    Date: 10/27/24
-    Description: Business logic interface for managing forms, users, and related data.
-    Bugs: None that I know of.
-    Reflection: This interface provides a clear structure for all the required operations in the RecoveryAT app.
+    Date: 12/05/24
+    Description: Created the business logic implementation to be used when creating/deleting/editing a form and editing/creating/deleting a user. 
+                 It also handles communicating with the database and returning values to be displayed in the app.
+    Bugs: None that we know of.
+    Reflection: This class took a while to fully develop because we only starting implementing a few things at a time for each sprint
+    and built it up from there. 
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace RecoveryAT

@@ -21,7 +21,12 @@ public partial class AthleteFormInformationEdit : ContentPage
     public AthleteFormInformationEdit(AthleteForm form)
     {
         InitializeComponent();
-        _businessLogic = new BusinessLogic(new Database()); // Initialize BusinessLogic internally
+        _businessLogic = new BusinessLogic(
+                         new ContactsDatabase(),
+                         new FormsDatabase(),
+                         new UsersDatabase(),
+                         new SearchDatabase(),
+                         new Database()); // Initialize BusinessLogic internally
         _currentForm = form;
 
         // Set initial values for editable fields

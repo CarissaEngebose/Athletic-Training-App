@@ -1,8 +1,7 @@
 /**
-    Name: Carissa Engebose
-    Date: 10/27/24
+    Date: 12/06/24
     Description: Class to store athlete contact information such as the contact ID, form key, contact type, and phone number.
-    Bugs: None that I know of.
+    Bugs: None that we know of.
     Reflection: This didn't take very long and was pretty straightforward to set up.
 **/
 

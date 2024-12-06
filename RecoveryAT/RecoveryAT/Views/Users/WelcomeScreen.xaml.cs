@@ -1,12 +1,9 @@
 ﻿/* 
-    Name: Carissa Engebose
-    Date: 10/9/2024
-    Description: A welcome screen that will navigate to the school code screen (to fill out a form) or login depending on if the user
-    is an athlete or an athletic trainer.
-    Bugs: None that I know of.
-    Reflection: This screen was the first one I created so it did take a little bit of work to figure out how I wanted everything
-    laid out. It also took me a while to figure out how to space things correcly with the circles on the top of the screen, but overall,
-    I think it went pretty well.
+    Date: 12/06/24
+    Description: A welcome screen allowing navigation to the school code screen for athletes 
+                 or the login screen for athletic trainers.
+    Bugs: None reported.
+    Reflection: Simple implementation due to minimal functionality.
 */
 
 using System;
@@ -21,15 +18,15 @@ namespace RecoveryAT
             InitializeComponent();
         }
 
+        // Navigate to the school code screen when "Fill Out Form" is clicked
         private async void OnFillOutFormClicked(object sender, EventArgs e)
         {
-            // navigate to the school code screen 
             await Navigation.PushAsync(new SchoolCodeScreen());
         }
 
+        // Navigate to the login screen when "Login" is tapped
         private async void OnLoginTapped(object sender, EventArgs e)
         {
-            // navigate to the login page
             await Navigation.PushAsync(new UserLogin());
         }
     }
