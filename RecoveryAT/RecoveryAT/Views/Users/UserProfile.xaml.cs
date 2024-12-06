@@ -33,8 +33,10 @@ namespace RecoveryAT
             bool confirmLogout = await DisplayAlert("Logout", "Are you sure you want to log out?", "Yes", "No");
             if (confirmLogout)
             {
-                _user.Logout(); // log the user out
-                await Navigation.PushAsync(new UserLogin()); // navigate back to the login screen
+                _user.Logout(); // Log the user out
+
+                // Clear the navigation stack and set the login page as the root
+                Application.Current.MainPage = new NavigationPage(new UserLogin());
             }
         }
 
