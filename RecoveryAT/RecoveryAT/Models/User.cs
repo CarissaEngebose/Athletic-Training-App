@@ -12,14 +12,22 @@ public class User {
     public string? FullName => $"{FirstName} {LastName}";
     public string? Email;
     public string? HashedPassword;
-    public string? SchoolName;
+    public string? SchoolName; // encrypted school name
     public string? SchoolCode; 
-    public string? IV;
-    public string? Key;
+    public string? IV; // initialization vector for encryption/decryption
+    public string? Key; // key for encryption/decryption
 
     /// <summary>
     /// Creates a user with all the values attached.
     /// </summary>
+    /// <param name="firstName">User's first name.</param>
+    /// <param name="lastName">User's last name.</param>
+    /// <param name="email">User's email address.</param>
+    /// <param name="hashedPassword">User's hashed password.</param>
+    /// <param name="schoolName">User's school name.</param>
+    /// <param name="schoolCode">User's school code.</param>
+    /// <param name="key">A key to encrypt the school name.</param>
+    /// <param name="iv">An iv to encrypt the school name.</param>
     public User(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
     {
         IsLoggedIn = true;

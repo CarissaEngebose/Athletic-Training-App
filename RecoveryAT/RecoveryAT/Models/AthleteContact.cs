@@ -8,19 +8,29 @@
 
 namespace RecoveryAT
 {
-    // Represents an athlete with relevant information for tracking injuries and status
+    /// <summary>
+    /// Represents an athlete contact with relevant information for the athlete
+    /// </summary>
     public class AthleteContact
     {
-        // Unique identifier for the athlete's form 
+        /// <summary>
+        /// Unique identifier for the contact
+        /// </summary>
         public long ContactID { get; set; }
 
-        // Unique identifier for the athlete's form 
+        /// <summary>
+        /// Unique identifier for the athlete's form 
+        /// </summary>
         public long FormKey { get; set; }
 
-        // Identifier for the contact's relationship to the athlete
+        /// <summary>
+        /// Identifier for the contact's relationship to the athlete
+        /// </summary> 
         public string ContactType { get; set; }
 
-        // Identifier for the contact's phone number
+        /// <summary>
+        /// Identifier for the contact's phone number
+        /// </summary> 
         public string PhoneNumber { get; set; }
 
         /// <summary>

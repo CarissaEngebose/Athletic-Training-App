@@ -105,61 +105,95 @@ namespace RecoveryAT
         /// <summary>
         /// Inserts a new user into the system.
         /// </summary>
+        /// <param name="firstName">The first name of the athlete.</param>
+        /// <param name="lastName">The last name of the athlete.</param>
+        /// <param name="email">The athlete's email.</param>
+        /// <param name="hashedPassword">The hashed password of the user's password.</param>
+        /// <param name="schoolName">The school name associated with the user.</param>
+        /// <param name="schoolCode">The school code associated the the user.</param>
+        /// <param name="key">The unique key to encrypt and decrypt the user's school name.</param>
+        /// <param name="iv">The unique iv to encrypt and decrypt the user's school name.</param>
+        /// <returns>A message indicating if the form was successfully inserted.</returns>
         string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
 
         /// <summary>
         /// Retrieves the last inserted form key for a given school code.
         /// </summary>
+        /// <param name="schoolCode">The school name to get the last inserted form from the database.</param>
+        /// <returns>The form key that was just inserted for a school code.</returns>
         long GetLastInsertedFormKey(string schoolCode);
 
         /// <summary>
-        /// Validates user credentials (placeholder).
+        /// Validates user credentials
         /// </summary>
+        /// <param name="email">The email associated with the user.</param>
+        /// <param name="password">The password the user just entered.</param>
+        /// <returns>True if the credentials are valid.</returns>
         bool ValidateCredentials(string email, string password);
 
         /// <summary>
         /// Retrieves forms created on a specific date.
         /// </summary>
+        /// <param name="schoolCode">The school code of the forms.</param>
+        /// <param name="dateCreated">The date the form was created.</param>
+        /// <returns>A list of AthleteForms for a certain date.</returns>
         ObservableCollection<AthleteForm> GetFormsByDateCreated(string schoolCode, DateTime dateCreated);
 
         /// <summary>
         /// Searches for athletes based on a query string.
         /// </summary>
+        /// <param name="query">The user's entered search criteria.</param>
+        /// <returns>A list of AthleteForms that have the query in it anywhere.</returns>
         ObservableCollection<AthleteForm> SearchAthletes(string query);
 
         /// <summary>
         /// Searches athletes by contact information.
         /// </summary>
+        /// <param name="query">The query to search for the athlete's contact.</param>
+        /// <returns>A list of AthleteForms for the specified criteria.</returns>
         ObservableCollection<AthleteForm> SearchAthletesByContact(string query);
 
         /// <summary>
         /// Retrieves forms created before today.
         /// </summary>
+        /// <returns>A list of AthleteForms for a date less than today.</returns>
         ObservableCollection<AthleteForm> GetFormsBeforeToday();
 
         /// <summary>
         /// Saves an updated form along with associated contacts.
         /// </summary>
+        /// <param name="form">The athlete form that was updated.</param>
+        /// <param name="updatedContacts">The contact for the athlete that was updated.</param>
+        /// <returns>A string stating if the updated form was saved.</returns>
         string SaveUpdatedForm(AthleteForm form, List<AthleteContact> updatedContacts);
 
         /// <summary>
         /// Retrieves contacts associated with a specific form key.
         /// </summary>
+        /// <param name="formKey">The form key to get the contacts by.</param>
+        /// <returns>A list of AthleteContacts that correspond to the athlete's form.</returns>
         ObservableCollection<AthleteContact> GetContactsByFormKey(long formKey);
 
         /// <summary>
         /// Searches athletes based on multiple criteria.
         /// </summary>
+        /// <param name="query">The search criteria for the athletes.</param>
+        /// <returns>A list of athletes that match the criteria.</returns>
         ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query);
 
         /// <summary>
         /// Retrieves injury statistics for all sports within a school.
         /// </summary>
+        /// <param name="schoolCode">The school code to search for the forms.</param>
+        /// <returns>A list of statistics for all sports for a school.</returns>
         ObservableCollection<InjuryStatistic>? GetStatisticsForAllSports(string schoolCode);
 
         /// <summary>
         /// Retrieves injury statistics for a specific sport within a school.
         /// </summary>
+        /// <param name="schoolCode">The school code to search for the forms.</param>
+        /// <param name="sport">The sport to find the statistics for.</param>
+        /// <returns>A list of statistics for a certain sport for a school.</returns>
         ObservableCollection<InjuryStatistic>? GetStatisticsForSport(string schoolCode, string sport);
 
         /// <summary>
@@ -226,6 +260,11 @@ namespace RecoveryAT
         /// <returns>True if the update was successful; otherwise, false.</returns>
         bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email);
 
+        /// <summary>
+        /// Selects the all the forms by a school code.
+        /// </summary>
+        /// <param name="schoolCode">The school to search for the forms.</param>
+        /// <returns>A list of all the forms for a specific school.</returns>
         ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode);
 
     }

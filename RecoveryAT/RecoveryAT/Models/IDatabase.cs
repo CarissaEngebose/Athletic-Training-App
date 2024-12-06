@@ -1,10 +1,10 @@
 /**
-    Name: Carissa Engebose
-    Date: 10/27/24
-    Description: Database implementation for the RecoveryAT app including functionality to insert, update, delete and select forms from where they are
-    stored in the database.
-    Bugs: None that I know of.
-    Reflection: This database interface didn't take too much time once I figured out what functions I wanted to start with.
+    Date: 12/05/24
+    Description: Database implementation for the RecoveryAT app including functionality to insert, update, delete and select forms and users
+    from where they are stored in the database.
+    Bugs: None that we know of.
+    Reflection: This database interface took a little bit of time over the course of all the sprints because we started implementing
+    the database screen by screen so it developed over time. 
 **/
 
 using System;

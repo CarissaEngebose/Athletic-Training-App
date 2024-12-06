@@ -1,11 +1,10 @@
 /**
-    Name: Carissa Engebose
-    Date: 10/27/24
-    Description: Database implementation for the RecoveryAT app including functionality to insert, update, delete and select forms from where they are
-    stored in the database.
+    Date: 12/05/24
+    Description: Database implementation for the RecoveryAT app including functionality to insert, update, delete and select forms and users
+    from where they are stored in the database.
     Bugs: None that I know of.
-    Reflection: The database took a little bit of time to set up because of all of the parameters it has but other than
-    that it was fine.
+    Reflection: The database took a quite a bit of time because we started going screen by screen and implementing the database that way
+    which can take a bit of time for each sprint but overall we think it went well.
 **/
 
 using System;
@@ -80,12 +79,13 @@ namespace RecoveryAT
         /// <returns>The list of forms if they exists; otherwise, null.</returns>
         public ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode)
         {
-            forms.Clear();
+            forms.Clear(); // clear any forms that may be in the list
 
             try
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
+                // get the information from the database for all forms using the school code
                 using var cmd = new NpgsqlCommand(@"
                 SELECT form_key, school_code, first_name, last_name, sport, injured_area,
                        injured_side, treatment_type, athlete_comments, athlete_status, 
@@ -97,7 +97,7 @@ namespace RecoveryAT
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    var form = new AthleteForm(
+                    var form = new AthleteForm( // creates a new athlete form with the information from the database
                         formKey: reader.GetInt64(0),
                         schoolCode: reader.GetString(1),
                         firstName: reader.GetString(2),
@@ -119,7 +119,6 @@ namespace RecoveryAT
             {
                 Console.WriteLine($"Database error: {ex.Message}");
             }
-
             return forms;
         }
 
@@ -137,6 +136,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
+                // get the information from the database for all forms using the school code and the date created
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
@@ -146,7 +146,7 @@ namespace RecoveryAT
             AND date_created = @dateCreated",
                     conn
                 );
-                cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the parameter value.
+                cmd.Parameters.AddWithValue("school_code", schoolCode); // set the parameter value
                 cmd.Parameters.AddWithValue("dateCreated", dateCreated);
                 using var reader = cmd.ExecuteReader();
 
@@ -189,7 +189,6 @@ namespace RecoveryAT
                 // Handle any database-specific errors.
                 Console.WriteLine($"Database error: {ex.Message}");
             }
-
             return forms;
         }
 
@@ -207,7 +206,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // gets the form information using the school code and the date created
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
@@ -275,6 +274,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
+                // get the form information using the form key
                 using var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport, injured_area, 
                    injured_side, treatment_type, athlete_comments, athlete_status, 
@@ -339,7 +339,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // inserts the athlete form into the database using the parameters
                 using var cmd = new NpgsqlCommand(@"
                 INSERT INTO athlete_forms 
                 (school_code, first_name, last_name, sport, injured_area, injured_side, treatment_type,
@@ -347,7 +347,7 @@ namespace RecoveryAT
                 VALUES (@schoolCode, @firstName, @lastName, @sport, @injuredArea, @injuredSide, @treatmentType,
                         @athleteComments, @status, @dateCreated, @dateSeen, @dateOfBirth)", conn);
 
-                cmd.Parameters.AddWithValue("schoolCode", form.SchoolCode);
+                cmd.Parameters.AddWithValue("schoolCode", form.SchoolCode); // set the parameter values
                 cmd.Parameters.AddWithValue("firstName", form.FirstName);
                 cmd.Parameters.AddWithValue("lastName", form.LastName);
                 cmd.Parameters.AddWithValue("sport", form.Sport);
@@ -364,6 +364,7 @@ namespace RecoveryAT
 
                 if (rowsAffected > 0)
                 {
+                    // if there are rows effected, the form was added successfully
                     forms.Add(form);
                     return "Form added successfully.";
                 }
@@ -390,13 +391,13 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // delete the form from the database using the form key
                 using var cmd = new NpgsqlCommand("DELETE FROM athlete_forms WHERE form_key = @formKey", conn);
                 cmd.Parameters.AddWithValue("formKey", formKey);
 
                 int numRowsAffected = cmd.ExecuteNonQuery();
 
-                // If the deletion is successful, remove the airport from the local collection.
+                // If the deletion is successful, remove the form from the local collection.
                 if (numRowsAffected > 0)
                 {
                     var formToDelete = forms.FirstOrDefault(a => a.FormKey == formKey);
@@ -437,6 +438,7 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // update the table in the database for the form 
                 using var cmd = new NpgsqlCommand(@"
                 UPDATE athlete_forms 
                 SET treatment_type = @treatmentType, 
@@ -446,7 +448,7 @@ namespace RecoveryAT
                     date_of_birth = @dateOfBirth
                 WHERE form_key = @formKey", conn);
 
-                cmd.Parameters.AddWithValue("formKey", form.FormKey);
+                cmd.Parameters.AddWithValue("formKey", form.FormKey); // set the parameters to update a specific form
                 cmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("athleteComments", form.AthleteComments ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("status", form.Status ?? (object)DBNull.Value);
@@ -457,6 +459,7 @@ namespace RecoveryAT
 
                 if (rowsAffected > 0)
                 {
+                    // if the form was updated return that the form updated successfully
                     var index = forms.IndexOf(forms.First(a => a.FormKey == form.FormKey));
                     if (index >= 0)
                     {
@@ -490,11 +493,12 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // insert the user using the parameters
                 using var cmd = new NpgsqlCommand(@"
                 INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv)
                 VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode, @key, @iv)", conn);
 
-                cmd.Parameters.AddWithValue("firstName", firstName);
+                cmd.Parameters.AddWithValue("firstName", firstName); // set the parameters to insert the form into the database
                 cmd.Parameters.AddWithValue("lastName", lastName);
                 cmd.Parameters.AddWithValue("email", email);
                 cmd.Parameters.AddWithValue("hashedPassword", hashedPassword);
@@ -505,6 +509,7 @@ namespace RecoveryAT
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
+                // if rows were affected, return a successful message, otherwise return failed message
                 return rowsAffected > 0 ? "User account created successfully." : "Failed to create user account.";
             }
             catch (Npgsql.PostgresException ex)
@@ -567,6 +572,11 @@ namespace RecoveryAT
             return searchResults;
         }
 
+        /// <summary>
+        /// Searches athletes based on multiple criteria.
+        /// </summary>
+        /// <param name="query">The search criteria for the athletes.</param>
+        /// <returns>A list of athletes that match the criteria.</returns>
         public ObservableCollection<AthleteForm> SearchAthletesByMultipleCriteria(string query)
         {
             var searchResults = new ObservableCollection<AthleteForm>();
@@ -575,7 +585,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // searches all columns like the query provdided
                 var cmd = new NpgsqlCommand(@"
             SELECT form_key, school_code, first_name, last_name, sport,
                    injured_area, injured_side, treatment_type, athlete_comments,
@@ -589,7 +599,7 @@ namespace RecoveryAT
             OR CAST(date_created AS TEXT) LIKE @query
             OR CAST(date_of_birth AS TEXT) LIKE @query", conn);
 
-                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
+                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%"); // set the query parameter to find the results
 
                 using var reader = cmd.ExecuteReader();
 
@@ -611,7 +621,7 @@ namespace RecoveryAT
                         dateSeen: reader.IsDBNull(11) ? (DateTime?)null : reader.GetDateTime(11),
                         dateOfBirth: reader.GetDateTime(12)
                     );
-                    searchResults.Add(form);
+                    searchResults.Add(form); // adds the results to the list
                 }
             }
             catch (Exception ex)
@@ -622,6 +632,10 @@ namespace RecoveryAT
             return searchResults;
         }
 
+        /// <summary>
+        /// Retrieves all athlete forms from the database.
+        /// </summary>
+        /// <returns>An observable collection of all athlete forms.</returns>
         public ObservableCollection<AthleteForm> SelectAllForms()
         {
             forms.Clear();
@@ -630,7 +644,7 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // selects all forms from the database
                 using var cmd = new NpgsqlCommand(@"
                 SELECT form_key, school_code, first_name, last_name, sport, injured_area,
                        injured_side, treatment_type, athlete_comments, athlete_status, 
@@ -777,17 +791,18 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // inserts the new contact into the database
                 using var cmd = new NpgsqlCommand(@"
                 INSERT INTO public.athlete_contacts (form_key, contact_type, phone_number)
                 VALUES (@formKey, @contactType, @phoneNumber)", conn);
 
-                cmd.Parameters.AddWithValue("formKey", formKey);
+                cmd.Parameters.AddWithValue("formKey", formKey); // set parameters to insert contacts in the database
                 cmd.Parameters.AddWithValue("contactType", contactType);
                 cmd.Parameters.AddWithValue("phoneNumber", phoneNumber);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
+                // if rows were affected, return successful message, otherwise return failed message
                 return rowsAffected > 0 ? "Contact added successfully." : "Failed to add contact.";
             }
             catch (Npgsql.PostgresException ex)
@@ -815,19 +830,19 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // selects the contact information using the form key parameter
                 using var cmd = new NpgsqlCommand(@"
                 SELECT contact_id, form_key, contact_type, phone_number
                 FROM public.athlete_contacts
                 WHERE form_key = @formKey", conn);
 
-                cmd.Parameters.AddWithValue("formKey", formKey);
+                cmd.Parameters.AddWithValue("formKey", formKey); // set the parameter to select contacts using the form key
 
                 using var reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    var contact = new AthleteContact(
+                    var contact = new AthleteContact( // create a new athlete contact using the information from the database
                         reader.GetInt64(0),     // contact_id
                         reader.GetInt64(1),     // form_key
                         reader.GetString(2),    // contact_type
@@ -840,7 +855,6 @@ namespace RecoveryAT
             {
                 Console.WriteLine($"Database error: {ex.Message}");
             }
-
             return contacts;
         }
 
@@ -855,11 +869,13 @@ namespace RecoveryAT
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
-
+                // delete a contact from the database using the contact id
                 using var cmd = new NpgsqlCommand("DELETE FROM public.athlete_contacts WHERE contact_id = @contactID", conn);
                 cmd.Parameters.AddWithValue("contactID", contactID);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
+
+                // if rows were affected, return successful message, otherwise return not found message
                 return rowsAffected > 0 ? "Contact deleted successfully." : "Contact not found.";
             }
             catch (Npgsql.PostgresException ex)
@@ -874,6 +890,11 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Retrieves the last inserted form key for a given school code.
+        /// </summary>
+        /// <param name="schoolCode">The school name to get the last inserted form from the database.</param>
+        /// <returns>The form key that was just inserted for a school code.</returns>
         public long GetLastInsertedFormKey(string schoolCode)
         {
             long lastFormKey = 0;
@@ -883,6 +904,7 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // selects the form key that was most recently created
                 using var cmd = new NpgsqlCommand(@"
                 SELECT form_key 
                 FROM public.athlete_forms
@@ -890,7 +912,7 @@ namespace RecoveryAT
                 ORDER BY date_created DESC
                 LIMIT 1", conn);
 
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode); // adds the school code as the parameter to search by
 
                 var result = cmd.ExecuteScalar();
                 if (result != null)
@@ -906,6 +928,12 @@ namespace RecoveryAT
             return lastFormKey;
         }
 
+        /// <summary>
+        /// Updates the contact status of an athlete form.
+        /// </summary>
+        /// <param name="formKey">The unique identifier for the athlete form.</param>
+        /// <param name="newStatus">The new contact status to apply.</param>
+        /// <returns>A string indicating success or failure of the update.</returns>
         public string UpdateContactStatus(long? formKey, string newStatus)
         {
             if (!formKey.HasValue)
@@ -919,22 +947,30 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // update the table in the database and set the status to the new status
                 using var cmd = new NpgsqlCommand(
                     "UPDATE athlete_forms SET athlete_status = @newStatus WHERE form_key = @formKey", conn);
-                cmd.Parameters.AddWithValue("formKey", formKey.Value);
+                cmd.Parameters.AddWithValue("formKey", formKey.Value); // sets parameters for status and form key
                 cmd.Parameters.AddWithValue("newStatus", newStatus);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
+                // if rows were affected, return successful message, otherwise return not exist method
                 return rowsAffected > 0 ? "Contact status updated successfully." : "No rows affected. The specified formKey may not exist.";
             }
             catch (Exception ex)
             {
+                // catch database errors
                 Console.WriteLine($"Error updating contact status: {ex.Message}");
                 return "An error occurred while updating the contact status.";
             }
         }
 
+        /// <summary>
+        /// Searches athletes by contact information.
+        /// </summary>
+        /// <param name="query">The query to search for the athlete's contact.</param>
+        /// <returns>A list of AthleteForms for the specified criteria.</returns>
         public ObservableCollection<AthleteForm> SearchAthletesByContact(string query)
         {
             var searchResults = new ObservableCollection<AthleteForm>();
@@ -1082,7 +1118,11 @@ namespace RecoveryAT
             }
         }
 
-        // Method to retrieve injury statistics for a specific school
+        /// <summary>
+        /// Retrieves injury statistics for all sports within a school.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for the forms.</param>
+        /// <returns>A list of statistics for all sports for a school.</returns>
         public ObservableCollection<InjuryStatistic> GetStatisticsForAllSports(string schoolCode)
         {
             var injuryStatistics = new ObservableCollection<InjuryStatistic>();
@@ -1128,7 +1168,12 @@ namespace RecoveryAT
             }
         }
 
-        // Method to retrieve injury statistics for a specific school and sport
+        /// <summary>
+        /// Retrieves injury statistics for a specific sport within a school.
+        /// </summary>
+        /// <param name="schoolCode">The school code to search for the forms.</param>
+        /// <param name="sport">The sport to find the statistics for.</param>
+        /// <returns>A list of statistics for a certain sport for a school.</returns>
         public ObservableCollection<InjuryStatistic> GetStatisticsForSport(string schoolCode, string sport)
         {
             var injuryStatistics = new ObservableCollection<InjuryStatistic>();
@@ -1145,7 +1190,7 @@ namespace RecoveryAT
                     WHERE school_code = @schoolCode AND sport = @sport
                     GROUP BY injured_area", conn);
 
-                // add parameters
+                // add parameters to search by
                 cmd.Parameters.AddWithValue("schoolCode", schoolCode);
                 cmd.Parameters.AddWithValue("sport", sport);
 
@@ -1154,7 +1199,7 @@ namespace RecoveryAT
                 // read the results and add them to the statistics collection
                 while (reader.Read())
                 {
-                    injuryStatistics.Add(new InjuryStatistic
+                    injuryStatistics.Add(new InjuryStatistic // create new injury statistic with results returned from database
                     {
                         InjuryType = reader.GetString(0),
                         Percentage = reader.GetFloat(1),
@@ -1175,6 +1220,11 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Deletes a user account based on their email.
+        /// </summary>
+        /// <param name="email">The email of the user to delete.</param>
+        /// <returns>True if the user account was successfully deleted, otherwise false.</returns>
         public bool DeleteUserAccount(string email)
         {
             try
@@ -1182,8 +1232,10 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // delete the user where the email matches the parameter
                 using var cmd = new NpgsqlCommand("DELETE FROM users WHERE email = @Email", conn);
-                cmd.Parameters.AddWithValue("Email", email);
+
+                cmd.Parameters.AddWithValue("Email", email); // set the parameter for email to delete by
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -1215,6 +1267,7 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // selects user information from the database using the email
                 using var cmd = new NpgsqlCommand(@"
                 SELECT first_name, last_name, email, school_name, school_code
                 FROM public.users
@@ -1224,7 +1277,7 @@ namespace RecoveryAT
 
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
-                {
+                { // creates a dictionary to store the user information
                     userInfo["FirstName"] = reader.GetString(0);
                     userInfo["LastName"] = reader.GetString(1);
                     userInfo["Email"] = reader.GetString(2);
@@ -1259,17 +1312,18 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // selects the user information using the email
                 using var cmd = new NpgsqlCommand(@"
                 SELECT first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv
                 FROM public.users
                 WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("Email", email); // set the email parameter to search the database
 
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    user = new User(
+                    user = new User( // create a new user using the information returned by the database
                         firstName: reader.GetString(0),
                         lastName: reader.GetString(1),
                         email: reader.GetString(2),
@@ -1280,7 +1334,6 @@ namespace RecoveryAT
                         iv: reader.GetString(7)
                     );
                     return user;
-
                 }
                 else
                 {
@@ -1307,12 +1360,13 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // determines if the email is in the database
                 using var cmd = new NpgsqlCommand(@"
-        SELECT COUNT(1)
-        FROM public.users
-        WHERE email = @Email", conn);
+                SELECT COUNT(1)
+                FROM public.users
+                WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("Email", email); // sets the parameter to search the database for the email
 
                 var result = cmd.ExecuteScalar();
                 return result != null && (long)result > 0; // True if email exists, false otherwise
@@ -1329,6 +1383,16 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Updates a user's profile information in the database.
+        /// </summary>
+        /// <param name="originalEmail">The original email of the user (used as a key).</param>
+        /// <param name="firstName">The updated first name.</param>
+        /// <param name="lastName">The updated last name.</param>
+        /// <param name="schoolName">The updated school name.</param>
+        /// <param name="schoolCode">The updated school code.</param>
+        /// <param name="email">The updated email.</param>
+        /// <returns>True if the update was successful; otherwise, false.</returns>
         public bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email)
         {
             try
@@ -1336,6 +1400,7 @@ namespace RecoveryAT
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
 
+                // updates the database using the parameters
                 using var cmd = new NpgsqlCommand(@"
                 UPDATE public.users
                 SET first_name = @FirstName, 
@@ -1345,7 +1410,7 @@ namespace RecoveryAT
                     email = @Email
                 WHERE email = @OriginalEmail", conn);
 
-                cmd.Parameters.AddWithValue("FirstName", firstName);
+                cmd.Parameters.AddWithValue("FirstName", firstName); // set the parameters used to update the user information
                 cmd.Parameters.AddWithValue("LastName", lastName);
                 cmd.Parameters.AddWithValue("SchoolName", schoolName);
                 cmd.Parameters.AddWithValue("SchoolCode", schoolCode);
