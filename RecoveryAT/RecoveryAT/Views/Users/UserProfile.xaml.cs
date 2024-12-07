@@ -18,6 +18,24 @@ namespace RecoveryAT
         {
             InitializeComponent(); // initialize the XAML components
             _user = ((App)Application.Current).User; // access the user from App
+            BindingContext = _user; // Set the binding context for data binding
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (_user == null || string.IsNullOrWhiteSpace(_user.Email))
+            {
+                DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
+                return;
+            }
+
+            // Update additional fields manually if needed
+            NameLabel.Text = _user.FullName;
+            SchoolNameLabel.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
+            SchoolCodeLabel.Text = _user.SchoolCode;
+            EmailLabel.Text = _user.Email;
         }
 
         // Event handler for when the "Edit" button or icon is tapped
@@ -64,35 +82,6 @@ namespace RecoveryAT
                 {
                     await DisplayAlert("Error", "An error occurred while deleting your account. Please try again later.", "OK");
                 }
-            }
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            string email = _user.Email; // Get the logged-in user's email
-
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
-                return;
-            }
-
-            // Fetch user data from the database via BusinessLogic
-            User user = MauiProgram.BusinessLogic.GetUserFromEmail(email);
-
-            if (_user != null)
-            {
-                // Update UI elements directly
-                NameLabel.Text = _user.FullName;
-                SchoolNameLabel.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
-                SchoolCodeLabel.Text = _user.SchoolCode;
-                EmailLabel.Text = _user.Email;
-            }
-            else
-            {
-                DisplayAlert("Error", "User information could not be loaded.", "OK");
             }
         }
     }

@@ -12,7 +12,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecoveryAT.UserProfileEdit"
              BackgroundColor="White"
-             Title="Edit Profile">
+             Title="">
 
     <!-- Wrap the entire Grid in a ScrollView -->
     <ScrollView>
@@ -147,9 +147,30 @@
                                IsReadOnly="True"/>
                     </StackLayout>
                 </Frame>
+
+                <!-- Password -->
+                <Frame BorderColor="Gray"
+                       CornerRadius="5"
+                       Padding="10"
+                       Margin="10"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="Start">
+                    <StackLayout>
+                        <Label Text="Password"
+                               FontSize="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Email"
+                               FontSize="14"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
             </StackLayout>
 
-            <!-- Buttons (Save on top of Cancel) -->
+            <!-- Buttons -->
             <StackLayout Grid.Row="2"
                          Orientation="Vertical"
                          Spacing="10"

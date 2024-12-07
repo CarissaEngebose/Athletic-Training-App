@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Date: 12/06/24
+    Description: This page allows users to add contact information for athletes, 
+                 including their phone number and relationship to the athlete.
+    Bugs: None
+    Reflection: This was very easy to implement because there isn't anything in it,
+                but the declaration of the XML file
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecoveryAT.AthleteButtonPage"
+             Title=""
+             BackgroundColor="White">
+    <StackLayout Padding="20" Spacing="25">
+        <!-- Medical Icon -->
+        <Image Source="medical_icon.png"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               WidthRequest="75"
+               HeightRequest="75" />
+
+        <!-- Page Title -->
+        <Label Text="Athlete Management"
+               FontSize="33"
+               TextColor="Black"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Padding="0,10,0,60" />
+
+        <!-- Buttons Grid -->
+        <Grid RowDefinitions="*,*"
+              ColumnDefinitions="*,*"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              ColumnSpacing="20"
+              RowSpacing="20">
+            
+            <!-- Athlete Info Button -->
+            <Frame Grid.Row="0"
+                   Grid.Column="0"
+                   BackgroundColor="#6F8FAF"
+                   CornerRadius="15"
+                   WidthRequest="170"
+                   HeightRequest="170"
+                   HasShadow="True"
+                   Padding="0">
+                <Grid>
+                    <Button BackgroundColor="Transparent"
+                            Clicked="OnAthleteInfoClicked"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                    <StackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                        <Image Source="athlete_icon.png"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="Athlete Information"
+                               FontSize="17"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <!-- Athlete Forms Button -->
+            <Frame Grid.Row="0"
+                   Grid.Column="1"
+                   BackgroundColor="#6F8FAF"
+                   CornerRadius="15"
+                   WidthRequest="170"
+                   HeightRequest="170"
+                   HasShadow="True"
+                   Padding="0">
+                <Grid>
+                    <Button BackgroundColor="Transparent"
+                            Clicked="OnAthleteFormsClicked"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                    <StackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                        <Image Source="forms_icon.png"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="Athlete Past Forms"
+                               FontSize="17"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <!-- Injury Statistics Button -->
+            <Frame Grid.Row="1"
+                   Grid.Column="0"
+                   BackgroundColor="#6F8FAF"
+                   CornerRadius="15"
+                   WidthRequest="170"
+                   HeightRequest="170"
+                   HasShadow="True"
+                   Padding="0">
+                <Grid>
+                    <Button BackgroundColor="Transparent"
+                            Clicked="OnInjuryStatisticsClicked"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                    <StackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                        <Image Source="statistics_icon.png"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="Injury Statistics"
+                               FontSize="17"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+            <!-- Athlete Statuses Button -->
+            <Frame Grid.Row="1"
+                   Grid.Column="1"
+                   BackgroundColor="#6F8FAF"
+                   CornerRadius="15"
+                   WidthRequest="170"
+                   HeightRequest="170"
+                   HasShadow="True"
+                   Padding="0">
+                <Grid>
+                    <Button BackgroundColor="Transparent"
+                            Clicked="OnAthleteStatusesClicked"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand" />
+                    <StackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                        <Image Source="statuses_icon.png"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               HorizontalOptions="Center" />
+                        <Label Text="Athlete Statuses"
+                               FontSize="17"
+                               TextColor="White"
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </StackLayout>
+</ContentPage>

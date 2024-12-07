@@ -14,7 +14,6 @@
              BackgroundColor="White">
 
     <ContentPage.Content>
-       <!-- changed to a scroll view so I can scroll and see bottom fields - Dominick-->
         <ScrollView>
             <!-- Main Content -->
             <StackLayout Padding="30"

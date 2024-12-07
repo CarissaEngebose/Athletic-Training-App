@@ -138,7 +138,7 @@
                                                         HorizontalOptions="Start"
                                                         VerticalOptions="Center"
                                                         FontAttributes="Bold"/>
-                                                 <Label Text="***********"
+                                                 <Label Text="***************"
                                                         FontSize="14"
                                                         HorizontalOptions="Start"
                                                         VerticalOptions="Start"/>

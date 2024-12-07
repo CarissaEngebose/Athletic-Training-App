@@ -163,7 +163,6 @@ Reflection: This screen took a little while to get the layout exactly how we wan
     </Picker>
 </Frame>
 
-
                      <!-- Comments -->
                      <Label Text="Comments"
                             FontAttributes="Bold"
@@ -177,10 +176,10 @@ Reflection: This screen took a little while to get the layout exactly how we wan
                                     HeightRequest="100"/>
                      </Frame>
 
-                     <Button Text="Download as Text file"
+                     <Button Text="Download Responses"
                              BackgroundColor="Blue"
                              TextColor="White"
-                             FontSize="18"
+                             FontSize="20"
                              CornerRadius="25"
                              Padding="5"
                              HeightRequest="50"

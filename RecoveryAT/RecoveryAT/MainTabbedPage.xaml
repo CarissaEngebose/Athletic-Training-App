@@ -26,7 +26,7 @@
         <!-- Athletes Tab -->
         <NavigationPage IconImageSource="running_icon.png" Title="Athletes">
             <x:Arguments>
-                <local:AthleteTabbedPage /> <!-- Displays the AthleteTabbedPage -->
+                <local:AthleteButtonPage /> <!-- Displays the AthleteButtonPage -->
             </x:Arguments>
         </NavigationPage>
 
