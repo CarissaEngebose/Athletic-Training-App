@@ -62,19 +62,5 @@ namespace RecoveryAT
 
             await Navigation.PushAsync(new AthleteFormInformation(selectedAthleteForm));
         }
-
-        // Navigate to the next week
-        private void SetNextWeek()
-        {
-            DatePicker.Date = DatePicker.Date.AddDays(7);
-            LoadAthleteFormsForDay(DatePicker.Date);
-        }
-
-        // Navigate to the previous week
-        private void SetPreviousWeek()
-        {
-            DatePicker.Date = DatePicker.Date.AddDays(-7);
-            LoadAthleteFormsForDay(DatePicker.Date);
-        }
     }
 }
