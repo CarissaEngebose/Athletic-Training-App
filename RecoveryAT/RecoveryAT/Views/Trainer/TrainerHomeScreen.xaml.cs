@@ -5,50 +5,76 @@
     Reflection: Straightforward implementation with effective use of bindings and event handlers.
 **/
 
-using CalendarManagment;
+using System.Collections.ObjectModel;
 
 namespace RecoveryAT
 {
     public partial class TrainerHomeScreen : ContentPage
     {
-        public TrainerHomeScreenViewModel ViewModel; // ViewModel for binding data and handling logic for the trainer home screen.
-        public User user; // Represents the current user logged into the application.
-        private string schoolCode; // School code associated with the trainer for filtering data.
-        private IBusinessLogic _businessLogic; 
+        public ObservableCollection<AthleteForm> AthleteForms { get; set; } // Collection for binding athlete forms
+        public User User { get; set; } // Current logged-in user
+        private string SchoolCode { get; set; } // School code associated with the trainer
+        private IBusinessLogic _businessLogic; // Business logic interface
+
         public TrainerHomeScreen()
         {
-            InitializeComponent(); 
-            user = ((App)Application.Current).User; // Retrieve the current user from the application instance.
-            schoolCode = user.SchoolCode; // Get the school code for the logged-in user.
-            _businessLogic = MauiProgram.BusinessLogic; 
+            InitializeComponent();
 
-            ViewModel = new TrainerHomeScreenViewModel(_businessLogic, schoolCode);
-            BindingContext = ViewModel;
+            // Initialize properties
+            User = ((App)Application.Current).User;
+            SchoolCode = User.SchoolCode;
+            _businessLogic = MauiProgram.BusinessLogic;
+            AthleteForms = new ObservableCollection<AthleteForm>();
 
-            // Initialize the DatePicker with today's date.
+            // Bind data
+            BindingContext = this;
+
+            // Initialize DatePicker
             DatePicker.Date = DateTime.Today;
-            ViewModel.Calendar.SelectedDate = new Date(DatePicker.Date); // Update the calendar's selected date.
+
+            // Load forms for today's date
+            LoadAthleteFormsForDay(DateTime.Today);
         }
 
-        // Event handler for date selection changes in the DatePicker.
+        // Event handler for date selection changes
         private void OnDateSelected(object sender, DateChangedEventArgs e)
         {
-            // Update the ViewModel's selected date.
-            ViewModel.Calendar.SelectedDate = new Date(e.NewDate);
-
-            // Load athlete forms for the newly selected date.
-            ViewModel.LoadAthleteFormsForDay(e.NewDate);
+            LoadAthleteFormsForDay(e.NewDate);
         }
 
-        // Event handler for tapping on a frame containing athlete form information.
+        // Load athlete forms for the selected date
+        private void LoadAthleteFormsForDay(DateTime date)
+        {
+            AthleteForms.Clear();
+            var forms = _businessLogic.GetFormsByDateCreated(SchoolCode, date);
+
+            foreach (var form in forms)
+            {
+                AthleteForms.Add(form);
+            }
+        }
+
+        // Event handler for navigating to athlete form details
         public async void OnFrameTapped(object sender, EventArgs e)
         {
-            // Retrieve the tapped frame and its associated athlete form data.
             Frame athleteFormFrame = (Frame)sender;
             AthleteForm selectedAthleteForm = (AthleteForm)athleteFormFrame.BindingContext;
 
-            // Navigate to the AthleteFormInformation page to display details of the selected form.
             await Navigation.PushAsync(new AthleteFormInformation(selectedAthleteForm));
+        }
+
+        // Navigate to the next week
+        private void SetNextWeek()
+        {
+            DatePicker.Date = DatePicker.Date.AddDays(7);
+            LoadAthleteFormsForDay(DatePicker.Date);
+        }
+
+        // Navigate to the previous week
+        private void SetPreviousWeek()
+        {
+            DatePicker.Date = DatePicker.Date.AddDays(-7);
+            LoadAthleteFormsForDay(DatePicker.Date);
         }
     }
 }
