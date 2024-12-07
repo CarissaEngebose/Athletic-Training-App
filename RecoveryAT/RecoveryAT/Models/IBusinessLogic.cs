@@ -266,5 +266,12 @@ namespace RecoveryAT
         /// <returns>A list of all the forms for a specific school.</returns>
         ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode);
 
+        /// <summary>
+        /// Updates the password for a user.
+        /// </summary>
+        /// <param name="email">The email of the user whose password is being updated.</param>
+        /// <param name="hashedPassword">The new hashed password.</param>
+        /// <returns>True if the password was successfully updated; otherwise, false.</returns>
+        bool UpdateUserPassword(string email, string hashedPassword);
     }
 }

@@ -81,5 +81,13 @@ namespace RecoveryAT
         /// <param name="email">The updated email.</param>
         /// <returns>True if the update was successful; otherwise, false.</returns>
         bool UpdateUserProfile(string originalEmail, string firstName, string lastName, string schoolName, string schoolCode, string email);
+
+        /// <summary>
+        /// Updates the password for a user.
+        /// </summary>
+        /// <param name="email">The email of the user.</param>
+        /// <param name="hashedPassword">The new hashed password.</param>
+        /// <returns>True if the password was updated successfully; otherwise, false.</returns>
+        bool UpdateUserPassword(string email, string hashedPassword);
     }
 }

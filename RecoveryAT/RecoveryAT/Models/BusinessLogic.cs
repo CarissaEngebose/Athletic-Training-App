@@ -59,7 +59,7 @@ namespace RecoveryAT
                 string.IsNullOrWhiteSpace(codePart4) ||
                 string.IsNullOrWhiteSpace(codePart5))
             {
-                return "Code must be 5 characters."; 
+                return "Code must be 5 characters.";
             }
             string schoolCode = string.Concat(codePart1, codePart2, codePart3, codePart4, codePart5); // put all the values together to store in the database
 
@@ -73,7 +73,7 @@ namespace RecoveryAT
         /// <returns>True if the school exists, false otherwise.</returns>
         public bool SchoolCodeExists(string schoolCode)
         {
-            return _database.IsValidSchoolCode(schoolCode); 
+            return _database.IsValidSchoolCode(schoolCode);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace RecoveryAT
         /// <returns>An observable collection of all athlete forms.</returns>
         public ObservableCollection<AthleteForm> GetAllForms()
         {
-            return _formsDatabase.SelectAllForms(); 
+            return _formsDatabase.SelectAllForms();
         }
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace RecoveryAT
                 injuredSide: injuredSide,
                 treatmentType: treatmentType,
                 dateCreated: dateCreated,
-                dateSeen: null, 
+                dateSeen: null,
                 dateOfBirth: dateOfBirth,
                 athleteComments: athleteComments,
                 status: status
@@ -470,6 +470,23 @@ namespace RecoveryAT
         public ObservableCollection<AthleteForm> SelectFormsBySchoolCode(string schoolCode)
         {
             return _formsDatabase.SelectFormsBySchoolCode(schoolCode);
+        }
+
+        /// <summary>
+        /// Updates the password for a user.
+        /// </summary>
+        /// <param name="email">The email of the user whose password is being updated.</param>
+        /// <param name="hashedPassword">The new hashed password to store for the user.</param>
+        /// <returns>True if the password was successfully updated; otherwise, false.</returns>
+        public bool UpdateUserPassword(string email, string hashedPassword)
+        {
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(hashedPassword))
+            {
+                throw new ArgumentException("Email and password cannot be null or empty.");
+            }
+
+            // Delegate the operation to the UsersDatabase instance.
+            return _usersDatabase.UpdateUserPassword(email, hashedPassword);
         }
     }
 }

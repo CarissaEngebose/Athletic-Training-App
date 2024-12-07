@@ -14,191 +14,258 @@
              BackgroundColor="White"
              Title="">
 
-    <!-- Wrap the entire Grid in a ScrollView -->
-    <ScrollView>
-        <Grid>
-            <!-- Define rows for layout -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <!-- Profile Image -->
-                <RowDefinition Height="*"/>
-                <!-- Buttons (Save and Cancel) -->
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+       <!-- Main Layout -->
+       <AbsoluteLayout>
 
-            <!-- User Icon -->
-            <Image Grid.Row="0"
-                   Source="red_cross.png"
-                   WidthRequest="120"
-                   HeightRequest="120"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Start"
-                   Margin="0,20,0,10"/>
+              <!-- Main Content -->
+              <ScrollView AbsoluteLayout.LayoutFlags="All"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1">
+                     <Grid>
+                            <!-- Define rows for layout -->
+                            <Grid.RowDefinitions>
+                                   <RowDefinition Height="Auto"/>
+                                   <RowDefinition Height="*"/>
+                                   <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-            <!-- Scrollable Content (Edit Profile Information) -->
-            <StackLayout Grid.Row="1"
-                         VerticalOptions="FillAndExpand"
-                         HorizontalOptions="FillAndExpand"
-                         Spacing="10"
-                         Padding="10">
+                            <!-- User Icon -->
+                            <Image Grid.Row="0"
+                                   Source="red_cross.png"
+                                   WidthRequest="120"
+                                   HeightRequest="120"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Start"
+                                   Margin="0,20,0,10"/>
 
-                <!-- First Name -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="First Name"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="FirstNameEntry"
-                               Placeholder="First Name"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
+                            <!-- Scrollable Content (Edit Profile Information) -->
+                            <StackLayout Grid.Row="1"
+                                         VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand"
+                                         Spacing="10"
+                                         Padding="10">
 
-                <!-- Last Name -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="Last Name"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="LastNameEntry"
-                               Placeholder="Last Name"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
+                                   <!-- First Name -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="First Name"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Entry x:Name="FirstNameEntry"
+                                                        Placeholder="First Name"
+                                                        FontSize="14"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Center"/>
+                                          </StackLayout>
+                                   </Frame>
 
-                <!-- School Name -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="School Name"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="SchoolNameEntry"
-                               Placeholder="School Name"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
+                                   <!-- Last Name -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="Last Name"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Entry x:Name="LastNameEntry"
+                                                        Placeholder="Last Name"
+                                                        FontSize="14"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Center"/>
+                                          </StackLayout>
+                                   </Frame>
 
-                <!-- School Code -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="School Code"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="SchoolCodeEntry"
-                               Placeholder="School Code"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
+                                   <!-- School Name -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="School Name"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Entry x:Name="SchoolNameEntry"
+                                                        Placeholder="School Name"
+                                                        FontSize="14"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Center"/>
+                                          </StackLayout>
+                                   </Frame>
 
-                <!-- Email -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="Email"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="EmailEntry"
-                               Placeholder="Email"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"
-                               IsReadOnly="True"/>
-                    </StackLayout>
-                </Frame>
+                                   <!-- School Code -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="School Code"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Entry x:Name="SchoolCodeEntry"
+                                                        Placeholder="School Code"
+                                                        FontSize="14"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Center"/>
+                                          </StackLayout>
+                                   </Frame>
 
-                <!-- Password -->
-                <Frame BorderColor="Gray"
-                       CornerRadius="5"
-                       Padding="10"
-                       Margin="10"
-                       HorizontalOptions="FillAndExpand"
-                       VerticalOptions="Start">
-                    <StackLayout>
-                        <Label Text="Password"
-                               FontSize="20"
-                               HorizontalOptions="Start"
-                               VerticalOptions="Start"
-                               FontAttributes="Bold"/>
-                        <Entry x:Name="PasswordEntry"
-                               Placeholder="Email"
-                               FontSize="14"
-                               HorizontalOptions="FillAndExpand"
-                               VerticalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
+                                   <!-- Email -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="Email"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Entry x:Name="EmailEntry"
+                                                        Placeholder="Email"
+                                                        FontSize="14"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Center"
+                                                        IsReadOnly="True"/>
+                                          </StackLayout>
+                                   </Frame>
 
-            <!-- Buttons -->
-            <StackLayout Grid.Row="2"
-                         Orientation="Vertical"
-                         Spacing="10"
-                         HorizontalOptions="Center"
-                         VerticalOptions="End"
-                         Margin="10">
-                <!-- Save Button -->
-                <Button Text="Save"
-                        BackgroundColor="Blue"
-                        TextColor="White"
-                        FontSize="24"
-                        CornerRadius="25"
-                        Padding="5"
-                        HeightRequest="50"
-                        WidthRequest="150"
-                        Clicked="OnSaveClicked"/>
+                                   <!-- Password -->
+                                   <Frame BorderColor="Gray"
+                                          CornerRadius="5"
+                                          Padding="10"
+                                          Margin="10"
+                                          HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Start">
+                                          <StackLayout>
+                                                 <Label Text="Password"
+                                                        FontSize="20"
+                                                        HorizontalOptions="Start"
+                                                        VerticalOptions="Start"
+                                                        FontAttributes="Bold"/>
+                                                 <Frame BorderColor="LightGray"
+                                                        CornerRadius="5"
+                                                        Padding="10"
+                                                        Margin="0"
+                                                        BackgroundColor="Transparent"
+                                                        HorizontalOptions="FillAndExpand"
+                                                        VerticalOptions="Start">
+                                                        <Label Text="Change Password"
+                                                               TextColor="Blue"
+                                                               FontSize="14"
+                                                               HorizontalOptions="Start"
+                                                               VerticalOptions="Start">
+                                                               <Label.GestureRecognizers>
+                                                                      <TapGestureRecognizer Command="{Binding OnChangePasswordClicked}"
+                                                                                            Tapped="OnChangePasswordClicked"/>
+                                                               </Label.GestureRecognizers>
+                                                        </Label>
+                                                 </Frame>
+                                          </StackLayout>
+                                   </Frame>
+                            </StackLayout>
 
-                <!-- Cancel Button -->
-                <Button Text="Cancel"
-                        BackgroundColor="Red"
-                        TextColor="White"
-                        FontSize="24"
-                        CornerRadius="25"
-                        Padding="5"
-                        HeightRequest="50"
-                        WidthRequest="150"
-                        Clicked="OnCancelClicked"/>
-            </StackLayout>
-        </Grid>
-    </ScrollView>
+                            <!-- Buttons -->
+                            <StackLayout Grid.Row="2"
+                                         Orientation="Vertical"
+                                         Spacing="10"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="End"
+                                         Margin="10">
+                                   <!-- Save Button -->
+                                   <Button Text="Save"
+                                           BackgroundColor="Blue"
+                                           TextColor="White"
+                                           FontSize="24"
+                                           CornerRadius="25"
+                                           Padding="5"
+                                           HeightRequest="50"
+                                           WidthRequest="150"
+                                           Clicked="OnSaveClicked"/>
+
+                                   <!-- Cancel Button -->
+                                   <Button Text="Cancel"
+                                           BackgroundColor="Red"
+                                           TextColor="White"
+                                           FontSize="24"
+                                           CornerRadius="25"
+                                           Padding="5"
+                                           HeightRequest="50"
+                                           WidthRequest="150"
+                                           Clicked="OnCancelClicked"/>
+                            </StackLayout>
+                     </Grid>
+              </ScrollView>
+
+              <!-- Password Change Popup -->
+              <ContentView x:Name="PasswordPopup"
+                           IsVisible="False"
+                           BackgroundColor="#80000000"
+                           AbsoluteLayout.LayoutFlags="All"
+                           AbsoluteLayout.LayoutBounds="0,0,1,1">
+                     <Frame BackgroundColor="White"
+                            CornerRadius="10"
+                            Padding="20"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="300">
+                            <StackLayout>
+                                   <Label Text="Change Password"
+                                          FontSize="20"
+                                          FontAttributes="Bold"
+                                          HorizontalOptions="Center"
+                                          VerticalOptions="Start"
+                                          Margin="0,0,0,20"/>
+                                   <!-- Current Password -->
+                                   <Entry x:Name="CurrentPasswordEntry"
+                                          Placeholder="Current Password"
+                                          IsPassword="True"
+                                          Margin="0,0,0,10"/>
+                                   <!-- New Password -->
+                                   <Entry x:Name="NewPasswordEntry"
+                                          Placeholder="New Password"
+                                          IsPassword="True"
+                                          Margin="0,0,0,10"/>
+                                   <!-- Confirm New Password -->
+                                   <Entry x:Name="ConfirmPasswordEntry"
+                                          Placeholder="Confirm New Password"
+                                          IsPassword="True"
+                                          Margin="0,0,0,10"/>
+                                   <!-- Buttons -->
+                                   <StackLayout Orientation="Horizontal"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Spacing="10">
+                                          <Button Text="Cancel"
+                                                  BackgroundColor="Red"
+                                                  TextColor="White"
+                                                  Clicked="OnCancelPasswordChangeClicked"/>
+                                          <Button Text="Submit"
+                                                  BackgroundColor="Blue"
+                                                  TextColor="White"
+                                                  Clicked="OnSubmitPasswordChangeClicked"/>
+                                   </StackLayout>
+                            </StackLayout>
+                     </Frame>
+              </ContentView>
+       </AbsoluteLayout>
 </ContentPage>

@@ -176,7 +176,7 @@ namespace RecoveryAT
         /// <returns>A User containing user information, or null if not found.</returns>
         public User GetUserFromEmail(string email)
         {
-            User user; 
+            User user;
 
             try
             {
@@ -293,6 +293,52 @@ namespace RecoveryAT
             catch (Exception ex)
             {
                 Console.WriteLine($"Database error: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates the password for a user in the database.
+        /// </summary>
+        /// <param name="email">The email of the user whose password is being updated.</param>
+        /// <param name="hashedPassword">The new hashed password to store for the user.</param>
+        /// <returns>
+        /// True if the password was successfully updated in the database; otherwise, false.
+        /// </returns>
+        public bool UpdateUserPassword(string email, string hashedPassword)
+        {
+            try
+            {
+                // Define the SQL query to update the user's hashed password based on their email.
+                string query = "UPDATE users SET hashed_password = @HashedPassword WHERE email = @Email";
+
+                // Use NpgsqlConnection to connect to the PostgreSQL database.
+                using var connection = new NpgsqlConnection(connString); // Initialize the connection to the database.
+                connection.Open(); // Open the database connection.
+
+                // Use NpgsqlCommand to execute the SQL query.
+                using var command = new NpgsqlCommand(query, connection);
+
+                // Add parameters to prevent SQL injection.
+                command.Parameters.AddWithValue("@Email", email); // Bind the email parameter to the query.
+                command.Parameters.AddWithValue("@HashedPassword", hashedPassword); // Bind the hashed password parameter to the query.
+
+                // Execute the SQL query and get the number of rows affected.
+                int rowsAffected = command.ExecuteNonQuery();
+
+                // Return true if one or more rows were updated; otherwise, return false.
+                return rowsAffected > 0;
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                // Log PostgreSQL-specific errors.
+                Console.WriteLine($"PostgreSQL error: {ex.Message}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Log general errors.
+                Console.WriteLine($"General error: {ex.Message}");
                 return false;
             }
         }

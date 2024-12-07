@@ -51,6 +51,62 @@ namespace RecoveryAT
             }
         }
 
+        // Event handler for Change Password click.
+        private void OnChangePasswordClicked(object sender, EventArgs e)
+        {
+            // Show the password change popup.
+            PasswordPopup.IsVisible = true;
+        }
+
+        // Event handler for canceling the password change.
+        private void OnCancelPasswordChangeClicked(object sender, EventArgs e)
+        {
+            // Hide the password change popup.
+            PasswordPopup.IsVisible = false;
+        }
+
+        // Event handler for submitting the password change.
+        private async void OnSubmitPasswordChangeClicked(object sender, EventArgs e)
+        {
+            string currentPassword = CurrentPasswordEntry.Text;
+            string newPassword = NewPasswordEntry.Text;
+            string confirmPassword = ConfirmPasswordEntry.Text;
+
+            // Check if new password and confirm password match.
+            if (newPassword != confirmPassword)
+            {
+                await DisplayAlert("Error", "New password and confirmation do not match.", "OK");
+                return;
+            }
+
+            // Verify current password.
+            if (BCrypt.Net.BCrypt.Verify(currentPassword, _user.HashedPassword))
+            {
+                // Update the password in the database.
+                string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                bool isUpdated = ((App)Application.Current).BusinessLogic.UpdateUserPassword(_user.Email, hashedNewPassword);
+
+                if (isUpdated)
+                {
+                    await DisplayAlert("Success", "Password updated successfully.", "OK");
+                    PasswordPopup.IsVisible = false;
+
+                    // Clear input fields after successful update.
+                    CurrentPasswordEntry.Text = string.Empty;
+                    NewPasswordEntry.Text = string.Empty;
+                    ConfirmPasswordEntry.Text = string.Empty;
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Failed to update password. Please try again later.", "OK");
+                }
+            }
+            else
+            {
+                await DisplayAlert("Error", "Current password is incorrect.", "OK");
+            }
+        }
+
         // Event handler for cancel button click.
         private async void OnCancelClicked(object sender, EventArgs e)
         {
