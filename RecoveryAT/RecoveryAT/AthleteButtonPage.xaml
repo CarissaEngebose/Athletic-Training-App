@@ -112,7 +112,7 @@
                     <StackLayout HorizontalOptions="Center"
                                  VerticalOptions="Center"
                                  Spacing="10">
-                        <Image Source="statistics_icon.png"
+                        <Image Source="pie_chart.png"
                                WidthRequest="40"
                                HeightRequest="40"
                                HorizontalOptions="Center" />
