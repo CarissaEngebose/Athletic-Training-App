@@ -1,3 +1,9 @@
+/*
+    Date: 10/14/2024
+    Description: AthleteFormInformation screen
+    Bugs: None known
+    Reflection: This was a very easy screen since it is just displaying information
+*/
 using System.ComponentModel;
 
 namespace RecoveryAT;
