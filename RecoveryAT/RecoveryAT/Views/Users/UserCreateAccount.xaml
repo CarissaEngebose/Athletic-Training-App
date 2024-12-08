@@ -139,6 +139,79 @@
                            TextColor="Gray" />
                 </Frame>
 
+                 <!-- Question One -->
+                <Picker x:Name="QuestionOne"
+                        Title="Select a Question">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>What is the name of your first pet?</x:String>
+                            <x:String>What was your childhood nickname?</x:String>
+                            <x:String>What was the name of your first employer?</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Frame BorderColor="LightGray"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       Margin="0,0,0,15">
+                    <Entry Placeholder=""
+                           x:Name="QuestionOneEntry"
+                           Keyboard="Default"
+                           BackgroundColor="White"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                </Frame>
+
+                <!-- Question Two -->
+                <Picker x:Name="QuestionTwo"
+                        Title="Select a Question">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>What city were you born in?</x:String>
+                            <x:String>In what city did you meet your spouse/significant other?</x:String>
+                            <x:String>What is your oldest sibling’s middle name?</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Frame BorderColor="LightGray"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       Margin="0,0,0,15">
+                    <Entry Placeholder=""
+                           x:Name="QuestionTwoEntry"
+                           Keyboard="Default"
+                           BackgroundColor="White"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                </Frame>
+
+                <!-- Question Three -->
+                <Picker x:Name="QuestionThree"
+                        Title="Select a Question">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>What was the make and model of your first car?</x:String>
+                            <x:String>In what city or town did your parents meet?</x:String>
+                            <x:String>What was the name of your first boss?</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <Frame BorderColor="LightGray"
+                       CornerRadius="8"
+                       Padding="5"
+                       HasShadow="False"
+                       Margin="0,0,0,15">
+                    <Entry Placeholder=""
+                           IsPassword="True"
+                           Keyboard="Default"
+                           x:Name="QuestionThreeEntry"
+                           BackgroundColor="White"
+                           FontSize="16"
+                           TextColor="Gray"/>
+                </Frame>
+
                 <!-- Create Account Button -->
                 <Button Text="Create Account"
                         x:Name="createAccountButton"
