@@ -185,7 +185,7 @@ namespace RecoveryAT
 
                 // selects the user information using the email
                 using var cmd = new NpgsqlCommand(@"
-                SELECT first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv
+                SELECT first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv, hashed_security_questions
                 FROM public.users
                 WHERE email = @Email", conn);
 
@@ -203,7 +203,7 @@ namespace RecoveryAT
                         schoolCode: reader.GetString(5),
                         key: reader.GetString(6),
                         iv: reader.GetString(7),
-                        hashedSecurityQuestions: "Nope"
+                        hashedSecurityQuestions: reader.GetString(8)
                     );
                     return user;
                 }
