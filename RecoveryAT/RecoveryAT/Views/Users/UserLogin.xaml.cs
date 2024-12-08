@@ -22,9 +22,15 @@ public partial class UserLogin : ContentPage
     }
 
     // Event handler for when the user taps the "Forgot Password" link
-    private void OnForgotPasswordClicked(object sender, EventArgs e)
+    private async void  OnForgotPasswordClicked(object sender, EventArgs e)
     {
-        // Example: Navigate to the ForgotPassword page
+        var email = await DisplayPromptAsync("Password Reset", "Enter your email address:");
+        if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
+            await Navigation.PushAsync(new ResetPassword());
+        } else {
+            await DisplayAlert("Email Not Sent", "The email address is not found.", "OK");
+        }
+
     }
 
     // Event handler for when the user clicks the Login button
