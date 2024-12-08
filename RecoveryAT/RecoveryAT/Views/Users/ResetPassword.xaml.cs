@@ -11,10 +11,9 @@ public partial class ResetPassword : ContentPage
     }
     private void OnSubmitAnswers(object sender, EventArgs e)
     {
-        //String securityQuestions = BCrypt.Net.BCrypt.HashPassword(QuestionOneAnswerEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text);
         String securityQuestions = QuestionOneAnswerEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
         User user = _businessLogic.GetUserFromEmail(email);
-        if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions));
+        if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions))
         {
             OpenResetPasswordPopup();
         }

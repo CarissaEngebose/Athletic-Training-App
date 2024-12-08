@@ -113,7 +113,7 @@ namespace RecoveryAT
         /// <param name="key">The unique key to encrypt and decrypt the user's school name.</param>
         /// <param name="iv">The unique iv to encrypt and decrypt the user's school name.</param>
         /// <returns>A message indicating if the form was successfully inserted.</returns>
-        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv, string hashedSecurityQuestions);
 
         /// <summary>
         /// Retrieves the last inserted form key for a given school code.

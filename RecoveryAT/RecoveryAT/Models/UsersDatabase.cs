@@ -53,7 +53,7 @@ namespace RecoveryAT
         /// <param name="key">A key used for encryption.</param>
         /// <param name="iv">An iv used for encryption.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
-        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
+        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv, string hashedSecurityQuestions)
         {
             try
             {
@@ -202,7 +202,8 @@ namespace RecoveryAT
                         schoolName: reader.GetString(4),
                         schoolCode: reader.GetString(5),
                         key: reader.GetString(6),
-                        iv: reader.GetString(7)
+                        iv: reader.GetString(7),
+                        hashedSecurityQuestions: "Nope"
                     );
                     return user;
                 }
