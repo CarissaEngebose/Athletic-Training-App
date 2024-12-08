@@ -71,6 +71,12 @@ namespace RecoveryAT
                 return;
             }
 
+            // verifies all security questions were answered - dominick
+            if(string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || string.IsNullOrWhiteSpace(QuestionThreeEntry.Text)){
+                await DisplayAlert("Error", "Please answer all security questions", "OK");
+                return;
+            }
+            
             // Hash the password before saving or passing it to another page
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text);
             String securityQuestions = BCrypt.Net.BCrypt.HashPassword(QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text);

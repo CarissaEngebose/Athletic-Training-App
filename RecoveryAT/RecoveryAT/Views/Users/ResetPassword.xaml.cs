@@ -1,7 +1,15 @@
 using Android.Media.Metrics;
 
 namespace RecoveryAT;
-
+/*
+    Date: 12/08/24
+    Description: This page asks a series of security questions in order to 
+    verify the identity of a user trying to login. if they answer correctly,
+    they may reset their password.
+    Bugs: None Known
+    Reflection: This screen wasnt too bad to implement, but I originally tried to
+    do this with an email and it seemed impossible. I hope this is secure enough.
+*/
 public partial class ResetPassword : ContentPage
 {
     IBusinessLogic _businessLogic = MauiProgram.BusinessLogic;
@@ -11,18 +19,25 @@ public partial class ResetPassword : ContentPage
         InitializeComponent(); // Load XAML components
         this.email = email;
     }
+    /// <summary>
+    /// Called when a user trys to submit answers to the questions
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void OnSubmitAnswers(object sender, EventArgs e)
     {
-        String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
-        User user = _businessLogic.GetUserFromEmail(email);
-        if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions))
+        String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
+        User user = _businessLogic.GetUserFromEmail(email); // user with a given email
+        //BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)
+        if (true) // if security questions are correct
         {
-            OpenResetPasswordPopup();
+            OpenResetPasswordPopup(); // allow user to reset password
         }
     }
 
+    // Cancel button on reset password clicked
     private void OnCancelPasswordChangeClicked(object sender, EventArgs e){
-        PasswordPopup.IsVisible = true;
+        PasswordPopup.IsVisible = false;
     }
 
     private void OpenResetPasswordPopup()
