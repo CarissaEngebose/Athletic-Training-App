@@ -14,6 +14,7 @@ public partial class ResetPassword : ContentPage
 {
     IBusinessLogic _businessLogic = MauiProgram.BusinessLogic;
     String email;
+    int numGuesses = 3;
     public ResetPassword(String email)
     {
         InitializeComponent(); // Load XAML components
@@ -24,14 +25,21 @@ public partial class ResetPassword : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void OnSubmitAnswers(object sender, EventArgs e)
+    private async void OnSubmitAnswers(object sender, EventArgs e)
     {
         String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
         User user = _businessLogic.GetUserFromEmail(email); // user with a given email
-        //BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)
-        if (true) // if security questions are correct
+        if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)) // if security questions are correct
         {
             OpenResetPasswordPopup(); // allow user to reset password
+        } else {
+            numGuesses--;
+            if(numGuesses < 1){
+                await DisplayAlert("Error", "No more guesses left", "OK");
+                await Navigation.PopAsync();
+                return;
+            }
+            await DisplayAlert("Error", "One or more incorrect answers - Number of guesses left: " + numGuesses, "OK");
         }
     }
 
