@@ -1,3 +1,5 @@
+using Android.Media.Metrics;
+
 namespace RecoveryAT;
 
 public partial class ResetPassword : ContentPage
@@ -11,7 +13,7 @@ public partial class ResetPassword : ContentPage
     }
     private void OnSubmitAnswers(object sender, EventArgs e)
     {
-        String securityQuestions = QuestionOneAnswerEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
+        String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
         User user = _businessLogic.GetUserFromEmail(email);
         if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions))
         {
@@ -19,12 +21,16 @@ public partial class ResetPassword : ContentPage
         }
     }
 
+    private void OnCancelPasswordChangeClicked(object sender, EventArgs e){
+        PasswordPopup.IsVisible = true;
+    }
+
     private void OpenResetPasswordPopup()
     {
         PasswordPopup.IsVisible = true;
     }
 
-    private async void OnResetPasswordSubmitClicked(object sender, EventArgs e)
+    private async void OnSubmitPasswordChangeClicked(object sender, EventArgs e)
     {
         string newPassword = NewPasswordEntry.Text;
         string confirmPassword = ConfirmPasswordEntry.Text;

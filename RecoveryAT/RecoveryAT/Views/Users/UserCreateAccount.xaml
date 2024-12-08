@@ -139,6 +139,12 @@
                            TextColor="Gray" />
                 </Frame>
 
+              <Label Text="Security Questions"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="Gray"
+                       HorizontalOptions="Start"
+                       Margin="0,0,0,-10" />
                  <!-- Question One -->
                 <Picker x:Name="QuestionOne"
                         Title="Select a Question">
