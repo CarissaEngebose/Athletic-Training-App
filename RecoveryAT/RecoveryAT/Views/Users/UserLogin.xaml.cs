@@ -26,7 +26,7 @@ public partial class UserLogin : ContentPage
     {
         var email = await DisplayPromptAsync("Password Reset", "Enter your email address:");
         if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
-            await Navigation.PushAsync(new ResetPassword());
+            await Navigation.PushAsync(new ResetPassword(email));
         } else {
             await DisplayAlert("Email Not Sent", "The email address is not found.", "OK");
         }
