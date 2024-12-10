@@ -54,7 +54,7 @@
                        TextColor="Blue" 
                        VerticalOptions="Center">
                     <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                        <TapGestureRecognizer Tapped="OnForgotPasswordClicked" />
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>

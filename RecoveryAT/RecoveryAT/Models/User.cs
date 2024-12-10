@@ -12,6 +12,7 @@ public class User {
     public string? FullName => $"{FirstName} {LastName}";
     public string? Email;
     public string? HashedPassword;
+    public string? HashedSecurityQuestions;
     public string? SchoolName; // encrypted school name
     public string? SchoolCode; 
     public string? IV; // initialization vector for encryption/decryption
@@ -28,7 +29,7 @@ public class User {
     /// <param name="schoolCode">User's school code.</param>
     /// <param name="key">A key to encrypt the school name.</param>
     /// <param name="iv">An iv to encrypt the school name.</param>
-    public User(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
+    public User(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv, string hashedSecurityQuestions)
     {
         IsLoggedIn = true;
         FirstName = firstName;
@@ -39,6 +40,7 @@ public class User {
         SchoolCode = schoolCode;
         Key = key;
         IV = iv; 
+        HashedSecurityQuestions = hashedSecurityQuestions;
     }
 
     /// <summary>

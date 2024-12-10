@@ -38,7 +38,7 @@ namespace RecoveryAT
         /// <param name="key">Encryption key for secure storage.</param>
         /// <param name="iv">Initialization vector for encryption.</param>
         /// <returns>A message indicating the result of the operation.</returns>
-        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv);
+        string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv, string hashedSecurityQuestions);
 
         /// <summary>
         /// Deletes a user account based on their email.

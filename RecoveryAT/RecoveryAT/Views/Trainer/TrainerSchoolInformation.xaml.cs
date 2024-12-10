@@ -6,8 +6,9 @@ namespace RecoveryAT
         private readonly string _lastName;
         private readonly string _email;
         private readonly string _hashedPassword;
+        private readonly string _hashedSecurityQuestions;
 
-        public TrainerSchoolInformation(string firstName, string lastName, string email, string hashedPassword)
+        public TrainerSchoolInformation(string firstName, string lastName, string email, string hashedPassword, string hashedSecurityQuestions)
         {
             InitializeComponent();
 
@@ -15,6 +16,7 @@ namespace RecoveryAT
             _lastName = lastName;
             _email = email;
             _hashedPassword = hashedPassword;
+            _hashedSecurityQuestions = hashedSecurityQuestions;
 
             // Attach TextChanged event handlers to move between entry boxes
             AttachTextChangedHandlers();
@@ -72,7 +74,7 @@ namespace RecoveryAT
             var encryptedSchoolName = EncryptionHelper.Encrypt(schoolNameEntry.Text, key, iv);
 
             // Create the user account in the database
-            var resultMessage = MauiProgram.BusinessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, encryptedSchoolName, schoolCode, key, iv);
+            var resultMessage = MauiProgram.BusinessLogic.InsertUser(_firstName, _lastName, _email, _hashedPassword, encryptedSchoolName, schoolCode, key, iv, _hashedSecurityQuestions);
 
             // Notify user of success or failure
             await DisplayAlert("Result", resultMessage, "OK");
@@ -86,7 +88,8 @@ namespace RecoveryAT
             }
             catch (Exception ex)
             {
-                await Navigation.PushModalAsync(new UserLogin());
+                // bug fix for navigation error after going back to login - dominick
+                await Navigation.PopToRootAsync(); // go back to the first page
             }
         }
 

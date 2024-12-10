@@ -50,7 +50,7 @@ namespace RecoveryAT
         /// <param name="key">A key used for encryption.</param>
         /// <param name="iv">An iv used for encryption.</param>
         /// <returns>A message indicating the result of the insertion.</returns>
-        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv)
+        public string InsertUser(string firstName, string lastName, string email, string hashedPassword, string schoolName, string schoolCode, string key, string iv, string hashedSecurityQuestions)
         {
             try
             {
@@ -59,17 +59,18 @@ namespace RecoveryAT
 
                 // insert the user using the parameters
                 using var cmd = new NpgsqlCommand(@"
-                INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv)
-                VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode, @key, @iv)", conn);
+                INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv, hashed_security_questions)
+                VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode, @key, @iv, @hashedSecurityQuestions)", conn);
 
-                _ = cmd.Parameters.AddWithValue("firstName", firstName); // set the parameters to insert the form into the database
-                _ = cmd.Parameters.AddWithValue("lastName", lastName);
-                _ = cmd.Parameters.AddWithValue("email", email);
-                _ = cmd.Parameters.AddWithValue("hashedPassword", hashedPassword);
-                _ = cmd.Parameters.AddWithValue("schoolName", schoolName);
-                _ = cmd.Parameters.AddWithValue("schoolCode", schoolCode);
-                _ = cmd.Parameters.AddWithValue("key", key);
-                _ = cmd.Parameters.AddWithValue("iv", iv);
+                cmd.Parameters.AddWithValue("firstName", firstName); // set the parameters to insert the form into the database
+                cmd.Parameters.AddWithValue("lastName", lastName);
+                cmd.Parameters.AddWithValue("email", email);
+                cmd.Parameters.AddWithValue("hashedPassword", hashedPassword);
+                cmd.Parameters.AddWithValue("schoolName", schoolName);
+                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                cmd.Parameters.AddWithValue("key", key);
+                cmd.Parameters.AddWithValue("iv", iv);
+                cmd.Parameters.AddWithValue("hashedSecurityQuestions",hashedSecurityQuestions);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -182,7 +183,7 @@ namespace RecoveryAT
 
                 // selects the user information using the email
                 using var cmd = new NpgsqlCommand(@"
-                SELECT first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv
+                SELECT first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv, hashed_security_questions
                 FROM public.users
                 WHERE email = @Email", conn);
 
@@ -199,7 +200,8 @@ namespace RecoveryAT
                         schoolName: reader.GetString(4),
                         schoolCode: reader.GetString(5),
                         key: reader.GetString(6),
-                        iv: reader.GetString(7)
+                        iv: reader.GetString(7),
+                        hashedSecurityQuestions: reader.GetString(8)
                     );
                     return user;
                 }
