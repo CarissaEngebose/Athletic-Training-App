@@ -13,11 +13,12 @@ namespace RecoveryAT
 {
     public partial class AthleteStatuses : ContentPage
     {
-        private readonly BusinessLogic _businessLogic; 
+        private readonly BusinessLogic _businessLogic;
         private readonly string _schoolCode; // Unique code to filter athletes by school.
         public ObservableCollection<AthleteForm> AthleteList { get; set; } // Dynamic list of athletes for data binding.
         public ObservableCollection<string> StatusOptions { get; set; } // Dropdown options for athlete statuses.
         public ObservableCollection<string> SearchOptions { get; set; } // Options for the search functionality.
+        private bool _isUserChange = false;// Flag to track user-initiated changes
 
         private string _selectedStatus; // Tracks the currently selected status from the dropdown.
         public string SelectedStatus
@@ -199,14 +200,14 @@ namespace RecoveryAT
             }
         }
 
-        // Updates the status of an athlete when a new status is selected.
         private async void OnStatusChanged(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
             var selectedStatus = (string)picker.SelectedItem;
 
-            if (picker.BindingContext is AthleteForm selectedAthlete)
+            if (picker.BindingContext is AthleteForm selectedAthlete && _isUserChange)
             {
+                _isUserChange = false; // Reset flag after handling user change
                 selectedAthlete.Status = selectedStatus;
 
                 try
@@ -234,6 +235,12 @@ namespace RecoveryAT
                     await DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
                 }
             }
+        }
+
+        // Handle the Picker's Focus event to track user interaction
+        private void OnPickerFocused(object sender, FocusEventArgs e)
+        {
+            _isUserChange = true; // Set the flag to indicate user-initiated change
         }
     }
 }
