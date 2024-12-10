@@ -22,15 +22,26 @@ public partial class UserLogin : ContentPage
     }
 
     // Event handler for when the user taps the "Forgot Password" link
-    private async void  OnForgotPasswordClicked(object sender, EventArgs e)
+    private async void OnForgotPasswordClicked(object sender, EventArgs e)
     {
-        var email = await DisplayPromptAsync("Password Reset", "Enter your email address:");
-        if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
-            await Navigation.PushAsync(new ResetPassword(email));
-        } else if(email != null){
-            await DisplayAlert("Email Not found", "The email address is not found.", "OK");
-        }
+        var email = await DisplayPromptAsync(
+            "Password Reset",
+            "Enter your email address:",
+            keyboard: Keyboard.Email); // Suggest proper keyboard for email input
 
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+            email = email.Trim(); // Remove leading and trailing spaces
+
+            if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email))
+            {
+                await Navigation.PushAsync(new ResetPassword(email));
+            }
+            else
+            {
+                await DisplayAlert("Email Not Found", "The email address is not found.", "OK");
+            }
+        }
     }
 
     // Event handler for when the user clicks the Login button
@@ -39,7 +50,8 @@ public partial class UserLogin : ContentPage
         string email = EmailEntry.Text;
 
         // check if values are null - Carissa
-        if (string.IsNullOrWhiteSpace(PasswordEntry.Text) || string.IsNullOrWhiteSpace(email)) {
+        if (string.IsNullOrWhiteSpace(PasswordEntry.Text) || string.IsNullOrWhiteSpace(email))
+        {
             await DisplayAlert("Login Failed", "Email and password must be filled out.", "OK");
             return;
         }
@@ -53,7 +65,8 @@ public partial class UserLogin : ContentPage
         // get the user from the email - Carissa
         _user = _businessLogic.GetUserFromEmail(email);
 
-        if(_user == null) {
+        if (_user == null)
+        {
             await DisplayAlert("Login Failed", "User information not found.", "OK");
             return;
         }
