@@ -27,6 +27,14 @@ public partial class ResetPassword : ContentPage
     /// <param name="e"></param>
     private async void OnSubmitAnswers(object sender, EventArgs e)
     {
+        if(QuestionOne.SelectedItem == null || QuestionOne.SelectedItem == null || QuestionOne.SelectedItem == null){
+            await DisplayAlert("Unselected Questions", "Please select all three questions", "OK");
+            return;
+        }
+        if(string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionOneEntry.Text)){
+            await DisplayAlert("Empty Answers", "Please answer all questions", "OK");
+            return;
+        }
         String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
         User user = _businessLogic.GetUserFromEmail(email); // user with a given email
         if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)) // if security questions are correct
@@ -39,7 +47,7 @@ public partial class ResetPassword : ContentPage
                 await Navigation.PopAsync();
                 return;
             }
-            await DisplayAlert("Incorrect Answers", "One or more incorrect answers - Number of guesses left: " + numGuesses, "OK");
+            await DisplayAlert("Incorrect Answers", "You have " + numGuesses + " guesses left.", "OK");
         }
     }
 
@@ -59,13 +67,18 @@ public partial class ResetPassword : ContentPage
         string newPassword = NewPasswordEntry.Text;
         string confirmPassword = ConfirmPasswordEntry.Text;
 
+        // make sure password isnt empty
+        if(string.IsNullOrWhiteSpace(newPassword) || string.IsNullOrWhiteSpace(confirmPassword)){
+            await DisplayAlert("Error", "Please fill in password field", "OK");
+            return;
+        }
+
         // Check if new password and confirm password match.
         if (newPassword != confirmPassword)
         {
             await DisplayAlert("Error", "New password and confirmation do not match.", "OK");
             return;
         }
-
 
         // Update the password in the database.
         string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
