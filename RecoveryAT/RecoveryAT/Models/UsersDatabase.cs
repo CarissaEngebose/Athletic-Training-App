@@ -62,8 +62,8 @@ namespace RecoveryAT
 
                 // insert the user using the parameters
                 using var cmd = new NpgsqlCommand(@"
-                INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv)
-                VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode, @key, @iv)", conn);
+                INSERT INTO users (first_name, last_name, email, hashed_password, school_name, school_code, encryption_key, encryption_iv, hashed_security_questions)
+                VALUES (@firstName, @lastName, @email, @hashedPassword, @schoolName, @schoolCode, @key, @iv, @hashedSecurityQuestions)", conn);
 
                 cmd.Parameters.AddWithValue("firstName", firstName); // set the parameters to insert the form into the database
                 cmd.Parameters.AddWithValue("lastName", lastName);
@@ -73,6 +73,7 @@ namespace RecoveryAT
                 cmd.Parameters.AddWithValue("schoolCode", schoolCode);
                 cmd.Parameters.AddWithValue("key", key);
                 cmd.Parameters.AddWithValue("iv", iv);
+                cmd.Parameters.AddWithValue("hashedSecurityQuestions",hashedSecurityQuestions);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 

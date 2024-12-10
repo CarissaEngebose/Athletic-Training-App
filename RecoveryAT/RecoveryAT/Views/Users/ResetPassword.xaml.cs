@@ -29,6 +29,7 @@ public partial class ResetPassword : ContentPage
     {
         String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
         User user = _businessLogic.GetUserFromEmail(email); // user with a given email
+        Console.WriteLine("AHHHHHHHHHHHHHHH" + user.HashedSecurityQuestions);
         if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)) // if security questions are correct
         {
             OpenResetPasswordPopup(); // allow user to reset password

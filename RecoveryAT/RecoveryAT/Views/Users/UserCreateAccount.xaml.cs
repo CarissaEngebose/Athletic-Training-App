@@ -79,9 +79,12 @@ namespace RecoveryAT
             
             // Hash the password before saving or passing it to another page
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text);
-            String securityQuestions = BCrypt.Net.BCrypt.HashPassword(QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text);
+            string securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
+            string hashedSecurityQuestions = BCrypt.Net.BCrypt.HashPassword(securityQuestions);
+            Console.WriteLine(securityQuestions);
+            Console.WriteLine("CREATEEEEEEEE: " + hashedSecurityQuestions);
             // Navigate to the next page, passing collected user data
-            await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword, securityQuestions));
+            await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword, hashedSecurityQuestions));
         }
     }
 }

@@ -88,7 +88,8 @@ namespace RecoveryAT
             }
             catch (Exception ex)
             {
-                await Navigation.PushModalAsync(new UserLogin());
+                // bug fix for navigation error after going back to login - dominick
+                await Navigation.PopToRootAsync(); // go back to the first page
             }
         }
 

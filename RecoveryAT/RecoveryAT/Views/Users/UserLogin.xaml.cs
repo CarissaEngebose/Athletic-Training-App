@@ -28,7 +28,7 @@ public partial class UserLogin : ContentPage
         if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
             await Navigation.PushAsync(new ResetPassword(email));
         } else {
-            await DisplayAlert("Email Not Sent", "The email address is not found.", "OK");
+            await DisplayAlert("Email Not found", "The email address is not found.", "OK");
         }
 
     }
