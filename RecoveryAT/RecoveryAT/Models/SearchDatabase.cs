@@ -5,10 +5,7 @@
     Reflection: This was easy to implement.
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace RecoveryAT
@@ -73,7 +70,7 @@ namespace RecoveryAT
 
                 // Add the query parameter to the SQL command
                 // The parameter is case-insensitively matched using the LOWER function
-                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
+                _ = cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
 
                 // Execute the SQL command and retrieve the results
                 using var reader = cmd.ExecuteReader();
@@ -137,7 +134,7 @@ namespace RecoveryAT
             OR CAST(date_created AS TEXT) LIKE @query
             OR CAST(date_of_birth AS TEXT) LIKE @query", conn);
 
-                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%"); // set the query parameter to find the results
+                _ = cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%"); // set the query parameter to find the results
 
                 using var reader = cmd.ExecuteReader();
 
@@ -200,7 +197,7 @@ namespace RecoveryAT
                 AND (LOWER(c.contact_type) LIKE @query OR c.phone_number LIKE @query)
             )", conn);
 
-                cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
+                _ = cmd.Parameters.AddWithValue("query", $"%{query.ToLower()}%");
 
                 using var reader = cmd.ExecuteReader();
 

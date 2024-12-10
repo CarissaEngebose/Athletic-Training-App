@@ -7,10 +7,7 @@
     which can take a bit of time for each sprint but overall we think it went well.
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace RecoveryAT
@@ -107,7 +104,7 @@ namespace RecoveryAT
                 // delete the user where the email matches the parameter
                 using var cmd = new NpgsqlCommand("DELETE FROM users WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email); // set the parameter for email to delete by
+                _ = cmd.Parameters.AddWithValue("Email", email); // set the parameter for email to delete by
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -145,7 +142,7 @@ namespace RecoveryAT
                 FROM public.users
                 WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email);
+                _ = cmd.Parameters.AddWithValue("Email", email);
 
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -190,7 +187,7 @@ namespace RecoveryAT
                 FROM public.users
                 WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email); // set the email parameter to search the database
+                _ = cmd.Parameters.AddWithValue("Email", email); // set the email parameter to search the database
 
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -239,7 +236,7 @@ namespace RecoveryAT
                 FROM public.users
                 WHERE email = @Email", conn);
 
-                cmd.Parameters.AddWithValue("Email", email); // sets the parameter to search the database for the email
+                _ = cmd.Parameters.AddWithValue("Email", email); // sets the parameter to search the database for the email
 
                 var result = cmd.ExecuteScalar();
                 return result != null && (long)result > 0; // True if email exists, false otherwise
@@ -283,12 +280,12 @@ namespace RecoveryAT
                     email = @Email
                 WHERE email = @OriginalEmail", conn);
 
-                cmd.Parameters.AddWithValue("FirstName", firstName); // set the parameters used to update the user information
-                cmd.Parameters.AddWithValue("LastName", lastName);
-                cmd.Parameters.AddWithValue("SchoolName", schoolName);
-                cmd.Parameters.AddWithValue("SchoolCode", schoolCode);
-                cmd.Parameters.AddWithValue("Email", email);
-                cmd.Parameters.AddWithValue("OriginalEmail", originalEmail);
+                _ = cmd.Parameters.AddWithValue("FirstName", firstName); // set the parameters used to update the user information
+                _ = cmd.Parameters.AddWithValue("LastName", lastName);
+                _ = cmd.Parameters.AddWithValue("SchoolName", schoolName);
+                _ = cmd.Parameters.AddWithValue("SchoolCode", schoolCode);
+                _ = cmd.Parameters.AddWithValue("Email", email);
+                _ = cmd.Parameters.AddWithValue("OriginalEmail", originalEmail);
 
                 return cmd.ExecuteNonQuery() > 0;
             }
@@ -322,8 +319,8 @@ namespace RecoveryAT
                 using var command = new NpgsqlCommand(query, connection);
 
                 // Add parameters to prevent SQL injection.
-                command.Parameters.AddWithValue("@Email", email); // Bind the email parameter to the query.
-                command.Parameters.AddWithValue("@HashedPassword", hashedPassword); // Bind the hashed password parameter to the query.
+                _ = command.Parameters.AddWithValue("@Email", email); // Bind the email parameter to the query.
+                _ = command.Parameters.AddWithValue("@HashedPassword", hashedPassword); // Bind the hashed password parameter to the query.
 
                 // Execute the SQL query and get the number of rows affected.
                 int rowsAffected = command.ExecuteNonQuery();

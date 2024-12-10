@@ -7,10 +7,7 @@
     which can take a bit of time for each sprint but overall we think it went well.
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace RecoveryAT
@@ -102,9 +99,9 @@ namespace RecoveryAT
                 INSERT INTO public.athlete_contacts (form_key, contact_type, phone_number)
                 VALUES (@formKey, @contactType, @phoneNumber)", conn);
 
-                cmd.Parameters.AddWithValue("formKey", formKey); // set parameters to insert contacts in the database
-                cmd.Parameters.AddWithValue("contactType", contactType);
-                cmd.Parameters.AddWithValue("phoneNumber", phoneNumber);
+                _ = cmd.Parameters.AddWithValue("formKey", formKey); // set parameters to insert contacts in the database
+                _ = cmd.Parameters.AddWithValue("contactType", contactType);
+                _ = cmd.Parameters.AddWithValue("phoneNumber", phoneNumber);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -136,7 +133,7 @@ namespace RecoveryAT
                 conn.Open();
                 // delete a contact from the database using the contact id
                 using var cmd = new NpgsqlCommand("DELETE FROM public.athlete_contacts WHERE contact_id = @contactID", conn);
-                cmd.Parameters.AddWithValue("contactID", contactID);
+                _ = cmd.Parameters.AddWithValue("contactID", contactID);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -174,7 +171,7 @@ namespace RecoveryAT
                 FROM public.athlete_contacts
                 WHERE form_key = @formKey", conn);
 
-                cmd.Parameters.AddWithValue("formKey", formKey); // set the parameter to select contacts using the form key
+                _ = cmd.Parameters.AddWithValue("formKey", formKey); // set the parameter to select contacts using the form key
 
                 using var reader = cmd.ExecuteReader();
 
@@ -218,8 +215,8 @@ namespace RecoveryAT
                 // update the table in the database and set the status to the new status
                 using var cmd = new NpgsqlCommand(
                     "UPDATE athlete_forms SET athlete_status = @newStatus WHERE form_key = @formKey", conn);
-                cmd.Parameters.AddWithValue("formKey", formKey.Value); // sets parameters for status and form key
-                cmd.Parameters.AddWithValue("newStatus", newStatus);
+                _ = cmd.Parameters.AddWithValue("formKey", formKey.Value); // sets parameters for status and form key
+                _ = cmd.Parameters.AddWithValue("newStatus", newStatus);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 

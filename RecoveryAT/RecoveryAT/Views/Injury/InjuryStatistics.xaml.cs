@@ -1,9 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+/**
+    Name: Carissa Engebose
+    Date: 10/13/2024
+    Description: A screen that allows a user to use a dropdown list for sports and view corresponding statistics in pie chart form.
+    Bugs: None that I know of.
+    Reflection: This screen was very difficult because I kept trying to implement an actual pie chart, 
+                but nothing worked. Even using resources from GitHub didn’t help. While it still needs work, 
+                the layout is a good starting point.
+**/
+
+
+
 using Microcharts;
 using SkiaSharp;
-using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {

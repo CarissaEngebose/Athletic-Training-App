@@ -1,4 +1,9 @@
-using System.IO;
+/*
+    Date: 12/06/24
+    Description: A screen that allows a user to enter in information relating to injuries that will go back to their athletic trainer.
+    Bugs: None Known
+    Reflection: This screen took a little while to get the layout exactly how we wanted it but overall we think it's good.
+*/
 
 namespace RecoveryAT
 {
@@ -119,7 +124,7 @@ namespace RecoveryAT
                 File.WriteAllText(filePath, formDetails);
 
                 // Automatically open the file
-                await Launcher.OpenAsync(new OpenFileRequest
+                _ = await Launcher.OpenAsync(new OpenFileRequest
                 {
                     File = new ReadOnlyFile(filePath)
                 });

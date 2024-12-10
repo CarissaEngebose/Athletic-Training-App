@@ -7,10 +7,7 @@
     which can take a bit of time for each sprint but overall we think it went well.
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace RecoveryAT
@@ -62,7 +59,7 @@ namespace RecoveryAT
                        date_created, date_seen, date_of_birth
                 FROM athlete_forms
                 WHERE school_code = @school_code", conn);
-                cmd.Parameters.AddWithValue("school_code", schoolCode);
+                _ = cmd.Parameters.AddWithValue("school_code", schoolCode);
 
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -116,8 +113,8 @@ namespace RecoveryAT
             AND date_created = @dateCreated",
                     conn
                 );
-                cmd.Parameters.AddWithValue("school_code", schoolCode); // set the parameter value
-                cmd.Parameters.AddWithValue("dateCreated", dateCreated);
+                _ = cmd.Parameters.AddWithValue("school_code", schoolCode); // set the parameter value
+                _ = cmd.Parameters.AddWithValue("dateCreated", dateCreated);
                 using var reader = cmd.ExecuteReader();
 
                 // Loop through each row in the result and add it to the forms collection.
@@ -185,8 +182,8 @@ namespace RecoveryAT
             WHERE school_code = @school_code
             AND date_created = @dateCreated", conn);
 
-                cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the school code parameter
-                cmd.Parameters.AddWithValue("dateCreated", dateCreated);      // Set the date_created parameter
+                _ = cmd.Parameters.AddWithValue("school_code", schoolCode); // Set the school code parameter
+                _ = cmd.Parameters.AddWithValue("dateCreated", dateCreated);      // Set the date_created parameter
 
                 using var reader = cmd.ExecuteReader();
 
@@ -251,7 +248,7 @@ namespace RecoveryAT
                    date_created, date_seen, date_of_birth
             FROM athlete_forms 
             WHERE form_key = @formKey", conn);
-                cmd.Parameters.AddWithValue("formKey", formKey); // Set the parameter value.
+                _ = cmd.Parameters.AddWithValue("formKey", formKey); // Set the parameter value.
                 using var reader = cmd.ExecuteReader();
 
                 // If a form is found, add it to the local collection.
@@ -317,18 +314,18 @@ namespace RecoveryAT
                 VALUES (@schoolCode, @firstName, @lastName, @sport, @injuredArea, @injuredSide, @treatmentType,
                         @athleteComments, @status, @dateCreated, @dateSeen, @dateOfBirth)", conn);
 
-                cmd.Parameters.AddWithValue("schoolCode", form.SchoolCode); // set the parameter values
-                cmd.Parameters.AddWithValue("firstName", form.FirstName);
-                cmd.Parameters.AddWithValue("lastName", form.LastName);
-                cmd.Parameters.AddWithValue("sport", form.Sport);
-                cmd.Parameters.AddWithValue("injuredArea", form.InjuredArea);
-                cmd.Parameters.AddWithValue("injuredSide", form.InjuredSide);
-                cmd.Parameters.AddWithValue("treatmentType", form.TreatmentType);
-                cmd.Parameters.AddWithValue("athleteComments", (object?)form.AthleteComments ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("status", (object?)form.Status ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("dateCreated", form.DateCreated);
-                cmd.Parameters.AddWithValue("dateSeen", form.DateSeen.HasValue ? form.DateSeen.Value : DBNull.Value);
-                cmd.Parameters.AddWithValue("dateOfBirth", form.DateOfBirth);
+                _ = cmd.Parameters.AddWithValue("schoolCode", form.SchoolCode); // set the parameter values
+                _ = cmd.Parameters.AddWithValue("firstName", form.FirstName);
+                _ = cmd.Parameters.AddWithValue("lastName", form.LastName);
+                _ = cmd.Parameters.AddWithValue("sport", form.Sport);
+                _ = cmd.Parameters.AddWithValue("injuredArea", form.InjuredArea);
+                _ = cmd.Parameters.AddWithValue("injuredSide", form.InjuredSide);
+                _ = cmd.Parameters.AddWithValue("treatmentType", form.TreatmentType);
+                _ = cmd.Parameters.AddWithValue("athleteComments", (object?)form.AthleteComments ?? DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("status", (object?)form.Status ?? DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("dateCreated", form.DateCreated);
+                _ = cmd.Parameters.AddWithValue("dateSeen", form.DateSeen.HasValue ? form.DateSeen.Value : DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("dateOfBirth", form.DateOfBirth);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -363,7 +360,7 @@ namespace RecoveryAT
                 conn.Open();
                 // delete the form from the database using the form key
                 using var cmd = new NpgsqlCommand("DELETE FROM athlete_forms WHERE form_key = @formKey", conn);
-                cmd.Parameters.AddWithValue("formKey", formKey);
+                _ = cmd.Parameters.AddWithValue("formKey", formKey);
 
                 int numRowsAffected = cmd.ExecuteNonQuery();
 
@@ -373,7 +370,7 @@ namespace RecoveryAT
                     var formToDelete = forms.FirstOrDefault(a => a.FormKey == formKey);
                     if (formToDelete != null)
                     {
-                        forms.Remove(formToDelete); // Update the local collection.
+                        _ = forms.Remove(formToDelete); // Update the local collection.
                     }
                     return "Form deleted successfully.";
                 }
@@ -418,12 +415,12 @@ namespace RecoveryAT
                     date_of_birth = @dateOfBirth
                 WHERE form_key = @formKey", conn);
 
-                cmd.Parameters.AddWithValue("formKey", form.FormKey); // set the parameters to update a specific form
-                cmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("athleteComments", form.AthleteComments ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("status", form.Status ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("dateSeen", form.DateSeen.HasValue ? form.DateSeen.Value : DBNull.Value);
-                cmd.Parameters.AddWithValue("dateOfBirth", form.DateOfBirth);
+                _ = cmd.Parameters.AddWithValue("formKey", form.FormKey); // set the parameters to update a specific form
+                _ = cmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("athleteComments", form.AthleteComments ?? (object)DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("status", form.Status ?? (object)DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("dateSeen", form.DateSeen.HasValue ? form.DateSeen.Value : DBNull.Value);
+                _ = cmd.Parameters.AddWithValue("dateOfBirth", form.DateOfBirth);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -514,7 +511,7 @@ namespace RecoveryAT
             FROM athlete_forms 
             WHERE date_created < @today", conn);
 
-                cmd.Parameters.AddWithValue("today", DateTime.Today);
+                _ = cmd.Parameters.AddWithValue("today", DateTime.Today);
 
                 using var reader = cmd.ExecuteReader();
 
@@ -573,7 +570,7 @@ namespace RecoveryAT
                 ORDER BY date_created DESC
                 LIMIT 1", conn);
 
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode); // adds the school code as the parameter to search by
+                _ = cmd.Parameters.AddWithValue("schoolCode", schoolCode); // adds the school code as the parameter to search by
 
                 var result = cmd.ExecuteScalar();
                 if (result != null)
@@ -613,9 +610,9 @@ namespace RecoveryAT
                             athlete_status = @athleteStatus 
                         WHERE form_key = @formKey"
                 };
-                formCmd.Parameters.AddWithValue("formKey", form.FormKey);
-                formCmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
-                formCmd.Parameters.AddWithValue("athleteStatus", form.Status ?? (object)DBNull.Value);
+                _ = formCmd.Parameters.AddWithValue("formKey", form.FormKey);
+                _ = formCmd.Parameters.AddWithValue("treatmentType", form.TreatmentType ?? (object)DBNull.Value);
+                _ = formCmd.Parameters.AddWithValue("athleteStatus", form.Status ?? (object)DBNull.Value);
 
                 int formRowsAffected = formCmd.ExecuteNonQuery();
 
@@ -631,11 +628,11 @@ namespace RecoveryAT
                                 phone_number = @phoneNumber 
                             WHERE contact_id = @contactID"
                     };
-                    contactCmd.Parameters.AddWithValue("contactID", contact.ContactID);
-                    contactCmd.Parameters.AddWithValue("contactType", contact.ContactType ?? (object)DBNull.Value);
-                    contactCmd.Parameters.AddWithValue("phoneNumber", contact.PhoneNumber ?? (object)DBNull.Value);
+                    _ = contactCmd.Parameters.AddWithValue("contactID", contact.ContactID);
+                    _ = contactCmd.Parameters.AddWithValue("contactType", contact.ContactType ?? (object)DBNull.Value);
+                    _ = contactCmd.Parameters.AddWithValue("phoneNumber", contact.PhoneNumber ?? (object)DBNull.Value);
 
-                    contactCmd.ExecuteNonQuery();
+                    _ = contactCmd.ExecuteNonQuery();
                 }
 
                 transaction.Commit();

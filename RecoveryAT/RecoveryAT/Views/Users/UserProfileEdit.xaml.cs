@@ -1,10 +1,11 @@
 /**
-    Date: 12/05/24
-    Description: This is a profile editing screen where users can update their personal details, 
-                 such as first name, last name, school name, school code, and email. 
-                 The data is retrieved and bound to the current logged-in user's profile.
-    Bugs: None that we know of.
-    Reflection: This screen was easy to implement.
+       Date: 12/05/24
+       Description: This is a profile editing screen where users can update their personal details, 
+                    such as first name, last name, school name, school code, and email. 
+                    The data is retrieved and bound to the current logged-in user's profile.
+       Bugs: None that we know of.
+       Reflection: This screen was easy to implement. The hardest part was ensuring the binding 
+                   correctly reflected the logged-in user's data.
 **/
 
 namespace RecoveryAT
@@ -28,7 +29,7 @@ namespace RecoveryAT
             if (string.IsNullOrWhiteSpace(email))
             {
                 // Alert the user if email retrieval fails.
-                DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
+                _ = DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
                 return;
             }
 
@@ -47,7 +48,7 @@ namespace RecoveryAT
             else
             {
                 // Alert the user if data loading fails.
-                DisplayAlert("Error", "User data could not be loaded.", "OK");
+                _ = DisplayAlert("Error", "User data could not be loaded.", "OK");
             }
         }
 
@@ -111,7 +112,7 @@ namespace RecoveryAT
         private async void OnCancelClicked(object sender, EventArgs e)
         {
             // Navigate back to the UserProfile screen.
-            await Navigation.PopAsync();
+            _ = await Navigation.PopAsync();
         }
 
         // Event handler for save button click.
@@ -138,7 +139,7 @@ namespace RecoveryAT
             {
                 // Show success message and navigate back to the UserProfile page.
                 await DisplayAlert("Success", "Profile updated successfully.", "OK");
-                await Navigation.PopAsync();
+                _ = await Navigation.PopAsync();
             }
             else
             {

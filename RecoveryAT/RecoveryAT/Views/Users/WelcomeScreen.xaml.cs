@@ -1,13 +1,12 @@
 ﻿/* 
     Date: 12/06/24
-    Description: A welcome screen allowing navigation to the school code screen for athletes 
-                 or the login screen for athletic trainers.
-    Bugs: None reported.
-    Reflection: Simple implementation due to minimal functionality.
+    Description: A welcome screen that will navigate to the school code screen 
+                 (to fill out a form) or login depending on if the user
+                 is an athlete or an athletic trainer.
+    Bugs: None that I know of.
+    Reflection: This was easy to implement because there isn't much on the screen
+                and they are all one above the next.
 */
-
-using System;
-using Microsoft.Maui.Controls;
 
 namespace RecoveryAT
 {
