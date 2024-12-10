@@ -5,9 +5,6 @@
     Reflection: This part of the UserProfile screen was easy to implement.
 */
 
-using System;
-using Microsoft.Maui.Controls;
-
 namespace RecoveryAT
 {
     public partial class UserProfile : ContentPage
@@ -29,7 +26,7 @@ namespace RecoveryAT
             // Ensure user data is available, otherwise display an error and prompt re-login.
             if (_user == null || string.IsNullOrWhiteSpace(_user.Email))
             {
-                DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
+                _ = DisplayAlert("Error", "Could not retrieve user data. Please log in again.", "OK");
                 return;
             }
 

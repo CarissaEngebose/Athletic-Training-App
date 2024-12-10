@@ -7,10 +7,7 @@
     which can take a bit of time for each sprint but overall we think it went well.
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Extensions.Configuration;
 using Npgsql;
 
 namespace RecoveryAT
@@ -56,7 +53,7 @@ namespace RecoveryAT
 
                 conn.Open();
                 using var cmd = new NpgsqlCommand("SELECT school_code FROM users WHERE school_code = @schoolCode", conn);
-                cmd.Parameters.AddWithValue("@schoolCode", schoolCode); // set parameter for school code
+                _ = cmd.Parameters.AddWithValue("@schoolCode", schoolCode); // set parameter for school code
 
                 var result = cmd.ExecuteScalar(); // Execute the command and get the result
 
@@ -94,7 +91,7 @@ namespace RecoveryAT
                     GROUP BY injured_area", conn);
 
                 // add parameters
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                _ = cmd.Parameters.AddWithValue("schoolCode", schoolCode);
 
                 using var reader = cmd.ExecuteReader();
 
@@ -145,8 +142,8 @@ namespace RecoveryAT
                     GROUP BY injured_area", conn);
 
                 // add parameters to search by
-                cmd.Parameters.AddWithValue("schoolCode", schoolCode);
-                cmd.Parameters.AddWithValue("sport", sport);
+                _ = cmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                _ = cmd.Parameters.AddWithValue("sport", sport);
 
                 using var reader = cmd.ExecuteReader();
 

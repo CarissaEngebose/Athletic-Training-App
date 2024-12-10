@@ -20,39 +20,39 @@ namespace RecoveryAT
         private void OnCodeEntryTextChanged(object sender, TextChangedEventArgs e)
         {
             var entry = sender as Entry;
-            if (entry.Text.Length == 1) // If the current entry is filled, move to the next field.
+            if (entry?.Text?.Length == 1) // If the current entry is filled, move to the next field.
             {
                 switch (entry)
                 {
                     case var _ when entry == CodeEntry1:
-                        CodeEntry2.Focus();
+                        _ = CodeEntry2.Focus();
                         break;
                     case var _ when entry == CodeEntry2:
-                        CodeEntry3.Focus();
+                        _ = CodeEntry3.Focus();
                         break;
                     case var _ when entry == CodeEntry3:
-                        CodeEntry4.Focus();
+                        _ = CodeEntry4.Focus();
                         break;
                     case var _ when entry == CodeEntry4:
-                        CodeEntry5.Focus();
+                        _ = CodeEntry5.Focus();
                         break;
                 }
             }
-            else if (entry.Text.Length == 0) // If the current entry is cleared, move back to the previous field.
+            else if (entry?.Text?.Length == 0) // If the current entry is cleared, move back to the previous field.
             {
                 switch (entry)
                 {
                     case var _ when entry == CodeEntry2:
-                        CodeEntry1.Focus();
+                        _ = CodeEntry1.Focus();
                         break;
                     case var _ when entry == CodeEntry3:
-                        CodeEntry2.Focus();
+                        _ = CodeEntry2.Focus();
                         break;
                     case var _ when entry == CodeEntry4:
-                        CodeEntry3.Focus();
+                        _ = CodeEntry3.Focus();
                         break;
                     case var _ when entry == CodeEntry5:
-                        CodeEntry4.Focus();
+                        _ = CodeEntry4.Focus();
                         break;
                 }
             }
@@ -87,13 +87,13 @@ namespace RecoveryAT
         }
 
         // Calls the business logic to validate the 5-character school code.
-        private string IsValidSchoolCode(string part1, string part2, string part3, string part4, string part5)
+        private static string IsValidSchoolCode(string part1, string part2, string part3, string part4, string part5)
         {
             return MauiProgram.BusinessLogic.IsValidSchoolCode(part1, part2, part3, part4, part5);
         }
 
         // Concatenates the five parts of the school code into a single string.
-        private string ConcatSchoolCode(string part1, string part2, string part3, string part4, string part5) 
+        private static string ConcatSchoolCode(string part1, string part2, string part3, string part4, string part5) 
         {
             return string.Concat(part1, part2, part3, part4, part5);
         }

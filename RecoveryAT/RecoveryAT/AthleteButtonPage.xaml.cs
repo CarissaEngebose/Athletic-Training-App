@@ -9,18 +9,16 @@
                 in the SchoolCode, so the tabs needed to be added to as children in the cs file.
 */
 
-using Microsoft.Maui.Controls;
-
 namespace RecoveryAT
 {
     public partial class AthleteButtonPage : ContentPage
     {
-        private string SchoolCode { get; set; }
+        private string SchoolCode { get; set; } = string.Empty;
 
         public AthleteButtonPage()
         {
             InitializeComponent();
-            InitializePageAsync();
+            _ = InitializePageAsync();
         }
 
         private async Task InitializePageAsync()

@@ -1,6 +1,11 @@
+/*
+    Date: 12/10/2024
+    Description: AthletePastForms screen, useful for searching for viewing forms by type or other metrics.
+    Bugs: None known
+    Reflection: pulling up forms was ony initially challenging.
+*/
+
 using System.Collections.ObjectModel;
-using System;
-using System.Linq;
 
 namespace RecoveryAT
 {

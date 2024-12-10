@@ -7,8 +7,6 @@
     the database screen by screen so it developed over time. 
 **/
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace RecoveryAT

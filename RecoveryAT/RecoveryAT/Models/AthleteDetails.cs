@@ -6,8 +6,6 @@
     Reflection: This didn't take very long and was pretty straightforward to set up. It was very beneficial for the AthleteInformation screen
     where we needed to display all the information of the athlete from various tables in the database.
 **/
-using System;
-
 namespace RecoveryAT
 {
     /// <summary>

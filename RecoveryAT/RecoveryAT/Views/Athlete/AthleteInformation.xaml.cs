@@ -1,18 +1,23 @@
+/*
+    Date: 12/10/2024
+    Description: AthleteInformation screen, useful for searching for athletes and viewing their information.
+    Bugs: None known
+    Reflection: Displaying information was easy enough but getting it to work with pulling up form infor was (initially) challenging.
+*/
+
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Windows.Input;
-using Microsoft.Maui.Controls;
 
 namespace RecoveryAT;
 
 public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 {
     private readonly IBusinessLogic _businessLogic;
-    private ObservableCollection<AthleteDetail> _displayList = new();
-    private ObservableCollection<AthleteDetail> _allItems = new();
-    public event PropertyChangedEventHandler PropertyChanged;
+    private ObservableCollection<AthleteDetail> _displayList = [];
+    private readonly ObservableCollection<AthleteDetail> _allItems = [];
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     public ObservableCollection<AthleteDetail> DisplayList
     {
@@ -38,6 +43,9 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
                          new SearchDatabase(),
                          new Database());
 
+        SearchQuery = string.Empty;
+        SchoolCode = string.Empty;
+
         LoadSchoolCode();
         BindingContext = this;
     }
@@ -49,7 +57,7 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
         LoadData(); // Refresh data when the page appears
     }
 
-    private void OnPropertyChanged(string propertyName)
+    private new void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
@@ -58,13 +66,13 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
     {
         // Retrieve SchoolCode dynamically from the user's profile
         var user = ((App)Microsoft.Maui.Controls.Application.Current).User;
-        string email = user.Email;
+        string email = user?.Email ?? string.Empty;
 
         if (!string.IsNullOrWhiteSpace(email))
         {
             if (user != null)
             {
-                SchoolCode = user.SchoolCode;
+                SchoolCode = user?.SchoolCode ?? "DefaultCode";
             }
             else
             {
@@ -123,7 +131,7 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
+                DisplayList = [.. _allItems];
             });
         }
         catch (Exception ex)
@@ -136,7 +144,7 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
     {
         if (string.IsNullOrWhiteSpace(e.NewTextValue))
         {
-            DisplayList = new ObservableCollection<AthleteDetail>(_allItems);
+            DisplayList = [.. _allItems];
         }
         else
         {
@@ -150,7 +158,7 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
                 (item.DateOfBirth.ToString("MM/dd/yyyy")?.Contains(query, StringComparison.OrdinalIgnoreCase) == true)
             );
 
-            DisplayList = new ObservableCollection<AthleteDetail>(filteredItems);
+            DisplayList = [.. filteredItems];
         }
     }
 
@@ -161,8 +169,8 @@ public partial class AthleteInformation : ContentPage, INotifyPropertyChanged
 
         if (tappedItem != null)
         {
-            var athleteForm = _businessLogic.GetForms(schoolCode: SchoolCode)
-                                            .FirstOrDefault(form => form.FullName == tappedItem.FullName);
+            var athleteForms = _businessLogic.GetForms(schoolCode: SchoolCode);
+            var athleteForm = athleteForms?.FirstOrDefault(form => form.FullName == tappedItem.FullName);
 
             if (athleteForm != null)
             {

@@ -6,9 +6,6 @@
     the set values after they have all been displayed in the pie chart. 
 **/
 
-using System;
-using System.Collections.Generic;
-
 public class InjuryStatistic
 {
     // stores colors for specific injury types (case-insensitive)
