@@ -86,7 +86,7 @@ namespace RecoveryAT
             }
 
             if(_businessLogic.IsEmailRegistered(email)){
-                await DisplayAlert("Error", "Email is already created", "OK");
+                await DisplayAlert("Error", "Email is already in use", "OK");
                 return;
             }
 
