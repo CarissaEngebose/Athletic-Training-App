@@ -35,11 +35,11 @@ public partial class ResetPassword : ContentPage
         } else {
             numGuesses--;
             if(numGuesses < 1){
-                await DisplayAlert("Error", "No more guesses left", "OK");
+                await DisplayAlert("Incorrect Answers", "No more guesses left", "OK");
                 await Navigation.PopAsync();
                 return;
             }
-            await DisplayAlert("Error", "One or more incorrect answers - Number of guesses left: " + numGuesses, "OK");
+            await DisplayAlert("Incorrect Answers", "One or more incorrect answers - Number of guesses left: " + numGuesses, "OK");
         }
     }
 
