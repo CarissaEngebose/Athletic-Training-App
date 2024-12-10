@@ -85,6 +85,11 @@ namespace RecoveryAT
                 return;
             }
 
+            if(_businessLogic.IsEmailRegistered(email)){
+                await DisplayAlert("Error", "Email is already created", "OK");
+                return;
+            }
+
             // Hash the password before saving or passing it to another page
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text);
             // hash security questions - dominick
