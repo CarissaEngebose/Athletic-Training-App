@@ -33,10 +33,7 @@ namespace RecoveryAT
                 return;
             }
 
-            // Fetch user data from the database via BusinessLogic.
-            var userData = ((App)Application.Current).BusinessLogic.GetUserByEmail(email);
-
-            if (userData != null)
+            if (_user != null)
             {
                 // Populate UI fields with decrypted user data.
                 FirstNameEntry.Text = _user.FirstName;
@@ -121,16 +118,29 @@ namespace RecoveryAT
             // Collect updated user profile data.
             string firstName = FirstNameEntry.Text;
             string lastName = LastNameEntry.Text;
-            string schoolName = SchoolNameEntry.Text;
             string schoolCode = SchoolCodeEntry.Text;
             string email = EmailEntry.Text;
+
+            // Check if the school code already exists in the database
+            if (_user.SchoolCode != schoolCode && MauiProgram.BusinessLogic.SchoolCodeExists(schoolCode))
+            {
+                await DisplayAlert("Error", "This school code already exists. Please enter a unique code.", "OK");
+                return;
+            }
+
+            if(_user.Email != email && MauiProgram.BusinessLogic.IsEmailRegistered(email)){ // check to see if email is already in use
+                await DisplayAlert("Error", "Email is already in use", "OK");
+                return;
+            }
+
+            var encryptedSchoolName = EncryptionHelper.Encrypt(SchoolNameEntry.Text, _user.Key, _user.IV); // encrypt the new school name
 
             // Update user profile in the database via BusinessLogic.
             bool isUpdated = ((App)Application.Current).BusinessLogic.UpdateUserProfile(
                 _user.Email, // Use the original email as identifier.
                 firstName,
                 lastName,
-                schoolName,
+                encryptedSchoolName,
                 schoolCode,
                 email
             );
@@ -139,6 +149,17 @@ namespace RecoveryAT
             {
                 // Show success message and navigate back to the UserProfile page.
                 await DisplayAlert("Success", "Profile updated successfully.", "OK");
+
+                // update the user information for the app
+                ((App)Application.Current).User = ((App)Application.Current).BusinessLogic.GetUserFromEmail(_user.Email);
+                _user = ((App)Application.Current).User;
+
+                FirstNameEntry.Text = _user.FirstName;
+                LastNameEntry.Text = _user.LastName;
+                SchoolNameEntry.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
+                SchoolCodeEntry.Text = _user.SchoolCode;
+                EmailEntry.Text = _user.Email;
+
                 _ = await Navigation.PopAsync();
             }
             else

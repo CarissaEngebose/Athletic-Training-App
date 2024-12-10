@@ -22,6 +22,7 @@ namespace RecoveryAT
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            _user = ((App)Application.Current).User; // refresh the user (after UserProfileEdit)
 
             // Ensure user data is available, otherwise display an error and prompt re-login.
             if (_user == null || string.IsNullOrWhiteSpace(_user.Email))
