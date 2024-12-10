@@ -32,8 +32,8 @@ namespace RecoveryAT
             var email = emailEntry.Text;
 
             // Validate that all required fields are filled
-            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) || 
-                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(passwordEntry.Text) || 
+            if (string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName) ||
+                string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(passwordEntry.Text) ||
                 string.IsNullOrWhiteSpace(confirmPasswordEntry.Text))
             {
                 await DisplayAlert("Error", "Please fill all fields.", "OK");
@@ -48,7 +48,7 @@ namespace RecoveryAT
             }
 
             // Validate password strength and requirements
-            if (passwordEntry.Text.Length < 8) 
+            if (passwordEntry.Text.Length < 8)
             {
                 await DisplayAlert("Password Error", "Password must be at least 8 characters.", "OK");
                 return;
@@ -71,17 +71,26 @@ namespace RecoveryAT
                 return;
             }
 
+            // if all security questions were selected - dominick
+            if (QuestionOne.SelectedItem == null || QuestionTwo.SelectedItem == null || QuestionThree.SelectedItem == null)
+            {
+                await DisplayAlert("Unselected Questions", "Please select all three questions", "OK");
+                return;
+            }
+
             // verifies all security questions were answered - dominick
-            if(string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || string.IsNullOrWhiteSpace(QuestionThreeEntry.Text)){
+            if (string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || string.IsNullOrWhiteSpace(QuestionThreeEntry.Text))
+            {
                 await DisplayAlert("Error", "Please answer all security questions", "OK");
                 return;
             }
-            
+
             // Hash the password before saving or passing it to another page
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text);
             // hash security questions - dominick
-            string securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
-            string hashedSecurityQuestions = BCrypt.Net.BCrypt.HashPassword(securityQuestions);
+            string securityAnswers = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
+            string securityQuestions = QuestionOne.SelectedIndex.ToString() + QuestionTwo.SelectedIndex.ToString() + QuestionThree.SelectedIndex.ToString();
+            string hashedSecurityQuestions = BCrypt.Net.BCrypt.HashPassword(securityQuestions + securityAnswers);
             // Navigate to the next page, passing collected user data
             await Navigation.PushAsync(new TrainerSchoolInformation(firstName, lastName, email, hashedPassword, hashedSecurityQuestions));
         }

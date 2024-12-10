@@ -27,17 +27,20 @@ public partial class ResetPassword : ContentPage
     /// <param name="e"></param>
     private async void OnSubmitAnswers(object sender, EventArgs e)
     {
-        if(QuestionOne.SelectedItem == null || QuestionOne.SelectedItem == null || QuestionOne.SelectedItem == null){
+        if(QuestionOne.SelectedItem == null || QuestionTwo.SelectedItem == null || QuestionThree.SelectedItem == null){
             await DisplayAlert("Unselected Questions", "Please select all three questions", "OK");
             return;
         }
-        if(string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionOneEntry.Text)){
+        if(string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || string.IsNullOrWhiteSpace(QuestionThreeEntry.Text)){
             await DisplayAlert("Empty Answers", "Please answer all questions", "OK");
             return;
         }
-        String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
+
+        string securityAnswers = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security answers mushed together
+        string securityQuestions = QuestionOne.SelectedIndex.ToString() + QuestionTwo.SelectedIndex.ToString() + QuestionThree.SelectedIndex.ToString(); // security questions
+
         User user = _businessLogic.GetUserFromEmail(email); // user with a given email
-        if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)) // if security questions are correct
+        if (BCrypt.Net.BCrypt.Verify(securityQuestions+securityAnswers, user.HashedSecurityQuestions)) // if security questions are correct
         {
             OpenResetPasswordPopup(); // allow user to reset password
         } else {
