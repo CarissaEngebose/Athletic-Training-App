@@ -22,9 +22,15 @@ public partial class UserLogin : ContentPage
     }
 
     // Event handler for when the user taps the "Forgot Password" link
-    private void OnForgotPasswordClicked(object sender, EventArgs e)
+    private async void  OnForgotPasswordClicked(object sender, EventArgs e)
     {
-        // Example: Navigate to the ForgotPassword page
+        var email = await DisplayPromptAsync("Password Reset", "Enter your email address:");
+        if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
+            await Navigation.PushAsync(new ResetPassword(email));
+        } else if(email != null){
+            await DisplayAlert("Email Not found", "The email address is not found.", "OK");
+        }
+
     }
 
     // Event handler for when the user clicks the Login button
@@ -58,7 +64,7 @@ public partial class UserLogin : ContentPage
         }
         else
         {
-            Console.WriteLine($"Password: {PasswordEntry.Text}");
+            //Console.WriteLine($"Password: {PasswordEntry.Text}"); i dont think it is safe to do this - dominick
             // Show an alert if login fails
             await DisplayAlert("Login Failed", "Incorrect Password.", "OK");
         }
