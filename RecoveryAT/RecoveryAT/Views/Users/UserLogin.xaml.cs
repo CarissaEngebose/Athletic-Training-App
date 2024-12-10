@@ -27,7 +27,7 @@ public partial class UserLogin : ContentPage
         var email = await DisplayPromptAsync("Password Reset", "Enter your email address:");
         if (CredentialsValidator.isValidEmail(email) && _businessLogic.IsEmailRegistered(email)){
             await Navigation.PushAsync(new ResetPassword(email));
-        } else {
+        } else if(email != null){
             await DisplayAlert("Email Not found", "The email address is not found.", "OK");
         }
 
@@ -64,7 +64,7 @@ public partial class UserLogin : ContentPage
         }
         else
         {
-            Console.WriteLine($"Password: {PasswordEntry.Text}");
+            //Console.WriteLine($"Password: {PasswordEntry.Text}"); i dont think it is safe to do this - dominick
             // Show an alert if login fails
             await DisplayAlert("Login Failed", "Incorrect Password.", "OK");
         }

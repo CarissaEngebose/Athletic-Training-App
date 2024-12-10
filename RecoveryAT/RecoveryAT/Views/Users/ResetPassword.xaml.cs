@@ -29,7 +29,6 @@ public partial class ResetPassword : ContentPage
     {
         String securityQuestions = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text; // security questions mushed together
         User user = _businessLogic.GetUserFromEmail(email); // user with a given email
-        Console.WriteLine("AHHHHHHHHHHHHHHH" + user.HashedSecurityQuestions);
         if (BCrypt.Net.BCrypt.Verify(securityQuestions, user.HashedSecurityQuestions)) // if security questions are correct
         {
             OpenResetPasswordPopup(); // allow user to reset password
@@ -47,6 +46,7 @@ public partial class ResetPassword : ContentPage
     // Cancel button on reset password clicked
     private void OnCancelPasswordChangeClicked(object sender, EventArgs e){
         PasswordPopup.IsVisible = false;
+        Navigation.PopAsync();
     }
 
     private void OpenResetPasswordPopup()
@@ -75,10 +75,10 @@ public partial class ResetPassword : ContentPage
         {
             await DisplayAlert("Success", "Password updated successfully.", "OK");
             PasswordPopup.IsVisible = false;
-
             // Clear input fields after successful update.
             NewPasswordEntry.Text = string.Empty;
             ConfirmPasswordEntry.Text = string.Empty;
+            await Navigation.PopAsync();
         }
         else
         {
