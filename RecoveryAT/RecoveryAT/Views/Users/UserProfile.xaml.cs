@@ -123,7 +123,7 @@ namespace RecoveryAT
                 _user.Logout(); // Log the user out.
 
                 // Clear the navigation stack and set the login page as the root.
-                Application.Current.MainPage = new NavigationPage(new UserLogin());
+                Application.Current.MainPage = new NavigationPage(new WelcomeScreen());
             }
         }
 
