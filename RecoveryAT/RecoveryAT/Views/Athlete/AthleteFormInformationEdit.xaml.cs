@@ -1,6 +1,5 @@
 /*
-    Name: Dominick Hagedorn
-    Date: 10/14/2024
+    Date: 12/10/2024
     Description: AthleteFormInformationEdit screen
     Bugs: None known
     Reflection: This was one of the easier screens. The information box was the hardest to get 
@@ -49,7 +48,7 @@ public partial class AthleteFormInformationEdit : ContentPage
             if (_currentContacts.Count > 0)
             {
                 var primaryContact = _currentContacts[0];
-                
+
                 // Set the current values as placeholders
                 ContactTypeEntry.Text = primaryContact.ContactType;
                 PhoneNumberEntry.Text = primaryContact.PhoneNumber;
@@ -71,9 +70,10 @@ public partial class AthleteFormInformationEdit : ContentPage
         _currentForm.TreatmentType = (string)TreatmentType.SelectedItem;
         _currentForm.Status = (string)StatusPicker.SelectedItem;
 
-        // Update contact details if available
+        // Update or insert contact details
         if (_currentContacts.Count > 0)
         {
+            // Update existing contact
             _currentContacts[0].ContactType = string.IsNullOrWhiteSpace(ContactTypeEntry.Text)
                 ? _currentContacts[0].ContactType
                 : ContactTypeEntry.Text;
@@ -82,8 +82,29 @@ public partial class AthleteFormInformationEdit : ContentPage
                 ? _currentContacts[0].PhoneNumber
                 : phoneNumber;
         }
+        else
+        {
+            // Insert new contact
+            var newContact = new AthleteContact(
+                contactID: 0, // The database should auto-generate this ID
+                formKey: _currentForm.FormKey.Value,
+                contactType: ContactTypeEntry.Text ?? "Unknown",
+                phoneNumber: phoneNumber
+            );
 
-        // Save changes using BusinessLogic
+            var insertResult = _businessLogic.InsertContact(newContact.FormKey, newContact.ContactType, newContact.PhoneNumber);
+
+            if (!insertResult.Contains("successfully"))
+            {
+                await DisplayAlert("Error", "Failed to add new contact. Please try again.", "OK");
+                return;
+            }
+
+            // Add the new contact to the current contacts list
+            _currentContacts.Add(newContact);
+        }
+
+        // Save changes to the form
         var resultMessage = _businessLogic.SaveUpdatedForm(_currentForm, _currentContacts);
 
         await DisplayAlert("Save Status", resultMessage, "OK");

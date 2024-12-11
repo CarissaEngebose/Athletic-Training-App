@@ -74,6 +74,12 @@ namespace RecoveryAT
             BindingContext = this; // Set data binding context to this page.
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadAthletes(); // Refresh the athlete list when the page appears
+        }
+
         // Handles taps on athlete tiles and navigates to the detailed athlete form page.
         private async void OnTileTapped(object sender, EventArgs e)
         {

@@ -2,7 +2,7 @@
     Date: 12/10/2024
     Description: AthletePastForms screen, useful for searching for viewing forms by type or other metrics.
     Bugs: None known
-    Reflection: pulling up forms was ony initially challenging.
+    Reflection: Pulling up forms was ony initially challenging.
 */
 
 using System.Collections.ObjectModel;
@@ -47,6 +47,12 @@ namespace RecoveryAT
 
             BindingContext = this;
             OnPropertyChanged(nameof(AthleteList));
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadAthletes(); // Refresh the athlete list when the page appears
         }
 
         private async void OnTileTapped(object sender, EventArgs e)
