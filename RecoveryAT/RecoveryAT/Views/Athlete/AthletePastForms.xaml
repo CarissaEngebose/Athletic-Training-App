@@ -60,7 +60,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Entry Placeholder="Search"
+                        <Entry Placeholder="Search by date, name, sport, status, or treatment type..."
                                HorizontalOptions="FillAndExpand"
                                Grid.Column="0"
                                TextChanged="OnSearchTextChanged"/>

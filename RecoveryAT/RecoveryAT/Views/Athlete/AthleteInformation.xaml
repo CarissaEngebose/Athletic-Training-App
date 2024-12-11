@@ -44,7 +44,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Entry Placeholder="Search"
+                        <Entry Placeholder="Search by name, contact, treatment type, or birth date..."
                                Text="{Binding SearchQuery, Mode=TwoWay}"
                                TextChanged="OnSearchTextChanged"
                                HorizontalOptions="FillAndExpand"

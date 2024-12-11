@@ -67,17 +67,17 @@ namespace RecoveryAT
             // Define a collection of items with titles and descriptions.
             var items = new[]
             {
-                new { Title = "AthleteContacts", Description = "Add contact info for athletes (phone/relationship). Tap Finish to save or delete entries using the trash icon." },
-                new { Title = "AthleteFormInformation", Description = "View athlete details (DOB, sport, injury). Edit with the top-right button." },
-                new { Title = "AthleteFormInformationEdit", Description = "Edit athlete info (treatment type, status, contact). Tap Save Changes to update." },
-                new { Title = "AthleteInformation", Description = "Search and view athlete profiles. Tap entries to see more details." },
-                new { Title = "AthletePastForms", Description = "View past forms by treatment type. Use search or tap forms for details." },
-                new { Title = "AthleteStatuses", Description = "View and update athlete statuses. Use the picker to change statuses." },
-                new { Title = "InjuryFormReport", Description = "Submit injury details for review. Fill the form and tap Submit." },
-                new { Title = "InjuryStatistics", Description = "Select a sport to view injury stats. Stats display in a chart." },
-                new { Title = "SchoolCodeScreen", Description = "Enter the 5-digit school code. Tap Submit Code to verify." },
-                new { Title = "TrainerHomeScreen", Description = "Select a date and view athlete forms for that day." },
-                new { Title = "TrainerSchoolInformation", Description = "Enter school name and code. Tap Create School to finalize." }
+                new { Title = "Add Athlete Contacts", Description = "Add contact info for athletes (phone/relationship). Tap Finish to save or delete entries using the trash icon." },
+                new { Title = "View Athlete Form Details", Description = "View athlete details (DOB, sport, injury). Edit with the top-right button." },
+                new { Title = "Edit Athlete Form", Description = "Edit athlete info (treatment type, status, contact). Tap Save Changes to update." },
+                new { Title = "Athlete Directory", Description = "Search and view athlete profiles. Tap entries to see more details." },
+                new { Title = "Past Forms", Description = "View past forms by treatment type. Use search or tap forms for details." },
+                new { Title = "Update Athlete Status", Description = "View and update athlete statuses. Use the picker to change statuses." },
+                new { Title = "Submit Injury Report", Description = "Submit injury details for review. Fill the form and tap Submit." },
+                new { Title = "Injury Statistics", Description = "Select a sport to view injury stats. Stats display in a chart." },
+                new { Title = "Enter School Code", Description = "Enter the 5-digit school code. Tap Submit Code to verify." },
+                new { Title = "Trainer Dashboard", Description = "Select a date and view athlete forms for that day." },
+                new { Title = "Add School Information", Description = "Enter school name and code. Tap Create School to finalize." }
             };
 
             // Loop through each item and add formatted spans for titles and descriptions.

@@ -69,7 +69,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Entry Placeholder="Search"
+                            <Entry Placeholder="Search by name, injury, sport, or status..."
                                    HorizontalOptions="FillAndExpand"
                                    TextColor="Black"
                                    Grid.Column="0"
