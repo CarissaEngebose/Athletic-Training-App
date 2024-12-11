@@ -24,10 +24,8 @@ public class InjuryStatistic
     };
     private static int CurrentColorIndex = 0; // tracks the next base color
     private static int BrightnessModifier = 0; // tracks brightness adjustments
-
     public string InjuryType { get; set; }
     public float Percentage { get; set; }
-
     public string ColorHex => GetColorHex();
 
     /// <summary>

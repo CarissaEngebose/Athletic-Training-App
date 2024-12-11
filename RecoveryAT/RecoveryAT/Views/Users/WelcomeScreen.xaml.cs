@@ -12,21 +12,46 @@ namespace RecoveryAT
 {
     public partial class WelcomeScreen : ContentPage
     {
+        /// <summary>
+        /// Initializes the welcome screen components.
+        /// </summary>
         public WelcomeScreen()
         {
             InitializeComponent();
         }
 
-        // Navigate to the school code screen when "Fill Out Form" is clicked
+        /// <summary>
+        /// Handles the "Fill Out Form" button click event.
+        /// Navigates the user to the school code screen to start filling out a form.
+        /// </summary>
         private async void OnFillOutFormClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SchoolCodeScreen());
+            try
+            {
+                await Navigation.PushAsync(new SchoolCodeScreen());
+            }
+            catch (Exception ex)
+            {
+                // Handle navigation error
+                await DisplayAlert("Error", $"Failed to navigate to the form: {ex.Message}", "OK");
+            }
         }
 
-        // Navigate to the login screen when "Login" is tapped
+        /// <summary>
+        /// Handles the "Login" text tap event.
+        /// Navigates the user to the login screen.
+        /// </summary>
         private async void OnLoginTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UserLogin());
+            try
+            {
+                await Navigation.PushAsync(new UserLogin());
+            }
+            catch (Exception ex)
+            {
+                // Handle navigation error
+                await DisplayAlert("Error", $"Failed to navigate to the login screen: {ex.Message}", "OK");
+            }
         }
     }
 }

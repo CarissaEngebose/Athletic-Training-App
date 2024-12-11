@@ -13,14 +13,28 @@ namespace RecoveryAT
 {
     public partial class AthleteStatuses : ContentPage
     {
+        // Instance of the business logic layer
         private readonly BusinessLogic _businessLogic;
-        private readonly string _schoolCode; // Unique code to filter athletes by school.
-        public ObservableCollection<AthleteForm> AthleteList { get; set; } // Dynamic list of athletes for data binding.
-        public ObservableCollection<string> StatusOptions { get; set; } // Dropdown options for athlete statuses.
-        public ObservableCollection<string> SearchOptions { get; set; } // Options for the search functionality.
-        private bool _isUserChange = false;// Flag to track user-initiated changes
 
-        private string _selectedStatus; // Tracks the currently selected status from the dropdown.
+        // Unique school code used to filter athletes by organization
+        private readonly string _schoolCode;
+
+        // Dynamic list of athletes bound to the UI
+        public ObservableCollection<AthleteForm> AthleteList { get; set; }
+
+        // Dropdown options for filtering athlete statuses
+        public ObservableCollection<string> StatusOptions { get; set; }
+
+        // Options for the search functionality
+        public ObservableCollection<string> SearchOptions { get; set; }
+
+        // Tracks user-initiated changes in the Picker control
+        private bool _isUserChange = false;
+
+        // Tracks the currently selected status for filtering
+        private string _selectedStatus;
+
+        // Property for the selected status, updates the UI when changed
         public string SelectedStatus
         {
             get => _selectedStatus;
@@ -29,17 +43,20 @@ namespace RecoveryAT
                 if (_selectedStatus != value)
                 {
                     _selectedStatus = value;
-                    OnPropertyChanged(nameof(SelectedStatus)); // Notify UI of changes.
-                    FilterAndSortAthletes(); // Filter and update the athlete list based on the new status.
+                    OnPropertyChanged(nameof(SelectedStatus)); // Notify UI of changes
+                    FilterAndSortAthletes(); // Filter the athlete list based on the new status
                 }
             }
         }
 
-        // Constructor initializes the page and loads athlete data
+        /// <summary>
+        /// Constructor for initializing the AthleteStatuses page.
+        /// </summary>
+        /// <param name="schoolCode">The school code for filtering athletes.</param>
         public AthleteStatuses(string schoolCode)
         {
-            _schoolCode = schoolCode;
-            _selectedStatus = "All"; // Default status filter.
+            _schoolCode = schoolCode; // Store the provided school code
+            _selectedStatus = "All"; // Default status filter
             InitializeComponent();
 
             // Initialize collections for data binding
@@ -53,7 +70,7 @@ namespace RecoveryAT
                 "Total Rest"
             };
 
-            // Search options include all statuses and no filter
+            // Include "All" and other statuses for search options
             SearchOptions = new ObservableCollection<string>
             {
                 "All",
@@ -64,23 +81,30 @@ namespace RecoveryAT
                 "Total Rest"
             };
 
+            // Initialize the business logic instance
             _businessLogic = new BusinessLogic(
                              new ContactsDatabase(),
                              new FormsDatabase(),
                              new UsersDatabase(),
                              new SearchDatabase(),
                              new Database());
-            LoadAthletes(); // Load athlete data from the database.
-            BindingContext = this; // Set data binding context to this page.
+
+            LoadAthletes(); // Load the initial list of athletes
+            BindingContext = this; // Set the BindingContext for data binding
         }
 
+        /// <summary>
+        /// Refreshes the athlete list when the page appears.
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            LoadAthletes(); // Refresh the athlete list when the page appears
+            LoadAthletes(); // Ensure the data is up-to-date
         }
 
-        // Handles taps on athlete tiles and navigates to the detailed athlete form page.
+        /// <summary>
+        /// Event handler for tapping on athlete tiles, navigates to the detailed athlete form page.
+        /// </summary>
         private async void OnTileTapped(object sender, EventArgs e)
         {
             try
@@ -90,12 +114,14 @@ namespace RecoveryAT
 
                 if (tappedAthlete != null && tappedAthlete.FormKey.HasValue)
                 {
+                    // Fetch the full form data for the tapped athlete
                     var athleteForm = _businessLogic.GetAllForms()
                                                     .FirstOrDefault(a => a.FormKey == tappedAthlete.FormKey.Value);
 
                     if (athleteForm != null)
                     {
-                        await Navigation.PushAsync(new AthleteFormInformation(athleteForm)); // Navigate to details page.
+                        // Navigate to the AthleteFormInformation page
+                        await Navigation.PushAsync(new AthleteFormInformation(athleteForm));
                     }
                     else
                     {
@@ -113,7 +139,9 @@ namespace RecoveryAT
             }
         }
 
-        // Loads athletes from the database and applies the school filter.
+        /// <summary>
+        /// Loads athletes from the database and applies the school filter.
+        /// </summary>
         private void LoadAthletes()
         {
             try
@@ -124,10 +152,11 @@ namespace RecoveryAT
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
+                    // Default to "No Status" if the status is null or empty
                     athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
-                OnPropertyChanged(nameof(AthleteList));
+                OnPropertyChanged(nameof(AthleteList)); // Notify UI of updates
             }
             catch (Exception ex)
             {
@@ -135,7 +164,9 @@ namespace RecoveryAT
             }
         }
 
-        // Filters and sorts athletes based on the selected status.
+        /// <summary>
+        /// Filters and sorts athletes based on the selected status.
+        /// </summary>
         private void FilterAndSortAthletes()
         {
             try
@@ -144,6 +175,7 @@ namespace RecoveryAT
                                              .Where(a => a.SchoolCode == _schoolCode)
                                              .ToList();
 
+                // Apply status-based filtering
                 if (SelectedStatus == "All")
                 {
                     athletes.ForEach(a => a.Status = string.IsNullOrEmpty(a.Status) ? "No Status" : a.Status);
@@ -160,10 +192,11 @@ namespace RecoveryAT
                 AthleteList.Clear();
                 foreach (var athlete in athletes)
                 {
+                    // Default to "No Status" if the status is null or empty
                     athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
-                OnPropertyChanged(nameof(AthleteList));
+                OnPropertyChanged(nameof(AthleteList)); // Notify UI of updates
             }
             catch (Exception ex)
             {
@@ -171,20 +204,24 @@ namespace RecoveryAT
             }
         }
 
-        // Handles text input in the search bar and updates the athlete list accordingly.
+        /// <summary>
+        /// Handles text input in the search bar and updates the athlete list.
+        /// </summary>
         private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e.NewTextValue))
             {
-                LoadAthletes(); // Reset the list when search is cleared.
+                LoadAthletes(); // Reset the list when search is cleared
             }
             else
             {
-                SearchAthletes(e.NewTextValue);
+                SearchAthletes(e.NewTextValue); // Perform a search
             }
         }
 
-        // Searches athletes based on the query and updates the athlete list.
+        /// <summary>
+        /// Searches athletes based on the query and updates the athlete list.
+        /// </summary>
         private void SearchAthletes(string query)
         {
             try
@@ -195,10 +232,11 @@ namespace RecoveryAT
                 AthleteList.Clear();
                 foreach (var athlete in searchResults)
                 {
+                    // Default to "No Status" if the status is null or empty
                     athlete.Status = string.IsNullOrEmpty(athlete.Status) ? "No Status" : athlete.Status;
                     AthleteList.Add(athlete);
                 }
-                OnPropertyChanged(nameof(AthleteList));
+                OnPropertyChanged(nameof(AthleteList)); // Notify UI of updates
             }
             catch (Exception ex)
             {
@@ -206,6 +244,9 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Updates the athlete's status in the database when changed in the UI.
+        /// </summary>
         private async void OnStatusChanged(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
@@ -213,13 +254,14 @@ namespace RecoveryAT
 
             if (picker.BindingContext is AthleteForm selectedAthlete && _isUserChange)
             {
-                _isUserChange = false; // Reset flag after handling user change
+                _isUserChange = false; // Reset flag after handling the change
                 selectedAthlete.Status = selectedStatus;
 
                 try
                 {
                     if (selectedAthlete.FormKey.HasValue)
                     {
+                        // Update the status in the database
                         string result = _businessLogic.UpdateContactStatus(selectedAthlete.FormKey.Value, selectedStatus);
 
                         if (result.Contains("successfully"))
@@ -243,10 +285,12 @@ namespace RecoveryAT
             }
         }
 
-        // Handle the Picker's Focus event to track user interaction
+        /// <summary>
+        /// Tracks user interaction with the Picker control.
+        /// </summary>
         private void OnPickerFocused(object sender, FocusEventArgs e)
         {
-            _isUserChange = true; // Set the flag to indicate user-initiated change
+            _isUserChange = true; // Indicate a user-initiated change
         }
     }
 }

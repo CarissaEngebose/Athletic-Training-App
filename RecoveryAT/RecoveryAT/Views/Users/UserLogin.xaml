@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-    Name: Dominick Hagedorn
-    Date: 10/14/2024
-    Description: UserLogin screen
+    Date: 12/10/2024
+    Description: Allows the trainer to login with their username and password.
     Bugs: None known
     Reflection: this was another easy screen. the hardest part was figuring out how to do the "forgot password" link
 -->

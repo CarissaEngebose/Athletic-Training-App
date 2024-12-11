@@ -13,51 +13,74 @@ namespace RecoveryAT
 {
     public partial class AthleteContacts : ContentPage
     {
-        private IBusinessLogic _businessLogic; // Interface for business logic layer to fetch and modify data.
-        private ObservableCollection<AthleteContact> _contacts; // Collection of athlete contacts for data binding.
-        private long _formKey; // Identifier for the form to which the contacts belong.
-        private User user; // Represents the current user of the application.
+        // Interface for accessing the business logic layer
+        private IBusinessLogic _businessLogic; 
 
-        // Public property for Contacts, which supports data binding and notifies of changes.
+        // Collection of athlete contacts for the form, bound to the UI
+        private ObservableCollection<AthleteContact> _contacts; 
+
+        // Identifier for the form associated with the contacts
+        private long _formKey; 
+
+        // Current user of the application
+        private User user; 
+
+        // Public property for Contacts, supporting data binding and notifying UI of changes
         public ObservableCollection<AthleteContact> Contacts
         {
             get => _contacts;
             set
             {
                 _contacts = value;
-                OnPropertyChanged(); // Notify UI of changes.
+                OnPropertyChanged(); // Notify UI when the property changes
             }
         }
 
-        // Constructor to initialize the page with the form key.
+        /// <summary>
+        /// Constructor for initializing the AthleteContacts page.
+        /// </summary>
+        /// <param name="formKey">The unique identifier for the form.</param>
         public AthleteContacts(long formKey)
         {
             InitializeComponent(); 
-            user = ((App)Application.Current).User; // Retrieve the current user from the application instance.
+            
+            // Retrieve the current user from the global application instance
+            user = ((App)Application.Current).User; 
+            
+            // Initialize the business logic layer instance
             _businessLogic = MauiProgram.BusinessLogic; 
+            
+            // Store the form key for loading contacts
             _formKey = formKey; 
 
-            LoadContacts(); // Load existing contacts for the given form.
+            // Load existing contacts associated with the form
+            LoadContacts(); 
         }
 
-        // Loads contacts from the business logic layer and sets the Contacts property.
+        /// <summary>
+        /// Fetches the contacts from the business logic layer and binds them to the UI.
+        /// </summary>
         private void LoadContacts()
         {
+            // Retrieve contacts for the current form key and bind to the Contacts property
             Contacts = _businessLogic.GetContactsByFormKey(_formKey);
         }
 
-        // Handles the event when the "Add Contact" button is clicked.
+        /// <summary>
+        /// Handles the event for adding a new contact to the form.
+        /// </summary>
+        /// <returns>A task indicating whether the contact was successfully added.</returns>
         private async Task<bool> OnAddContactClicked()
         {
-            // Retrieve user inputs for contact type and phone number.
+            // Retrieve inputs for contact type and phone number
             var contactType = RelationshipEntry.Text;
             var phoneNumber = PhoneNumberEntry.Text;
 
-            // Regex pattern for validating phone numbers (e.g., 123-456-7890).
+            // Define a regex pattern to validate phone numbers (e.g., 123-456-7890)
             string phonePattern = @"^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$";
             bool isPhoneNumberValid = Regex.IsMatch(phoneNumber ?? string.Empty, phonePattern);
 
-            // Validate inputs and display error messages if necessary.
+            // Validate inputs and show error messages if inputs are missing or invalid
             if (string.IsNullOrWhiteSpace(contactType) || string.IsNullOrWhiteSpace(phoneNumber))
             {
                 await DisplayAlert("Validation Error", "Please enter both contact type and phone number.", "OK");
@@ -70,49 +93,55 @@ namespace RecoveryAT
                 return false;
             }
 
-            // Insert the contact using the business logic layer and display the result message.
+            // Attempt to insert the contact into the database
             var resultMessage = _businessLogic.InsertContact(_formKey, contactType, phoneNumber);
             await DisplayAlert("Add Contact", resultMessage, "OK");
 
-            // Reload the contact list and clear inputs if the insertion was successful.
+            // If insertion is successful, refresh the contact list and clear the inputs
             if (resultMessage.Contains("successfully"))
             {
-                LoadContacts(); // Refresh the contact list.
-                ClearEntries(); // Clear input fields.
+                LoadContacts(); // Refresh the displayed contacts
+                ClearEntries(); // Clear the input fields
                 return true;
             }
 
             return false;
         }
 
-        // Clears the input fields for adding a new contact.
+        /// <summary>
+        /// Clears the input fields for adding a new contact.
+        /// </summary>
         private void OnDeleteContactClicked(object sender, EventArgs e)
         {
             ClearEntries();
         }
 
-        // Helper method to clear text entries.
+        /// <summary>
+        /// Helper method to clear the text entries for contact type and phone number.
+        /// </summary>
         private void ClearEntries()
         {
-            PhoneNumberEntry.Text = string.Empty;
-            RelationshipEntry.Text = string.Empty;
+            PhoneNumberEntry.Text = string.Empty; // Clear the phone number input
+            RelationshipEntry.Text = string.Empty; // Clear the relationship input
         }
 
-        // Handles the event when the "Finish" button is clicked.
+        /// <summary>
+        /// Handles the event when the "Finish" button is clicked.
+        /// Attempts to add the contact and navigates to the appropriate page.
+        /// </summary>
         private async void OnFinishClicked(object sender, EventArgs e)
         {
-            // Attempt to add the current contact.
+            // Try to add the contact and determine success
             bool isContactAdded = await OnAddContactClicked();
 
-            // Navigate to the appropriate page based on the user's login status.
+            // If the user is logged in and a contact was added, navigate to the MainTabbedPage
             if (isContactAdded && user.IsLoggedIn)
             {
-                // Set MainTabbedPage as the root page if logged in.
                 Application.Current.MainPage = new MainTabbedPage();
             }
             else
             {
-                // Set WelcomeScreen as the root page otherwise.
+                // Otherwise, navigate to the WelcomeScreen
                 Application.Current.MainPage = new WelcomeScreen();
             }
         }

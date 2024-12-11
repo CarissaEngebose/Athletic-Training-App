@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
-    Name: Carissa Engebose
-    Date: 10/13/2024
+    Date: 12/10/2024
     Description: A screen that allows a user to use a dropdown list for sports and view corresponding statistics in pie chart form.
     Bugs: None that I know of.
-    Reflection: This screen was very difficult because I kept trying to implement an actual pie chart, 
-                but nothing worked. Even using resources from GitHub didn’t help. While it still needs work, 
-                the layout is a good starting point.
+    Reflection: This screen was difficult because it took a long time to get a working pie chart.
 -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"

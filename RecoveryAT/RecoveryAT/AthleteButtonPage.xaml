@@ -13,6 +13,7 @@
              Title=""
              BackgroundColor="White">
     <StackLayout Padding="20" Spacing="25">
+       
         <!-- Medical Icon -->
         <Image Source="medical_icon.png"
                HorizontalOptions="Center"

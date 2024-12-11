@@ -1,7 +1,7 @@
 /**
     Date: 12/05/24
     Description: Database implementation for the RecoveryAT app including functionality to insert, update, delete and select forms and users
-    from where they are stored in the database.
+                 from where they are stored in the database.
     Bugs: None that I know of.
     Reflection: The database took a quite a bit of time because we started going screen by screen and implementing the database that way
     which can take a bit of time for each sprint but overall we think it went well.
@@ -31,7 +31,6 @@ namespace RecoveryAT
 
         // Property to expose the list of contacts.
         public ObservableCollection<AthleteContact> Contacts => contacts;
-
 
         // Constructor that sets up the connection string and fetches all forms.
         public UsersDatabase()

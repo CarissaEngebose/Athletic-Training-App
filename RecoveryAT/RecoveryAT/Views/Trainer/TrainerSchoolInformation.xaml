@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 
 	Date: 10/14/2024
-	Description: TrainerSchoolInformation Screen
+	Description: Allows the trainer to enter their school name and school code.
 	Bugs: None Known
 	Reflection: this was a very easy screen to implement. The only challenge was lining up the 5 boxes for the 5-digit code so that it looked nice and closer to the prototype.
 -->

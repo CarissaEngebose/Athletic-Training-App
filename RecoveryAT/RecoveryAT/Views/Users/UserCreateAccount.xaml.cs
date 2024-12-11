@@ -1,8 +1,8 @@
 ﻿/*
     Date: 12/06/24
     Description: This page allows users to create an account by providing their email, password, 
-                 and confirming their password. Users can select a status from a dropdown menu 
-                 and search for athletes using a search bar.
+                 and confirming their password. Users must also answer security questions for 
+                 account recovery.
     Bugs: None Known
     Reflection: This screen was easy to implement because there isn't much going on.
 */
@@ -14,16 +14,20 @@ namespace RecoveryAT
     public partial class UserCreateAccount : ContentPage
     {
         // Dependency for business logic operations
-        private IBusinessLogic _businessLogic;
+        private readonly IBusinessLogic _businessLogic;
 
-        // Constructor initializes the page and business logic dependency
+        /// <summary>
+        /// Constructor initializes the page and sets up the business logic dependency.
+        /// </summary>
         public UserCreateAccount()
         {
             InitializeComponent();
             _businessLogic = MauiProgram.BusinessLogic; // Retrieve business logic instance
         }
 
-        // Handles the "Create Account" button click event
+        /// <summary>
+        /// Handles the "Create Account" button click event. Validates user input and navigates to the next page.
+        /// </summary>
         private async void CreateAccountClicked(object sender, EventArgs e)
         {
             // Retrieve user inputs from UI fields
@@ -40,17 +44,17 @@ namespace RecoveryAT
                 return;
             }
 
-            // Validate email format using a helper method
+            // Validate email format
             if (!CredentialsValidator.isValidEmail(email))
             {
                 await DisplayAlert("Email Error", "Email format is invalid.", "OK");
                 return;
             }
 
-            // Validate password strength and requirements
+            // Validate password strength
             if (passwordEntry.Text.Length < 8)
             {
-                await DisplayAlert("Password Error", "Password must be at least 8 characters.", "OK");
+                await DisplayAlert("Password Error", "Password must be at least 8 characters long.", "OK");
                 return;
             }
             else if (!Regex.IsMatch(passwordEntry.Text, @"[^a-zA-Z0-9]")) // Check for at least one symbol
@@ -58,7 +62,7 @@ namespace RecoveryAT
                 await DisplayAlert("Password Error", "Password must contain at least one symbol.", "OK");
                 return;
             }
-            else if (!Regex.IsMatch(passwordEntry.Text, @"\d")) // Check for at least one digit
+            else if (!Regex.IsMatch(passwordEntry.Text, @"\d")) // Check for at least one number
             {
                 await DisplayAlert("Password Error", "Password must contain at least one number.", "OK");
                 return;
@@ -71,31 +75,37 @@ namespace RecoveryAT
                 return;
             }
 
-            // if all security questions were selected - dominick
+            // Ensure all security questions are selected
             if (QuestionOne.SelectedItem == null || QuestionTwo.SelectedItem == null || QuestionThree.SelectedItem == null)
             {
-                await DisplayAlert("Unselected Questions", "Please select all three questions", "OK");
+                await DisplayAlert("Unselected Questions", "Please select all three questions.", "OK");
                 return;
             }
 
-            // verifies all security questions were answered - dominick
-            if (string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || string.IsNullOrWhiteSpace(QuestionThreeEntry.Text))
+            // Ensure all security questions are answered
+            if (string.IsNullOrWhiteSpace(QuestionOneEntry.Text) || 
+                string.IsNullOrWhiteSpace(QuestionTwoEntry.Text) || 
+                string.IsNullOrWhiteSpace(QuestionThreeEntry.Text))
             {
-                await DisplayAlert("Error", "Please answer all security questions", "OK");
+                await DisplayAlert("Error", "Please answer all security questions.", "OK");
                 return;
             }
 
-            if(_businessLogic.IsEmailRegistered(email)){
-                await DisplayAlert("Error", "Email is already in use", "OK");
+            // Check if the email is already registered
+            if (_businessLogic.IsEmailRegistered(email))
+            {
+                await DisplayAlert("Error", "Email is already in use.", "OK");
                 return;
             }
 
-            // Hash the password before saving or passing it to another page
+            // Hash the password
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(passwordEntry.Text);
 
-            // Hash security questions
+            // Hash security questions and answers
             string securityAnswers = QuestionOneEntry.Text + QuestionTwoEntry.Text + QuestionThreeEntry.Text;
-            string securityQuestions = QuestionOne.SelectedIndex.ToString() + QuestionTwo.SelectedIndex.ToString() + QuestionThree.SelectedIndex.ToString();
+            string securityQuestions = QuestionOne.SelectedIndex.ToString() + 
+                                       QuestionTwo.SelectedIndex.ToString() + 
+                                       QuestionThree.SelectedIndex.ToString();
             string hashedSecurityQuestions = BCrypt.Net.BCrypt.HashPassword(securityQuestions + securityAnswers);
 
             // Navigate to the next page, passing collected user data

@@ -10,16 +10,22 @@ namespace RecoveryAT
 {
     public partial class SchoolCodeScreen : ContentPage
     {
-        // Constructor initializes the components defined in the XAML file.
+        /// <summary>
+        /// Constructor initializes the components defined in the XAML file.
+        /// </summary>
         public SchoolCodeScreen() 
         {
             InitializeComponent();
         }
 
-        // Handles text input changes in code entry fields and manages focus navigation.
+        /// <summary>
+        /// Handles text input changes in the code entry fields. Automatically moves focus 
+        /// to the next or previous field based on input length.
+        /// </summary>
         private void OnCodeEntryTextChanged(object sender, TextChangedEventArgs e)
         {
             var entry = sender as Entry;
+            
             if (entry?.Text?.Length == 1) // If the current entry is filled, move to the next field.
             {
                 switch (entry)
@@ -58,10 +64,12 @@ namespace RecoveryAT
             }
         }
 
-        // Handles the submit button click event to validate and process the school code.
+        /// <summary>
+        /// Handles the submit button click event. Validates and processes the entered school code.
+        /// </summary>
         private async void OnSubmitCodeClicked(object sender, EventArgs e)
         {
-            // Combine the text from all code entry fields into individual parts.
+            // Combine the text from all code entry fields.
             string codePart1 = CodeEntry1.Text;
             string codePart2 = CodeEntry2.Text;
             string codePart3 = CodeEntry3.Text;
@@ -71,7 +79,7 @@ namespace RecoveryAT
             // Validate the entered school code using business logic.
             string validationMessage = IsValidSchoolCode(codePart1, codePart2, codePart3, codePart4, codePart5);
 
-            if (validationMessage == "Code is valid.") 
+            if (validationMessage == "Code is valid.")
             {
                 // If valid, concatenate the parts to form the complete school code.
                 string schoolCode = ConcatSchoolCode(codePart1, codePart2, codePart3, codePart4, codePart5);
@@ -79,21 +87,37 @@ namespace RecoveryAT
                 // Navigate to the InjuryFormReport page with the validated school code.
                 await Navigation.PushAsync(new InjuryFormReport(schoolCode));
             }
-            else 
+            else
             {
                 // If invalid, display an error message.
                 await DisplayAlert("Error", validationMessage, "OK");
             }
         }
 
-        // Calls the business logic to validate the 5-character school code.
+        /// <summary>
+        /// Validates the entered 5-character school code by calling business logic.
+        /// </summary>
+        /// <param name="part1">First character of the school code.</param>
+        /// <param name="part2">Second character of the school code.</param>
+        /// <param name="part3">Third character of the school code.</param>
+        /// <param name="part4">Fourth character of the school code.</param>
+        /// <param name="part5">Fifth character of the school code.</param>
+        /// <returns>A validation message indicating whether the code is valid or not.</returns>
         private static string IsValidSchoolCode(string part1, string part2, string part3, string part4, string part5)
         {
             return MauiProgram.BusinessLogic.IsValidSchoolCode(part1, part2, part3, part4, part5);
         }
 
-        // Concatenates the five parts of the school code into a single string.
-        private static string ConcatSchoolCode(string part1, string part2, string part3, string part4, string part5) 
+        /// <summary>
+        /// Concatenates the five parts of the school code into a single string.
+        /// </summary>
+        /// <param name="part1">First character of the school code.</param>
+        /// <param name="part2">Second character of the school code.</param>
+        /// <param name="part3">Third character of the school code.</param>
+        /// <param name="part4">Fourth character of the school code.</param>
+        /// <param name="part5">Fifth character of the school code.</param>
+        /// <returns>The full 5-character school code as a single string.</returns>
+        private static string ConcatSchoolCode(string part1, string part2, string part3, string part4, string part5)
         {
             return string.Concat(part1, part2, part3, part4, part5);
         }

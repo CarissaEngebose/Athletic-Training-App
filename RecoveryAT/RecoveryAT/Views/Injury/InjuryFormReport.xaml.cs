@@ -9,34 +9,43 @@ namespace RecoveryAT
 {
     public partial class InjuryFormReport : ContentPage
     {
-        private string _schoolCode;
-        private bool _isEvalSelected;
-        private User _user;
+        private string _schoolCode; // The school code used to associate the form with a specific school.
+        private bool _isEvalSelected; // Tracks if the treatment type "Eval" is selected.
+        private User _user; // Represents the current logged-in user.
 
-        // Constructor for athletes with provided SchoolCode
+        /// <summary>
+        /// Constructor for athletes submitting a form, with the SchoolCode provided.
+        /// </summary>
+        /// <param name="schoolCode">The school code associated with the athlete.</param>
         public InjuryFormReport(string schoolCode)
         {
             InitializeComponent();
             BindingContext = this;
-            _schoolCode = schoolCode;
-            _isEvalSelected = false;
+            _schoolCode = schoolCode; // Set the provided school code.
+            _isEvalSelected = false; // Initialize Eval selection flag.
         }
 
-        // Constructor for trainers
+        /// <summary>
+        /// Constructor for trainers submitting a form.
+        /// Retrieves the SchoolCode from the logged-in user's profile.
+        /// </summary>
         public InjuryFormReport()
         {
             InitializeComponent();
             BindingContext = this;
             _user = ((App)Application.Current).User;
 
-            // Retrieve SchoolCode from User
+            // Retrieve SchoolCode from the user's profile or set a default value.
             _schoolCode = _user?.SchoolCode ?? "DefaultCode";
-            _isEvalSelected = false;
+            _isEvalSelected = false; // Initialize Eval selection flag.
         }
 
+        /// <summary>
+        /// Handles the form submission, validates inputs, and stores the data in the database.
+        /// </summary>
         private async void OnSubmitClicked(object sender, EventArgs e)
         {
-            // Get form inputs
+            // Retrieve inputs from the form fields.
             var firstName = FirstNameEntry.Text;
             var lastName = LastNameEntry.Text;
             var sport = SportPicker.SelectedItem as string;
@@ -46,7 +55,7 @@ namespace RecoveryAT
             var athleteComments = CommentsEditor.Text;
             var dateOfBirth = DateOfBirthPicker.Date;
 
-            // Validate required fields
+            // Validate required fields.
             if (string.IsNullOrWhiteSpace(_schoolCode) ||
                 string.IsNullOrWhiteSpace(firstName) ||
                 string.IsNullOrWhiteSpace(lastName) ||
@@ -59,7 +68,7 @@ namespace RecoveryAT
                 return;
             }
 
-            // Call AddForm and store the response message
+            // Add the form to the database using the BusinessLogic layer.
             string resultMessage = MauiProgram.BusinessLogic.AddForm(
                 _schoolCode,
                 firstName,
@@ -70,46 +79,53 @@ namespace RecoveryAT
                 treatmentType,
                 dateOfBirth,
                 athleteComments,
-                null, // Status is null initially
-                DateTime.Now
+                null, // Status is null initially.
+                DateTime.Now // Current date and time.
             );
 
+            // Check if "Eval" treatment type is selected.
             if (treatmentType == "Eval")
             {
                 _isEvalSelected = true;
             }
 
-            // Display result message to the user
+            // Display a confirmation or error message.
             await DisplayAlert("Form Submission", resultMessage, "OK");
 
             if (resultMessage.Contains("successfully", StringComparison.OrdinalIgnoreCase))
             {
-                await FormSubmissionIsSuccessful();
+                await FormSubmissionIsSuccessful(); // Handle successful submission.
             }
         }
 
+        /// <summary>
+        /// Handles the color change for Picker control based on selection.
+        /// </summary>
         private void SelectedIndexChanged(object sender, EventArgs e)
         {
             var picker = sender as Picker;
-            if (picker.SelectedIndex == -1) // No selection made
+            if (picker.SelectedIndex == -1) // No selection made.
             {
-                picker.TextColor = Color.FromArgb("#D3D3D3"); // Light Gray color
+                picker.TextColor = Color.FromArgb("#D3D3D3"); // Light gray.
             }
-            else // An item is selected
+            else // Selection made.
             {
-                picker.TextColor = Color.FromArgb("#000000"); // Predefined Black color
+                picker.TextColor = Color.FromArgb("#000000"); // Black.
             }
         }
 
+        /// <summary>
+        /// Downloads form details as a text file and opens it for the user.
+        /// </summary>
         private async void OnDownloadTextClicked(object sender, EventArgs e)
         {
             try
             {
-                // Define the file path
+                // Define the file name and path.
                 var fileName = "InjuryFormDetails.txt";
                 var filePath = Path.Combine(FileSystem.AppDataDirectory, fileName);
 
-                // Prepare the content
+                // Prepare the form details.
                 var formDetails = $@"Here are your injury form responses:
 - First Name: {FirstNameEntry?.Text ?? "N/A"}
 - Last Name: {LastNameEntry?.Text ?? "N/A"}
@@ -120,10 +136,10 @@ namespace RecoveryAT
 - Treatment Type: {TreatmentType?.SelectedItem as string ?? "N/A"}
 - Comments: {CommentsEditor?.Text ?? "N/A"}";
 
-                // Save the text file
+                // Save the text file.
                 File.WriteAllText(filePath, formDetails);
 
-                // Automatically open the file
+                // Open the saved file.
                 _ = await Launcher.OpenAsync(new OpenFileRequest
                 {
                     File = new ReadOnlyFile(filePath)
@@ -135,14 +151,17 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Handles successful form submission by clearing inputs and navigating appropriately.
+        /// </summary>
         private async Task FormSubmissionIsSuccessful()
         {
             try
             {
-                // Fetch the last inserted formKey for the current SchoolCode
+                // Retrieve the last inserted formKey.
                 long formKey = MauiProgram.BusinessLogic.GetLastInsertedFormKey(_schoolCode);
 
-                // Clear the form inputs
+                // Clear all form inputs.
                 FirstNameEntry.Text = string.Empty;
                 LastNameEntry.Text = string.Empty;
                 SportPicker.SelectedIndex = -1;
@@ -151,19 +170,20 @@ namespace RecoveryAT
                 TreatmentType.SelectedIndex = -1;
                 CommentsEditor.Text = string.Empty;
 
+                // Navigate based on whether "Eval" was selected.
                 if (_isEvalSelected)
                 {
-                    await Navigation.PushAsync(new AthleteContacts(formKey)); // Navigate to AthleteContacts
+                    await Navigation.PushAsync(new AthleteContacts(formKey));
                 }
                 else
                 {
                     if (_user == null)
                     {
-                        await Navigation.PushAsync(new WelcomeScreen()); // Navigate to the Welcome screen
+                        await Navigation.PushAsync(new WelcomeScreen()); // Navigate to Welcome screen.
                     }
                     else
                     {
-                        Application.Current.MainPage = new MainTabbedPage(); // Navigate to the MainTabbedPage
+                        Application.Current.MainPage = new MainTabbedPage(); // Navigate to MainTabbedPage.
                     }
                 }
             }
@@ -173,6 +193,9 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Handles the selection of a date of birth in the DatePicker control.
+        /// </summary>
         private void OnDateOfBirthSelected(object sender, DateChangedEventArgs e)
         {
             if (e.NewDate != DateTime.Today)
@@ -187,11 +210,12 @@ namespace RecoveryAT
             }
         }
 
+        /// <summary>
+        /// Resets placeholder visibility and appearance when the page is displayed.
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            // Reset placeholder visibility and DatePicker appearance
             PlaceholderLabel.IsVisible = true;
             DateOfBirthPicker.TextColor = Colors.Transparent;
         }
