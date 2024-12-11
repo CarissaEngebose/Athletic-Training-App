@@ -1,3 +1,8 @@
+
+
+using System.Text.RegularExpressions;
+
+
 /**
        Date: 12/05/24
        Description: This is a profile editing screen where users can update their personal details, 
@@ -7,7 +12,6 @@
        Reflection: This screen was easy to implement. The hardest part was ensuring the binding 
                    correctly reflected the logged-in user's data.
 **/
-
 namespace RecoveryAT
 {
     public partial class UserProfileEdit : ContentPage
@@ -66,42 +70,83 @@ namespace RecoveryAT
         // Event handler for submitting the password change.
         private async void OnSubmitPasswordChangeClicked(object sender, EventArgs e)
         {
+            // Retrieve user inputs
             string currentPassword = CurrentPasswordEntry.Text;
             string newPassword = NewPasswordEntry.Text;
             string confirmPassword = ConfirmPasswordEntry.Text;
 
-            // Check if new password and confirm password match.
+            // Check if any fields are empty
+            if (string.IsNullOrWhiteSpace(currentPassword))
+            {
+                await DisplayAlert("Error", "Please enter your current password.", "OK");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                await DisplayAlert("Error", "Please enter a new password.", "OK");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                await DisplayAlert("Error", "Please confirm your new password.", "OK");
+                return;
+            }
+
+            // Validate password strength and requirements
+            if (newPassword.Length < 8)
+            {
+                await DisplayAlert("Password Error", "Password must be at least 8 characters.", "OK");
+                return;
+            }
+            else if (!Regex.IsMatch(newPassword, @"[^a-zA-Z0-9]")) // Check for at least one symbol
+            {
+                await DisplayAlert("Password Error", "Password must contain at least one symbol.", "OK");
+                return;
+            }
+            else if (!Regex.IsMatch(newPassword, @"\d")) // Check for at least one digit
+            {
+                await DisplayAlert("Password Error", "Password must contain at least one number.", "OK");
+                return;
+            }
+
+            // Check if the new password and confirm password match
             if (newPassword != confirmPassword)
             {
                 await DisplayAlert("Error", "New password and confirmation do not match.", "OK");
                 return;
             }
 
-            // Verify current password.
-            if (BCrypt.Net.BCrypt.Verify(currentPassword, _user.HashedPassword))
+            // Verify current password
+            if (!BCrypt.Net.BCrypt.Verify(currentPassword, _user.HashedPassword))
             {
-                // Update the password in the database.
-                string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
-                bool isUpdated = ((App)Application.Current).BusinessLogic.UpdateUserPassword(_user.Email, hashedNewPassword);
+                await DisplayAlert("Error", "Current password is incorrect.", "OK");
+                return;
+            }
 
-                if (isUpdated)
-                {
-                    await DisplayAlert("Success", "Password updated successfully.", "OK");
-                    PasswordPopup.IsVisible = false;
+            // Check if the new password is the same as the current password
+            if (BCrypt.Net.BCrypt.Verify(newPassword, _user.HashedPassword))
+            {
+                await DisplayAlert("Error", "New password cannot be the same as the current password.", "OK");
+                return;
+            }
 
-                    // Clear input fields after successful update.
-                    CurrentPasswordEntry.Text = string.Empty;
-                    NewPasswordEntry.Text = string.Empty;
-                    ConfirmPasswordEntry.Text = string.Empty;
-                }
-                else
-                {
-                    await DisplayAlert("Error", "Failed to update password. Please try again later.", "OK");
-                }
+            // Update the password in the database
+            string hashedNewPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            bool isUpdated = ((App)Application.Current).BusinessLogic.UpdateUserPassword(_user.Email, hashedNewPassword);
+
+            if (isUpdated)
+            {
+                await DisplayAlert("Success", "Password updated successfully.", "OK");
+                PasswordPopup.IsVisible = false;
+
+                // Clear input fields after successful update
+                CurrentPasswordEntry.Text = string.Empty;
+                NewPasswordEntry.Text = string.Empty;
+                ConfirmPasswordEntry.Text = string.Empty;
             }
             else
             {
-                await DisplayAlert("Error", "Current password is incorrect.", "OK");
+                await DisplayAlert("Error", "Failed to update password. Please try again later.", "OK");
             }
         }
 
@@ -128,7 +173,8 @@ namespace RecoveryAT
                 return;
             }
 
-            if(_user.Email != email && MauiProgram.BusinessLogic.IsEmailRegistered(email)){ // check to see if email is already in use
+            if (_user.Email != email && MauiProgram.BusinessLogic.IsEmailRegistered(email))
+            { // check to see if email is already in use
                 await DisplayAlert("Error", "Email is already in use", "OK");
                 return;
             }

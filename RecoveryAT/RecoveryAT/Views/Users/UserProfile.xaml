@@ -176,7 +176,7 @@
                                            FontSize="24"
                                            CornerRadius="25"
                                            Padding="5"
-                                           Margin="20"
+                                           Margin="10"
                                            HeightRequest="50"
                                            WidthRequest="300"
                                            HorizontalOptions="Center"
