@@ -1,6 +1,6 @@
 Current User:
-    email: vsmith89@health.org
-    password: VeronicaMay89!
+    email: vsmith@bellin.org
+    password: VSmith@89
 Sprint 4 Tasks:
     Write comments. ✅
     Test all functionality ✅
