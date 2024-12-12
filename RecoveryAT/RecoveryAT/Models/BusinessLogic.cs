@@ -409,10 +409,11 @@ namespace RecoveryAT
         /// Deletes a user account based on their email.
         /// </summary>
         /// <param name="email">The email of the user to delete.</param>
+        /// <param name="schoolCode">The school code of the user to delete.</param>
         /// <returns>True if the user account was successfully deleted, otherwise false.</returns>
-        public bool DeleteUserAccount(string email)
+        public bool DeleteUserAccount(string email, string schoolCode)
         {
-            return _usersDatabase.DeleteUserAccount(email); // Pass the request to the Database class
+            return _usersDatabase.DeleteUserAccount(email, schoolCode); // Pass the request to the Database class
         }
 
         /// <summary>

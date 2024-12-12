@@ -44,8 +44,9 @@ namespace RecoveryAT
         /// Deletes a user account based on their email.
         /// </summary>
         /// <param name="email">The email of the user to delete.</param>
+        /// <param name="schoolCode">The school code of the user to delete.</param>
         /// <returns>True if the user account was successfully deleted; otherwise, false.</returns>
-        bool DeleteUserAccount(string email);
+        bool DeleteUserAccount(string email, string schoolCode);
 
         /// <summary>
         /// Fetches user information based on their email.

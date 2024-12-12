@@ -143,12 +143,14 @@ namespace RecoveryAT
             bool confirmDelete = await DisplayAlert("Delete Account", "Are you sure you want to delete your account? This action cannot be undone.", "Yes", "No");
             if (confirmDelete)
             {
-                bool result = MauiProgram.BusinessLogic.DeleteUserAccount(_user.Email);
+                bool result = MauiProgram.BusinessLogic.DeleteUserAccount(_user.Email, _user.SchoolCode);
 
                 if (result)
                 {
                     await DisplayAlert("Account Deleted", "Your account has been successfully deleted.", "OK");
-                    await Navigation.PushAsync(new UserLogin());
+                    // set all the user values to null
+                    _user.Logout();
+                    Application.Current.MainPage = new NavigationPage(new WelcomeScreen());
                 }
                 else
                 {

@@ -92,13 +92,30 @@ namespace RecoveryAT
         /// Deletes a user account based on their email.
         /// </summary>
         /// <param name="email">The email of the user to delete.</param>
+        /// <param name="schoolCode">The school code of the user to delete.</param>
         /// <returns>True if the user account was successfully deleted, otherwise false.</returns>
-        public bool DeleteUserAccount(string email)
+        public bool DeleteUserAccount(string email, string schoolCode)
         {
             try
             {
                 using var conn = new NpgsqlConnection(connString);
                 conn.Open();
+
+                // delete all athlete contacts that have the same school code as the user that is going to be deleted
+                using var deleteContactsCmd = new NpgsqlCommand(@"
+                    DELETE FROM athlete_contacts
+                    WHERE form_key IN (SELECT form_key FROM athlete_forms WHERE school_code = @schoolCode)", conn);
+
+                deleteContactsCmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                deleteContactsCmd.ExecuteNonQuery();
+
+                // delete all forms that have the same school code as the user that is going to be deleted
+                using var deleteFormsCmd = new NpgsqlCommand(@"
+                    DELETE FROM athlete_forms 
+                    WHERE school_code = @schoolCode", conn);
+
+                deleteFormsCmd.Parameters.AddWithValue("schoolCode", schoolCode);
+                deleteFormsCmd.ExecuteNonQuery();
 
                 // delete the user where the email matches the parameter
                 using var cmd = new NpgsqlCommand("DELETE FROM users WHERE email = @Email", conn);
