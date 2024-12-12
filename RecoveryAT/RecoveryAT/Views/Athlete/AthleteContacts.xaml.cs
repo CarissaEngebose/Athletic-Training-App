@@ -142,7 +142,7 @@ namespace RecoveryAT
             else
             {
                 // Otherwise, navigate to the WelcomeScreen
-                Application.Current.MainPage = new WelcomeScreen();
+                Application.Current.MainPage = new NavigationPage(new WelcomeScreen());
             }
         }
     }
