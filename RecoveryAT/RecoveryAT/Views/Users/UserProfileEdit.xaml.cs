@@ -47,7 +47,6 @@ namespace RecoveryAT
                 FirstNameEntry.Text = _user.FirstName;
                 LastNameEntry.Text = _user.LastName;
                 SchoolNameEntry.Text = EncryptionHelper.Decrypt(_user.SchoolName, _user.Key, _user.IV);
-                SchoolCodeEntry.Text = _user.SchoolCode;
                 EmailEntry.Text = _user.Email;
             }
             else
@@ -148,15 +147,7 @@ namespace RecoveryAT
         {
             string firstName = FirstNameEntry.Text;
             string lastName = LastNameEntry.Text;
-            string schoolCode = SchoolCodeEntry.Text;
             string email = EmailEntry.Text;
-
-            // Validate unique school code
-            if (_user.SchoolCode != schoolCode && MauiProgram.BusinessLogic.SchoolCodeExists(schoolCode))
-            {
-                await DisplayAlert("Error", "This school code already exists. Please enter a unique code.", "OK");
-                return;
-            }
 
             // Validate unique email
             if (_user.Email != email && MauiProgram.BusinessLogic.IsEmailRegistered(email))
@@ -174,7 +165,7 @@ namespace RecoveryAT
                 firstName,
                 lastName,
                 encryptedSchoolName,
-                schoolCode,
+                _user.SchoolCode,
                 email
             );
 
