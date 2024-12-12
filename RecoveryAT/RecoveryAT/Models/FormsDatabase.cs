@@ -567,7 +567,7 @@ namespace RecoveryAT
                 SELECT form_key 
                 FROM public.athlete_forms
                 WHERE school_code = @schoolCode
-                ORDER BY date_created DESC
+                ORDER BY date_created DESC, created_at DESC
                 LIMIT 1", conn);
 
                 _ = cmd.Parameters.AddWithValue("schoolCode", schoolCode); // adds the school code as the parameter to search by
