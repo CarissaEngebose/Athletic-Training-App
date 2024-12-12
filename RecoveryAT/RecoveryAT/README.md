@@ -1,6 +1,19 @@
+⭐️ Old accounts that were created previous to this final submission will not work because we have updated our database ⭐️
+
 Current User:
     email: vsmith@bellin.org
     password: VSmith@89
+To use forgot password:
+    Question 1: What was your childhood nickname?
+    Answer 1: Ronnie
+
+    Question 2: What is your oldest sibiling's middle name?
+    Answer 2: Mae
+
+    Question 3: What was the name of your first boss?
+    Answer 3: Mitchell
+
+    
 Sprint 4 Tasks:
     Write comments. ✅
     Test all functionality ✅
