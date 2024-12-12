@@ -111,7 +111,7 @@ namespace RecoveryAT
             {
                 if (resultMessage == "User account created successfully.")
                 {
-                    await Navigation.PushModalAsync(new MainTabbedPage());
+                    await Navigation.PushModalAsync(new UserLogin());
                 }
             }
             catch (Exception ex)
